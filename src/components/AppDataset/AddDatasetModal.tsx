@@ -55,7 +55,9 @@ const AddDatasetModal = ({ visible, setVisible }: IProps) => {
     }
     setLoading(true);
     try {
-      const finalData = transformData(type === 'url' ? await request(url) : data);
+      const finalData = transformData(
+        type === 'url' ? await request(url) : data,
+      );
       if (!finalData.length) {
         throw new Error();
       }
@@ -119,7 +121,7 @@ const AddDatasetModal = ({ visible, setVisible }: IProps) => {
         </Form.Item>
 
         {form.type === 'url' ? (
-          <Form.Item required label="文件链接">
+          <Form.Item label="文件链接">
             <Input
               value={form.url}
               onChange={(e) =>
@@ -133,7 +135,6 @@ const AddDatasetModal = ({ visible, setVisible }: IProps) => {
           </Form.Item>
         ) : (
           <Form.Item
-            required
             valuePropName="fileList"
             getValueFromEvent={normFile}
             label="上传文件"

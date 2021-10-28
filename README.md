@@ -1,27 +1,5 @@
 # dipper-map
 
-## Getting Started
+## TODO_LIST:
 
-Install dependencies,
-
-```bash
-$ npm i
-```
-
-Start the dev server,
-
-```bash
-$ npm start
-```
-
-Build documentation,
-
-```bash
-$ npm run docs:build
-```
-
-Build library via `father-build`,
-
-```bash
-$ npm run build
-```
+- [ ] 依赖替换：@alipay/tech-ui 中的 `<ColorPicker>` => 开源 `<ColorPicker>`
