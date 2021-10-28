@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import type { FormInstance } from 'antd';
 import { Checkbox, Form } from 'antd';
 import type { IDatasetField } from '../../../../typings';
-import { ColorPicker } from '@alipay/tech-ui';
+import ColorPicker from '../../../ColorPicker';
 import styles from '../../index.less';
 import FieldSelect from '../../../FieldSelect';
 import RangeColorPicker from './RangeColorPicker';
@@ -39,12 +39,15 @@ const ColorWrapper = ({
           基于字段
         </Checkbox>
       )}
-      <Form.Item noStyle shouldUpdate={(pre, cur) => pre?.[field]?.field !== cur?.[field]?.field}>
+      <Form.Item
+        noStyle
+        shouldUpdate={(pre, cur) => pre?.[field]?.field !== cur?.[field]?.field}
+      >
         {() => {
           let content: JSX.Element = <></>;
 
           if (!colorField) {
-            content = range ? <RangeColorPicker /> : <ColorPicker type="sketch" />;
+            content = range ? <RangeColorPicker /> : <ColorPicker />;
           } else {
             content = <FieldColorPicker />;
           }

@@ -1,0 +1,48 @@
+@import url('../../styles/variables');
+
+.colorBlock {
+  display: inline-block;
+  border: 1px solid @border-color;
+  border-radius: 4px;
+  cursor: pointer;
+  .colorInnerBlock {
+    width: 20px;
+    height: 20px;
+    margin: 3px;
+    border-radius: 3px;
+  }
+}
+
+.colorPopover {
+  :global {
+    .ant-popover-inner-content {
+      padding: 0;
+    }
+    .sketch-picker input {
+      color: black;
+    }
+  }
+}
+
+.colorSelectPanel {
+  :global {
+    .ant-form-item:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.colorListPanel {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  > div {
+    flex-grow: 1;
+    height: 8px;
+  }
+}
+
+.colorBlockDisabled {
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
