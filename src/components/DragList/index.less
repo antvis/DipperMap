@@ -1,0 +1,27 @@
+@import url('/src/styles/variables');
+
+@dragIconWidth: 30px;
+
+.dragItem {
+  .dragIcon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: @dragIconWidth;
+    height: 100%;
+    cursor: move;
+    opacity: 0;
+  }
+
+  &:global(.is-drag),
+  &:hover {
+    .dragIcon {
+      opacity: 1;
+    }
+  }
+}
+
+.dragContent {
+  width: calc(100% - @dragIconWidth);
+}

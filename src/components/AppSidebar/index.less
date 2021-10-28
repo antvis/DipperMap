@@ -1,0 +1,31 @@
+@import url('../../styles/variables');
+
+.appSidebarContainer {
+  display: flex;
+  align-items: flex-start;
+}
+
+.appSidebar {
+  display: inline-block;
+  width: 300px;
+  height: 100%;
+  margin-right: 6px;
+  overflow: hidden;
+  background-color: @bg-color;
+  border-radius: @border-radius;
+  box-shadow: @box-shadow-base;
+  //transition: all 0.2s;
+}
+
+.appSidebarHidden {
+  width: 0;
+  opacity: 0;
+}
+
+.appSidebarToggleBtn {
+  background-color: @bg-color;
+  &:hover,
+  &:focus {
+    background-color: @bg-color;
+  }
+}

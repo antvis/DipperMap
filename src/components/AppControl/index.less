@@ -1,0 +1,43 @@
+@import '/src/styles/variables';
+
+.appControlGroup {
+  display: flex;
+  overflow: hidden;
+  background-color: @bg-color;
+  border-radius: @border-radius;
+  box-shadow: @box-shadow-base;
+}
+
+.appControlGroup + .appControlGroup {
+  margin-left: 10px;
+}
+
+.appControlItem {
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+  .appControlItemName {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 12px;
+  }
+  .appControlItemNameActive {
+    color: @primary-color;
+  }
+  .appControlItemIcon {
+    margin-right: 4px;
+  }
+  &:hover {
+    color: @primary-color;
+  }
+  :global {
+    .anticon-down {
+      margin-left: 4px;
+      font-size: 12px;
+    }
+  }
+}
+
+.appControlItem + .appControlItem {
+  border-left: 1px solid @border-color-base;
+}

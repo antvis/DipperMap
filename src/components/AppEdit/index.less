@@ -1,0 +1,36 @@
+@import '/src/styles/variables';
+
+.appEdit {
+  height: calc(100% - @dataset-height - @header-height - 6px);
+  :global {
+    .ant-tabs-nav {
+      margin-bottom: 0;
+    }
+    .ant-tabs-content-holder {
+      overflow: auto;
+      background-color: @bg-color-light;
+    }
+    .ant-tabs-tab {
+      margin-left: 16px;
+      .ant-tabs-tab-btn {
+        font-size: 14px;
+      }
+      i {
+        font-size: 16px;
+      }
+      &:first-child {
+        margin-left: @dataset-padding;
+      }
+    }
+    .ant-tabs-tabpane,
+    .ant-tabs-content,
+    .ant-tabs-tabpane > div {
+      height: 100%;
+      overflow: auto;
+    }
+
+    .ant-empty {
+      margin-top: 30px;
+    }
+  }
+}

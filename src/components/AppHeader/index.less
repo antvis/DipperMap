@@ -1,0 +1,20 @@
+@import url('/src/styles/variables');
+
+.appHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: @header-height;
+  padding: 10px;
+  border-bottom: 1px solid @border-color-base;
+  :global {
+    img {
+      width: 20px;
+      height: 20px;
+    }
+    .ant-typography {
+      margin-bottom: 0;
+    }
+  }
+}

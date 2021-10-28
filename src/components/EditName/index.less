@@ -1,0 +1,33 @@
+@import '/src/styles/variables';
+
+.editName {
+  display: flex;
+  align-items: center;
+  height: 24px;
+
+  .editNameText {
+    flex-shrink: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &:hover {
+      .editIcon {
+        opacity: 1;
+      }
+    }
+  }
+
+  .editIcon {
+    margin-left: 4px;
+    color: @primary-color;
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  &:hover {
+    .editIcon {
+      opacity: 1;
+    }
+  }
+}

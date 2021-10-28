@@ -1,0 +1,109 @@
+@import url('/src/styles/variables');
+
+.appDataset {
+  box-sizing: border-box;
+  height: @dataset-height;
+  border-bottom: 1px solid @border-color-base;
+}
+
+.appDatasetHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 6px @dataset-padding;
+}
+
+.appDatasetContent {
+  box-sizing: border-box;
+  height: calc(100% - 38px);
+  overflow: auto;
+  background-color: @bg-color-light;
+}
+
+.appDatasetItem {
+  display: flex;
+  align-items: center;
+  background-color: @bg-color-light;
+  cursor: pointer;
+  &:hover {
+    background-color: @bg-color-lighter;
+  }
+  &:global(.is-select) {
+    background-color: multiply(@bg-color-lighter, @primary-color);
+  }
+}
+
+.appDatasetItem:global(.is-drag) {
+  background-color: @bg-color-lighter !important;
+}
+
+.appDatasetItemContent {
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 100%;
+  .datasetInfo {
+    overflow: hidden;
+    > * {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+  .datasetName {
+    margin-top: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    :global .ant-typography-edit {
+      display: inline-flex !important;
+      align-items: center !important;
+      line-height: 21px;
+    }
+  }
+  .datasetFileName {
+    display: inline-block;
+    margin-top: 2px;
+    color: @text-color-secondary;
+    font-size: 12px;
+    i {
+      font-size: 14px;
+      line-height: 12px;
+    }
+  }
+  .btnGroup {
+    display: inline-flex;
+    align-items: center;
+    float: right;
+    height: 100%;
+    margin: 0 @dataset-padding;
+    opacity: 0;
+    i + i {
+      margin-left: 6px;
+    }
+  }
+  &:hover {
+    .btnGroup {
+      opacity: 1;
+    }
+  }
+}
+
+.datasetDetailDrawer {
+  .datasetExtraInfo {
+    position: absolute;
+    bottom: 24px;
+    left: 10px;
+    color: @text-color-secondary;
+  }
+  .tableTh {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  :global {
+    .ant-drawer-close {
+      padding: 16px;
+    }
+  }
+}

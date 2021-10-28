@@ -1,0 +1,96 @@
+@import '/src/styles/variables';
+
+@footerHeight: 40px;
+
+.layerList {
+  height: 100%;
+  overflow: auto;
+}
+
+.layerListContent {
+  height: calc(100% - @footerHeight);
+  overflow: auto;
+}
+
+.layerListFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: @footerHeight;
+  background-color: @bg-color-dark;
+  box-shadow: @box-shadow-base;
+}
+
+.addFilterBtn {
+  width: calc(100% - 8px);
+  height: @footerHeight - 8px;
+  line-height: 20px;
+}
+
+.layerItem {
+  margin: 8px;
+  background-color: @bg-color-darker;
+  border-radius: @border-radius;
+  .editName {
+    width: calc(100% - 120px);
+  }
+  .layerItemHeader {
+    display: flex;
+    align-items: center;
+  }
+  .layerItemMore {
+    display: inline-flex;
+    align-items: center;
+    opacity: 0;
+    :global {
+      .dpiconfont,
+      .ant-switch {
+        margin-left: 4px;
+      }
+    }
+  }
+  &:hover {
+    .layerItemMore {
+      opacity: 1;
+    }
+  }
+  :global {
+    .ant-collapse-header {
+      padding: 6px 16px 6px 0 !important;
+    }
+    .ant-collapse-content-box {
+      padding: 8px !important;
+      background-color: @bg-color-dark;
+    }
+    .ant-row {
+      margin-bottom: 8px;
+    }
+    .ant-form-item-label {
+      padding-bottom: 0;
+    }
+    .ant-form label {
+      font-size: 12px;
+    }
+    .ant-slider {
+      padding-top: 0;
+    }
+  }
+}
+
+.splitPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.colorWrapper,
+.rangeWrapper {
+  position: relative;
+}
+
+.fieldFormCheckbox {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  z-index: 1;
+}

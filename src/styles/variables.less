@@ -1,0 +1,35 @@
+@import '~antd/lib/style/themes/default.less';
+
+@header-height: 45px;
+
+@dataset-height: 300px;
+
+@dataset-padding: 10px;
+
+@bg-color: @component-background;
+
+@bg-color-light: lighten(@component-background, 4%);
+
+@bg-color-lighter: lighten(@component-background, 6%);
+
+@bg-color-dark: darken(@component-background, 0.1%);
+
+@bg-color-darker: darken(@component-background, 4%);
+
+@border-radius: 4px;
+
+@panel-zIndex: 1000;
+
+.is-link {
+  cursor: pointer;
+  &:hover {
+    color: @primary-color;
+  }
+}
+
+.is-red-link {
+  .is-link();
+  &:hover {
+    color: red;
+  }
+}
