@@ -13,7 +13,7 @@ interface IProps<P> {
   keyField?: string;
 }
 
-function DragList<P>({
+function DragList<P extends Record<string, any>>({
   children,
   itemClassName,
   items,

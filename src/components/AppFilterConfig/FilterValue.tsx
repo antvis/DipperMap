@@ -37,29 +37,30 @@ const FilterValue = (props: IProps) => {
   }
 
   if (field.type === 'number') {
-    const [min, max] = field.range;
+    const [minRange, maxRange] = field.range;
+    const [minValue, maxValue] = value as [number, number];
     content = (
       <>
         <Slider
           range
           step={1}
           value={value as [number, number]}
-          min={min}
-          max={max}
+          min={minRange}
+          max={maxRange}
           onAfterChange={onChange}
         />
         <div className={styles.inputRangePanel}>
           <InputNumber
-            min={min}
-            max={value[1]}
-            value={value[0]}
-            onChange={(newMinValue) => onChange([newMinValue, value[1]])}
+            min={minRange}
+            max={maxValue}
+            value={minValue}
+            onChange={(newMinValue) => onChange([newMinValue, maxValue])}
           />
           <InputNumber
-            min={value[0]}
-            max={max}
-            value={value[1]}
-            onChange={(newMaxValue) => onChange([value[0], newMaxValue])}
+            min={minValue}
+            max={maxRange}
+            value={maxValue}
+            onChange={(newMaxValue) => onChange([minValue, newMaxValue])}
           />
         </div>
       </>

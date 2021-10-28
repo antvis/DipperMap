@@ -18,6 +18,7 @@ const useFilter = () => {
           '筛选器',
         ),
         order: filterList.length + 1,
+        // @ts-ignore
         field: null,
         datasetId: id,
         value: [],
