@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Button, Popover } from 'antd';
 import { SketchPicker } from 'react-color';
+import styles from './index.less';
+
 interface Props {
   value: string;
   disable?: boolean;
@@ -45,8 +47,11 @@ export const ColorPicker = React.memo((props: Props) => {
           />
         }
       >
-        <div className="sketch-color">
-          <div className="pasta-color-icon" style={{ background: value }}></div>
+        <div className={styles['sketch-color']}>
+          <div
+            className={styles['pasta-color-icon']}
+            style={{ background: value }}
+          ></div>
         </div>
       </Popover>
     </Button>
