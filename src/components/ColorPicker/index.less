@@ -1,48 +1,27 @@
-@import url('../../styles/variables');
+.sketch-color {
+  padding: 1px;
+  height: 22px;
+  border: 1px solid rgba(0, 0, 0, 0.42);
+  border-radius: 2px;
+  width: 22px;
+  margin-top: -3px;
+}
 
-.colorBlock {
-  display: inline-block;
-  border: 1px solid @border-color;
-  border-radius: 4px;
+.pasta-color-icon {
   cursor: pointer;
-  .colorInnerBlock {
-    width: 20px;
-    height: 20px;
-    margin: 3px;
-    border-radius: 3px;
-  }
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  text-align: right;
 }
 
-.colorPopover {
-  :global {
-    .ant-popover-inner-content {
-      padding: 0;
-    }
-    .sketch-picker input {
-      color: black;
+.color-picker-container {
+  .ant-popover-inner-content {
+    padding: 0 !important;
+  }
+  .sketch-picker {
+    input {
+      width: 100% !important;
     }
   }
-}
-
-.colorSelectPanel {
-  :global {
-    .ant-form-item:last-child {
-      margin-bottom: 0;
-    }
-  }
-}
-
-.colorListPanel {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  > div {
-    flex-grow: 1;
-    height: 8px;
-  }
-}
-
-.colorBlockDisabled {
-  cursor: not-allowed;
-  filter: grayscale(0.5);
 }
