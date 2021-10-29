@@ -4,6 +4,7 @@ import { message } from 'antd';
 import useDataset from '../../hooks/dataset';
 import request from 'umi-request';
 import { InboxOutlined } from '@ant-design/icons';
+import { transformData } from '../../utils';
 
 interface IProps {
   visible: boolean;
@@ -32,7 +33,7 @@ const normFile = (e: any) => {
 };
 
 const AddDatasetModal = ({ visible, setVisible }: IProps) => {
-  const { addDataset, transformData, getNewDatasetName } = useDataset();
+  const { addDataset, getNewDatasetName } = useDataset();
   const [form, setForm] = useState<IFormData>(DEFAULT_FORM);
   const [loading, setLoading] = useState(false);
 
@@ -55,7 +56,7 @@ const AddDatasetModal = ({ visible, setVisible }: IProps) => {
     }
     setLoading(true);
     try {
-      const finalData = transformData(
+      const { data: finalData, fields } = transformData(
         type === 'url' ? await request(url) : data,
       );
       if (!finalData.length) {
@@ -65,6 +66,7 @@ const AddDatasetModal = ({ visible, setVisible }: IProps) => {
         name,
         url,
         data: finalData,
+        fields,
       });
       message.success('数据源新建成功');
       setVisible(false);
@@ -72,7 +74,7 @@ const AddDatasetModal = ({ visible, setVisible }: IProps) => {
       console.log(e);
     }
     setLoading(false);
-  }, [addDataset, form, setVisible, transformData]);
+  }, [addDataset, form, setVisible]);
 
   useEffect(() => {
     setForm({

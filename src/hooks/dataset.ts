@@ -1,8 +1,6 @@
 import type { IDataset, IDatasetField } from '../typings';
 import { generateUnRepeatValue, getRandomId } from '../utils/tools';
 import { useCallback, useContext } from 'react';
-import papaparse from 'papaparse';
-import { message } from 'antd';
 import { DatasetModelContext } from '../context/DatasetContext';
 
 const useDataset = () => {
@@ -18,7 +16,7 @@ const useDataset = () => {
 
   // @ts-ignore
   const addDataset: (
-    params: Partial<IDataset> & { data: any[]; },
+    params: Partial<IDataset> & { data: any[] },
   ) => Promise<IDataset> = useCallback(
     async (params: IDataset) => {
       const newDataset = {
@@ -97,49 +95,9 @@ const useDataset = () => {
     [],
   );
 
-  const transformData = useCallback((content: string | any[]) => {
-    let result: any[] = [];
-    let isCSV = false;
-
-    const fields: IDatasetField[] = [];
-    if (Array.isArray(content)) {
-      result = content;
-    } else {
-      try {
-        if (content.startsWith('[') && content.endsWith(']')) {
-          result = JSON.parse(content);
-        } else {
-          result =
-            papaparse.parse(content, { header: true, skipEmptyLines: true })
-              .data ?? [];
-          isCSV = true;
-        }
-      } catch (e) {
-        message.error('数据解析有误');
-      }
-    }
-    if (result.length) {
-      const firstRow = result[0];
-      Object.keys(firstRow).forEach((key) => {
-        const value = firstRow[key];
-        if (
-          typeof value === 'number' ||
-          (/^(-?\d+)(\.\d+)?$/.test(String(value)) && !Number.isNaN(+value))
-        ) {
-          // fields.push({
-          //   type: 'number',
-          //   name: ''
-          // })
-        }
-      });
-    }
-    return [];
-  }, []);
-
   return {
     addDataset,
     getNewDatasetName,
-    transformData,
     copyDataset,
     getTargetDataset,
   };
