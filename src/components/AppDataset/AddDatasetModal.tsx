@@ -5,6 +5,8 @@ import useDataset from '../../hooks/dataset';
 import request from 'umi-request';
 import { InboxOutlined } from '@ant-design/icons';
 import { transformData } from '../../utils';
+// import { useWorker } from '@koale/useworker';
+import DataTrans from './dataTransform.worker';
 
 interface IProps {
   visible: boolean;
@@ -36,6 +38,7 @@ const AddDatasetModal = ({ visible, setVisible }: IProps) => {
   const { addDataset, getNewDatasetName } = useDataset();
   const [form, setForm] = useState<IFormData>(DEFAULT_FORM);
   const [loading, setLoading] = useState(false);
+  // const [dataTransform, { kill }] = useWorker(transformData);
 
   const typeOptions = useMemo(
     () => [
@@ -56,19 +59,24 @@ const AddDatasetModal = ({ visible, setVisible }: IProps) => {
     }
     setLoading(true);
     try {
-      const { data: finalData, fields } = transformData(
-        type === 'url' ? await request(url) : data,
-      );
-      if (!finalData.length) {
-        throw new Error();
-      }
-      await addDataset({
-        name,
-        url,
-        data: finalData,
-        fields,
-      });
-      message.success('数据源新建成功');
+      const worker = new DataTrans();
+      worker.postMessage(type === 'url' ? await request(url) : data);
+      worker.onmessage = async ({
+        data,
+      }: {
+        data: {
+          fields: any[];
+          data: any[];
+        };
+      }) => {
+        await addDataset({
+          name,
+          url,
+          data: data.data,
+          fields: data.fields,
+        });
+        message.success('数据源新建成功');
+      };
       setVisible(false);
     } catch (e) {
       console.log(e);
