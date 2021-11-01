@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import type { DrawerProps } from 'antd';
+import { DrawerProps, Tooltip } from 'antd';
 import { Drawer, Tabs, Table, Typography } from 'antd';
 import type { IDataset } from '../../typings';
 import moment from 'moment';
@@ -14,7 +14,12 @@ interface IProps extends DrawerProps {
 const { Paragraph } = Typography;
 const { TabPane } = Tabs;
 
-const DataDetailDrawer = ({ currentDatasetId, datasetList, visible, ...drawProps }: IProps) => {
+const DataDetailDrawer = ({
+  currentDatasetId,
+  datasetList,
+  visible,
+  ...drawProps
+}: IProps) => {
   const [currentTab, setCurrentTab] = useState(currentDatasetId);
 
   useEffect(() => {
@@ -30,7 +35,11 @@ const DataDetailDrawer = ({ currentDatasetId, datasetList, visible, ...drawProps
       height={500}
       className={styles.datasetDetailDrawer}
     >
-      <Tabs activeKey={currentTab} onChange={setCurrentTab} destroyInactiveTabPane={true}>
+      <Tabs
+        activeKey={currentTab}
+        onChange={setCurrentTab}
+        destroyInactiveTabPane={true}
+      >
         {datasetList.map((dataset) => (
           <TabPane tab={dataset.name} key={dataset.id}>
             <Table
@@ -42,7 +51,16 @@ const DataDetailDrawer = ({ currentDatasetId, datasetList, visible, ...drawProps
                   dataIndex: item.name,
                   width: 150,
                   render(value) {
-                    return <Paragraph ellipsis={{ rows: 2, expandable: true }}>{value}</Paragraph>;
+                    return (
+                      <Tooltip title={value}>
+                        <span className={styles.clamp}>
+                          {value}
+                          {value}
+                          {value}
+                          {value}
+                        </span>
+                      </Tooltip>
+                    );
                   },
                   title() {
                     return (
@@ -57,7 +75,8 @@ const DataDetailDrawer = ({ currentDatasetId, datasetList, visible, ...drawProps
               scroll={{ y: 310 }}
             />
             <span className={styles.datasetExtraInfo}>
-              创建时间：{moment(dataset.createTime).format('YYYY-MM-DD HH:mm:ss')}
+              创建时间：
+              {moment(dataset.createTime).format('YYYY-MM-DD HH:mm:ss')}
             </span>
           </TabPane>
         ))}

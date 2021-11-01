@@ -4,13 +4,14 @@ import { message } from 'antd';
 import useDataset from '../../hooks/dataset';
 import request from 'umi-request';
 import { InboxOutlined } from '@ant-design/icons';
-import { transformData } from '../../utils';
-// import { useWorker } from '@koale/useworker';
+// @ts-ignore
 import DataTrans from './dataTransform.worker';
 
 interface IProps {
   visible: boolean;
   setVisible: (visible: boolean) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
 interface IFormData {
@@ -34,11 +35,14 @@ const normFile = (e: any) => {
   return e && e.fileList;
 };
 
-const AddDatasetModal = ({ visible, setVisible }: IProps) => {
+const AddDatasetModal = ({
+  visible,
+  setVisible,
+  loading,
+  setLoading,
+}: IProps) => {
   const { addDataset, getNewDatasetName } = useDataset();
   const [form, setForm] = useState<IFormData>(DEFAULT_FORM);
-  const [loading, setLoading] = useState(false);
-  // const [dataTransform, { kill }] = useWorker(transformData);
 
   const typeOptions = useMemo(
     () => [
@@ -76,12 +80,12 @@ const AddDatasetModal = ({ visible, setVisible }: IProps) => {
           fields: data.fields,
         });
         message.success('数据源新建成功');
+        setLoading(false);
       };
       setVisible(false);
     } catch (e) {
       console.log(e);
     }
-    setLoading(false);
   }, [addDataset, form, setVisible]);
 
   useEffect(() => {
