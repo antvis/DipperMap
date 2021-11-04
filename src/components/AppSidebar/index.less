@@ -4,7 +4,13 @@
   height: 100%;
   position: relative;
   margin: 10px;
-  width: 330px;
+  width: 310px;
+  &.show {
+    animation: fadeInLeft 0.5s forwards;
+  }
+  &.hide {
+    animation: fadeOutLeft 0.5s forwards;
+  }
 }
 
 .appSidebar {
@@ -16,17 +22,12 @@
   background-color: @bg-color;
   border-radius: @border-radius;
   box-shadow: @box-shadow-base;
-  animation: fadeInLeft 0.5s forwards;
-}
-
-.appSidebarHidden {
-  animation: fadeOutLeft 0.5s forwards;
 }
 
 .appSidebarToggleBtn {
   background-color: #fff;
   position: absolute;
-  left: 310px;
+  left: 320px;
   top: 0;
   &:hover {
     background-color: @bg-color;
@@ -36,8 +37,8 @@
 @keyframes fadeInLeft {
   from {
     opacity: 1;
-    -webkit-transform: translate3d(calc(-100% - 10px), 0, 0);
-    transform: translate3d(calc(-100% - 10px), 0, 0);
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
   }
 
   to {
@@ -54,7 +55,7 @@
 
   100% {
     opacity: 1;
-    -webkit-transform: translate3d(calc(-100% - 10px), 0, 0);
-    transform: translate3d(calc(-100% - 10px), 0, 0);
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
   }
 }

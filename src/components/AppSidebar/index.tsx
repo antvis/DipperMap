@@ -17,12 +17,15 @@ const AppSidebar: React.FC<IProps> = React.forwardRef(
       // @ts-ignore
       <div
         ref={ref}
-        className={classnames([styles.appSidebarContainer, className])}
+        className={classnames([
+          styles.appSidebarContainer,
+          isHidden ? styles.hide : styles.show,
+          className,
+        ])}
       >
         <div
           className={classnames({
             [styles.appSidebar]: true,
-            [styles.appSidebarHidden]: isHidden,
           })}
         >
           {children}
