@@ -1,23 +1,35 @@
-import type { IDataset, IFilter, INumberFilter, IStringFilter } from '../typings';
+import type {
+  IDataset,
+  IFilter,
+  INumberFilter,
+  IStringFilter,
+} from '../typings';
 import md5 from 'md5';
 import { getDBStore, setDBStore } from './indexdb';
 
-const getFiltersKey = (filters: IFilter[]) => {
+/**
+ * 获取dataset和filters的唯一映射值
+ * @param dataset
+ * @param filters
+ */
+const getFiltersKey = (dataset: IDataset, filters: IFilter[]) => {
   return md5(
-    JSON.stringify(
-      filters
+    JSON.stringify({
+      datasetId: dataset.id,
+      filters: filters
         .map((item) => ({
           field: item.field.name as string,
           value: item.value,
         }))
         .sort((a, b) => a.field.localeCompare(b.field)),
-    ),
+    }),
   );
 };
 
 export const filterData = async (dataset: IDataset, filters: IFilter[]) => {
-  const storeKey = getFiltersKey(filters);
-  const filterDataObj = await getDBStore<Record<string, any[]>>('FILTERED_DATASET') ?? {};
+  const storeKey = getFiltersKey(dataset, filters);
+  const filterDataObj =
+    (await getDBStore<Record<string, any[]>>('FILTERED_DATASET')) ?? {};
   const targetData = filterDataObj[storeKey];
   if (targetData) {
     return targetData;

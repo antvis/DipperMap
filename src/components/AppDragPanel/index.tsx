@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './index.less';
+import containerStyles from '../../container/index.less';
 import { useMount } from 'ahooks';
 import { LOCAL_STORAGE_KEY } from '@/constants';
 import classnames from 'classnames';
+import { getRealOffsetTop } from '@/utils';
 
 interface IProps {
   sidebarRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -55,14 +57,15 @@ const AppDragPanel: React.FC<IProps> = ({
 
   const onDragMove = useCallback(
     (e) => {
-      // if (isDrag) {
-      //   const newTopHeight =
-      //     e.clientY -
-      //     (dragPanelRef.current
-      //       ? getElementToPageTop(dragPanelRef.current)
-      //       : 0);
-      //   setTopHeight(newTopHeight);
-      // }
+      if (isDrag) {
+        debugger;
+        const container = document.querySelector(
+          `.${containerStyles.container}`,
+        );
+        if (container) {
+          setTopHeight(e.clientY - panelHeight - getRealOffsetTop(container));
+        }
+      }
     },
     [isDrag, sidebarRef.current],
   );
@@ -103,7 +106,7 @@ const AppDragPanel: React.FC<IProps> = ({
             [styles.appDragDragPanel]: true,
             [styles.appDragDragPanelActive]: isDrag,
           })}
-          onMouseDown={onDragStart}
+          // onMouseDown={onDragStart}
         />
       </div>
       <BottomComponent style={{ height: panelHeight - topHeight }} />
