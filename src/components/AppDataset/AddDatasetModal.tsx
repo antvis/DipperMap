@@ -99,7 +99,6 @@ const AddDatasetModal = ({
     <Modal
       title="添加数据源"
       destroyOnClose
-      getContainer={false}
       visible={visible}
       confirmLoading={loading}
       onOk={onSubmit}
