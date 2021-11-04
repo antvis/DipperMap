@@ -15,6 +15,23 @@ export const getRandomId = (prefix = '') => {
 };
 
 /**
+ * 获取元素到page左上角的像素值
+ * @param element
+ */
+export const getRealOffsetTop = (element: Element) => {
+  let currentElement: Element | null = element;
+  // @ts-ignore
+  let top = element.offsetTop ?? 0;
+  while (currentElement !== null) {
+    // @ts-ignore
+    currentElement = currentElement.offsetParent;
+    // @ts-ignore
+    top += element.offsetTop ?? 0;
+  }
+  return top;
+};
+
+/**
  * 生成以length结尾的唯一名称
  * @param list
  * @param field

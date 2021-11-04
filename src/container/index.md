@@ -11,7 +11,7 @@ import React from 'react';
 import { Container } from 'dipper-map';
 
 export default () => (
-  <div style={{ width: '100%', height: '600px' }}>
+  <div style={{ width: '100%', height: '800px' }}>
     <Container />
   </div>
 );
