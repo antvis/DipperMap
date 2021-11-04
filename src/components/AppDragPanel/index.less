@@ -1,0 +1,18 @@
+@import url('../../styles/variables');
+
+.appDragPanel {
+  height: 100% - @header-height;
+}
+
+.appDragDragLine {
+  border-top: 1px solid @border-color-base;
+  overflow: visible;
+  .appDragDragPanel {
+    height: 3px;
+    margin-top: -2px;
+    cursor: move;
+  }
+  .appDragDragPanelActive {
+    background-color: @primary-color;
+  }
+}

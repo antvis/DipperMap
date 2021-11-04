@@ -7,9 +7,9 @@ import AppInteractiveConfig from '../AppInteractiveConfig';
 
 const { TabPane } = Tabs;
 
-const AppEdit = () => {
+const AppEdit: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
   return (
-    <Tabs className={styles.appEdit} size="small">
+    <Tabs className={styles.appEdit} size="small" style={style}>
       <TabPane
         tab={
           <div>

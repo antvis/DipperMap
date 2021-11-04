@@ -2,7 +2,7 @@
 
 @header-height: 45px;
 
-@dataset-height: 300px;
+@default-dataset-height: 300px;
 
 @dataset-padding: 10px;
 
@@ -20,16 +20,22 @@
 
 @panel-zIndex: 1000;
 
-.is-link {
-  cursor: pointer;
-  &:hover {
-    color: @primary-color;
+:global {
+  .is-link {
+    cursor: pointer;
+    &:hover {
+      color: @primary-color;
+    }
   }
-}
 
-.is-red-link {
-  .is-link();
-  &:hover {
-    color: red;
+  .is-red-link {
+    .is-link();
+    &:hover {
+      color: red;
+    }
+  }
+
+  .ant-typography {
+    margin-bottom: 0;
   }
 }

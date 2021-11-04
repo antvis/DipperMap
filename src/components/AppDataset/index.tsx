@@ -7,12 +7,12 @@ import DatasetList from './DatasetList';
 
 const { Title } = Typography;
 
-const AppDataset = () => {
+const AppDataset: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
   const [addDatasetVisible, setAddDatasetVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
   return (
-    <div className={styles.appDataset}>
+    <div className={styles.appDataset} style={style}>
       <div className={styles.appDatasetHeader}>
         <Title level={5}>数据源</Title>
         <div>

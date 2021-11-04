@@ -2,15 +2,16 @@
 
 .appDataset {
   box-sizing: border-box;
-  height: @dataset-height;
+  height: @default-dataset-height;
   border-bottom: 1px solid @border-color-base;
+  background-color: @bg-color-light;
 }
 
 .appDatasetHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 6px @dataset-padding;
+  padding: 6px @dataset-padding;
 }
 
 .appDatasetContent {
@@ -23,13 +24,12 @@
 .appDatasetItem {
   display: flex;
   align-items: center;
-  background-color: @bg-color-light;
   cursor: pointer;
   &:hover {
     background-color: @bg-color-lighter;
   }
   &:global(.is-select) {
-    background-color: multiply(@bg-color-lighter, @primary-color);
+    background-color: fade(@primary-color, 20);
   }
 }
 
