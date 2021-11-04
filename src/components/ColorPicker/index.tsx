@@ -37,7 +37,7 @@ export const ColorPicker = React.memo((props: Props) => {
       <Popover
         trigger="click"
         placement="left"
-        overlayClassName="color-picker-container"
+        overlayClassName={styles['color-picker-container']}
         content={
           <SketchPicker
             color={value}
