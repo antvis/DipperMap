@@ -4,11 +4,14 @@ import { message } from 'antd';
 import useDataset from '../../hooks/dataset';
 import request from 'umi-request';
 import { InboxOutlined } from '@ant-design/icons';
-import { transformData } from '../../utils';
+// @ts-ignore
+import DataTrans from './dataTransform.worker';
 
 interface IProps {
   visible: boolean;
   setVisible: (visible: boolean) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
 interface IFormData {
@@ -32,15 +35,19 @@ const normFile = (e: any) => {
   return e && e.fileList;
 };
 
-const AddDatasetModal = ({ visible, setVisible }: IProps) => {
+const AddDatasetModal = ({
+  visible,
+  setVisible,
+  loading,
+  setLoading,
+}: IProps) => {
   const { addDataset, getNewDatasetName } = useDataset();
   const [form, setForm] = useState<IFormData>(DEFAULT_FORM);
-  const [loading, setLoading] = useState(false);
 
   const typeOptions = useMemo(
     () => [
-      { label: '上传文件', value: 'upload' },
       { label: '文件链接', value: 'url' },
+      { label: '上传文件', value: 'upload' },
     ],
     [],
   );
@@ -56,24 +63,29 @@ const AddDatasetModal = ({ visible, setVisible }: IProps) => {
     }
     setLoading(true);
     try {
-      const { data: finalData, fields } = transformData(
-        type === 'url' ? await request(url) : data,
-      );
-      if (!finalData.length) {
-        throw new Error();
-      }
-      await addDataset({
-        name,
-        url,
-        data: finalData,
-        fields,
-      });
-      message.success('数据源新建成功');
+      const worker = new DataTrans();
+      worker.postMessage(type === 'url' ? await request(url) : data);
+      worker.onmessage = async ({
+        data,
+      }: {
+        data: {
+          fields: any[];
+          data: any[];
+        };
+      }) => {
+        await addDataset({
+          name,
+          url,
+          data: data.data,
+          fields: data.fields,
+        });
+        message.success('数据源新建成功');
+        setLoading(false);
+      };
       setVisible(false);
     } catch (e) {
       console.log(e);
     }
-    setLoading(false);
   }, [addDataset, form, setVisible]);
 
   useEffect(() => {
