@@ -97,9 +97,9 @@ const AppDragPanel: React.FC<IProps> = ({
     <div
       ref={dragPanelRef}
       className={styles.appDragPanel}
-      style={{ height: panelHeight }}
+      // style={{ height: panelHeight }}
     >
-      <TopComponent style={{ height: topHeight }} />
+      <TopComponent />
       <div className={styles.appDragDragLine}>
         <div
           className={classnames({
@@ -109,7 +109,7 @@ const AppDragPanel: React.FC<IProps> = ({
           // onMouseDown={onDragStart}
         />
       </div>
-      <BottomComponent style={{ height: panelHeight - topHeight }} />
+      <BottomComponent />
     </div>
   );
 };
