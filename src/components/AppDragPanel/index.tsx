@@ -3,7 +3,6 @@ import styles from './index.less';
 import { useMount } from 'ahooks';
 import { LOCAL_STORAGE_KEY } from '@/constants';
 import classnames from 'classnames';
-import { getElementToPageTop } from '@/utils';
 
 interface IProps {
   sidebarRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -56,14 +55,14 @@ const AppDragPanel: React.FC<IProps> = ({
 
   const onDragMove = useCallback(
     (e) => {
-      if (isDrag) {
-        const newTopHeight =
-          e.clientY -
-          (dragPanelRef.current
-            ? getElementToPageTop(dragPanelRef.current)
-            : 0);
-        setTopHeight(newTopHeight);
-      }
+      // if (isDrag) {
+      //   const newTopHeight =
+      //     e.clientY -
+      //     (dragPanelRef.current
+      //       ? getElementToPageTop(dragPanelRef.current)
+      //       : 0);
+      //   setTopHeight(newTopHeight);
+      // }
     },
     [isDrag, sidebarRef.current],
   );
