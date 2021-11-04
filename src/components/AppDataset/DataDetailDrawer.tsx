@@ -53,12 +53,7 @@ const DataDetailDrawer = ({
                   render(value) {
                     return (
                       <Tooltip title={value}>
-                        <span className={styles.clamp}>
-                          {value}
-                          {value}
-                          {value}
-                          {value}
-                        </span>
+                        <span className={styles.clamp}>{value}</span>
                       </Tooltip>
                     );
                   },

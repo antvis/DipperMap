@@ -15,6 +15,7 @@ import type { ISourceOptions } from '@antv/l7-react/es/component/LayerAttribute'
 import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import { h3ToGeoBoundary } from 'h3-js';
 import { cloneDeep, merge } from 'lodash';
+import { message } from 'antd';
 
 export const getPointList: (coordinates: string) => number[][] = (
   coordinates,
@@ -100,14 +101,18 @@ export const transformSource: (layer: ILayer, data: any[]) => ISourceOptions = (
       if (hexId) {
         source.data = featureCollection(
           data.map((item) => {
-            const pointList = h3ToGeoBoundary(item[hexId]);
-            return polygon([[...pointList, pointList[0]]], item);
+            const pointList = h3ToGeoBoundary(item[hexId]).map((item) =>
+              item.reverse(),
+            );
+            pointList.push(pointList[0]);
+            return polygon([pointList], item);
           }),
         );
       }
     }
   } catch (e) {
     console.log(e);
+    message.error('数据解析有误');
   }
   return source;
 };
@@ -187,7 +192,7 @@ export const transformProps: (layer: ILayer) => Omit<ILayerProps, 'source'>[] =
         values: 'line',
       };
       setColorProps(borderProps, borderColor);
-      setSizeProps(props, borderWidth);
+      setSizeProps(borderProps, borderWidth);
 
       return [props, borderProps];
     }

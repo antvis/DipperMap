@@ -1,6 +1,10 @@
 import React from 'react';
+import { message } from 'antd';
 
-export default class ErrorBoundary extends React.Component<any, { hasError: boolean }> {
+export default class ErrorBoundary extends React.Component<
+  any,
+  { hasError: boolean }
+> {
   state = {
     hasError: false,
   };
@@ -9,6 +13,7 @@ export default class ErrorBoundary extends React.Component<any, { hasError: bool
     this.setState({
       hasError: true,
     });
+    message.error('图层数据有误，请检查数据');
   }
 
   render() {
