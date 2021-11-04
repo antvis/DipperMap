@@ -60,7 +60,8 @@ export const MAP_THEME_LIST: IOption[] = [
 ];
 
 export const LOCAL_STORAGE_KEY = {
-  MAP_THEME: 'MAP_THEME',
+  MAP_THEME: 'DIPPER_VIEW_MAP_THEME',
+  TOP_PANEL_HEIGHT: 'DIPPER_VIEW_TOP_PANEL_HEIGHT',
 };
 
 export const DATASET_FIELD_TYPE_COLOR: Record<IDatasetFieldType, string> = {

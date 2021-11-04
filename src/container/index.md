@@ -1,12 +1,12 @@
 ---
 toc: false
+sidemenu: false
 ---
 
-## Container
-
-Demo:
-
 ```tsx
+/**
+ * compact: true
+ */
 import React from 'react';
 import { Container } from 'dipper-map';
 

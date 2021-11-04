@@ -94,7 +94,10 @@ export default function DatasetList({ className }: IProps) {
                 <Tooltip overlay="复制" placement="bottom">
                   <i
                     className="dpiconfont dpicon-fuzhi is-link"
-                    onClick={() => onCopy(dataset)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onCopy(dataset);
+                    }}
                   />
                 </Tooltip>
                 <Popconfirm
@@ -102,7 +105,10 @@ export default function DatasetList({ className }: IProps) {
                   onConfirm={() => checkDelete(dataset)}
                 >
                   <Tooltip overlay="删除" placement="bottom">
-                    <i className="dpiconfont dpicon-icon_shanchu is-red-link" />
+                    <i
+                      onClick={(e) => e.stopPropagation()}
+                      className="dpiconfont dpicon-icon_shanchu is-red-link"
+                    />
                   </Tooltip>
                 </Popconfirm>
               </div>

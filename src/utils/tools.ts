@@ -149,3 +149,14 @@ export const transformData = (originData: string | any[]) => {
     data,
   };
 };
+
+/**
+ * 获取元素到顶部的距离
+ * @param el
+ */
+export const getElementToPageTop: (el: HTMLElement) => number = (el) => {
+  if (el.parentElement) {
+    return getElementToPageTop(el.parentElement) + el.offsetTop;
+  }
+  return el.offsetTop;
+};

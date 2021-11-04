@@ -27,6 +27,7 @@ const EditName = ({ name, onChange, className }: IProps) => {
       message.warn('名称未更改');
     } else {
       onChange(cacheName);
+      message.success('名称修改成功');
     }
     setIsEdit(false);
   }, [onChange, cacheName, setIsEdit]);

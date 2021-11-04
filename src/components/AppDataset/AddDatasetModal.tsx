@@ -39,8 +39,8 @@ const AddDatasetModal = ({ visible, setVisible }: IProps) => {
 
   const typeOptions = useMemo(
     () => [
-      { label: '文件链接', value: 'url' },
       { label: '上传文件', value: 'upload' },
+      { label: '文件链接', value: 'url' },
     ],
     [],
   );
