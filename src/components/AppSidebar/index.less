@@ -3,6 +3,9 @@
 .appSidebarContainer {
   display: flex;
   align-items: flex-start;
+  height: 100%;
+  position: relative;
+  margin: 10px;
 }
 
 .appSidebar {
@@ -10,22 +13,49 @@
   width: 300px;
   height: 100%;
   margin-right: 6px;
-  overflow: hidden;
+  // overflow: hidden;
   background-color: @bg-color;
   border-radius: @border-radius;
   box-shadow: @box-shadow-base;
-  //transition: all 0.2s;
+  animation: fadeInLeft 0.5s forwards;
 }
 
 .appSidebarHidden {
-  width: 0;
-  opacity: 0;
+  animation: fadeOutLeft 0.5s forwards;
 }
 
 .appSidebarToggleBtn {
-  background-color: @bg-color;
-  &:hover,
-  &:focus {
+  background-color: #fff;
+  position: absolute;
+  left: 310px;
+  top: 0;
+  &:hover {
     background-color: @bg-color;
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 1;
+    -webkit-transform: translate3d(calc(-100% - 10px), 0, 0);
+    transform: translate3d(calc(-100% - 10px), 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeOutLeft {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translate3d(calc(-100% - 10px), 0, 0);
+    transform: translate3d(calc(-100% - 10px), 0, 0);
   }
 }

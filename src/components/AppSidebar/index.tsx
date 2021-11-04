@@ -26,12 +26,12 @@ const AppSidebar: React.FC<IProps> = React.forwardRef(
           })}
         >
           {children}
+          <Button
+            className={styles.appSidebarToggleBtn}
+            icon={isHidden ? <RightOutlined /> : <LeftOutlined />}
+            onClick={() => setIsHidden(!isHidden)}
+          />
         </div>
-        <Button
-          className={styles.appSidebarToggleBtn}
-          icon={isHidden ? <RightOutlined /> : <LeftOutlined />}
-          onClick={() => setIsHidden(!isHidden)}
-        />
       </div>
     );
   },
