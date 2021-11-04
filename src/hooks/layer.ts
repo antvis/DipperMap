@@ -59,8 +59,8 @@ const useLayer = () => {
     (filter: ILayer) => {
       const newFilter: ILayer = {
         ...cloneDeep(filter),
-        id: getRandomId('dataset'),
-        name: generateUnRepeatValue<ILayer, string>(layerList, 'name', '数据源'),
+        id: getRandomId('layer'),
+        name: generateUnRepeatValue<ILayer, string>(layerList, 'name', '图层'),
         order: layerList.length + 1,
         createTime: Date.now(),
       };

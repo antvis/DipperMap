@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { transformProps, transformSource } from './utils';
 import type { IDataset, ILayer, ILayerType } from '../../typings';
 import type { ISourceOptions } from '@antv/l7-react/es/component/LayerAttribute';
@@ -16,7 +16,10 @@ interface IProps {
   config: ILayerConfig;
 }
 
-const LAYER_COMPONENT_MAP: Record<ILayerType, React.NamedExoticComponent<ILayerProps>> = {
+const LAYER_COMPONENT_MAP: Record<
+  ILayerType,
+  React.NamedExoticComponent<ILayerProps>
+> = {
   point: PointLayer,
   line: LineLayer,
   polygon: PolygonLayer,
@@ -35,6 +38,13 @@ const LayerItem: React.FC<IProps> = React.memo(({ config }) => {
     return transformProps(layer);
   }, [layer]);
 
+  const getLayerKey = useCallback((layer: ILayer, index: number) => {
+    if (layer.type === 'line') {
+      return `${layer.id}+${index}-${layer.config.lineType}`;
+    }
+    return `${layer.id}-${index}`;
+  }, []);
+
   const LayerComponent = useMemo(() => {
     return LAYER_COMPONENT_MAP[layer.type];
   }, [layer.type]);
@@ -43,8 +53,12 @@ const LayerItem: React.FC<IProps> = React.memo(({ config }) => {
     <>
       {propsList.map((props, propsIndex) => (
         // eslint-disable-next-line react/no-array-index-key
-        <ErrorBoundary key={`${layer.id}-${propsIndex}`}>
-          <LayerComponent {...props} source={source} />
+        <ErrorBoundary key={getLayerKey(layer, propsIndex)}>
+          <LayerComponent
+            key={getLayerKey(layer, propsIndex) + '-layer'}
+            {...props}
+            source={source}
+          />
         </ErrorBoundary>
       ))}
     </>

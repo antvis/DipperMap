@@ -6,6 +6,7 @@ import request from 'umi-request';
 import { InboxOutlined } from '@ant-design/icons';
 // @ts-ignore
 import DataTrans from './dataTransform.worker';
+import styles from './index.less';
 
 interface IProps {
   visible: boolean;
@@ -22,7 +23,7 @@ interface IFormData {
 }
 
 const DEFAULT_FORM: IFormData = {
-  type: 'upload',
+  type: 'url',
   url: '',
   name: '',
   data: [],
@@ -53,40 +54,43 @@ const AddDatasetModal = ({
   );
 
   // eslint-disable-next-line consistent-return
-  const onSubmit = useCallback(async () => {
-    const { type, url, data, name } = form;
-    if (type === 'url' && !url) {
-      return message.error('请输入文件链接');
-    }
-    if (type === 'upload' && !data?.length) {
-      return message.error('请选择上传文件');
-    }
-    setLoading(true);
-    try {
-      const worker = new DataTrans();
-      worker.postMessage(type === 'url' ? await request(url) : data);
-      worker.onmessage = async ({
-        data,
-      }: {
-        data: {
-          fields: any[];
-          data: any[];
+  const onSubmit = useCallback(
+    async (formData: IFormData) => {
+      const { type, url, data, name } = formData;
+      if (type === 'url' && !url) {
+        return message.error('请输入文件链接');
+      }
+      if (type === 'upload' && !data?.length) {
+        return message.error('请选择上传文件');
+      }
+      setLoading(true);
+      try {
+        const worker = new DataTrans();
+        worker.postMessage(type === 'url' ? await request(url) : data);
+        worker.onmessage = async ({
+          data,
+        }: {
+          data: {
+            fields: any[];
+            data: any[];
+          };
+        }) => {
+          await addDataset({
+            name,
+            url,
+            data: data.data,
+            fields: data.fields,
+          });
+          message.success('数据源新建成功');
+          setLoading(false);
         };
-      }) => {
-        await addDataset({
-          name,
-          url,
-          data: data.data,
-          fields: data.fields,
-        });
-        message.success('数据源新建成功');
-        setLoading(false);
-      };
-      setVisible(false);
-    } catch (e) {
-      console.log(e);
-    }
-  }, [addDataset, form, setVisible]);
+        setVisible(false);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    [addDataset, form, setVisible],
+  );
 
   useEffect(() => {
     setForm({
@@ -95,15 +99,49 @@ const AddDatasetModal = ({
     });
   }, [getNewDatasetName, setForm]);
 
+  const onTryExample = useCallback(
+    (exampleType: number) => {
+      const exampleMap = {
+        '1': 'https://gw.alipayobjects.com/os/bmw-prod/ba077ba7-2a28-435f-b163-4def4a3c874d.json',
+        '2': 'https://gw.alipayobjects.com/os/bmw-prod/d382b49f-c14b-4662-a281-63890798e969.json',
+        '3': 'https://gw.alipayobjects.com/os/bmw-prod/bc47a55e-6d08-40ad-bc22-1fa62471aa39.json',
+      };
+      const newForm: IFormData = {
+        ...form,
+        type: 'url',
+        // @ts-ignore
+        url: exampleMap[String(exampleType)] || '',
+      };
+      setForm(newForm);
+      onSubmit(newForm);
+    },
+    [onSubmit],
+  );
+
   return (
     <Modal
       title="添加数据源"
+      className={styles.addDatasetModal}
       destroyOnClose
       visible={visible}
       confirmLoading={loading}
-      onOk={onSubmit}
+      onOk={() => onSubmit(form)}
       onCancel={() => setVisible(false)}
     >
+      <div className={styles.exampleBtnGroup}>
+        <span>示例数据：</span>
+        <Radio.Group size="small">
+          <Radio.Button value="1" onClick={() => onTryExample(1)}>
+            Point/Line/Hex
+          </Radio.Button>
+          <Radio.Button value="1" onClick={() => onTryExample(2)}>
+            Trip
+          </Radio.Button>
+          <Radio.Button value="1" onClick={() => onTryExample(3)}>
+            Polygon
+          </Radio.Button>
+        </Radio.Group>
+      </div>
       <Form labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
         <Form.Item label="数据源名称">
           <Input
@@ -134,18 +172,20 @@ const AddDatasetModal = ({
         </Form.Item>
 
         {form.type === 'url' ? (
-          <Form.Item label="文件链接">
-            <Input
-              value={form.url}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  url: e.target.value,
-                })
-              }
-              placeholder="输入文件链接"
-            />
-          </Form.Item>
+          <>
+            <Form.Item label="文件链接">
+              <Input
+                value={form.url}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    url: e.target.value,
+                  })
+                }
+                placeholder="输入文件链接"
+              />
+            </Form.Item>
+          </>
         ) : (
           <Form.Item
             valuePropName="fileList"

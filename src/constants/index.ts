@@ -96,11 +96,11 @@ export const LAYER_TYPE_LIST: IOption<ILayerType>[] = [
 export const LINE_TYPE_LIST: IOption<ILineLayerLineType>[] = [
   {
     label: '直线',
-    value: 'straight',
+    value: 'line',
   },
   {
     label: '曲线',
-    value: 'arc',
+    value: 'arcmini',
   },
 ];
 
@@ -126,7 +126,7 @@ export const DEFAULT_LINE_LAYER_CONFIG: ILineLayerConfig = {
   startLatField: null,
   endLngField: null,
   endLatField: null,
-  lineType: 'straight',
+  lineType: 'line',
   lineWidth: {
     value: 1,
     rangeValue: [1, 10],
