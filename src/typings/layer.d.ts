@@ -41,7 +41,7 @@ export interface IPointLayerConfig {
   radius: ILayerRange;
 }
 
-export type ILineLayerLineType = 'straight' | 'arc';
+export type ILineLayerLineType = 'line' | 'arcmini';
 
 export interface ILineLayerConfig {
   lineType: ILineLayerLineType;
@@ -95,4 +95,9 @@ export interface IHexLayer extends IBaseLayer {
   config: IHexLayerConfig;
 }
 
-export type ILayer = IPointLayer | ILineLayer | IPolygonLayer | ITripLayer | IHexLayer;
+export type ILayer =
+  | IPointLayer
+  | ILineLayer
+  | IPolygonLayer
+  | ITripLayer
+  | IHexLayer;
