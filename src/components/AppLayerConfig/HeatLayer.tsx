@@ -1,11 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import LayerTypeSelect from './components/LayerTypeSelect';
 import { Form } from 'antd';
-import type { IHeatLayer, IHeatLayerConfig } from '../../typings';
+import type {
+  IDatasetNumberField,
+  IHeatLayer,
+  IHeatLayerConfig,
+} from '../../typings';
 import useCommonHook from './components/commonHook';
 import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
 import RangeWrapper from './components/RangeWrapper';
+import useDataset from '../../hooks/dataset';
 
 interface IProps {
   layer: IHeatLayer;
@@ -15,10 +20,35 @@ interface IProps {
 const HeatLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<IHeatLayerConfig>();
   const { targetDatasetFields, onFormChange } = useCommonHook(layer, onChange);
+  const { getTargetDataset } = useDataset();
+  const targetDataset = useMemo(
+    () => getTargetDataset(layer.datasetId),
+    [layer.datasetId, getTargetDataset],
+  );
 
   useEffect(() => {
     form.setFieldsValue(layer.config);
   }, [layer.config]);
+
+  const onFormValueChanged = useCallback(
+    (changedValues: any) => {
+      let ranges: number[] = [];
+      if (changedValues.magField) {
+        ranges = (
+          targetDataset?.fields.find(
+            (field) => field.name === changedValues.magField,
+          ) as IDatasetNumberField
+        ).range;
+      }
+      onFormChange({
+        ...changedValues,
+        ...(ranges.length && {
+          ranges,
+        }),
+      });
+    },
+    [onFormChange, targetDataset],
+  );
 
   return (
     <Form
@@ -26,7 +56,7 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
       wrapperCol={{ span: 19 }}
       labelAlign="left"
       form={form}
-      onValuesChange={onFormChange}
+      onValuesChange={onFormValueChanged}
     >
       <LayerTypeSelect layer={layer} onChange={onChange} />
       <Form.Item label="经度" name="lngField">
