@@ -1,6 +1,6 @@
 import type { IEntity } from './common';
 
-export type ILayerType = 'point' | 'line' | 'trip' | 'polygon' | 'hex';
+export type ILayerType = 'point' | 'line' | 'trip' | 'polygon' | 'hex' | 'heat';
 
 export interface IBaseLayer extends IEntity {
   type: ILayerType;
@@ -66,6 +66,11 @@ export interface ITripLayerConfig {
   lineWidth: ILayerRange;
 }
 
+export interface IHeatLayerConfig {
+  hexId?: string | null;
+  fillColor: ILayerSingleColor | ILayerFieldColor;
+}
+
 export interface IHexLayerConfig {
   hexId?: string | null;
   fillColor: ILayerSingleColor | ILayerFieldColor;
@@ -95,9 +100,15 @@ export interface IHexLayer extends IBaseLayer {
   config: IHexLayerConfig;
 }
 
+export interface IHeatLayer extends IBaseLayer {
+  type: 'heat';
+  config: IHeatLayerConfig;
+}
+
 export type ILayer =
   | IPointLayer
   | ILineLayer
   | IPolygonLayer
   | ITripLayer
-  | IHexLayer;
+  | IHexLayer
+  | IHeatLayer;

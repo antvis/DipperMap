@@ -91,6 +91,10 @@ export const LAYER_TYPE_LIST: IOption<ILayerType>[] = [
     label: '六边形(Hex)',
     value: 'hex',
   },
+  {
+    label: '热力(Heat)',
+    value: 'heat',
+  },
 ];
 
 export const LINE_TYPE_LIST: IOption<ILineLayerLineType>[] = [

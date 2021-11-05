@@ -9,6 +9,7 @@ import type {
   IPolygonLayer,
   ITripLayer,
   ILayerRange,
+  IHeatLayer,
 } from '../../typings';
 import { featureCollection, lineString, point, polygon } from '@turf/turf';
 import type { ISourceOptions } from '@antv/l7-react/es/component/LayerAttribute';
@@ -34,7 +35,7 @@ export const transformSource: (layer: ILayer, data: any[]) => ISourceOptions = (
   };
   try {
     const { type } = layer;
-    if (type === 'point') {
+    if (['point', 'heat'].includes(type)) {
       const {
         config: { lngField, latField },
       } = layer as IPointLayer;
@@ -111,7 +112,7 @@ export const transformSource: (layer: ILayer, data: any[]) => ISourceOptions = (
       }
     }
   } catch (e) {
-    console.log(e);
+    console.error(e);
     message.error('数据解析有误');
   }
   return source;
@@ -182,6 +183,30 @@ export const transformProps: (layer: ILayer) => Omit<ILayerProps, 'source'>[] =
       ...getCommonLayerProps(layer),
     };
 
+    if (layer.type === 'heat') {
+      const { config } = layer as IHeatLayer;
+      const { fillColor } = config;
+
+      props.shape = {
+        values: 'heatmap',
+      };
+      merge(props, {
+        style: {
+          rampColors: {
+            colors: [
+              'rgba(33,102,172,0.0)',
+              'rgb(103,169,207)',
+              'rgb(209,229,240)',
+              'rgb(253,219,199)',
+              'rgb(239,138,98)',
+              'rgb(178,24,43,1.0)',
+            ],
+            positions: [0, 0.2, 0.4, 0.6, 0.8, 1.0],
+          },
+        },
+      });
+    }
+
     if (layer.type === 'polygon') {
       const { config } = layer as IPolygonLayer;
       const { fillColor, borderColor, borderWidth } = config;
@@ -212,7 +237,8 @@ export const transformProps: (layer: ILayer) => Omit<ILayerProps, 'source'>[] =
           strokeWidth: borderColor.enable ? 1 : 0,
         },
       });
-    } else if (layer.type === 'line') {
+    }
+    if (layer.type === 'line') {
       const { config } = layer as ILineLayer;
       const { lineType, color, lineWidth } = config;
       setColorProps(props, color);
@@ -225,7 +251,8 @@ export const transformProps: (layer: ILayer) => Omit<ILayerProps, 'source'>[] =
           segmentNumber: 15,
         },
       });
-    } else if (layer.type === 'trip') {
+    }
+    if (layer.type === 'trip') {
       const { config } = layer as ITripLayer;
       const { color, lineWidth } = config;
       setColorProps(props, color);
@@ -233,7 +260,8 @@ export const transformProps: (layer: ILayer) => Omit<ILayerProps, 'source'>[] =
       props.shape = {
         values: 'line',
       };
-    } else if (layer.type === 'hex') {
+    }
+    if (layer.type === 'hex') {
       const { config } = layer as IHexLayer;
       const { fillColor } = config;
       setColorProps(props, fillColor);
