@@ -1,8 +1,13 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { transformProps, transformSource } from './utils';
 import type { IDataset, ILayer, ILayerType } from '../../typings';
 import type { ISourceOptions } from '@antv/l7-react/es/component/LayerAttribute';
-import { LineLayer, PointLayer, PolygonLayer } from '@antv/l7-react';
+import {
+  HeatmapLayer,
+  LineLayer,
+  PointLayer,
+  PolygonLayer,
+} from '@antv/l7-react';
 import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import ErrorBoundary from '../ErrorBoundary';
 
@@ -25,7 +30,15 @@ const LAYER_COMPONENT_MAP: Record<
   polygon: PolygonLayer,
   trip: LineLayer,
   hex: PolygonLayer,
+  heat: HeatmapLayer,
 };
+
+function getLayerKey(layer: ILayer, index: number) {
+  if (layer.type === 'line') {
+    return `${layer.id}+${index}-${layer.config.lineType}`;
+  }
+  return `${layer.id}-${index}`;
+}
 
 const LayerItem: React.FC<IProps> = React.memo(({ config }) => {
   const { layer, data } = config;
@@ -38,29 +51,28 @@ const LayerItem: React.FC<IProps> = React.memo(({ config }) => {
     return transformProps(layer);
   }, [layer]);
 
-  const getLayerKey = useCallback((layer: ILayer, index: number) => {
-    if (layer.type === 'line') {
-      return `${layer.id}+${index}-${layer.config.lineType}`;
-    }
-    return `${layer.id}-${index}`;
-  }, []);
-
   const LayerComponent = useMemo(() => {
     return LAYER_COMPONENT_MAP[layer.type];
   }, [layer.type]);
 
   return (
     <>
-      {propsList.map((props, propsIndex) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <ErrorBoundary key={getLayerKey(layer, propsIndex)}>
-          <LayerComponent
-            key={getLayerKey(layer, propsIndex) + '-layer'}
-            {...props}
-            source={source}
-          />
-        </ErrorBoundary>
-      ))}
+      {propsList.map((props, propsIndex) => {
+        console.log(props);
+        const key = getLayerKey(layer, propsIndex);
+        return (
+          <ErrorBoundary key={key}>
+            {/* in case we accidentally remove a layer */}
+            {LayerComponent ? (
+              <LayerComponent
+                key={getLayerKey(layer, propsIndex) + '-layer'}
+                {...props}
+                source={source}
+              />
+            ) : null}
+          </ErrorBoundary>
+        );
+      })}
     </>
   );
 });

@@ -1,0 +1,57 @@
+import React, { useEffect } from 'react';
+import LayerTypeSelect from './components/LayerTypeSelect';
+import { Form } from 'antd';
+import type { IHeatLayer, IHeatLayerConfig } from '../../typings';
+import useCommonHook from './components/commonHook';
+import FieldSelect from '../FieldSelect';
+import ColorWrapper from './components/ColorWrapper';
+import RangeWrapper from './components/RangeWrapper';
+
+interface IProps {
+  layer: IHeatLayer;
+  onChange: (newLayer: IHeatLayer) => void;
+}
+
+const HeatLayer = ({ layer, onChange }: IProps) => {
+  const [form] = Form.useForm<IHeatLayerConfig>();
+  const { targetDatasetFields, onFormChange } = useCommonHook(layer, onChange);
+
+  useEffect(() => {
+    form.setFieldsValue(layer.config);
+  }, [layer.config]);
+
+  return (
+    <Form
+      labelCol={{ span: 7 }}
+      wrapperCol={{ span: 19 }}
+      labelAlign="left"
+      form={form}
+      onValuesChange={onFormChange}
+    >
+      <LayerTypeSelect layer={layer} onChange={onChange} />
+      <Form.Item label="经度" name="lngField">
+        <FieldSelect fields={targetDatasetFields} />
+      </Form.Item>
+      <Form.Item label="纬度" name="latField">
+        <FieldSelect fields={targetDatasetFields} />
+      </Form.Item>
+      <Form.Item label="数值" name="magField">
+        <FieldSelect fields={targetDatasetFields} />
+      </Form.Item>
+      <ColorWrapper
+        label="填充颜色"
+        field="fillColor"
+        form={form}
+        fields={targetDatasetFields}
+      />
+      <RangeWrapper
+        label="半径"
+        field="radius"
+        form={form}
+        fields={targetDatasetFields}
+      />
+    </Form>
+  );
+};
+
+export default HeatLayer;
