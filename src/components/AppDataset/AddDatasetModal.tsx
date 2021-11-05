@@ -86,7 +86,7 @@ const AddDatasetModal = ({
         };
         setVisible(false);
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     },
     [addDataset, form, setVisible],
@@ -132,7 +132,7 @@ const AddDatasetModal = ({
         <span>示例数据：</span>
         <Radio.Group size="small">
           <Radio.Button value="1" onClick={() => onTryExample(1)}>
-            Point/Line/Hex
+            Point/Line/Hex/Heat
           </Radio.Button>
           <Radio.Button value="1" onClick={() => onTryExample(2)}>
             Trip

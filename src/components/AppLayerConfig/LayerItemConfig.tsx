@@ -9,6 +9,7 @@ import LineLayer from './LineLayer';
 import TripLayer from './TripLayer';
 import PolygonLayer from './PolygonLayer';
 import HexLayer from './HexLayer';
+import HeatLayer from './HeatLayer';
 
 const { Panel } = Collapse;
 
@@ -21,12 +22,22 @@ interface IProps {
   onDelete: (layer: ILayer) => void;
 }
 
-const LayerItemConfig = ({ layer, onEditName, dragIcon, onChange, onDelete, onCopy }: IProps) => {
+const LayerItemConfig = ({
+  layer,
+  onEditName,
+  dragIcon,
+  onChange,
+  onDelete,
+  onCopy,
+}: IProps) => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   const header = (
-    <div className={styles.layerItemHeader} onClick={(e) => e.stopPropagation()}>
+    <div
+      className={styles.layerItemHeader}
+      onClick={(e) => e.stopPropagation()}
+    >
       {dragIcon}
       <EditName
         name={layer.name}
@@ -45,8 +56,15 @@ const LayerItemConfig = ({ layer, onEditName, dragIcon, onChange, onDelete, onCo
           }
         />
 
-        <Popconfirm title="确认是否删除？" placement="bottom" onConfirm={() => onDelete(layer)}>
-          <i className="dpiconfont dpicon-icon_shanchu is-red-link" title="删除" />
+        <Popconfirm
+          title="确认是否删除？"
+          placement="bottom"
+          onConfirm={() => onDelete(layer)}
+        >
+          <i
+            className="dpiconfont dpicon-icon_shanchu is-red-link"
+            title="删除"
+          />
         </Popconfirm>
 
         <Dropdown
@@ -77,22 +95,28 @@ const LayerItemConfig = ({ layer, onEditName, dragIcon, onChange, onDelete, onCo
   );
 
   const content = useMemo(() => {
-    if (layer.type === 'point') {
-      return <PointLayer layer={layer} onChange={onChange} />;
+    switch (layer.type) {
+      case 'point':
+        return <PointLayer layer={layer} onChange={onChange} />;
+
+      case 'line':
+        return <LineLayer layer={layer} onChange={onChange} />;
+
+      case 'trip':
+        return <TripLayer layer={layer} onChange={onChange} />;
+
+      case 'polygon':
+        return <PolygonLayer layer={layer} onChange={onChange} />;
+
+      case 'hex':
+        return <HexLayer layer={layer} onChange={onChange} />;
+
+      case 'heat':
+        return <HeatLayer layer={layer} onChange={onChange} />;
+
+      default:
+        return <></>;
     }
-    if (layer.type === 'line') {
-      return <LineLayer layer={layer} onChange={onChange} />;
-    }
-    if (layer.type === 'trip') {
-      return <TripLayer layer={layer} onChange={onChange} />;
-    }
-    if (layer.type === 'polygon') {
-      return <PolygonLayer layer={layer} onChange={onChange} />;
-    }
-    if (layer.type === 'hex') {
-      return <HexLayer layer={layer} onChange={onChange} />;
-    }
-    return <></>;
   }, [layer, onChange]);
 
   return (
