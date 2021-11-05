@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../index.less';
 import { DEFAULT_COLOR } from '../../../../constants';
-import { ColorPicker } from '@/components/ColorPicker';
+import { ColorPicker } from '../../../ColorPicker';
 
 interface IProps {
   value?: [string, string];

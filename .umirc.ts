@@ -8,6 +8,10 @@ export default defineConfig({
   outputPath: 'docs-dist',
   plugins: [],
   mfsu: {},
-  workerLoader: {},
+  workerLoader: {
+    inline: true,
+  },
+  publicPath: '/DipperMap/',
+  base: '/DipperMap/',
   // more config: https://d.umijs.org/config
 });

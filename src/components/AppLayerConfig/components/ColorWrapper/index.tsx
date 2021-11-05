@@ -6,8 +6,8 @@ import styles from '../../index.less';
 import FieldSelect from '../../../FieldSelect';
 import RangeColorPicker from './RangeColorPicker';
 import FieldColorPicker from './FieldColorPicker';
-import { ColorPicker } from '@/components/ColorPicker';
-import { DEFAULT_COLOR } from '@/constants';
+import { ColorPicker } from '../../../ColorPicker';
+import { DEFAULT_COLOR } from '../../../../constants';
 
 interface IProps {
   label: string;

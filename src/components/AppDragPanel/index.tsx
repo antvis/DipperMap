@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './index.less';
 import containerStyles from '../../container/index.less';
 import { useMount } from 'ahooks';
-import { LOCAL_STORAGE_KEY } from '@/constants';
+import { LOCAL_STORAGE_KEY } from '../../constants';
 import classnames from 'classnames';
-import { getRealOffsetTop } from '@/utils';
+import { getRealOffsetTop } from '../../utils';
 
 interface IProps {
   sidebarRef: React.MutableRefObject<HTMLDivElement | null>;
