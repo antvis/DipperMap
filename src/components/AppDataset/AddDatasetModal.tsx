@@ -4,9 +4,8 @@ import { message } from 'antd';
 import useDataset from '../../hooks/dataset';
 import request from 'umi-request';
 import { InboxOutlined } from '@ant-design/icons';
-// @ts-ignore
-import DataTrans from './dataTransform.worker';
 import styles from './index.less';
+import { dataTransform } from './dataTrans';
 
 interface IProps {
   visible: boolean;
@@ -65,25 +64,28 @@ const AddDatasetModal = ({
       }
       setLoading(true);
       try {
-        const worker = new DataTrans();
-        worker.postMessage(type === 'url' ? await request(url) : data);
-        worker.onmessage = async ({
-          data,
-        }: {
-          data: {
-            fields: any[];
-            data: any[];
-          };
-        }) => {
-          await addDataset({
-            name,
-            url,
-            data: data.data,
-            fields: data.fields,
-          });
-          message.success('数据源新建成功');
-          setLoading(false);
-        };
+        const result = dataTransform({
+          data: type === 'url' ? await request(url) : data,
+        }); // non-blocking UI
+        // const worker = new DataTrans();
+        // worker.postMessage(type === 'url' ? await request(url) : data);
+        // worker.onmessage = async ({
+        //   data,
+        // }: {
+        //   data: {
+        //     fields: any[];
+        //     data: any[];
+        //   };
+        // }) => {
+        // };
+        await addDataset({
+          name,
+          url,
+          data: result.data,
+          fields: result.fields,
+        });
+        message.success('数据源新建成功');
+        setLoading(false);
         setVisible(false);
       } catch (e) {
         console.error(e);
