@@ -9,5 +9,7 @@ export default defineConfig({
   plugins: [],
   mfsu: {},
   workerLoader: {},
+  publicPath: '/dippermap/',
+  base: '/dippermap/',
   // more config: https://d.umijs.org/config
 });
