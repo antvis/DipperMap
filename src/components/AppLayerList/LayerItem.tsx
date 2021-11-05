@@ -58,7 +58,6 @@ const LayerItem: React.FC<IProps> = React.memo(({ config }) => {
   return (
     <>
       {propsList.map((props, propsIndex) => {
-        console.log(props);
         const key = getLayerKey(layer, propsIndex);
         return (
           <ErrorBoundary key={key}>
