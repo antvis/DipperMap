@@ -67,8 +67,8 @@ export interface ITripLayerConfig {
 }
 
 export interface IHeatLayerConfig {
-  hexId?: string | null;
   fillColor: ILayerSingleColor | ILayerFieldColor;
+  ranges: [number, number];
 }
 
 export interface IHexLayerConfig {

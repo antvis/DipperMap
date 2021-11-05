@@ -66,7 +66,7 @@ onmessage = function (eventData) {
         if (isCSV) {
           item[field.name] = +item[field.name] || 0;
         }
-        field.values.push(item[field.name]);
+        field.values.push(+item[field.name]);
       } else if (field.type === 'boolean') {
         if (isCSV) {
           item[field.name] = Boolean(item[field.name]) || false;
@@ -82,8 +82,8 @@ onmessage = function (eventData) {
       field.uniqueValues = Array.from(new Set(field.values));
       field.uniqueValues = field.uniqueValues.sort((a, b) => a - b);
       field.range = [
-        field.uniqueValues[0],
-        field.uniqueValues[field.uniqueValues.length - 1],
+        +field.uniqueValues[0],
+        +field.uniqueValues[field.uniqueValues.length - 1],
       ];
     }
     if (field.type === 'string') {

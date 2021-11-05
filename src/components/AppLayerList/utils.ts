@@ -185,7 +185,16 @@ export const transformProps: (layer: ILayer) => Omit<ILayerProps, 'source'>[] =
 
     if (layer.type === 'heat') {
       const { config } = layer as IHeatLayer;
-      const { fillColor } = config;
+      const { fillColor, ranges } = config;
+      let positions: number[] = [];
+
+      if (fillColor?.value) {
+        // 区间长度
+        const sectionLen = ranges[1] - ranges[0] / fillColor.value.length;
+        positions = (fillColor.value as string[]).map(
+          (_, i) => ranges[0] + i * sectionLen,
+        );
+      }
 
       props.shape = {
         values: 'heatmap',
@@ -193,15 +202,8 @@ export const transformProps: (layer: ILayer) => Omit<ILayerProps, 'source'>[] =
       merge(props, {
         style: {
           rampColors: {
-            colors: [
-              'rgba(33,102,172,0.0)',
-              'rgb(103,169,207)',
-              'rgb(209,229,240)',
-              'rgb(253,219,199)',
-              'rgb(239,138,98)',
-              'rgb(178,24,43,1.0)',
-            ],
-            positions: [0, 0.2, 0.4, 0.6, 0.8, 1.0],
+            colors: fillColor?.value || [],
+            positions,
           },
         },
       });

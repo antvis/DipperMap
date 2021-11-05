@@ -7,6 +7,7 @@ export interface IDatasetStringField<T = string> {
   name: T | string;
   values: string[];
   uniqueValues: string[];
+  range?: [number, number];
 }
 
 export interface IDatasetNumberField<T = string> {
