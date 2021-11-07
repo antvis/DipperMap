@@ -11,6 +11,7 @@ interface IProps {
   sidebarHeaderRef: React.MutableRefObject<HTMLDivElement | null>;
   TopComponent: React.FC<{ style?: React.CSSProperties }>;
   BottomComponent: React.FC<{ style?: React.CSSProperties }>;
+  className?: string;
 }
 
 const AppDragPanel: React.FC<IProps> = ({
@@ -18,6 +19,7 @@ const AppDragPanel: React.FC<IProps> = ({
   BottomComponent,
   sidebarRef,
   sidebarHeaderRef,
+  className,
 }) => {
   const dragPanelRef = useRef<HTMLDivElement>(null);
   const [panelHeight, setPanelHeight] = useState(0);
@@ -96,7 +98,7 @@ const AppDragPanel: React.FC<IProps> = ({
   return (
     <div
       ref={dragPanelRef}
-      className={styles.appDragPanel}
+      className={classnames([styles.appDragPanel, className])}
       // style={{ height: panelHeight }}
     >
       <TopComponent />
