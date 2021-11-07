@@ -4,7 +4,7 @@ import { MoreOutlined, ProfileOutlined } from '@ant-design/icons';
 import styles from './index.less';
 // @ts-ignore
 import logo from '../../assets/imgs/logo.png';
-import PlanModal from '@/components/PlanModal';
+import PlanModal from '../../components/PlanModal';
 // import { ExportOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;

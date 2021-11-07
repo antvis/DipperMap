@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Button, Modal, Table } from 'antd';
 import { ModalProps } from 'antd/lib/modal/Modal';
 import { ColumnsType } from 'antd/lib/table/interface';
-import { IPlan } from '@/typings';
+import { IPlan } from '../../typings';
 
 interface IProps extends ModalProps {
   setVisible: (newValue: boolean) => void;

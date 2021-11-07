@@ -9,7 +9,8 @@ import AppEdit from '../components/AppEdit';
 import AppLayerList from '../components/AppLayerList';
 import AppDragPanel from '../components/AppDragPanel';
 import classnames from 'classnames';
-import { GlobalModelContext } from '@/context/GlobalContext';
+import { GlobalModelContext } from '../context/GlobalContext';
+import ExitPreview from '../components/AppControl/ExitPreview';
 
 export default function Container() {
   const { isPreview } = useContext(GlobalModelContext);
@@ -40,6 +41,7 @@ export default function Container() {
         />
       </AppSidebar>
       <AppLayerList />
+      {isPreview && <ExitPreview />}
     </AppMap>
   );
 }

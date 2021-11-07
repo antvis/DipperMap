@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { GlobalModelContext } from '@/context/GlobalContext';
+import { GlobalModelContext } from '../../context/GlobalContext';
 import styles from './index.less';
 import classnames from 'classnames';
 
