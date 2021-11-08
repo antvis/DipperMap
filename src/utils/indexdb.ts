@@ -8,7 +8,8 @@ export type STORE_KEY_TYPE =
   | 'LAYER_LIST'
   | 'FILTER_LIST'
   | 'INTERACTIVE_LIST'
-  | 'FILTERED_DATASET';
+  | 'FILTERED_DATASET'
+  | 'PLAN_LIST';
 
 export function getDBStore<P = any>(key: STORE_KEY_TYPE) {
   return store.get(key) as Promise<P>;

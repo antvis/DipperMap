@@ -10,6 +10,6 @@ export interface IPlan {
   layers: ILayer[];
   filters: IFilter[];
   interactives: IInteractive[];
-  createTime: string;
-  updateTime: string;
+  createTime: number;
+  updateTime: number;
 }
