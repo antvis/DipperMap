@@ -12,6 +12,20 @@ import type {
 
 export const DEFAULT_COLOR = '#1890ff';
 
+export const MAPBOX_THEME_LIST: IOption[] = [
+  {
+    label: '幻影黑',
+    value: 'dark',
+  },
+  {
+    label: '标准',
+    value: 'normal',
+  },
+  {
+    label: '月光银',
+    value: 'light',
+  },
+];
 export const MAP_THEME_LIST: IOption[] = [
   {
     label: '幻影黑',
@@ -59,8 +73,24 @@ export const MAP_THEME_LIST: IOption[] = [
   },
 ];
 
+export const MAP_TYPES: IOption[] = [
+  {
+    label: '高德',
+    value: 'amap',
+  },
+  {
+    label: 'MapBox',
+    value: 'mapbox',
+  },
+];
+
+type ValueOf<T> = T extends any[] ? T[number] : T[keyof T];
+
+export type Maps = ValueOf<IOption[]>['value'];
+
 export const LOCAL_STORAGE_KEY = {
   MAP_THEME: 'DIPPER_VIEW_MAP_THEME',
+  MAP_TYPE: 'DIPPER_VIEW_MAP_TYPE',
   TOP_PANEL_HEIGHT: 'DIPPER_VIEW_TOP_PANEL_HEIGHT',
 };
 

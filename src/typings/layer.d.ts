@@ -68,6 +68,7 @@ export interface ITripLayerConfig {
 
 export interface IHeatLayerConfig {
   fillColor: ILayerSingleColor | ILayerFieldColor;
+  magField: string;
   ranges: [number, number];
 }
 
