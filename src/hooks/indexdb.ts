@@ -9,23 +9,26 @@ import { useDebounceEffect } from 'ahooks';
  * @param setList
  * @param key
  */
-const useIndexDBHook: <P>(list: P[], setList: (newList: P[]) => void, key: STORE_KEY_TYPE) => void =
-  (list, setList, key) => {
-    useEffect(() => {
-      getDBStore(key).then((newList = []) => {
-        setList(newList);
-      });
-    }, []);
+const useIndexDBHook: <P>(
+  list: P,
+  setList: (newList: P) => void,
+  key: STORE_KEY_TYPE,
+) => void = (list, setList, key) => {
+  useEffect(() => {
+    getDBStore(key).then((newList = []) => {
+      setList(newList);
+    });
+  }, []);
 
-    useDebounceEffect(
-      () => {
-        setDBStore(key, list ?? []);
-      },
-      [list],
-      {
-        wait: 500,
-      },
-    );
-  };
+  useDebounceEffect(
+    () => {
+      setDBStore(key, list ?? []);
+    },
+    [list],
+    {
+      wait: 500,
+    },
+  );
+};
 
 export default useIndexDBHook;

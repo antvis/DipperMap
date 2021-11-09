@@ -23,13 +23,9 @@ const MapContext: React.FC = ({ children }) => {
   const [filterList, setFilterList] = useState<IFilter[]>([]);
   const [interactiveList, setInteractiveList] = useState<IInteractive[]>([]);
 
-  useIndexDBHook<ILayer>(layerList, setLayerList, 'LAYER_LIST');
-  useIndexDBHook<IFilter>(filterList, setFilterList, 'FILTER_LIST');
-  useIndexDBHook<IInteractive>(
-    interactiveList,
-    setInteractiveList,
-    'INTERACTIVE_LIST',
-  );
+  useIndexDBHook(layerList, setLayerList, 'LAYER_LIST');
+  useIndexDBHook(filterList, setFilterList, 'FILTER_LIST');
+  useIndexDBHook(interactiveList, setInteractiveList, 'INTERACTIVE_LIST');
 
   return (
     <Provider

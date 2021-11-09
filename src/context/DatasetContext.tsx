@@ -1,7 +1,6 @@
 import React, { createContext, useEffect, useMemo, useState } from 'react';
 import { IDataset } from '../typings';
-import { getDBStore, setDBStore } from '../utils';
-import { useDebounceEffect } from 'ahooks';
+import useIndexDBHook from '../hooks/indexdb';
 
 export interface IProps {
   datasetList: IDataset[];
@@ -22,21 +21,7 @@ const DatasetContext: React.FC = ({ children }) => {
   const [datasetList, setDatasetList] = useState<IDataset[]>([]);
   const [selectDatasetId, setSelectDatasetId] = useState<string | null>(null);
 
-  useEffect(() => {
-    getDBStore<IDataset[]>('DATASET_LIST').then((newDatasetList) => {
-      setDatasetList(newDatasetList ?? []);
-    });
-  }, []);
-
-  useDebounceEffect(
-    () => {
-      setDBStore<IDataset[]>('DATASET_LIST', datasetList ?? []);
-    },
-    [datasetList],
-    {
-      wait: 500,
-    },
-  );
+  useIndexDBHook(datasetList, setDatasetList, 'DATASET_LIST');
 
   const selectDataset = useMemo(() => {
     if (!selectDatasetId) {
