@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import {
   LOCAL_STORAGE_KEY,
   Maps,
@@ -29,6 +29,14 @@ const MapContext: React.FC = ({ children }) => {
     (localStorage.getItem(LOCAL_STORAGE_KEY.MAP_TYPE) ??
       MAP_TYPES[0].value) as Maps,
   );
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY.MAP_THEME, mapTheme);
+  }, [mapTheme]);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY.MAP_TYPE, mapType);
+  }, [mapType]);
 
   return (
     <Provider value={{ mapTheme, setMapTheme, mapType, setMapType }}>
