@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import AppControlItem from './common/AppControlItem';
 import { Menu, Radio } from 'antd';
-import { MAP_TYPES } from '../../constants';
+import { IMapType, MAP_TYPES } from '../../constants';
 import { MapModelContext } from '../../context/MapContext';
 
 function MapType() {
@@ -17,7 +17,7 @@ function MapType() {
             <Menu.Item
               key={item.value}
               onClick={({ key }) => {
-                setMapType(key);
+                setMapType(key as IMapType);
               }}
             >
               <Radio checked={mapType === item.value}>{item.label}</Radio>
