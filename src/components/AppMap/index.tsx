@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { AMapScene, MapboxScene } from '@antv/l7-react';
 import { MapModelContext } from '../../context/MapContext';
-import { Maps } from '../../constants';
+import { IMapType } from '../../constants';
 
-const AppMap: React.FC<{ className?: string; map?: Maps }> = ({
+const AppMap: React.FC<{ className?: string; map?: IMapType }> = ({
   children,
   className,
   map = 'amap',
