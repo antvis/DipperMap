@@ -29,51 +29,53 @@ export const MAPBOX_THEME_LIST: IOption[] = [
 export const MAP_THEME_LIST: IOption[] = [
   {
     label: '幻影黑',
-    value: 'dark',
+    value: 'amap://styles/dark',
   },
   {
     label: '标准',
-    value: 'normal',
+    value: 'amap://styles/normal',
   },
   {
     label: '月光银',
-    value: 'light',
+    value: 'amap://styles/light',
   },
   {
     label: '远山黛',
-    value: 'whitesmoke',
+    value: 'amap://styles/whitesmoke',
   },
   {
     label: '草色青',
-    value: 'fresh',
+    value: 'amap://styles/fresh',
   },
   {
     label: '雅士灰',
-    value: 'grey',
+    value: 'amap://styles/grey',
   },
   {
     label: '涂鸦',
-    value: 'graffiti',
+    value: 'amap://styles/graffiti',
   },
   {
     label: '马卡龙',
-    value: 'macaron',
+    value: 'amap://styles/macaron',
   },
   {
     label: '靛青蓝',
-    value: 'blue',
+    value: 'amap://styles/blue',
   },
   {
     label: '极夜蓝',
-    value: 'darkblue',
+    value: 'amap://styles/darkblue',
   },
   {
     label: '酱籽',
-    value: 'wine',
+    value: 'amap://styles/wine',
   },
 ];
 
-export const MAP_TYPES: IOption[] = [
+export type IMapType = 'amap' | 'mapbox';
+
+export const MAP_TYPES: IOption<IMapType>[] = [
   {
     label: '高德',
     value: 'amap',
@@ -83,10 +85,6 @@ export const MAP_TYPES: IOption[] = [
     value: 'mapbox',
   },
 ];
-
-type ValueOf<T> = T extends any[] ? T[number] : T[keyof T];
-
-export type Maps = ValueOf<IOption[]>['value'];
 
 export const LOCAL_STORAGE_KEY = {
   MAP_THEME: 'DIPPER_VIEW_MAP_THEME',
