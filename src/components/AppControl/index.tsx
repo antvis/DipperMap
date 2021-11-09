@@ -1,7 +1,7 @@
 import React from 'react';
 import AppControlGroup from './common/AppControlGroup';
 import MapTheme from './MapTheme';
-// import MapDraw from './MapDraw';
+import MapType from './MapType';
 import Preview from './Preview';
 
 interface IProps {
@@ -14,6 +14,7 @@ function AppControl({ className }: IProps) {
       <AppControlGroup>
         {/*<MapDraw />*/}
         <MapTheme />
+        <MapType />
         <Preview />
       </AppControlGroup>
     </div>
