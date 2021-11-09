@@ -14,7 +14,12 @@ interface IProps extends SelectProps<string | undefined> {
   onChange?: (value?: string | null, field?: IDatasetField | null) => void;
 }
 
-const FieldSelect = ({ value = undefined, fields = [], onChange, ...props }: IProps) => {
+const FieldSelect = ({
+  value = undefined,
+  fields = [],
+  onChange,
+  ...props
+}: IProps) => {
   return (
     <Select
       value={value ?? undefined}
@@ -27,8 +32,12 @@ const FieldSelect = ({ value = undefined, fields = [], onChange, ...props }: IPr
       {...props}
     >
       {fields.map((field) => (
-        <Option key={field.name} value={field.name} className={styles.filterSelectOption}>
-          <span>{field.name}</span>
+        <Option
+          key={field.name}
+          value={field.name}
+          className={styles.filterSelectOption}
+        >
+          <span title={field.name}>{field.name}</span>
           <Tag color={DATASET_FIELD_TYPE_COLOR[field.type]}>{field.type}</Tag>
         </Option>
       ))}

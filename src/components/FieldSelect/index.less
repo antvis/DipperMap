@@ -1,7 +1,18 @@
 .filterSelect,
 .filterSelectOption {
   :global {
+    .ant-select-item-option-content {
+      display: flex;
+      align-items: center;
+      & > span:first-child {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        flex-shrink: 1;
+      }
+    }
     .ant-tag {
+      flex-shrink: 0;
       margin-left: 6px;
       line-height: 16px;
     }

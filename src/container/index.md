@@ -17,4 +17,6 @@ export default () => (
 );
 ```
 
+github page: https://github.com/antvis/DipperMap
+
 More skills for writing demo: https://d.umijs.org/guide/basic#write-component-demo

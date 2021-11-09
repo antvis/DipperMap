@@ -150,7 +150,7 @@ export const DEFAULT_POINT_LAYER_CONFIG: IPointLayerConfig = {
   },
   radius: {
     value: 10,
-    rangeValue: [1, 100],
+    rangeValue: [1, 10],
     field: null,
   },
 };

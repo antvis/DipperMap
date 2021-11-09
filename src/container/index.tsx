@@ -13,7 +13,7 @@ import { GlobalModelContext } from '../context/GlobalContext';
 import ExitPreview from '../components/AppControl/ExitPreview';
 import { MapModelContext } from '../context/MapContext';
 
-export default function Container() {
+export default function MapContainer() {
   const { isPreview } = useContext(GlobalModelContext);
   const { mapType } = useContext(MapModelContext);
   const sidebarRef = useRef<HTMLDivElement | null>(null);
