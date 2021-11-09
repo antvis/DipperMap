@@ -59,6 +59,13 @@
     color: @text-color-secondary;
     font-size: 12px;
   }
+  .filterItemContentRow {
+    display: flex;
+    align-items: center;
+    & > *:last-child {
+      flex-grow: 1;
+    }
+  }
   .filterItemContentRow + .filterItemContentRow {
     margin-top: 6px;
   }

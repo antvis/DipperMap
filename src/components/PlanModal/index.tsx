@@ -11,11 +11,9 @@ import { SaveOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import {
   formatDateTime,
   generateUnRepeatValue,
-  getDBStore,
   getRandomId,
-  setDBStore,
 } from '../../utils';
-import { useMount } from 'ahooks';
+import useIndexDBHook from '../../hooks/indexdb';
 
 interface IProps extends ModalProps {
   setVisible: (newValue: boolean) => void;
@@ -26,6 +24,8 @@ const PlanModal: React.FC<IProps> = ({ visible, setVisible }) => {
   const { selectPlan, setSelectPlan } = useContext(GlobalModelContext);
   const { mapTheme, setMapTheme } = useContext(MapModelContext);
 
+  useIndexDBHook(planList, setPlanList, 'PLAN_LIST');
+
   const { datasetList, setDatasetList } = useContext(DatasetModelContext);
   const {
     layerList,
@@ -35,27 +35,6 @@ const PlanModal: React.FC<IProps> = ({ visible, setVisible }) => {
     setFilterList,
     setInteractiveList,
   } = useContext(ConfigModelContext);
-
-  useMount(() => {
-    getDBStore<IPlan[]>('PLAN_LIST').then((newPlanList) => {
-      setPlanList(newPlanList || []);
-      getDBStore<string | null>('SELECT_PLAN_ID').then((selectPlanId) => {
-        if (!selectPlanId) {
-          return;
-        }
-        const targetPlan = newPlanList.find((plan) => plan.id === selectPlanId);
-        if (targetPlan) {
-          setSelectPlan(targetPlan);
-          onEdit(targetPlan);
-        }
-      });
-    });
-  });
-
-  const updatePlanList = (newPlanList: IPlan[]) => {
-    setPlanList(newPlanList);
-    setDBStore('PLAN_LIST', newPlanList);
-  };
 
   const onAdd = () => {
     const currentTime = Date.now();
@@ -70,7 +49,7 @@ const PlanModal: React.FC<IProps> = ({ visible, setVisible }) => {
       createTime: currentTime,
       updateTime: currentTime,
     };
-    updatePlanList([...planList, newPlan]);
+    setPlanList([...planList, newPlan]);
     setSelectPlan(newPlan);
     message.success('新增成功');
   };
@@ -86,7 +65,6 @@ const PlanModal: React.FC<IProps> = ({ visible, setVisible }) => {
       message.success('读取成功');
     }
     setSelectPlan(plan);
-    setDBStore('SELECT_PLAN_ID', plan?.id || '');
     if (authClose) {
       setVisible(false);
     }
@@ -104,7 +82,7 @@ const PlanModal: React.FC<IProps> = ({ visible, setVisible }) => {
         interactives: interactiveList,
         updateTime: Date.now(),
       });
-      updatePlanList(newPlanList);
+      setPlanList(newPlanList);
       message.success('保存成功');
     }
   };
@@ -114,7 +92,7 @@ const PlanModal: React.FC<IProps> = ({ visible, setVisible }) => {
     const targetIndex = newPlanList.findIndex((item) => item.id === plan.id);
     if (targetIndex > -1) {
       newPlanList.splice(targetIndex, 1);
-      updatePlanList(newPlanList);
+      setPlanList(newPlanList);
       message.success('删除成功');
       if (plan.id === selectPlan?.id) {
         onEdit(null);

@@ -1,7 +1,7 @@
 @import url('../../styles/variables');
 
 .appSidebarContainer {
-  height: 100%;
+  height: calc(100% - 20px);
   position: relative;
   margin: 10px;
   width: 310px;
@@ -16,7 +16,7 @@
 .appSidebar {
   display: inline-block;
   width: 300px;
-  height: calc(100% - 20px);
+  height: 100%;
   margin-right: 6px;
   // overflow: hidden;
   background-color: @bg-color;
@@ -27,7 +27,7 @@
 .appSidebarToggleBtn {
   background-color: #fff;
   position: absolute;
-  left: 320px;
+  left: 310px;
   top: 0;
   &:hover {
     background-color: @bg-color;
