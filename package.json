@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "dipper-map",
+  "name": "@antv/dipper-map",
   "version": "1.0.0",
   "scripts": {
     "start": "dumi dev",

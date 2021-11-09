@@ -8,7 +8,7 @@ sidemenu: false
  * compact: true
  */
 import React from 'react';
-import { Container } from 'dipper-map';
+import { Container } from '@antv/dipper-map';
 
 export default () => (
   <div style={{ width: '100%', height: '650px' }}>
