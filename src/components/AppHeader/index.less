@@ -8,6 +8,10 @@
   height: @header-height;
   padding: 10px;
   border-bottom: 1px solid @border-color-base;
+  .moreIcon {
+    cursor: pointer;
+    font-size: 20px;
+  }
   :global {
     img {
       width: 20px;
@@ -15,6 +19,14 @@
     }
     .ant-typography {
       margin-bottom: 0;
+    }
+  }
+}
+
+.appHeaderDropdown {
+  :global {
+    .anticon {
+      margin-right: 6px;
     }
   }
 }

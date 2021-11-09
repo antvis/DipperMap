@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import styles from './index.less';
 import AppMap from '../components/AppMap';
 import AppControl from '../components/AppControl';
@@ -8,31 +8,40 @@ import AppDataset from '../components/AppDataset';
 import AppEdit from '../components/AppEdit';
 import AppLayerList from '../components/AppLayerList';
 import AppDragPanel from '../components/AppDragPanel';
-import ContextProvider from '../context';
-import { ConfigProvider } from 'antd';
-import zhCN from 'antd/lib/locale/zh_CN';
+import classnames from 'classnames';
+import { GlobalModelContext } from '../context/GlobalContext';
+import ExitPreview from '../components/AppControl/ExitPreview';
 
-export default () => {
+export default function Container() {
+  const { isPreview } = useContext(GlobalModelContext);
   const sidebarRef = useRef<HTMLDivElement | null>(null);
   const sidebarHeaderRef = useRef<HTMLDivElement | null>(null);
 
   return (
-    <ConfigProvider locale={zhCN}>
-      <ContextProvider>
-        <AppMap className={styles.container}>
-          <AppControl className={styles.control} />
-          <AppSidebar ref={sidebarRef} className={styles.sidebar}>
-            <AppHeader ref={sidebarHeaderRef} />
-            <AppDragPanel
-              sidebarRef={sidebarRef}
-              sidebarHeaderRef={sidebarHeaderRef}
-              TopComponent={AppDataset}
-              BottomComponent={AppEdit}
-            />
-          </AppSidebar>
-          <AppLayerList />
-        </AppMap>
-      </ContextProvider>
-    </ConfigProvider>
+    <AppMap className={styles.container}>
+      <AppControl
+        className={classnames({
+          [styles.control]: true,
+          [styles.previewHidden]: isPreview,
+        })}
+      />
+      <AppSidebar
+        ref={sidebarRef}
+        className={classnames({
+          [styles.sidebar]: true,
+          [styles.previewHidden]: isPreview,
+        })}
+      >
+        <AppHeader ref={sidebarHeaderRef} />
+        <AppDragPanel
+          sidebarRef={sidebarRef}
+          sidebarHeaderRef={sidebarHeaderRef}
+          TopComponent={AppDataset}
+          BottomComponent={AppEdit}
+        />
+      </AppSidebar>
+      <AppLayerList />
+      {isPreview && <ExitPreview />}
+    </AppMap>
   );
-};
+}
