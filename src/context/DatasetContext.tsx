@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useMemo, useState } from 'react';
 import { IDataset } from '../typings';
 import useIndexDBHook from '../hooks/indexdb';
+import MapContextProvider from './ConfigContext';
 
 export interface IProps {
   datasetList: IDataset[];
@@ -17,7 +18,7 @@ const { Provider, Consumer } = DatasetModelContext;
 
 export { Consumer };
 
-const DatasetContext: React.FC = ({ children }) => {
+const DatasetContextProvider: React.FC = ({ children }) => {
   const [datasetList, setDatasetList] = useState<IDataset[]>([]);
   const [selectDatasetId, setSelectDatasetId] = useState<string | null>(null);
 
@@ -45,4 +46,4 @@ const DatasetContext: React.FC = ({ children }) => {
   );
 };
 
-export default DatasetContext;
+export default DatasetContextProvider;

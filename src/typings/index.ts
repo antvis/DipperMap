@@ -4,3 +4,4 @@ export * from './layer';
 export * from './filter';
 export * from './interactive';
 export * from './plan';
+export * from './props';

@@ -30,8 +30,10 @@ const AppHeader: React.FC<IProps> = React.forwardRef(
       <>
         <div className={styles.appHeader} ref={ref}>
           <Space align="center">
-            <img src={logo} alt="" />
-            <Title level={5}>地光数据可视化平台</Title>
+            <img
+              src="https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*95whQ7WhQBIAAAAAAAAAAAAAARQnAQ"
+              alt=""
+            />
           </Space>
           {/*<Space align="end">*/}
           {/*  <Dropdown*/}

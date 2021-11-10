@@ -1,21 +1,61 @@
-export type IBaseComponentConfig<P = string> =
-  | boolean
-  | {
-      display: boolean;
-      defaultValue: P;
-    };
+import { IDataset } from './dataset';
+import { ILayer } from './layer';
+import { IFilter } from './filter';
+import { IInteractive } from './interactive';
+import { DeepPartial } from './common';
 
-export interface IGlobalComponentConfig {
-  mapTheme: IBaseComponentConfig<string>;
-  mapType: IBaseComponentConfig<string>;
-  preview: boolean;
+export type IMapType = 'amap' | 'mapbox';
+
+export type IMapTheme =
+  | 'dark'
+  | 'normal'
+  | 'light'
+  | 'whitesmoke'
+  | 'fresh'
+  | 'grey'
+  | 'graffiti'
+  | 'macaron'
+  | 'blue'
+  | 'darkblue'
+  | 'wine';
+
+export type IBaseComponentProps<
+  ValueType = string,
+  Extends = Record<string, any>,
+> =
+  | boolean
+  | ({
+      display: boolean;
+      defaultValue: ValueType;
+      onChange: (newValue: ValueType) => void;
+    } & Extends);
+
+export type IMapThemeConfig = IBaseComponentProps<IMapTheme>;
+
+export type IMapTypeConfig = IBaseComponentProps<IMapType>;
+
+export type IPreviewConfig = IBaseComponentProps<boolean>;
+
+export type ILayerConfig = IBaseComponentProps<ILayer[]>;
+
+export type IFilterConfig = IBaseComponentProps<IFilter[]>;
+
+export type IInteractiveConfig = IBaseComponentProps<IInteractive[]>;
+
+export type IDatasetConfig = IBaseComponentProps<IDataset[]>;
+
+export interface IComponentProps {
+  mapTheme: IMapThemeConfig;
+  mapType: IMapTypeConfig;
+  preview: IPreviewConfig;
+  dataset: IDatasetConfig;
+  layer: ILayerConfig;
+  filter: IFilterConfig;
+  interactive: IInteractiveConfig;
 }
 
-export interface IGlobalConfig {
-  component: IGlobalComponentConfig;
-  store: boolean;
-  onChange: () => void;
-  onDatasetChange: () => void;
-  onLayerChange: () => void;
-  onFilterChange: () => void;
+export interface IGlobalProps {
+  component: DeepPartial<IComponentProps>;
+  store?: boolean;
+  onChange?: () => void;
 }

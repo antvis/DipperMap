@@ -8,11 +8,13 @@ import type {
   IPointLayerConfig,
   IPolygonLayerConfig,
   ITripLayerConfig,
+  IMapType,
+  IMapTheme,
 } from '../typings';
 
 export const DEFAULT_COLOR = '#1890ff';
 
-export const MAPBOX_THEME_LIST: IOption[] = [
+export const MAPBOX_THEME_LIST: IOption<IMapTheme>[] = [
   {
     label: '幻影黑',
     value: 'dark',
@@ -26,7 +28,7 @@ export const MAPBOX_THEME_LIST: IOption[] = [
     value: 'light',
   },
 ];
-export const MAP_THEME_LIST: IOption[] = [
+export const MAP_THEME_LIST: IOption<IMapTheme>[] = [
   {
     label: '幻影黑',
     value: 'dark',
@@ -73,14 +75,16 @@ export const MAP_THEME_LIST: IOption[] = [
   },
 ];
 
-export const MAP_TYPES: IOption[] = [
+export const MAP_TYPES: IOption<IMapType>[] = [
   {
     label: '高德',
     value: 'amap',
+    tooltip: '国内经纬度坐标系',
   },
   {
     label: 'MapBox',
     value: 'mapbox',
+    tooltip: '国外经纬度坐标系',
   },
 ];
 
