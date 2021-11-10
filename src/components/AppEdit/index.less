@@ -1,7 +1,9 @@
 @import '../../styles/variables';
 
+@footerHeight: 40px;
+
 .appEdit {
-  height: calc(100% - @default-dataset-height - 6px);
+  height: calc(100% - @default-dataset-height - 2px);
   :global {
     .ant-tabs-nav {
       margin-bottom: 0;
@@ -31,6 +33,27 @@
 
     .ant-empty {
       margin-top: 30px;
+    }
+
+    .editPanelContent {
+      height: calc(100% - @footerHeight);
+      overflow: auto;
+    }
+
+    .editPanelFooter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: @footerHeight;
+      background-color: @bg-color-dark;
+      box-shadow: @box-shadow-base;
+    }
+
+    .ant-btn {
+      width: calc(100% - 8px);
+      height: @footerHeight - 8px;
+      line-height: 20px;
     }
   }
 }

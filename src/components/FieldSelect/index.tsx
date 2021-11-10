@@ -8,10 +8,13 @@ import { DATASET_FIELD_TYPE_COLOR } from '../../constants';
 const { Option } = Select;
 
 // @ts-ignore
-interface IProps extends SelectProps<string | undefined> {
-  value?: string | null;
+interface IProps extends SelectProps<string | string[] | undefined> {
+  value?: string | string[] | null;
   fields?: IDatasetField[];
-  onChange?: (value?: string | null, field?: IDatasetField | null) => void;
+  onChange?: (
+    value?: string | string[] | null,
+    field?: IDatasetField | null,
+  ) => void;
 }
 
 const FieldSelect = ({
@@ -25,7 +28,7 @@ const FieldSelect = ({
       value={value ?? undefined}
       placeholder="暂未选择字段"
       className={styles.filterSelect}
-      onChange={(newValue: string | null = null) => {
+      onChange={(newValue: string | string[] | null = null) => {
         const targetField = fields.find((item) => item.name === newValue);
         onChange?.(newValue, targetField);
       }}
