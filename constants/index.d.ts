@@ -1,0 +1,21 @@
+import type { ILineLayerLineType, IOption, IDatasetFieldType, IHexLayerConfig, ILayerType, ILineLayerConfig, IPointLayerConfig, IPolygonLayerConfig, ITripLayerConfig } from '../typings';
+export declare const DEFAULT_COLOR = "#1890ff";
+export declare const MAPBOX_THEME_LIST: IOption[];
+export declare const MAP_THEME_LIST: IOption[];
+export declare const MAP_TYPES: IOption[];
+declare type ValueOf<T> = T extends any[] ? T[number] : T[keyof T];
+export declare type Maps = ValueOf<IOption[]>['value'];
+export declare const LOCAL_STORAGE_KEY: {
+    MAP_THEME: string;
+    MAP_TYPE: string;
+    TOP_PANEL_HEIGHT: string;
+};
+export declare const DATASET_FIELD_TYPE_COLOR: Record<IDatasetFieldType, string>;
+export declare const LAYER_TYPE_LIST: IOption<ILayerType>[];
+export declare const LINE_TYPE_LIST: IOption<ILineLayerLineType>[];
+export declare const DEFAULT_POINT_LAYER_CONFIG: IPointLayerConfig;
+export declare const DEFAULT_LINE_LAYER_CONFIG: ILineLayerConfig;
+export declare const DEFAULT_TRIP_LAYER_CONFIG: ITripLayerConfig;
+export declare const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig;
+export declare const DEFAULT_HEX_LAYER_CONFIG: IHexLayerConfig;
+export {};
