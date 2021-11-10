@@ -6,6 +6,7 @@ import useCommonHook from './components/commonHook';
 import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
 import RangeWrapper from './components/RangeWrapper';
+import LayerBlend from './components/LayerBlend';
 
 interface IProps {
   layer: ITripLayer;
@@ -52,6 +53,8 @@ const TripLayer = ({ layer, onChange }: IProps) => {
         form={form}
         fields={targetDatasetFields}
       />
+
+      <LayerBlend />
     </Form>
   );
 };

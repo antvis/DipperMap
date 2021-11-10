@@ -13,8 +13,8 @@ function AppControl({ className }: IProps) {
     <div className={className}>
       <AppControlGroup>
         {/*<MapDraw />*/}
-        <MapTheme />
         <MapType />
+        <MapTheme />
         <Preview />
       </AppControlGroup>
     </div>

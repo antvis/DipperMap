@@ -124,7 +124,7 @@ const getCommonLayerProps: (layer: ILayer) => Partial<ILayerProps> = (
   return {
     options: {
       visible: layer.visible,
-      blend: 'normal',
+      blend: layer.config.blendType,
       zIndex: layer.zIndex,
       autoFit: true,
     },

@@ -67,7 +67,7 @@ const AppLayerConfig = () => {
       </div>
       <div className="editPanelFooter">
         <AddBtn
-          text="添加筛选器"
+          text="添加图层"
           onClick={() => addLayer(selectDataset as IDataset)}
         />
       </div>

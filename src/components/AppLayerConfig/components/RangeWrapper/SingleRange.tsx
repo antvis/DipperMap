@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { InputNumber, Slider } from 'antd';
 
-const SingleRange: React.FC<{ value?: number; onChange?: (newValue: number) => void }> = ({
-  value,
-  onChange,
-}) => {
+const SingleRange: React.FC<{
+  value?: number;
+  onChange?: (newValue: number) => void;
+}> = ({ value, onChange }) => {
   const [cacheValue, setCacheValue] = useState(value);
 
   useEffect(() => {
@@ -12,8 +12,8 @@ const SingleRange: React.FC<{ value?: number; onChange?: (newValue: number) => v
   }, [value]);
 
   const onCacheValueChange = (newValue: number) => {
-    setCacheValue(newValue);
-    onChange?.(newValue);
+    setCacheValue(newValue ?? 1);
+    onChange?.(newValue ?? 1);
   };
 
   return (
@@ -25,7 +25,12 @@ const SingleRange: React.FC<{ value?: number; onChange?: (newValue: number) => v
         min={1}
         max={100}
       />
-      <InputNumber value={cacheValue} onChange={setCacheValue} min={1} max={100} />
+      <InputNumber
+        value={cacheValue}
+        onChange={onCacheValueChange}
+        min={1}
+        max={100}
+      />
     </>
   );
 };

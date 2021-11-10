@@ -6,6 +6,7 @@ import LayerTypeSelect from './components/LayerTypeSelect';
 import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
 import RangeWrapper from './components/RangeWrapper';
+import LayerBlend from './components/LayerBlend';
 
 interface IProps {
   layer: IPolygonLayer;
@@ -58,6 +59,8 @@ const PolygonLayer = ({ layer, onChange }: IProps) => {
         form={form}
         fields={targetDatasetFields}
       />
+
+      <LayerBlend />
     </Form>
   );
 };
