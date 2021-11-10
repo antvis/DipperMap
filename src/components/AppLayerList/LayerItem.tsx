@@ -19,6 +19,7 @@ export interface ILayerConfig {
 
 interface IProps {
   config: ILayerConfig;
+  event: JSX.Element;
 }
 
 const LAYER_COMPONENT_MAP: Record<
@@ -40,7 +41,7 @@ function getLayerKey(layer: ILayer, index: number) {
   return `${layer.id}-${index}`;
 }
 
-const LayerItem: React.FC<IProps> = React.memo(({ config }) => {
+const LayerItem: React.FC<IProps> = React.memo(({ config, event }) => {
   const { layer, data } = config;
 
   const source: ISourceOptions = useMemo(() => {
@@ -67,7 +68,9 @@ const LayerItem: React.FC<IProps> = React.memo(({ config }) => {
                 key={getLayerKey(layer, propsIndex) + '-layer'}
                 {...props}
                 source={source}
-              />
+              >
+                {event}
+              </LayerComponent>
             ) : null}
           </ErrorBoundary>
         );

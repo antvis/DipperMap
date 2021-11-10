@@ -9,6 +9,7 @@ import type { IDataset } from '../../typings';
 import { ConfigModelContext } from '../../context/ConfigContext';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import { filterByDatasetId } from '../../utils';
+import AddBtn from '../AppEdit/AddBtn';
 
 const AppFilterConfig = () => {
   const { filterList, setFilterList } = useContext(ConfigModelContext);
@@ -25,7 +26,7 @@ const AppFilterConfig = () => {
 
   return (
     <div className={styles.filterList}>
-      <div className={styles.filterListContent}>
+      <div className="editPanelContent">
         {!displayFilterList.length ? (
           <Empty description="暂无筛选器" />
         ) : (
@@ -47,16 +48,11 @@ const AppFilterConfig = () => {
           </DragList>
         )}
       </div>
-      <div className={styles.filterListFooter}>
-        <Button
-          icon={<i className="dpiconfont dpicon-tianjia" />}
-          className={styles.addFilterBtn}
-          disabled={!selectDataset}
-          type="ghost"
+      <div className="editPanelFooter">
+        <AddBtn
+          text="添加筛选器"
           onClick={() => addFilter(selectDataset as IDataset)}
-        >
-          添加筛选器
-        </Button>
+        />
       </div>
     </div>
   );

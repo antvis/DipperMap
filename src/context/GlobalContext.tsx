@@ -15,7 +15,7 @@ const { Provider, Consumer } = GlobalModelContext;
 
 export { Consumer };
 
-const GlobalContext: React.FC = ({ children }) => {
+const GlobalContextProvider: React.FC = ({ children }) => {
   const [isPreview, setIsPreview] = useState(false);
   const [selectPlan, setSelectPlan] = useState<IPlan | null>(null);
 
@@ -33,4 +33,4 @@ const GlobalContext: React.FC = ({ children }) => {
   );
 };
 
-export default GlobalContext;
+export default GlobalContextProvider;

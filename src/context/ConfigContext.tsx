@@ -18,7 +18,7 @@ const { Provider, Consumer } = ConfigModelContext;
 
 export { Consumer };
 
-const MapContext: React.FC = ({ children }) => {
+const MapContextProvider: React.FC = ({ children }) => {
   const [layerList, setLayerList] = useState<ILayer[]>([]);
   const [filterList, setFilterList] = useState<IFilter[]>([]);
   const [interactiveList, setInteractiveList] = useState<IInteractive[]>([]);
@@ -43,4 +43,4 @@ const MapContext: React.FC = ({ children }) => {
   );
 };
 
-export default MapContext;
+export default MapContextProvider;

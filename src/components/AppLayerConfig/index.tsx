@@ -9,6 +9,7 @@ import LayerItemConfig from './LayerItemConfig';
 import { ConfigModelContext } from '../../context/ConfigContext';
 import { filterByDatasetId } from '../../utils';
 import { DatasetModelContext } from '../../context/DatasetContext';
+import AddBtn from '../AppEdit/AddBtn';
 
 const AppLayerConfig = () => {
   const { layerList, setLayerList } = useContext(ConfigModelContext);
@@ -42,7 +43,7 @@ const AppLayerConfig = () => {
 
   return (
     <div className={styles.layerList}>
-      <div className={styles.layerListContent}>
+      <div className="editPanelContent">
         {!displayLayerList.length ? (
           <Empty description="暂无图层" />
         ) : (
@@ -64,16 +65,11 @@ const AppLayerConfig = () => {
           </DragList>
         )}
       </div>
-      <div className={styles.layerListFooter}>
-        <Button
-          icon={<i className="dpiconfont dpicon-tianjia" />}
-          className={styles.addFilterBtn}
-          disabled={!selectDataset}
-          type="ghost"
+      <div className="editPanelFooter">
+        <AddBtn
+          text="添加筛选器"
           onClick={() => addLayer(selectDataset as IDataset)}
-        >
-          添加图层
-        </Button>
+        />
       </div>
     </div>
   );

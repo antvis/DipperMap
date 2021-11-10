@@ -71,7 +71,7 @@ export function dataTransform(eventData: { data: any }) {
         if (isCSV) {
           item[field.name] = +item[field.name] || 0;
         }
-        field.values.push(+item[field.name]);
+        field.values.push(item[field.name]);
       } else if (field.type === 'boolean') {
         if (isCSV) {
           item[field.name] = Boolean(item[field.name]) || false;
@@ -84,8 +84,7 @@ export function dataTransform(eventData: { data: any }) {
 
   fields.forEach((field, index) => {
     if (field.type === 'number') {
-      field.uniqueValues = Array.from(new Set(field.values));
-      field.uniqueValues = field.uniqueValues.sort(
+      field.uniqueValues = Array.from(new Set(field.values as number[])).sort(
         (a: number, b: number) => a - b,
       );
       field.range = [

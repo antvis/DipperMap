@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AMapScene, MapboxScene } from '@antv/l7-react';
 import { MapModelContext } from '../../context/MapContext';
-import { IMapType } from '../../constants';
+import { IMapType } from '../../typings';
 
 const AppMap: React.FC<{ className?: string; map?: IMapType }> = ({
   children,
@@ -10,6 +10,7 @@ const AppMap: React.FC<{ className?: string; map?: IMapType }> = ({
 }) => {
   const { mapTheme } = useContext(MapModelContext);
   const MapScene = map === 'amap' ? AMapScene : MapboxScene;
+  const style = map === 'amap' ? 'amap://styles/' + mapTheme : mapTheme;
 
   return (
     <MapScene
@@ -18,7 +19,7 @@ const AppMap: React.FC<{ className?: string; map?: IMapType }> = ({
         center: [120.153576, 30.287459],
         pitch: 0,
         zoom: 10,
-        style: mapTheme,
+        style,
       }}
       option={{
         logoPosition: 'bottomright',

@@ -8,7 +8,7 @@ sidemenu: false
  * compact: true
  */
 import React from 'react';
-import { Container } from '@antv/dipper-map';
+import DipperMap from '@antv/dipper-map';
 
 export default () => (
   <div
@@ -20,7 +20,7 @@ export default () => (
       // left: 0,
     }}
   >
-    <Container />
+    <DipperMap />
   </div>
 );
 ```

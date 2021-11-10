@@ -8,11 +8,13 @@ import type {
   IPointLayerConfig,
   IPolygonLayerConfig,
   ITripLayerConfig,
+  IMapType,
+  IMapTheme,
 } from '../typings';
 
 export const DEFAULT_COLOR = '#1890ff';
 
-export const MAPBOX_THEME_LIST: IOption[] = [
+export const MAPBOX_THEME_LIST: IOption<IMapTheme>[] = [
   {
     label: '幻影黑',
     value: 'dark',
@@ -26,65 +28,69 @@ export const MAPBOX_THEME_LIST: IOption[] = [
     value: 'light',
   },
 ];
-export const MAP_THEME_LIST: IOption[] = [
+export const MAP_THEME_LIST: IOption<IMapTheme>[] = [
   {
     label: '幻影黑',
-    value: 'amap://styles/dark',
+    value: 'dark',
   },
   {
     label: '标准',
-    value: 'amap://styles/normal',
+    value: 'normal',
   },
   {
     label: '月光银',
-    value: 'amap://styles/light',
+    value: 'light',
   },
   {
     label: '远山黛',
-    value: 'amap://styles/whitesmoke',
+    value: 'whitesmoke',
   },
   {
     label: '草色青',
-    value: 'amap://styles/fresh',
+    value: 'fresh',
   },
   {
     label: '雅士灰',
-    value: 'amap://styles/grey',
+    value: 'grey',
   },
   {
     label: '涂鸦',
-    value: 'amap://styles/graffiti',
+    value: 'graffiti',
   },
   {
     label: '马卡龙',
-    value: 'amap://styles/macaron',
+    value: 'macaron',
   },
   {
     label: '靛青蓝',
-    value: 'amap://styles/blue',
+    value: 'blue',
   },
   {
     label: '极夜蓝',
-    value: 'amap://styles/darkblue',
+    value: 'darkblue',
   },
   {
     label: '酱籽',
-    value: 'amap://styles/wine',
+    value: 'wine',
   },
 ];
-
-export type IMapType = 'amap' | 'mapbox';
 
 export const MAP_TYPES: IOption<IMapType>[] = [
   {
     label: '高德',
     value: 'amap',
+    tooltip: '国内经纬度坐标系',
   },
   {
     label: 'MapBox',
     value: 'mapbox',
+    tooltip: '国外经纬度坐标系',
   },
 ];
+
+type ValueOf<T> = T extends any[] ? T[number] : T[keyof T];
+
+export type Maps = ValueOf<IOption[]>['value'];
 
 export const LOCAL_STORAGE_KEY = {
   MAP_THEME: 'DIPPER_VIEW_MAP_THEME',
