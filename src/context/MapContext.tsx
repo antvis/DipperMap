@@ -1,11 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import {
-  LOCAL_STORAGE_KEY,
-  IMapType,
-  MAP_THEME_LIST,
-  MAP_TYPES,
-} from '../constants';
+import { LOCAL_STORAGE_KEY, MAP_THEME_LIST, MAP_TYPES } from '../constants';
 import { PropsModelContext } from './PropContext';
+import { IMapType } from '../typings';
 
 export interface IProps {
   mapTheme: string;
