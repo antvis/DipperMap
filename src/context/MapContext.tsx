@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
   LOCAL_STORAGE_KEY,
-  Maps,
+  IMapType,
   MAP_THEME_LIST,
   MAP_TYPES,
 } from '../constants';
@@ -10,8 +10,8 @@ import { PropsModelContext } from './PropContext';
 export interface IProps {
   mapTheme: string;
   setMapTheme: (value: string) => void;
-  mapType: Maps;
-  setMapType: (value: Maps) => void;
+  mapType: IMapType;
+  setMapType: (value: IMapType) => void;
 }
 
 // @ts-ignore
@@ -28,9 +28,9 @@ const MapContextProvider: React.FC = ({ children }) => {
     localStorage.getItem(LOCAL_STORAGE_KEY.MAP_THEME) ??
       MAP_THEME_LIST[0].value,
   );
-  const [mapType, setMapType] = useState<Maps>(
+  const [mapType, setMapType] = useState<IMapType>(
     (localStorage.getItem(LOCAL_STORAGE_KEY.MAP_TYPE) ??
-      MAP_TYPES[0].value) as Maps,
+      MAP_TYPES[0].value) as IMapType,
   );
 
   useEffect(() => {

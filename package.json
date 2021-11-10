@@ -26,12 +26,15 @@
       "prettier --parser=typescript --write"
     ]
   },
-  "dependencies": {
+  "peerDependencies": {
+    "antd": "^4.16.13",
+    "react": "^16.12.0 || ^17.0.0",
     "@antv/l7": "^2.5.16",
-    "@antv/l7-react": "^2.3.4",
+    "@antv/l7-react": "^2.3.4"
+  },
+  "dependencies": {
     "@turf/turf": "^6.5.0",
     "ahooks": "^2.10.12",
-    "antd": "^4.16.13",
     "classnames": "^2.3.1",
     "h3-js": "^3.7.2",
     "idb-kv-store": "^4.5.0",
@@ -39,8 +42,6 @@
     "md5": "^2.3.0",
     "moment": "^2.29.1",
     "papaparse": "^5.3.1",
-    "prettier": "^2.4.0",
-    "react": "^16.12.0 || ^17.0.0",
     "react-beautiful-dnd": "^13.1.0",
     "react-color": "^2.19.3",
     "umi-request": "^1.4.0",
@@ -61,5 +62,8 @@
     "lint-staged": "^10.0.7",
     "prettier": "^2.2.1",
     "yorkie": "^2.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
