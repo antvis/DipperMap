@@ -202,7 +202,7 @@ export const DEFAULT_LINE_LAYER_CONFIG: ILineLayerConfig = {
   color: {
     value: [DEFAULT_COLOR, DEFAULT_COLOR],
   },
-  blendType: 'normal',
+  blendType: 'additive',
 };
 
 export const DEFAULT_TRIP_LAYER_CONFIG: ITripLayerConfig = {
@@ -216,7 +216,7 @@ export const DEFAULT_TRIP_LAYER_CONFIG: ITripLayerConfig = {
     rangeValue: [1, 10],
     field: null,
   },
-  blendType: 'normal',
+  blendType: 'additive',
 };
 
 export const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig = {
