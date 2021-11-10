@@ -10,6 +10,7 @@ import type {
   ITripLayerConfig,
   IMapType,
   IMapTheme,
+  IBlendType,
 } from '../typings';
 
 export const DEFAULT_COLOR = '#1890ff';
@@ -88,6 +89,33 @@ export const MAP_TYPES: IOption<IMapType>[] = [
   },
 ];
 
+export const BLEND_TYPE_LIST: IOption<IBlendType>[] = [
+  {
+    label: '正常',
+    value: 'normal',
+  },
+  {
+    label: '叠加',
+    value: 'additive',
+  },
+  {
+    label: '相减',
+    value: 'subtractive',
+  },
+  {
+    label: '最大值',
+    value: 'max',
+  },
+  {
+    label: '最小值',
+    value: 'min',
+  },
+  {
+    label: '无',
+    value: 'none',
+  },
+];
+
 type ValueOf<T> = T extends any[] ? T[number] : T[keyof T];
 
 export type Maps = ValueOf<IOption[]>['value'];
@@ -157,6 +185,7 @@ export const DEFAULT_POINT_LAYER_CONFIG: IPointLayerConfig = {
     rangeValue: [1, 10],
     field: null,
   },
+  blendType: 'normal',
 };
 
 export const DEFAULT_LINE_LAYER_CONFIG: ILineLayerConfig = {
@@ -173,6 +202,7 @@ export const DEFAULT_LINE_LAYER_CONFIG: ILineLayerConfig = {
   color: {
     value: [DEFAULT_COLOR, DEFAULT_COLOR],
   },
+  blendType: 'normal',
 };
 
 export const DEFAULT_TRIP_LAYER_CONFIG: ITripLayerConfig = {
@@ -186,6 +216,7 @@ export const DEFAULT_TRIP_LAYER_CONFIG: ITripLayerConfig = {
     rangeValue: [1, 10],
     field: null,
   },
+  blendType: 'normal',
 };
 
 export const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig = {
@@ -203,6 +234,7 @@ export const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig = {
     rangeValue: [1, 10],
     field: null,
   },
+  blendType: 'normal',
 };
 
 export const DEFAULT_HEX_LAYER_CONFIG: IHexLayerConfig = {
@@ -211,4 +243,5 @@ export const DEFAULT_HEX_LAYER_CONFIG: IHexLayerConfig = {
     value: DEFAULT_COLOR,
     field: null,
   },
+  blendType: 'normal',
 };

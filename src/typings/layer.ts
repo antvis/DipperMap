@@ -1,6 +1,9 @@
 import type { IEntity } from './common';
+import { BlendType } from '@antv/l7-core/es/services/layer/ILayerService';
 
 export type ILayerType = 'point' | 'line' | 'trip' | 'polygon' | 'hex' | 'heat';
+
+export type IBlendType = keyof typeof BlendType;
 
 export interface IBaseLayer extends IEntity {
   type: ILayerType;
@@ -39,6 +42,7 @@ export interface IPointLayerConfig {
   fillColor: ILayerSingleColor | ILayerFieldColor;
   borderColor: ILayerSingleColor;
   radius: ILayerRange;
+  blendType: IBlendType;
 }
 
 export type ILineLayerLineType = 'line' | 'arcmini';
@@ -51,6 +55,7 @@ export interface ILineLayerConfig {
   endLatField?: string | null;
   color: ILayerDoubleColor | ILayerFieldColor;
   lineWidth: ILayerRange;
+  blendType: IBlendType;
 }
 
 export interface IPolygonLayerConfig {
@@ -58,23 +63,27 @@ export interface IPolygonLayerConfig {
   fillColor: ILayerSingleColor | ILayerFieldColor;
   borderColor: ILayerSingleColor | ILayerFieldColor;
   borderWidth: ILayerRange;
+  blendType: IBlendType;
 }
 
 export interface ITripLayerConfig {
   geoField?: string | null;
   color: ILayerDoubleColor | ILayerFieldColor;
   lineWidth: ILayerRange;
+  blendType: IBlendType;
 }
 
 export interface IHeatLayerConfig {
   fillColor: ILayerSingleColor | ILayerFieldColor;
   magField: string;
   ranges: [number, number];
+  blendType: IBlendType;
 }
 
 export interface IHexLayerConfig {
   hexId?: string | null;
   fillColor: ILayerSingleColor | ILayerFieldColor;
+  blendType: IBlendType;
 }
 export interface IPointLayer extends IBaseLayer {
   type: 'point';

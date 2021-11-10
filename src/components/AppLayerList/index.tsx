@@ -66,7 +66,7 @@ const AppLayerList: React.FC<IProps> = () => {
         fields: fields.map((field) => {
           return {
             field,
-            value: e.feature.properties[field] ?? '-',
+            value: e?.feature?.properties?.[field] ?? '-',
           };
         }),
         lngLat: e.lngLat,

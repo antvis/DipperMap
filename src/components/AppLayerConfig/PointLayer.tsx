@@ -6,6 +6,7 @@ import useCommonHook from './components/commonHook';
 import LayerTypeSelect from './components/LayerTypeSelect';
 import RangeWrapper from './components/RangeWrapper/index';
 import ColorWrapper from './components/ColorWrapper/index';
+import LayerBlend from './components/LayerBlend';
 
 interface IProps {
   layer: IPointLayer;
@@ -38,9 +39,21 @@ const PointLayer = ({ layer, onChange }: IProps) => {
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>
 
-      <ColorWrapper label="填充颜色" field="fillColor" form={form} fields={targetDatasetFields} />
+      <ColorWrapper
+        label="填充颜色"
+        field="fillColor"
+        form={form}
+        fields={targetDatasetFields}
+      />
 
-      <RangeWrapper label="半径" field="radius" form={form} fields={targetDatasetFields} />
+      <RangeWrapper
+        label="半径"
+        field="radius"
+        form={form}
+        fields={targetDatasetFields}
+      />
+
+      <LayerBlend />
     </Form>
   );
 };

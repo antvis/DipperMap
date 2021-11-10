@@ -7,6 +7,7 @@ import LayerTypeSelect from './components/LayerTypeSelect';
 import RangeWrapper from './components/RangeWrapper/index';
 import ColorWrapper from './components/ColorWrapper/index';
 import { LINE_TYPE_LIST } from '../../constants';
+import LayerBlend from './components/LayerBlend';
 
 interface IProps {
   layer: ILineLayer;
@@ -51,9 +52,22 @@ const LineLayer = ({ layer, onChange }: IProps) => {
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>
 
-      <ColorWrapper label="颜色" field="color" form={form} fields={targetDatasetFields} range />
+      <ColorWrapper
+        label="颜色"
+        field="color"
+        form={form}
+        fields={targetDatasetFields}
+        range
+      />
 
-      <RangeWrapper label="线宽" field="lineWidth" form={form} fields={targetDatasetFields} />
+      <RangeWrapper
+        label="线宽"
+        field="lineWidth"
+        form={form}
+        fields={targetDatasetFields}
+      />
+
+      <LayerBlend />
     </Form>
   );
 };
