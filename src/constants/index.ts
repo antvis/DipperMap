@@ -11,6 +11,7 @@ import type {
   IMapType,
   IMapTheme,
   IBlendType,
+  IHeatLayerConfig,
 } from '../typings';
 
 export const DEFAULT_COLOR = '#1890ff';
@@ -243,5 +244,15 @@ export const DEFAULT_HEX_LAYER_CONFIG: IHexLayerConfig = {
     value: DEFAULT_COLOR,
     field: null,
   },
+  blendType: 'normal',
+};
+
+export const DEFAULT_HEAT_LAYER_CONFIG: IHeatLayerConfig = {
+  fillColor: {
+    value: DEFAULT_COLOR,
+    field: null,
+  },
+  magField: '',
+  ranges: [0, 1],
   blendType: 'normal',
 };
