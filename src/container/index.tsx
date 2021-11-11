@@ -10,7 +10,6 @@ import AppLayerList from '../components/AppLayerList';
 import AppDragPanel from '../components/AppDragPanel';
 import classnames from 'classnames';
 import { GlobalModelContext } from '../context/GlobalContext';
-import ExitPreview from '../components/AppControl/ExitPreview';
 import { MapModelContext } from '../context/MapContext';
 
 export default function MapContainer() {
@@ -43,7 +42,6 @@ export default function MapContainer() {
         />
       </AppSidebar>
       <AppLayerList />
-      {isPreview && <ExitPreview />}
     </AppMap>
   );
 }
