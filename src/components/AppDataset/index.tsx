@@ -4,10 +4,14 @@ import { Spin, Tooltip, Typography, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import AddDatasetModal from './AddDatasetModal';
 import DatasetList from './DatasetList';
+import { Demo } from '../../typings';
 
 const { Title } = Typography;
 
-const AppDataset: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
+const AppDataset: React.FC<{ style?: React.CSSProperties; demos: Demo[] }> = ({
+  style,
+  demos,
+}) => {
   const [addDatasetVisible, setAddDatasetVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -35,6 +39,7 @@ const AppDataset: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
         setVisible={setAddDatasetVisible}
         loading={loading}
         setLoading={setLoading}
+        demos={demos}
       />
     </div>
   );
