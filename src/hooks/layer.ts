@@ -8,6 +8,7 @@ import {
   DEFAULT_TRIP_LAYER_CONFIG,
   DEFAULT_POLYGON_LAYER_CONFIG,
   DEFAULT_HEX_LAYER_CONFIG,
+  DEFAULT_HEAT_LAYER_CONFIG,
 } from '../constants';
 import { ConfigModelContext } from '../context/ConfigContext';
 
@@ -30,6 +31,10 @@ const useLayer = () => {
     }
     if (type === 'hex') {
       config = DEFAULT_HEX_LAYER_CONFIG;
+    }
+
+    if (type === 'heat') {
+      config = DEFAULT_HEAT_LAYER_CONFIG;
     }
     return cloneDeep(config);
   }, []);
