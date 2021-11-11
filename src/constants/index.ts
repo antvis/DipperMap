@@ -14,7 +14,10 @@ import type {
   IHeatLayerConfig,
 } from '../typings';
 
-export const DEFAULT_COLOR = '#1890ff';
+export const DEFAULT_COLOR1 = '#1890ff';
+export const DEFAULT_COLOR2 = '#FF5627';
+
+export const POINT_TO_SQUARE_LIMIT = 50000;
 
 export const MAPBOX_THEME_LIST: IOption<IMapTheme>[] = [
   {
@@ -175,18 +178,18 @@ export const DEFAULT_POINT_LAYER_CONFIG: IPointLayerConfig = {
   lngField: null,
   latField: null,
   fillColor: {
-    value: DEFAULT_COLOR,
+    value: DEFAULT_COLOR1,
     enable: true,
   },
   borderColor: {
-    value: DEFAULT_COLOR,
+    value: DEFAULT_COLOR1,
   },
   radius: {
-    value: 10,
+    value: 3,
     rangeValue: [1, 10],
     field: null,
   },
-  blendType: 'normal',
+  blendType: 'additive',
 };
 
 export const DEFAULT_LINE_LAYER_CONFIG: ILineLayerConfig = {
@@ -201,7 +204,7 @@ export const DEFAULT_LINE_LAYER_CONFIG: ILineLayerConfig = {
     field: null,
   },
   color: {
-    value: [DEFAULT_COLOR, DEFAULT_COLOR],
+    value: [DEFAULT_COLOR1, DEFAULT_COLOR2],
   },
   blendType: 'additive',
 };
@@ -209,7 +212,7 @@ export const DEFAULT_LINE_LAYER_CONFIG: ILineLayerConfig = {
 export const DEFAULT_TRIP_LAYER_CONFIG: ITripLayerConfig = {
   geoField: null,
   color: {
-    value: [DEFAULT_COLOR, DEFAULT_COLOR],
+    value: [DEFAULT_COLOR1, DEFAULT_COLOR2],
     field: null,
   },
   lineWidth: {
@@ -223,11 +226,11 @@ export const DEFAULT_TRIP_LAYER_CONFIG: ITripLayerConfig = {
 export const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig = {
   geoField: null,
   fillColor: {
-    value: DEFAULT_COLOR,
+    value: DEFAULT_COLOR1,
     field: null,
   },
   borderColor: {
-    value: DEFAULT_COLOR,
+    value: DEFAULT_COLOR1,
     field: null,
   },
   borderWidth: {
@@ -241,7 +244,7 @@ export const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig = {
 export const DEFAULT_HEX_LAYER_CONFIG: IHexLayerConfig = {
   hexId: null,
   fillColor: {
-    value: DEFAULT_COLOR,
+    value: DEFAULT_COLOR1,
     field: null,
   },
   blendType: 'normal',
@@ -249,7 +252,7 @@ export const DEFAULT_HEX_LAYER_CONFIG: IHexLayerConfig = {
 
 export const DEFAULT_HEAT_LAYER_CONFIG: IHeatLayerConfig = {
   fillColor: {
-    value: DEFAULT_COLOR,
+    value: DEFAULT_COLOR1,
     field: null,
   },
   magField: '',

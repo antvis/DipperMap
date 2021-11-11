@@ -17,6 +17,7 @@ import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import { h3ToGeoBoundary } from 'h3-js';
 import { cloneDeep, merge } from 'lodash';
 import { message } from 'antd';
+import { POINT_TO_SQUARE_LIMIT } from '../../constants';
 
 export const getPointList: (coordinates: string) => number[][] = (
   coordinates,
@@ -158,6 +159,12 @@ export const setColorProps = (
         },
       },
     });
+  } else if (Array.isArray(colorConfig.value)) {
+    const [targetColor, sourceColor] = colorConfig.value;
+    props.style = Object.assign(props.style || {}, {
+      targetColor,
+      sourceColor,
+    });
   } else {
     Object.assign(props, {
       color: {
@@ -177,97 +184,108 @@ export const setSizeProps = (
   });
 };
 
-export const transformProps: (layer: ILayer) => Omit<ILayerProps, 'source'>[] =
-  (layer) => {
-    const props: Partial<ILayerProps> = {
-      ...getCommonLayerProps(layer),
+export const transformProps: (
+  layer: ILayer,
+  dataLength: number,
+) => Omit<ILayerProps, 'source'>[] = (layer, dataLength) => {
+  const props: Partial<ILayerProps> = {
+    ...getCommonLayerProps(layer),
+  };
+
+  if (layer.type === 'heat') {
+    const { config } = layer as IHeatLayer;
+    const { fillColor, ranges } = config;
+    let positions: number[] = [];
+
+    if (fillColor?.value) {
+      // 区间长度
+      const sectionLen = ranges[1] - ranges[0] / fillColor.value.length;
+      positions = (fillColor.value as string[]).map(
+        (_, i) => ranges[0] + i * sectionLen,
+      );
+    }
+
+    props.shape = {
+      values: 'heatmap',
     };
-
-    if (layer.type === 'heat') {
-      const { config } = layer as IHeatLayer;
-      const { fillColor, ranges } = config;
-      let positions: number[] = [];
-
-      if (fillColor?.value) {
-        // 区间长度
-        const sectionLen = ranges[1] - ranges[0] / fillColor.value.length;
-        positions = (fillColor.value as string[]).map(
-          (_, i) => ranges[0] + i * sectionLen,
-        );
-      }
-
-      props.shape = {
-        values: 'heatmap',
-      };
-      merge(props, {
-        style: {
-          rampColors: {
-            colors: fillColor?.value || [],
-            positions,
-          },
+    merge(props, {
+      style: {
+        rampColors: {
+          colors: fillColor?.value || [],
+          positions,
         },
-      });
-    }
+      },
+    });
+  }
 
-    if (layer.type === 'polygon') {
-      const { config } = layer as IPolygonLayer;
-      const { fillColor, borderColor, borderWidth } = config;
-      const borderProps = cloneDeep(props);
-      setColorProps(props, fillColor);
+  if (layer.type === 'polygon') {
+    const { config } = layer as IPolygonLayer;
+    const { fillColor, borderColor, borderWidth } = config;
+    const borderProps = cloneDeep(props);
+    setColorProps(props, fillColor);
 
-      borderProps.shape = {
-        values: 'line',
+    borderProps.shape = {
+      values: 'line',
+    };
+    setColorProps(borderProps, borderColor);
+    setSizeProps(borderProps, borderWidth);
+
+    return [props, borderProps];
+  }
+
+  if (layer.type === 'point') {
+    const { config } = layer as IPointLayer;
+    const { fillColor, borderColor, radius } = config;
+    setColorProps(props, fillColor);
+
+    if (dataLength > POINT_TO_SQUARE_LIMIT) {
+      props.shape = {
+        values: 'square',
       };
-      setColorProps(borderProps, borderColor);
-      setSizeProps(borderProps, borderWidth);
-
-      return [props, borderProps];
-    }
-
-    if (layer.type === 'point') {
-      const { config } = layer as IPointLayer;
-      const { fillColor, borderColor, radius } = config;
-      setColorProps(props, fillColor);
-      setSizeProps(props, radius);
-
+      props.size = {
+        values: 1,
+      };
+    } else {
       props.shape = {
         values: 'circle',
       };
-      merge(props, {
-        style: {
-          stroke: borderColor.enable ? borderColor.value : undefined,
-          strokeWidth: borderColor.enable ? 1 : 0,
-        },
-      });
+      setSizeProps(props, radius);
     }
-    if (layer.type === 'line') {
-      const { config } = layer as ILineLayer;
-      const { lineType, color, lineWidth } = config;
-      setColorProps(props, color);
-      setSizeProps(props, lineWidth);
-      Object.assign(props, {
-        shape: {
-          values: lineType ?? 'line',
-        },
-        style: {
-          segmentNumber: 15,
-        },
-      });
-    }
-    if (layer.type === 'trip') {
-      const { config } = layer as ITripLayer;
-      const { color, lineWidth } = config;
-      setColorProps(props, color);
-      setSizeProps(props, lineWidth);
-      props.shape = {
-        values: 'line',
-      };
-    }
-    if (layer.type === 'hex') {
-      const { config } = layer as IHexLayer;
-      const { fillColor } = config;
-      setColorProps(props, fillColor);
-    }
+    merge(props, {
+      style: {
+        stroke: borderColor.enable ? borderColor.value : undefined,
+        strokeWidth: borderColor.enable ? 1 : 0,
+      },
+    });
+  }
+  if (layer.type === 'line') {
+    const { config } = layer as ILineLayer;
+    const { lineType, color, lineWidth } = config;
+    Object.assign(props, {
+      shape: {
+        values: lineType ?? 'line',
+      },
+      style: {
+        segmentNumber: 15,
+      },
+    });
+    setColorProps(props, color);
+    setSizeProps(props, lineWidth);
+  }
+  if (layer.type === 'trip') {
+    const { config } = layer as ITripLayer;
+    const { color, lineWidth } = config;
+    setColorProps(props, color);
+    setSizeProps(props, lineWidth);
+    props.shape = {
+      values: 'line',
+    };
+  }
+  if (layer.type === 'hex') {
+    const { config } = layer as IHexLayer;
+    const { fillColor } = config;
+    setColorProps(props, fillColor);
+  }
 
-    return [props];
-  };
+  return [props];
+};

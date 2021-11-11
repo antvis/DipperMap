@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../../index.less';
-import { DEFAULT_COLOR } from '../../../../constants';
+import { DEFAULT_COLOR1 } from '../../../../constants';
 import { ColorPicker } from '../../../ColorPicker';
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const RangeColorPicker = ({
-  value = [DEFAULT_COLOR, DEFAULT_COLOR],
+  value = [DEFAULT_COLOR1, DEFAULT_COLOR1],
   onChange,
 }: IProps) => {
   return (

@@ -49,8 +49,8 @@ const LayerItem: React.FC<IProps> = React.memo(({ config, event }) => {
   }, [data, layer]);
 
   const propsList = useMemo(() => {
-    return transformProps(layer);
-  }, [layer]);
+    return transformProps(layer, data.length);
+  }, [layer, data.length]);
 
   const LayerComponent = useMemo(() => {
     return LAYER_COMPONENT_MAP[layer.type];

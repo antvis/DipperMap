@@ -3,10 +3,10 @@ import { Button, Popover } from 'antd';
 import { SketchPicker } from 'react-color';
 import styles from './index.less';
 
-interface Props {
-  value: string;
+interface IProps {
+  value?: string;
   disable?: boolean;
-  onChange(color: string): void;
+  onChange?: (color: string) => void;
 }
 
 const presetColors = [
@@ -23,11 +23,11 @@ const presetColors = [
   '#A9ABB1',
 ];
 
-export const ColorPicker = React.memo((props: Props) => {
+export const ColorPicker = React.memo((props: IProps) => {
   const { onChange, value, disable = false } = props;
   const onChangeComplete = React.useCallback(
     (color) => {
-      onChange(color.hex);
+      onChange?.(color.hex);
     },
     [onChange, value],
   );
