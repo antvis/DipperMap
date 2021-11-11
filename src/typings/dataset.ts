@@ -33,4 +33,5 @@ export interface IDataset<P = Record<string, any>> extends IEntity {
   url?: string;
   data: P[];
   fields: IDatasetField<keyof P>[];
+  id: string;
 }

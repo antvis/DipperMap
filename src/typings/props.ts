@@ -1,5 +1,14 @@
 import { IDataset } from './dataset';
-import { ILayer } from './layer';
+import {
+  IHeatLayerConfig,
+  IHexLayerConfig,
+  ILayer,
+  ILayerType,
+  ILineLayerConfig,
+  IPointLayerConfig,
+  IPolygonLayerConfig,
+  ITripLayerConfig,
+} from './layer';
 import { IFilter } from './filter';
 import { IInteractive } from './interactive';
 import { DeepPartial } from './common';
@@ -54,8 +63,30 @@ export interface IComponentProps {
   interactive: IInteractiveConfig;
 }
 
+export interface Demo {
+  type: ILayerType;
+  imgSrc: string;
+  dataSrc: string;
+  demoName: string;
+  layerList: {
+    name: string;
+    order: number;
+    config:
+      | IPointLayerConfig
+      | ILineLayerConfig
+      | IPolygonLayerConfig
+      | ITripLayerConfig
+      | IHeatLayerConfig
+      | IHexLayerConfig;
+  }[];
+  visible: boolean;
+  zIndex: number;
+  datasetId: string;
+}
+
 export interface IGlobalProps {
   component: DeepPartial<IComponentProps>;
   store?: boolean;
   onChange?: () => void;
+  demos?: Demo[];
 }
