@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { transformProps, transformSource } from './utils';
 import type { IDataset, ILayer, ILayerType } from '../../typings';
 import type { ISourceOptions } from '@antv/l7-react/es/component/LayerAttribute';
@@ -10,6 +10,8 @@ import {
 } from '@antv/l7-react';
 import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import ErrorBoundary from '../ErrorBoundary';
+import { useDebounceEffect } from 'ahooks';
+import { featureCollection } from '@turf/turf';
 
 export interface ILayerConfig {
   layer: ILayer;
@@ -44,13 +46,30 @@ function getLayerKey(layer: ILayer, index: number) {
 const LayerItem: React.FC<IProps> = React.memo(({ config, event }) => {
   const { layer, data } = config;
 
-  const source: ISourceOptions = useMemo(() => {
-    return transformSource(layer, data);
-  }, [data, layer]);
+  const [propsList, setPropsList] = useState<Omit<ILayerProps, 'source'>[]>([]);
+  const [source, setSource] = useState<ISourceOptions>({
+    data: featureCollection([]),
+  });
 
-  const propsList = useMemo(() => {
-    return transformProps(layer, data.length);
-  }, [layer, data.length]);
+  useDebounceEffect(
+    () => {
+      setSource(transformSource(layer, data));
+    },
+    [data, layer],
+    {
+      wait: 300,
+    },
+  );
+
+  useDebounceEffect(
+    () => {
+      setPropsList(transformProps(layer, data.length));
+    },
+    [layer, data.length],
+    {
+      wait: 300,
+    },
+  );
 
   const LayerComponent = useMemo(() => {
     return LAYER_COMPONENT_MAP[layer.type];

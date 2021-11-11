@@ -1,10 +1,10 @@
 import { defineConfig } from 'dumi';
 
 export default defineConfig({
-  title: 'dipper-map',
+  title: 'Dipper-Map',
   favicon:
-    'https://user-images.githubusercontent.com/9554297/83762004-a0761b00-a6a9-11ea-83b4-9c8ff721d4b8.png',
-  logo: 'https://user-images.githubusercontent.com/9554297/83762004-a0761b00-a6a9-11ea-83b4-9c8ff721d4b8.png',
+    'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*v_NzR4sELEEAAAAAAAAAAAAAARQnAQ',
+  logo: 'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*v_NzR4sELEEAAAAAAAAAAAAAARQnAQ',
   outputPath: 'docs-dist',
   plugins: [],
   // mfsu: {},
