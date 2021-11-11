@@ -7,7 +7,6 @@ import FieldSelect from '../../../FieldSelect';
 import RangeColorPicker from './RangeColorPicker';
 import FieldColorPicker from './FieldColorPicker';
 import { ColorPicker } from '../../../ColorPicker';
-import { DEFAULT_COLOR } from '../../../../constants';
 
 interface IProps {
   label: string;
@@ -48,11 +47,7 @@ const ColorWrapper = ({
           let content: JSX.Element = <></>;
 
           if (!colorField) {
-            content = range ? (
-              <RangeColorPicker />
-            ) : (
-              <ColorPicker value={DEFAULT_COLOR} onChange={() => {}} />
-            );
+            content = range ? <RangeColorPicker /> : <ColorPicker />;
           } else {
             content = <FieldColorPicker />;
           }

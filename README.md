@@ -1,6 +1,6 @@
 # dipper-map
 
-在线 Demo 地址: https://antv.vision/DipperMap/
+在线 Demo 地址: https://antv.vision/DipperMap/container
 
 ## TODO_LIST:
 
@@ -18,7 +18,7 @@
 - [ ] 样式主题
 - [ ] heatLayer 默认值
 - [ ] 自由绘制
-- [ ] 默认配置优化
+- [ ] 暗黑模式
 
 ### 技术改造
 
