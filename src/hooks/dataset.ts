@@ -21,7 +21,8 @@ const useDataset = () => {
     async (params: IDataset) => {
       const newDataset = {
         ...params,
-        id: getRandomId('dataset'),
+        id: params.id,
+        // id: getRandomId('dataset'),
         type: 'json',
         order: datasetList.length + 1,
         createTime: Date.now(),
