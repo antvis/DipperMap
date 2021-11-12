@@ -57,8 +57,8 @@ const AddDatasetModal = ({
   const [form, setForm] = useState<IFormData>(DEFAULT_FORM);
   const [demoVisible, setDemoVisible] = useState(false);
   const { setLayerList } = useContext(ConfigModelContext);
-  const { setSelectDatasetId } = useContext(DatasetModelContext);
   const { demos = [] } = useContext(PropsModelContext);
+  const { datasetList, setDatasetList } = useContext(DatasetModelContext);
 
   const typeOptions = useMemo(
     () => [
@@ -82,19 +82,8 @@ const AddDatasetModal = ({
       try {
         const result = dataTransform({
           data: type === 'url' ? await request(url) : data,
-        }); // non-blocking UI
-        // const worker = new DataTrans();
-        // worker.postMessage(type === 'url' ? await request(url) : data);
-        // worker.onmessage = async ({
-        //   data,
-        // }: {
-        //   data: {
-        //     fields: any[];
-        //     data: any[];
-        //   };
-        // }) => {
-        // };
-        await addDataset({
+        });
+        const newDataset = addDataset({
           name,
           url,
           data: result.data,
@@ -102,6 +91,7 @@ const AddDatasetModal = ({
           id: id || getRandomId('dataset'),
         });
         message.success('数据源新建成功');
+        setDatasetList([...datasetList, newDataset]);
         setLoading(false);
         setVisible(false);
       } catch (e) {
@@ -142,16 +132,25 @@ const AddDatasetModal = ({
   }, []);
 
   function clickDemo(demo: Demo) {
-    onSubmit({
-      type: 'url',
-      url: demo.dataSrc,
-      name: demo.demoName,
-      id: demo.datasetId,
+    Promise.all(
+      demo.dataSrc.map(async (data) => {
+        const result = dataTransform({
+          data: await request(data.src),
+        });
+        return addDataset({
+          name: data.name,
+          url: data.src,
+          data: result.data,
+          fields: result.fields,
+          id: data.datasetId || getRandomId('dataset'),
+        });
+      }),
+    ).then((res) => {
+      setDatasetList(res);
+      setLayerList(demo.layerList);
+      setDemoVisible(false);
+      setVisible(false);
     });
-    setSelectDatasetId(demo.datasetId);
-    setLayerList(demo.layerList);
-    setDemoVisible(false);
-    setVisible(false);
   }
 
   return (

@@ -15,24 +15,22 @@ const useDataset = () => {
   }, [datasetList]);
 
   // @ts-ignore
-  const addDataset: (
-    params: Partial<IDataset> & { data: any[] },
-  ) => Promise<IDataset> = useCallback(
-    async (params: IDataset) => {
-      const newDataset = {
-        ...params,
-        id: params.id,
-        // id: getRandomId('dataset'),
-        type: 'json',
-        order: datasetList.length + 1,
-        createTime: Date.now(),
-        name: params.name || getNewDatasetName(),
-      } as IDataset;
-      setDatasetList([...datasetList, newDataset]);
-      return newDataset;
-    },
-    [datasetList, getNewDatasetName, setDatasetList],
-  );
+  const addDataset: (params: Partial<IDataset> & { data: any[] }) => IDataset =
+    useCallback(
+      (params: IDataset) => {
+        const newDataset = {
+          ...params,
+          id: params.id,
+          // id: getRandomId('dataset'),
+          type: 'json',
+          order: datasetList.length + 1,
+          createTime: Date.now(),
+          name: params.name || getNewDatasetName(),
+        } as IDataset;
+        return newDataset;
+      },
+      [datasetList, getNewDatasetName],
+    );
 
   const copyDataset = useCallback(
     (dataset: IDataset) => {

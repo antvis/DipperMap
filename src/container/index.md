@@ -15,17 +15,24 @@ const DEMOS = [
   {
     imgSrc:
       'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*rePPSLfuXmsAAAAAAAAAAAAAARQnAQ',
-    dataSrc:
-      'https://gw.alipayobjects.com/os/bmw-prod/ba077ba7-2a28-435f-b163-4def4a3c874d.json',
-    demoName: '基础点图层',
-    datasetId: 'dataset-460dc585-a4fe-47db-95c7-fc5fb53c43ed',
+    dataSrc: [
+      {
+        src: 'https://gw.alipayobjects.com/os/bmw-prod/ba077ba7-2a28-435f-b163-4def4a3c874d.json',
+        datasetId: 'Chengdu',
+        name: '成都',
+      },
+      {
+        src: 'https://gw.alipayobjects.com/os/basement_prod/893d1d5f-11d9-45f3-8322-ee9140d288ae.json',
+        datasetId: 'Shanghai',
+        name: '上海',
+      },
+    ],
     layerList: [
       {
-        id: 'layer-c620ac3c-3720-46df-80bf-4c6a4c64ad40',
-        name: '图层1',
+        id: 'layer-Chengdu',
+        name: '成都',
         order: 1,
-        datasetId: 'dataset-460dc585-a4fe-47db-95c7-fc5fb53c43ed',
-        createTime: 1636601233481,
+        datasetId: 'Chengdu',
         config: {
           lngField: 'f_lon',
           latField: 'f_lat',
@@ -35,6 +42,32 @@ const DEMOS = [
           },
           borderColor: {
             value: '#1890ff',
+          },
+          radius: {
+            value: 3,
+            rangeValue: [1, 10],
+            field: null,
+          },
+          blendType: 'additive',
+        },
+        type: 'point',
+        visible: true,
+        zIndex: 1,
+      },
+      {
+        id: 'layer-Shanghai',
+        name: '上海',
+        order: 2,
+        datasetId: 'Shanghai',
+        config: {
+          lngField: 'longitude',
+          latField: 'latitude',
+          fillColor: {
+            value: '#10e817',
+            enable: true,
+          },
+          borderColor: {
+            value: '#10e817',
           },
           radius: {
             value: 3,
