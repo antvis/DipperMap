@@ -66,22 +66,12 @@ export interface IComponentProps {
 export interface Demo {
   type: ILayerType;
   imgSrc: string;
-  dataSrc: string;
-  demoName: string;
-  layerList: {
+  dataSrc: {
+    src: string;
+    datasetId: string;
     name: string;
-    order: number;
-    config:
-      | IPointLayerConfig
-      | ILineLayerConfig
-      | IPolygonLayerConfig
-      | ITripLayerConfig
-      | IHeatLayerConfig
-      | IHexLayerConfig;
   }[];
-  visible: boolean;
-  zIndex: number;
-  datasetId: string;
+  layerList: ILayer[];
 }
 
 export interface IGlobalProps {
