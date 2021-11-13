@@ -30,8 +30,6 @@ const InteractiveItem = ({
     [getTargetDataset, interactive.datasetId],
   );
 
-  console.log(fields);
-
   return (
     <div>
       <div className={styles.interactiveItemHeader}>

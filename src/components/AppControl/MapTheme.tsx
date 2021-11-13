@@ -9,7 +9,6 @@ function MapTheme() {
 
   return (
     <AppControlItem
-      text="地图主题"
       icon={<i className="dpiconfont dpicon-ditu" />}
       dropdown={
         <Menu>

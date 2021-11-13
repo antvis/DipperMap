@@ -2,8 +2,8 @@
 
 .appDataset {
   box-sizing: border-box;
-  height: @default-dataset-height;
-  border-bottom: 1px solid @border-color-base;
+  height: @default-dataset-panel-height;
+  //border-bottom: 1px solid @border-color-base;
   background-color: @bg-color-light;
 }
 
@@ -11,12 +11,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px @dataset-padding;
+  border-bottom: 1px solid @border-color-base;
+  padding: 0 @panel-padding;
+  height: @header-height;
 }
 
 .appDatasetContent {
   box-sizing: border-box;
-  height: calc(100% - 38px);
+  height: calc(100% - @header-height);
   overflow: auto;
   background-color: @bg-color-light;
 }
@@ -25,6 +27,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  height: 59px;
   &:hover {
     background-color: @bg-color-lighter;
   }
@@ -41,7 +44,10 @@
   flex-grow: 1;
   flex-shrink: 1;
   height: 100%;
+  @content-padding-top: 8px;
   .datasetInfo {
+    padding-top: @content-padding-top;
+    height: 100%;
     overflow: hidden;
     > * {
       overflow: hidden;
@@ -62,7 +68,7 @@
   }
   .datasetFileName {
     display: inline-block;
-    margin-top: 2px;
+    margin-top: 1px;
     color: @text-color-secondary;
     font-size: 12px;
     i {
@@ -71,12 +77,15 @@
     }
   }
   .btnGroup {
+    padding-top: @content-padding-top;
     display: inline-flex;
-    align-items: center;
     float: right;
     height: 100%;
-    margin: 0 @dataset-padding;
+    margin-right: @panel-padding;
     opacity: 0;
+    i {
+      font-size: 18px;
+    }
     i + i {
       margin-left: 6px;
     }

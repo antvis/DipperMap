@@ -56,33 +56,28 @@ const LayerItemConfig = ({
           }
         />
 
-        <Popconfirm
-          title="确认是否删除？"
-          placement="bottom"
-          onConfirm={() => onDelete(layer)}
-        >
-          <i
-            className="dpiconfont dpicon-icon_shanchu is-red-link"
-            title="删除"
-          />
-        </Popconfirm>
-
         <Dropdown
+          trigger={['click']}
+          overlayClassName={styles.layerItemOverlay}
           getPopupContainer={() => dropdownRef.current ?? document.body}
           overlay={
             <Menu>
-              <Menu.Item
-                key="changeDataset"
-                icon={<i className="dpiconfont dpicon-peizhishujuyuan" />}
-                onClick={() => setVisible(true)}
+              <Popconfirm
+                title="确认是否删除？"
+                placement="bottom"
+                onConfirm={() => onDelete(layer)}
               >
+                <Menu.Item>
+                  <i className="dpiconfont dpicon-icon_shanchu is-red-link" />
+                  删除图层
+                </Menu.Item>
+              </Popconfirm>
+              <Menu.Item key="changeDataset" onClick={() => setVisible(true)}>
+                <i className="dpiconfont dpicon-peizhishujuyuan" />
                 更改数据源
               </Menu.Item>
-              <Menu.Item
-                key="copyLayer"
-                icon={<i className="dpiconfont dpicon-fuzhi" />}
-                onClick={() => onCopy(layer)}
-              >
+              <Menu.Item key="copyLayer" onClick={() => onCopy(layer)}>
+                <i className="dpiconfont dpicon-fuzhi" />
                 复制图层
               </Menu.Item>
             </Menu>
