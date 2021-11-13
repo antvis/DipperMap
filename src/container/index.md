@@ -9,7 +9,7 @@ sidemenu: false
  * inline: true
  */
 import React from 'react';
-import 'antd/dist/antd.dark.less';
+// import 'antd/dist/antd.dark.less';
 import DipperMap from '@antv/dipper-map';
 
 const DEMOS = [

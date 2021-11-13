@@ -10,7 +10,6 @@ const { Title } = Typography;
 
 const AppDataset: React.FC<{ style?: React.CSSProperties; demos: Demo[] }> = ({
   style,
-  demos,
 }) => {
   const [addDatasetVisible, setAddDatasetVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -24,9 +23,8 @@ const AppDataset: React.FC<{ style?: React.CSSProperties; demos: Demo[] }> = ({
             {loading ? (
               <Spin spinning />
             ) : (
-              <Button
-                type="text"
-                icon={<PlusOutlined />}
+              <PlusOutlined
+                className="is-link"
                 onClick={() => setAddDatasetVisible(true)}
               />
             )}
@@ -39,7 +37,6 @@ const AppDataset: React.FC<{ style?: React.CSSProperties; demos: Demo[] }> = ({
         setVisible={setAddDatasetVisible}
         loading={loading}
         setLoading={setLoading}
-        demos={demos}
       />
     </div>
   );

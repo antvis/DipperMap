@@ -3,9 +3,10 @@
 @footerHeight: 52px;
 
 .appEdit {
-  height: calc(100% - @default-dataset-height - 2px);
+  height: calc(100% - @default-dataset-panel-height - 2px);
   :global {
     .ant-tabs-nav {
+      height: @header-height;
       margin-bottom: 0 !important;
     }
     .ant-tabs-content-holder {
@@ -18,10 +19,10 @@
         font-size: 14px;
       }
       i {
-        font-size: 16px;
+        font-size: 18px;
       }
       &:first-child {
-        margin-left: @dataset-padding;
+        margin-left: @panel-padding;
       }
     }
     .ant-tabs-tabpane,
