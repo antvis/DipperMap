@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import styles from '../index.less';
-import { Dropdown } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Popover } from 'antd';
 import classnames from 'classnames';
 
 interface IProps {
   icon?: JSX.Element;
-  text: string;
+  text?: string;
   dropdown?: JSX.Element;
   trigger?: ('click' | 'hover' | 'contextMenu')[];
   onActiveChange?: (active: boolean) => void;
@@ -24,11 +23,11 @@ const AppControlItem: React.FC<IProps> = ({
   return (
     <div className={styles.appControlItem}>
       {dropdown ? (
-        <Dropdown
-          overlay={dropdown}
-          arrow
-          placement="bottomCenter"
-          trigger={trigger}
+        <Popover
+          content={dropdown}
+          placement="leftTop"
+          trigger={['click']}
+          overlayClassName={styles.controlItemOverlay}
           onVisibleChange={(visible) => {
             setActive(visible);
             onActiveChange?.(visible);
@@ -40,11 +39,10 @@ const AppControlItem: React.FC<IProps> = ({
               [styles.appControlItemNameActive]: active,
             })}
           >
-            {icon && <span className={styles.appControlItemIcon}>{icon}</span>}
+            {icon && <span>{icon}</span>}
             {text}
-            <DownOutlined />
           </div>
-        </Dropdown>
+        </Popover>
       ) : (
         <div
           className={classnames({

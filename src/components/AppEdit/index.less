@@ -1,6 +1,6 @@
 @import '../../styles/variables';
 
-@footerHeight: 40px;
+@footerHeight: 52px;
 
 .appEdit {
   height: calc(100% - @default-dataset-height - 2px);
@@ -46,12 +46,19 @@
       justify-content: center;
       position: relative;
       height: @footerHeight;
-      background-color: @bg-color-dark;
+      background-color: @body-background;
       box-shadow: @box-shadow-base;
       .ant-btn {
-        width: calc(100% - 8px);
-        height: @footerHeight - 8px;
-        line-height: 20px;
+        width: calc(100% - 48px);
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        :global {
+          .dpiconfont {
+            margin-right: 6px;
+          }
+        }
       }
     }
   }
