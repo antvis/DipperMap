@@ -8,6 +8,7 @@ import RangeWrapper from './components/RangeWrapper/index';
 import ColorWrapper from './components/ColorWrapper/index';
 import LayerBlend from './components/LayerBlend';
 import { POINT_TO_SQUARE_LIMIT } from '../../constants';
+import LayerOpacity from './components/LayerOpacity';
 
 interface IProps {
   layer: IPointLayer;
@@ -80,6 +81,8 @@ const PointLayer = ({ layer, onChange }: IProps) => {
           fields={targetDatasetFields}
         />
       )}
+
+      <LayerOpacity />
 
       <LayerBlend />
     </Form>
