@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import type { IPointLayer, IPointLayerConfig } from '../../typings';
-import { Form, Input } from 'antd';
+import { Form, Input, Select } from 'antd';
 import FieldSelect from '../FieldSelect';
 import useCommonHook from './components/commonHook';
 import LayerTypeSelect from './components/LayerTypeSelect';
@@ -40,6 +40,17 @@ const PointLayer = ({ layer, onChange }: IProps) => {
     form.setFieldsValue(layer.config);
   }, [layer.config]);
 
+  const SHAPES = [
+    {
+      label: '2D点图',
+      value: 'circle',
+    },
+    {
+      label: '3D柱图',
+      value: 'cylinder',
+    },
+  ];
+
   return (
     <Form
       labelCol={{ span: 7 }}
@@ -50,12 +61,23 @@ const PointLayer = ({ layer, onChange }: IProps) => {
     >
       <LayerTypeSelect layer={layer} onChange={onChange} />
 
+      <Form.Item label="线段类型" name="shape">
+        <Select options={SHAPES} placeholder="暂未选择字段" />
+      </Form.Item>
+
       <Form.Item label="经度" name="lngField">
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>
 
       <Form.Item label="纬度" name="latField">
         <FieldSelect fields={targetDatasetFields} />
+      </Form.Item>
+
+      <Form.Item label="高度维度" name="magField">
+        <FieldSelect fields={targetDatasetFields} />
+      </Form.Item>
+      <Form.Item label="高度" name="size">
+        <Input />
       </Form.Item>
 
       <ColorWrapper
