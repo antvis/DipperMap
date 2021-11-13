@@ -198,7 +198,7 @@ export const transformProps: (
     const { fillColor, ranges } = config;
     let positions: number[] = [];
 
-    if (fillColor?.value) {
+    if (fillColor?.value && Array.isArray(fillColor.value)) {
       // 区间长度
       const sectionLen = ranges[1] - ranges[0] / fillColor.value.length;
       positions = (fillColor.value as string[]).map(

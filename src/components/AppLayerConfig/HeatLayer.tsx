@@ -75,6 +75,7 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
         field="fillColor"
         form={form}
         fields={targetDatasetFields}
+        fieldColor
       />
       <RangeWrapper
         label="半径"

@@ -12,6 +12,7 @@ interface IProps {
   label: string;
   field: string;
   range?: boolean;
+  fieldColor?: boolean;
   form: FormInstance;
   displayFieldCheckbox?: boolean;
   fields: IDatasetField[];
@@ -23,6 +24,7 @@ const ColorWrapper = ({
   field,
   fields,
   range = false,
+  fieldColor = false,
   displayFieldCheckbox = true,
 }: IProps) => {
   const [showField, setShowField] = useState(false);
@@ -46,9 +48,11 @@ const ColorWrapper = ({
         {() => {
           let content: JSX.Element = <></>;
 
-          if (!colorField) {
+          if (fieldColor) {
+            content = <FieldColorPicker />;
+          } else if (!colorField) {
             content = range ? <RangeColorPicker /> : <ColorPicker />;
-          } else {
+          } else if (fieldColor) {
             content = <FieldColorPicker />;
           }
 
