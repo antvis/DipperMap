@@ -172,6 +172,10 @@ export const LINE_TYPE_LIST: IOption<ILineLayerLineType>[] = [
     label: '曲线',
     value: 'arcmini',
   },
+  {
+    label: '3d曲线',
+    value: 'arc3d',
+  },
 ];
 
 export const DEFAULT_POINT_LAYER_CONFIG: IPointLayerConfig = {

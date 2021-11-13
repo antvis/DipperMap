@@ -45,7 +45,7 @@ export interface IPointLayerConfig {
   blendType: IBlendType;
 }
 
-export type ILineLayerLineType = 'line' | 'arcmini';
+export type ILineLayerLineType = 'line' | 'arcmini' | 'arc3d';
 
 export interface ILineLayerConfig {
   lineType: ILineLayerLineType;
