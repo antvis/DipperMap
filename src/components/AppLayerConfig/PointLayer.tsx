@@ -66,7 +66,10 @@ const PointLayer = ({ layer, onChange }: IProps) => {
       />
 
       {disableRange ? (
-        <Form.Item label="半径" tooltip="数据量过大，仅能使用散点图进行展示">
+        <Form.Item
+          label="半径"
+          tooltip={`数据量超过${POINT_TO_SQUARE_LIMIT}时，无法设置半径，否则可能会导致系统崩溃`}
+        >
           <Input value={1} disabled />
         </Form.Item>
       ) : (

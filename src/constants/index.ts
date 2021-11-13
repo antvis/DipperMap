@@ -120,10 +120,6 @@ export const BLEND_TYPE_LIST: IOption<IBlendType>[] = [
   },
 ];
 
-type ValueOf<T> = T extends any[] ? T[number] : T[keyof T];
-
-export type Maps = ValueOf<IOption[]>['value'];
-
 export const LOCAL_STORAGE_KEY = {
   MAP_THEME: 'DIPPER_VIEW_MAP_THEME',
   MAP_TYPE: 'DIPPER_VIEW_MAP_TYPE',
