@@ -26,7 +26,7 @@ interface IProps {
 
 const LAYER_COMPONENT_MAP: Record<
   ILayerType,
-  React.NamedExoticComponent<ILayerProps>
+  React.NamedExoticComponent<ILayerProps> | undefined
 > = {
   point: PointLayer,
   line: LineLayer,
@@ -82,7 +82,7 @@ const LayerItem: React.FC<IProps> = React.memo(({ config, event }) => {
         return (
           <ErrorBoundary key={key}>
             {/* in case we accidentally remove a layer */}
-            {LayerComponent ? (
+            {LayerComponent && source.data.features.length ? (
               <LayerComponent
                 key={getLayerKey(layer, propsIndex) + '-layer'}
                 {...props}
