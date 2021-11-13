@@ -7,6 +7,7 @@ import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
 import RangeWrapper from './components/RangeWrapper';
 import LayerBlend from './components/LayerBlend';
+import LayerOpacity from './components/LayerOpacity';
 
 interface IProps {
   layer: IPolygonLayer;
@@ -59,6 +60,8 @@ const PolygonLayer = ({ layer, onChange }: IProps) => {
         form={form}
         fields={targetDatasetFields}
       />
+
+      <LayerOpacity />
 
       <LayerBlend />
     </Form>
