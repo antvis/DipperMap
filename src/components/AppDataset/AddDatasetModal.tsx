@@ -269,7 +269,7 @@ const AddDatasetModal = ({
       >
         <Row gutter={[16, 16]}>
           {demos.map((demo, index) => (
-            <Col span={8}>
+            <Col span={8} key={index}>
               <img
                 style={{ width: '100%', height: '100%' }}
                 src={demo.imgSrc}
