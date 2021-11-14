@@ -8,6 +8,7 @@ import ColorWrapper from './components/ColorWrapper';
 import RangeWrapper from './components/RangeWrapper';
 import LayerBlend from './components/LayerBlend';
 import LayerOpacity from './components/LayerOpacity';
+import { FORM_LAYOUT, GEO_JSON_TOOLTIP } from './common';
 
 interface IProps {
   layer: ITripLayer;
@@ -24,8 +25,7 @@ const TripLayer = ({ layer, onChange }: IProps) => {
 
   return (
     <Form
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 18 }}
+      {...FORM_LAYOUT}
       labelAlign="left"
       form={form}
       onValuesChange={onFormChange}
@@ -34,11 +34,7 @@ const TripLayer = ({ layer, onChange }: IProps) => {
 
       <LayerTypeSelect layer={layer} onChange={onChange} />
 
-      <Form.Item
-        label="Geojson"
-        name="geoField"
-        tooltip={'请以","分隔经纬度，以";"分隔各点，如: 12.1,13.4;54.1,69.2...'}
-      >
+      <Form.Item label="Geojson" name="geoField" tooltip={GEO_JSON_TOOLTIP}>
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>
 

@@ -7,6 +7,7 @@ import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
 import LayerBlend from './components/LayerBlend';
 import LayerOpacity from './components/LayerOpacity';
+import { FORM_LAYOUT } from './common';
 
 interface IProps {
   layer: IHexLayer;
@@ -23,8 +24,7 @@ const HexLayer = ({ layer, onChange }: IProps) => {
 
   return (
     <Form
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 18 }}
+      {...FORM_LAYOUT}
       labelAlign="left"
       form={form}
       onValuesChange={onFormChange}
