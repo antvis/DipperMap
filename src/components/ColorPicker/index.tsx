@@ -41,7 +41,12 @@ export const ColorPicker = React.memo((props: IProps) => {
   }, [value]);
 
   return (
-    <Button type="text" disabled={disable} style={{ padding: '0' }}>
+    <Button
+      className={styles['color-picker-btn']}
+      type="text"
+      disabled={disable}
+      style={{ padding: '0' }}
+    >
       <Popover
         trigger="click"
         placement="left"
@@ -59,7 +64,7 @@ export const ColorPicker = React.memo((props: IProps) => {
           <div
             className={styles['pasta-color-icon']}
             style={{ background: value }}
-          ></div>
+          />
         </div>
       </Popover>
     </Button>

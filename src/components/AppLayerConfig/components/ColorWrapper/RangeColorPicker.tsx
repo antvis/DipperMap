@@ -19,7 +19,7 @@ const RangeColorPicker = ({
   }, [value]);
 
   return (
-    <div className={styles.splitPanel}>
+    <div className={styles.splitPanel} style={{ marginBottom: 8 }}>
       <ColorPicker
         value={value[0]}
         onChange={(newStartColor) =>

@@ -26,7 +26,7 @@ const AppControlItem: React.FC<IProps> = ({
         <Popover
           content={dropdown}
           placement="leftTop"
-          trigger={['click']}
+          trigger={trigger}
           overlayClassName={styles.controlItemOverlay}
           onVisibleChange={(visible) => {
             setActive(visible);

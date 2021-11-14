@@ -6,6 +6,7 @@ import { IMapType } from '../../typings';
 import { MapModelContext } from '../../context/MapContext';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import styles from './index.less';
+import classnames from 'classnames';
 
 function MapType() {
   const { mapType, setMapType } = useContext(MapModelContext);
@@ -18,16 +19,17 @@ function MapType() {
           {MAP_TYPES.map((item) => (
             <Menu.Item
               key={item.value}
+              className={classnames({
+                [styles.menuItemActive]: item.value === mapType,
+              })}
               onClick={({ key }) => {
                 setMapType(key as IMapType);
               }}
             >
-              <Radio checked={mapType === item.value}>
-                <span>{item.label}</span>
-                <Tooltip overlay={item.tooltip} placement="right">
-                  <QuestionCircleOutlined className={styles.tooltipIcon} />
-                </Tooltip>
-              </Radio>
+              <span>{item.label}</span>
+              <Tooltip overlay={item.tooltip} placement="right">
+                <QuestionCircleOutlined className={styles.tooltipIcon} />
+              </Tooltip>
             </Menu.Item>
           ))}
         </Menu>

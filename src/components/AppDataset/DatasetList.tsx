@@ -55,6 +55,8 @@ export default function DatasetList({ className }: IProps) {
     setLayerList(layerList.filter((item) => item.datasetId !== id));
     setFilterList(filterList.filter((item) => item.datasetId !== id));
     setInteractiveList(interactiveList.filter((item) => item.datasetId !== id));
+
+    message.success('删除成功');
   };
 
   const checkDelete = (dataset: IDataset) => {
@@ -91,7 +93,7 @@ export default function DatasetList({ className }: IProps) {
             {icon}
             <div className={styles.appDatasetItemContent}>
               <div className={styles.btnGroup}>
-                <Tooltip overlay="复制" placement="bottom">
+                <Tooltip overlay="复制" placement="top">
                   <i
                     className="dpiconfont dpicon-fuzhi is-link"
                     onClick={(e) => {
@@ -101,10 +103,11 @@ export default function DatasetList({ className }: IProps) {
                   />
                 </Tooltip>
                 <Popconfirm
-                  title="确认删除此数据源"
+                  title={`你确定要删除${dataset.name}吗？`}
+                  placement="bottom"
                   onConfirm={() => checkDelete(dataset)}
                 >
-                  <Tooltip overlay="删除" placement="bottom">
+                  <Tooltip overlay="删除" placement="top">
                     <i
                       onClick={(e) => e.stopPropagation()}
                       className="dpiconfont dpicon-icon_shanchu is-red-link"

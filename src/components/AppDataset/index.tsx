@@ -23,8 +23,8 @@ const AppDataset: React.FC<{ style?: React.CSSProperties; demos: Demo[] }> = ({
             {loading ? (
               <Spin spinning />
             ) : (
-              <PlusOutlined
-                className="is-link"
+              <i
+                className="dpiconfont dpicon-tianjia is-link"
                 onClick={() => setAddDatasetVisible(true)}
               />
             )}

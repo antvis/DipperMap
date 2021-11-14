@@ -24,7 +24,9 @@ const FieldColorPicker: React.FC<IProps> = ({ value, onChange }) => {
 
   const [colorType, setColorType] = useState(() => {
     const targetType = colorTypeOptions.find((option) =>
-      COLOR_LIST_MAP[option.value].find((colorList: string[]) => isEqual(colorList, value)),
+      COLOR_LIST_MAP[option.value].find((colorList: string[]) =>
+        isEqual(colorList, value),
+      ),
     );
     return targetType?.value || colorTypeOptions[0].value;
   });
@@ -41,13 +43,19 @@ const FieldColorPicker: React.FC<IProps> = ({ value, onChange }) => {
 
   return (
     <>
-      <Form.Item label="颜色类型" labelCol={{ span: 7 }} wrapperCol={{ span: 17 }}>
-        <Select value={colorType} onChange={setColorType} options={colorTypeOptions} />
+      <Form.Item label="类型" labelCol={{ span: 7 }} wrapperCol={{ span: 17 }}>
+        <Select
+          value={colorType}
+          onChange={setColorType}
+          options={colorTypeOptions}
+        />
       </Form.Item>
 
-      <Form.Item label="颜色区间" labelCol={{ span: 7 }} wrapperCol={{ span: 17 }}>
+      <Form.Item label="区间" labelCol={{ span: 7 }} wrapperCol={{ span: 17 }}>
         <Select
+          className={styles.fieldColorSelect}
           value={JSON.stringify(value)}
+          suffixIcon={<></>}
           onChange={(newValue) => {
             onChange?.(JSON.parse(newValue) as string[]);
           }}

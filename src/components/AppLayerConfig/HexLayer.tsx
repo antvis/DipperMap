@@ -7,6 +7,7 @@ import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
 import LayerBlend from './components/LayerBlend';
 import LayerOpacity from './components/LayerOpacity';
+import styles from './index.less';
 
 interface IProps {
   layer: IHexLayer;
@@ -29,6 +30,8 @@ const HexLayer = ({ layer, onChange }: IProps) => {
       form={form}
       onValuesChange={onFormChange}
     >
+      <Form.Item label="基础" colon={false} className="titleFormItem" />
+
       <LayerTypeSelect layer={layer} onChange={onChange} />
 
       <Form.Item label="hexId" name="hexId">
@@ -36,7 +39,7 @@ const HexLayer = ({ layer, onChange }: IProps) => {
       </Form.Item>
 
       <ColorWrapper
-        label="填充颜色"
+        label="颜色"
         field="fillColor"
         form={form}
         fields={targetDatasetFields}

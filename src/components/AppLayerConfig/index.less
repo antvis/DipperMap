@@ -1,62 +1,5 @@
 @import '../../styles/variables';
 
-.layerList {
-  height: 100%;
-  overflow: auto;
-}
-
-.layerItem {
-  margin: 16px @panel-padding;
-  background-color: @bg-color-darker;
-  border-radius: @border-radius;
-  .editName {
-    width: calc(100% - 94px);
-  }
-  .layerItemHeader {
-    display: flex;
-    align-items: center;
-    margin-top: 12px;
-  }
-  .layerItemMore {
-    display: inline-flex;
-    align-items: center;
-    //opacity: 0;
-    :global {
-      .dpiconfont,
-      .ant-switch {
-        margin-left: 6px;
-      }
-    }
-  }
-  &:hover {
-    .layerItemMore {
-      opacity: 1;
-    }
-  }
-  :global {
-    .ant-collapse-header {
-      height: 50px;
-      padding: 0 16px 0 0 !important;
-    }
-    .ant-collapse-content-box {
-      padding: 8px !important;
-      background-color: @bg-color-dark;
-    }
-    .ant-row {
-      margin-bottom: 8px;
-    }
-    .ant-form-item-label {
-      padding-bottom: 0;
-    }
-    .ant-form label {
-      font-size: 12px;
-    }
-    .ant-slider {
-      padding-top: 0;
-    }
-  }
-}
-
 .splitPanel {
   display: flex;
   align-items: center;
@@ -66,19 +9,18 @@
 .colorWrapper,
 .rangeWrapper {
   position: relative;
+  margin-bottom: 8px;
+  :global {
+    .ant-form-item-label {
+      height: 32px;
+    }
+  }
 }
 
 .fieldFormCheckbox {
   position: absolute;
-  top: 5px;
+  top: 3px;
   right: 0;
   z-index: 1;
-}
-
-.layerItemOverlay {
-  :global {
-    .dpiconfont {
-      margin-right: 4px;
-    }
-  }
+  font-size: 12px !important;
 }

@@ -9,6 +9,37 @@
     .ant-typography {
       margin-bottom: 0;
     }
+    .is-link {
+      cursor: pointer;
+      &:hover {
+        color: @primary-color;
+      }
+    }
+
+    .is-red-link {
+      .is-link();
+      &:hover {
+        color: red;
+      }
+    }
+
+    .ant-typography {
+      margin-bottom: 0;
+    }
+
+    .titleFormItem {
+      margin-bottom: 0 !important;
+      & > .ant-form-item-label {
+        margin-bottom: 4px;
+      }
+      & > .ant-form-item-label > label {
+        margin-top: 6px;
+        border-left: 2px solid #717171;
+        padding-left: 8px;
+        line-height: 16px;
+        height: 16px;
+      }
+    }
   }
 }
 

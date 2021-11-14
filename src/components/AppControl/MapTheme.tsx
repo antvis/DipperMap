@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 import AppControlItem from './common/AppControlItem';
-import { Menu, Radio } from 'antd';
+import { Menu } from 'antd';
 import { MAPBOX_THEME_LIST, MAP_THEME_LIST } from '../../constants';
 import { MapModelContext } from '../../context/MapContext';
+import styles from './index.less';
+import classnames from 'classnames';
 
 function MapTheme() {
   const { mapTheme, setMapTheme, mapType } = useContext(MapModelContext);
@@ -16,11 +18,14 @@ function MapTheme() {
             (item) => (
               <Menu.Item
                 key={item.value}
+                className={classnames({
+                  [styles.menuItemActive]: item.value === mapTheme,
+                })}
                 onClick={({ key }) => {
                   setMapTheme(key);
                 }}
               >
-                <Radio checked={mapTheme === item.value}>{item.label}</Radio>
+                {item.label}
               </Menu.Item>
             ),
           )}

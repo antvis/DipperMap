@@ -1,6 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import { Empty, Button } from 'antd';
-import styles from './index.less';
+import { Empty } from 'antd';
 import useFilter from '../../hooks/filter';
 import FilterItem from './FilterItem';
 import DragList from '../DragList';
@@ -10,6 +9,8 @@ import { ConfigModelContext } from '../../context/ConfigContext';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import { filterByDatasetId } from '../../utils';
 import AddBtn from '../AppEdit/AddBtn';
+import classnames from 'classnames';
+import styles from './index.less';
 
 const AppFilterConfig = () => {
   const { filterList, setFilterList } = useContext(ConfigModelContext);
@@ -25,13 +26,13 @@ const AppFilterConfig = () => {
   }, [filterList, selectDataset]);
 
   return (
-    <div className={styles.filterList}>
+    <div className="editPanel">
       <div className="editPanelContent">
         {!displayFilterList.length ? (
           <Empty description="暂无筛选器" />
         ) : (
           <DragList
-            itemClassName={styles.filterItem}
+            itemClassName={classnames([styles.filterItem, 'editItem'])}
             items={displayFilterList}
             onDrag={onDragEnd}
           >

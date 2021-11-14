@@ -58,6 +58,7 @@ const ColorWrapper = ({
 
           return (
             <Form.Item
+              className="titleFormItem"
               label={label}
               labelCol={{ span: 24 }}
               wrapperCol={{ span: 24 }}

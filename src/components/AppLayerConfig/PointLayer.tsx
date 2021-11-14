@@ -9,6 +9,7 @@ import ColorWrapper from './components/ColorWrapper/index';
 import LayerBlend from './components/LayerBlend';
 import { POINT_TO_SQUARE_LIMIT } from '../../constants';
 import LayerOpacity from './components/LayerOpacity';
+import styles from './index.less';
 
 interface IProps {
   layer: IPointLayer;
@@ -49,6 +50,8 @@ const PointLayer = ({ layer, onChange }: IProps) => {
       form={form}
       onValuesChange={onFormChange}
     >
+      <Form.Item label="基础" colon={false} className="titleFormItem" />
+
       <LayerTypeSelect layer={layer} onChange={onChange} />
 
       <Form.Item label="经度" name="lngField">
@@ -60,7 +63,7 @@ const PointLayer = ({ layer, onChange }: IProps) => {
       </Form.Item>
 
       <ColorWrapper
-        label="填充颜色"
+        label="颜色"
         field="fillColor"
         form={form}
         fields={targetDatasetFields}

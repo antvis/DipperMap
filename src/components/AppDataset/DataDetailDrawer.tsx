@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DrawerProps, Tooltip } from 'antd';
-import { Drawer, Tabs, Table, Typography } from 'antd';
+import { Drawer, Tabs, Table } from 'antd';
 import type { IDataset } from '../../typings';
 import moment from 'moment';
 import styles from './index.less';
@@ -11,7 +11,6 @@ interface IProps extends DrawerProps {
   datasetList: IDataset[];
 }
 
-const { Paragraph } = Typography;
 const { TabPane } = Tabs;
 
 const DataDetailDrawer = ({
@@ -30,9 +29,9 @@ const DataDetailDrawer = ({
     <Drawer
       {...drawProps}
       visible={visible}
-      bodyStyle={{ padding: '0 10px' }}
+      bodyStyle={{ padding: 0 }}
       placement="bottom"
-      height={500}
+      height={540}
       className={styles.datasetDetailDrawer}
     >
       <Tabs
@@ -67,7 +66,7 @@ const DataDetailDrawer = ({
                   },
                 };
               })}
-              scroll={{ y: 310 }}
+              scroll={{ y: 380 }}
             />
             <span className={styles.datasetExtraInfo}>
               创建时间：
