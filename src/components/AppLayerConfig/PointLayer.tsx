@@ -64,9 +64,9 @@ const PointLayer = ({ layer, onChange }: IProps) => {
 
       <LayerTypeSelect layer={layer} onChange={onChange} />
 
-      <Form.Item label="线段类型" name="shape">
-        <Select options={SHAPES} placeholder="暂未选择字段" />
-      </Form.Item>
+      {/*<Form.Item label="线段类型" name="shape">*/}
+      {/*  <Select options={SHAPES} placeholder="暂未选择字段" />*/}
+      {/*</Form.Item>*/}
 
       <Form.Item label="经度" name="lngField">
         <FieldSelect fields={targetDatasetFields} />
@@ -76,12 +76,12 @@ const PointLayer = ({ layer, onChange }: IProps) => {
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>
 
-      <Form.Item label="高度维度" name="magField">
-        <FieldSelect fields={targetDatasetFields} />
-      </Form.Item>
-      <Form.Item label="高度" name="size">
-        <Input />
-      </Form.Item>
+      {/*<Form.Item label="高度维度" name="magField">*/}
+      {/*  <FieldSelect fields={targetDatasetFields} />*/}
+      {/*</Form.Item>*/}
+      {/*<Form.Item label="高度" name="size">*/}
+      {/*  <Input />*/}
+      {/*</Form.Item>*/}
 
       <ColorWrapper
         label="颜色"

@@ -10,8 +10,8 @@ import {
 } from '@antv/l7-react';
 import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import ErrorBoundary from '../ErrorBoundary';
-import { useDebounceEffect } from 'ahooks';
 import { featureCollection } from '@turf/turf';
+import { useDebounceEffect } from 'ahooks';
 
 export interface ILayerConfig {
   layer: ILayer;
@@ -37,10 +37,14 @@ const LAYER_COMPONENT_MAP: Record<
 };
 
 function getLayerKey(layer: ILayer, index: number) {
+  const {
+    id,
+    config: { opacity },
+  } = layer;
   if (layer.type === 'line') {
-    return `${layer.id}+${index}-${layer.config.lineType}`;
+    return `${id}+${index}-${layer.config.lineType}-${opacity}`;
   }
-  return `${layer.id}-${index}`;
+  return `${id}-${index}-${opacity}`;
 }
 
 const LayerItem: React.FC<IProps> = React.memo(({ config, event }) => {
@@ -50,14 +54,27 @@ const LayerItem: React.FC<IProps> = React.memo(({ config, event }) => {
   const [source, setSource] = useState<ISourceOptions>({
     data: featureCollection([]),
   });
+  const [isFirstLoaded, setIsFirstLoaded] = useState(false);
 
-  useEffect(() => {
-    setSource(transformSource(layer, data));
-  }, [data, JSON.stringify(layer)]);
+  useDebounceEffect(
+    () => {
+      setSource(transformSource(layer, data));
+    },
+    [data, JSON.stringify(layer)],
+    {
+      wait: 200,
+    },
+  );
 
-  useEffect(() => {
-    setPropsList(transformProps(layer, data.length));
-  }, [JSON.stringify(layer), data.length]);
+  useDebounceEffect(
+    () => {
+      setPropsList(transformProps(layer, data.length));
+    },
+    [JSON.stringify(layer), data.length],
+    {
+      wait: 200,
+    },
+  );
 
   const LayerComponent = useMemo(() => {
     return LAYER_COMPONENT_MAP[layer.type];
@@ -74,6 +91,12 @@ const LayerItem: React.FC<IProps> = React.memo(({ config, event }) => {
                 key={getLayerKey(layer, propsIndex) + '-layer'}
                 {...props}
                 source={source}
+                onLayerLoaded={(layer) => {
+                  if (!isFirstLoaded) {
+                    layer.fitBounds();
+                    setIsFirstLoaded(true);
+                  }
+                }}
               >
                 {event}
               </LayerComponent>

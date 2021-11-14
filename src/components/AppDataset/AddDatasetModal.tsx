@@ -157,6 +157,7 @@ const AddDatasetModal = ({
     <>
       <Modal
         title="添加数据源"
+        width={680}
         className={styles.addDatasetModal}
         destroyOnClose
         visible={visible}
@@ -181,7 +182,7 @@ const AddDatasetModal = ({
             </Radio.Button>
           </Radio.Group>
         </div>
-        <Form labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
+        <Form colon={false} labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
           <Form.Item label="数据源名称">
             <Input
               value={form.name}
@@ -205,8 +206,6 @@ const AddDatasetModal = ({
                 })
               }
               options={typeOptions}
-              optionType="button"
-              buttonStyle="solid"
             />
           </Form.Item>
 
@@ -221,7 +220,7 @@ const AddDatasetModal = ({
                       url: e.target.value,
                     })
                   }
-                  placeholder="输入文件链接"
+                  placeholder="请输入文件链接"
                 />
               </Form.Item>
             </>
