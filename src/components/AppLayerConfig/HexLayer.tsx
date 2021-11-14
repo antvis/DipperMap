@@ -23,8 +23,8 @@ const HexLayer = ({ layer, onChange }: IProps) => {
 
   return (
     <Form
-      labelCol={{ span: 7 }}
-      wrapperCol={{ span: 19 }}
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 18 }}
       labelAlign="left"
       form={form}
       onValuesChange={onFormChange}
