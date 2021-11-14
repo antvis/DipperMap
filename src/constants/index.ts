@@ -189,8 +189,10 @@ export const DEFAULT_POINT_LAYER_CONFIG: IPointLayerConfig = {
     rangeValue: [1, 10],
     field: null,
   },
-  blendType: 'additive',
+  blendType: 'normal',
   opacity: 100,
+  shape: '',
+  size: 0,
 };
 
 export const DEFAULT_LINE_LAYER_CONFIG: ILineLayerConfig = {

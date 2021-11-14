@@ -1,56 +1,9 @@
 @import '../../styles/variables';
 
-.interactiveConfig {
-  height: 100%;
-  overflow: auto;
-}
-
 .interactiveItem {
-  margin: 8px;
-  background-color: @bg-color-darker;
-  border-radius: @border-radius;
-  .interactiveItemHeader {
-    display: flex;
-    align-items: center;
-    height: 34px;
-    .editName {
-      width: calc(100% - 80px);
-    }
-  }
-  .interactiveItemContent {
-    padding: 8px;
-    background-color: @bg-color-dark;
-  }
-  .interactiveItemMore {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 16px;
-    opacity: 0;
-    :global {
-      .ant-switch,
-      .dpiconfont {
-        margin-right: 4px;
-      }
-    }
-  }
-  .interactiveItemLabel {
-    color: @text-color-secondary;
-    font-size: 12px;
-  }
-  .interactiveItemContentRow {
-    display: flex;
-    align-items: center;
-    & > *:last-child {
-      flex-grow: 1;
-    }
-  }
-  .interactiveItemContentRow + .interactiveItemContentRow {
-    margin-top: 6px;
-  }
-
-  &:hover {
-    .interactiveItemMore {
-      opacity: 1;
+  :global {
+    .ant-collapse-content-box {
+      padding: 8px;
     }
   }
 }

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import AppControlItem from './common/AppControlItem';
-import { Menu } from 'antd';
+import { Menu, Tooltip } from 'antd';
 import { MAPBOX_THEME_LIST, MAP_THEME_LIST } from '../../constants';
 import { MapModelContext } from '../../context/MapContext';
 import styles from './index.less';
@@ -11,7 +11,7 @@ function MapTheme() {
 
   return (
     <AppControlItem
-      icon={<i className="dpiconfont dpicon-ditu" />}
+      icon={<i className="dpiconfont dpicon-ditu" title="地图主题" />}
       dropdown={
         <Menu>
           {(mapType === 'amap' ? MAP_THEME_LIST : MAPBOX_THEME_LIST).map(

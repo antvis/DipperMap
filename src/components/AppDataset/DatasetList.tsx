@@ -130,8 +130,10 @@ export default function DatasetList({ className }: IProps) {
                     });
                   }}
                 >
-                  <span>共{dataset.data.length}行数据</span>
-                  <i className="dpiconfont dpicon-right" />
+                  <Tooltip overlay="点击查看数据详情" placement="right">
+                    <span>共{dataset.data.length}行数据</span>
+                    <i className="dpiconfont dpicon-right" />
+                  </Tooltip>
                 </div>
               </div>
             </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DrawerProps, Tooltip } from 'antd';
 import { Drawer, Tabs, Table } from 'antd';
 import type { IDataset } from '../../typings';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import styles from './index.less';
 import TypeTag from '../TypeTag';
 
@@ -70,7 +70,7 @@ const DataDetailDrawer = ({
             />
             <span className={styles.datasetExtraInfo}>
               创建时间：
-              {moment(dataset.createTime).format('YYYY-MM-DD HH:mm:ss')}
+              {dayjs(dataset.createTime).format('YYYY-MM-DD HH:mm:ss')}
             </span>
           </TabPane>
         ))}

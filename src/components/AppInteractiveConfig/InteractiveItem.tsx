@@ -5,6 +5,7 @@ import FieldSelect from '../FieldSelect';
 import useDataset from '../../hooks/dataset';
 import { Collapse, Popconfirm, Switch } from 'antd';
 import { useRef } from 'react';
+import styles from './index.less';
 
 const { Panel } = Collapse;
 
@@ -91,7 +92,11 @@ const InteractiveItem = ({
       defaultActiveKey={[interactive.id]}
       expandIconPosition="right"
     >
-      <Panel key={interactive.id} header={header}>
+      <Panel
+        className={styles.interactiveItem}
+        key={interactive.id}
+        header={header}
+      >
         {content}
       </Panel>
     </Collapse>

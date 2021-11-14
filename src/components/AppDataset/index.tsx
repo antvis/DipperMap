@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import styles from './index.less';
-import { Spin, Tooltip, Typography, Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Spin, Tooltip, Typography } from 'antd';
 import AddDatasetModal from './AddDatasetModal';
 import DatasetList from './DatasetList';
-import { Demo } from '../../typings';
 
 const { Title } = Typography;
 
-const AppDataset: React.FC<{ style?: React.CSSProperties; demos: Demo[] }> = ({
-  style,
-}) => {
+const AppDataset: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
   const [addDatasetVisible, setAddDatasetVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
