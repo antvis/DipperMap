@@ -74,6 +74,9 @@ const LayerItem: React.FC<IProps> = React.memo(({ config, event }) => {
                 key={getLayerKey(layer, propsIndex) + '-layer'}
                 {...props}
                 source={source}
+                onLayerLoaded={(layer) => {
+                  layer.fitBounds();
+                }}
               >
                 {event}
               </LayerComponent>
