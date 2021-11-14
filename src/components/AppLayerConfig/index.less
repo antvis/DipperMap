@@ -6,24 +6,25 @@
 }
 
 .layerItem {
-  margin: 8px;
+  margin: 16px @panel-padding;
   background-color: @bg-color-darker;
   border-radius: @border-radius;
   .editName {
-    width: calc(100% - 120px);
+    width: calc(100% - 94px);
   }
   .layerItemHeader {
     display: flex;
     align-items: center;
+    margin-top: 12px;
   }
   .layerItemMore {
     display: inline-flex;
     align-items: center;
-    opacity: 0;
+    //opacity: 0;
     :global {
       .dpiconfont,
       .ant-switch {
-        margin-left: 4px;
+        margin-left: 6px;
       }
     }
   }
@@ -34,7 +35,8 @@
   }
   :global {
     .ant-collapse-header {
-      padding: 6px 16px 6px 0 !important;
+      height: 50px;
+      padding: 0 16px 0 0 !important;
     }
     .ant-collapse-content-box {
       padding: 8px !important;
@@ -71,4 +73,12 @@
   top: 5px;
   right: 0;
   z-index: 1;
+}
+
+.layerItemOverlay {
+  :global {
+    .dpiconfont {
+      margin-right: 4px;
+    }
+  }
 }

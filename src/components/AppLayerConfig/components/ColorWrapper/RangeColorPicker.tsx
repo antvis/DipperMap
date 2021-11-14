@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from '../../index.less';
 import { DEFAULT_COLOR1 } from '../../../../constants';
 import { ColorPicker } from '../../../ColorPicker';
@@ -12,6 +12,12 @@ const RangeColorPicker = ({
   value = [DEFAULT_COLOR1, DEFAULT_COLOR1],
   onChange,
 }: IProps) => {
+  useEffect(() => {
+    if (value?.length !== 2) {
+      onChange?.([DEFAULT_COLOR1, DEFAULT_COLOR1]);
+    }
+  }, [value]);
+
   return (
     <div className={styles.splitPanel}>
       <ColorPicker

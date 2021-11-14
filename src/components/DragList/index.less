@@ -1,17 +1,16 @@
 @import url('../../styles/variables');
 
-@dragIconWidth: 30px;
-
 .dragItem {
   .dragIcon {
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    width: @dragIconWidth;
+    width: @panel-padding;
     height: 100%;
     cursor: move;
     opacity: 0;
+    font-size: 12px;
   }
 
   &:global(.is-drag),
@@ -23,5 +22,5 @@
 }
 
 .dragContent {
-  width: calc(100% - @dragIconWidth);
+  width: calc(100% - @panel-padding);
 }

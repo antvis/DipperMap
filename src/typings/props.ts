@@ -64,7 +64,7 @@ export interface IComponentProps {
 }
 
 export interface Demo {
-  type: ILayerType;
+  name: string;
   imgSrc: string;
   dataSrc: {
     src: string;

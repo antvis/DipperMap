@@ -52,7 +52,7 @@ const ColorWrapper = ({
             content = <FieldColorPicker />;
           } else if (!colorField) {
             content = range ? <RangeColorPicker /> : <ColorPicker />;
-          } else if (fieldColor) {
+          } else {
             content = <FieldColorPicker />;
           }
 

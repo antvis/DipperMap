@@ -29,7 +29,6 @@ const Preview = () => {
           styles.appControlItemIcon,
         ])}
       />
-      <span>预览</span>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { transformProps, transformSource } from './utils';
 import type { IDataset, ILayer, ILayerType } from '../../typings';
 import type { ISourceOptions } from '@antv/l7-react/es/component/LayerAttribute';
@@ -51,25 +51,13 @@ const LayerItem: React.FC<IProps> = React.memo(({ config, event }) => {
     data: featureCollection([]),
   });
 
-  useDebounceEffect(
-    () => {
-      setSource(transformSource(layer, data));
-    },
-    [data, layer],
-    {
-      wait: 300,
-    },
-  );
+  useEffect(() => {
+    setSource(transformSource(layer, data));
+  }, [data, JSON.stringify(layer)]);
 
-  useDebounceEffect(
-    () => {
-      setPropsList(transformProps(layer, data.length));
-    },
-    [layer, data.length],
-    {
-      wait: 300,
-    },
-  );
+  useEffect(() => {
+    setPropsList(transformProps(layer, data.length));
+  }, [JSON.stringify(layer), data.length]);
 
   const LayerComponent = useMemo(() => {
     return LAYER_COMPONENT_MAP[layer.type];

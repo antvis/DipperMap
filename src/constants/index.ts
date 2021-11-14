@@ -120,10 +120,6 @@ export const BLEND_TYPE_LIST: IOption<IBlendType>[] = [
   },
 ];
 
-type ValueOf<T> = T extends any[] ? T[number] : T[keyof T];
-
-export type Maps = ValueOf<IOption[]>['value'];
-
 export const LOCAL_STORAGE_KEY = {
   MAP_THEME: 'DIPPER_VIEW_MAP_THEME',
   MAP_TYPE: 'DIPPER_VIEW_MAP_TYPE',
@@ -194,6 +190,7 @@ export const DEFAULT_POINT_LAYER_CONFIG: IPointLayerConfig = {
     field: null,
   },
   blendType: 'additive',
+  opacity: 100,
 };
 
 export const DEFAULT_LINE_LAYER_CONFIG: ILineLayerConfig = {
@@ -211,6 +208,7 @@ export const DEFAULT_LINE_LAYER_CONFIG: ILineLayerConfig = {
     value: [DEFAULT_COLOR1, DEFAULT_COLOR2],
   },
   blendType: 'additive',
+  opacity: 100,
 };
 
 export const DEFAULT_TRIP_LAYER_CONFIG: ITripLayerConfig = {
@@ -225,6 +223,7 @@ export const DEFAULT_TRIP_LAYER_CONFIG: ITripLayerConfig = {
     field: null,
   },
   blendType: 'additive',
+  opacity: 100,
 };
 
 export const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig = {
@@ -243,6 +242,7 @@ export const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig = {
     field: null,
   },
   blendType: 'normal',
+  opacity: 100,
 };
 
 export const DEFAULT_HEX_LAYER_CONFIG: IHexLayerConfig = {
@@ -252,6 +252,7 @@ export const DEFAULT_HEX_LAYER_CONFIG: IHexLayerConfig = {
     field: null,
   },
   blendType: 'normal',
+  opacity: 100,
 };
 
 export const DEFAULT_HEAT_LAYER_CONFIG: IHeatLayerConfig = {
@@ -262,4 +263,5 @@ export const DEFAULT_HEAT_LAYER_CONFIG: IHeatLayerConfig = {
   magField: '',
   ranges: [0, 1],
   blendType: 'normal',
+  opacity: 100,
 };

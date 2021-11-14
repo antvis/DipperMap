@@ -45,6 +45,7 @@ export interface IPointLayerConfig {
   blendType: IBlendType;
   size: number;
   shape: string;
+  opacity: number;
 }
 
 export type ILineLayerLineType = 'line' | 'arcmini' | 'arc3d';
@@ -58,6 +59,7 @@ export interface ILineLayerConfig {
   color: ILayerDoubleColor | ILayerFieldColor;
   lineWidth: ILayerRange;
   blendType: IBlendType;
+  opacity: number;
 }
 
 export interface IPolygonLayerConfig {
@@ -66,6 +68,7 @@ export interface IPolygonLayerConfig {
   borderColor: ILayerSingleColor | ILayerFieldColor;
   borderWidth: ILayerRange;
   blendType: IBlendType;
+  opacity: number;
 }
 
 export interface ITripLayerConfig {
@@ -73,6 +76,7 @@ export interface ITripLayerConfig {
   color: ILayerDoubleColor | ILayerFieldColor;
   lineWidth: ILayerRange;
   blendType: IBlendType;
+  opacity: number;
 }
 
 export interface IHeatLayerConfig {
@@ -80,12 +84,14 @@ export interface IHeatLayerConfig {
   magField: string;
   ranges: [number, number];
   blendType: IBlendType;
+  opacity: number;
 }
 
 export interface IHexLayerConfig {
   hexId?: string | null;
   fillColor: ILayerSingleColor | ILayerFieldColor;
   blendType: IBlendType;
+  opacity: number;
 }
 export interface IPointLayer extends IBaseLayer {
   type: 'point';
