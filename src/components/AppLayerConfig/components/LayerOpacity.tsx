@@ -1,13 +1,12 @@
 import React from 'react';
 import { Form, Slider } from 'antd';
-import styles from '../index.less';
 
 interface IProps {
   value?: number;
   onChange?: (newBlend: number) => void;
 }
 
-const LayerBlend: React.FC<IProps> = ({ value, onChange }) => {
+const LayerOpacity: React.FC<IProps> = ({ value, onChange }) => {
   return (
     <Form.Item
       label="透明度"
@@ -21,4 +20,4 @@ const LayerBlend: React.FC<IProps> = ({ value, onChange }) => {
   );
 };
 
-export default LayerBlend;
+export default LayerOpacity;

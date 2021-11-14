@@ -13,7 +13,6 @@ import RangeWrapper from './components/RangeWrapper';
 import useDataset from '../../hooks/dataset';
 import LayerBlend from './components/LayerBlend';
 import LayerOpacity from './components/LayerOpacity';
-import styles from './index.less';
 
 interface IProps {
   layer: IHeatLayer;

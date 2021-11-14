@@ -9,7 +9,6 @@ import ColorWrapper from './components/ColorWrapper/index';
 import { LINE_TYPE_LIST } from '../../constants';
 import LayerBlend from './components/LayerBlend';
 import LayerOpacity from './components/LayerOpacity';
-import styles from './index.less';
 
 interface IProps {
   layer: ILineLayer;

@@ -9,7 +9,6 @@ import ColorWrapper from './components/ColorWrapper/index';
 import LayerBlend from './components/LayerBlend';
 import { POINT_TO_SQUARE_LIMIT } from '../../constants';
 import LayerOpacity from './components/LayerOpacity';
-import styles from './index.less';
 
 interface IProps {
   layer: IPointLayer;

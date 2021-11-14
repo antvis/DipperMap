@@ -7,7 +7,6 @@ import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
 import LayerBlend from './components/LayerBlend';
 import LayerOpacity from './components/LayerOpacity';
-import styles from './index.less';
 
 interface IProps {
   layer: IHexLayer;
