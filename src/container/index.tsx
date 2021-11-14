@@ -11,7 +11,6 @@ import AppDragPanel from '../components/AppDragPanel';
 import classnames from 'classnames';
 import { GlobalModelContext } from '../context/GlobalContext';
 import { MapModelContext } from '../context/MapContext';
-import { Demo } from '../typings';
 
 export default function MapContainer() {
   const { isPreview } = useContext(GlobalModelContext);
