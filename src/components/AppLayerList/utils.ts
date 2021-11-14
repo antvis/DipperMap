@@ -236,10 +236,17 @@ export const transformProps: (
 
   if (layer.type === 'point') {
     const { config } = layer as IPointLayer;
-    const { fillColor, borderColor, radius } = config;
+    const { fillColor, borderColor, radius, size = 40, shape } = config;
     setColorProps(props, fillColor);
 
-    if (dataLength > POINT_TO_SQUARE_LIMIT) {
+    if (shape) {
+      props.shape = {
+        values: shape,
+      };
+      props.size = {
+        values: [1, 2, size],
+      };
+    } else if (dataLength > POINT_TO_SQUARE_LIMIT) {
       props.shape = {
         values: 'square',
       };
@@ -258,6 +265,7 @@ export const transformProps: (
         strokeWidth: borderColor.enable ? 1 : 0,
       },
     });
+    console.log(props);
   }
   if (layer.type === 'line') {
     const { config } = layer as ILineLayer;
