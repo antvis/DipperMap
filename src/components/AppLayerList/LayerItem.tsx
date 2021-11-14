@@ -62,7 +62,6 @@ const LayerItem: React.FC<IProps> = React.memo(({ config, event }) => {
   const LayerComponent = useMemo(() => {
     return LAYER_COMPONENT_MAP[layer.type];
   }, [layer.type]);
-
   return (
     <>
       {propsList.map((props, propsIndex) => {
