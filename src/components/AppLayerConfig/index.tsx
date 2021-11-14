@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useMemo } from 'react';
-import styles from './index.less';
-import { Button, Empty } from 'antd';
+import { Empty } from 'antd';
 import useListHook from '../../hooks/list';
 import useLayer from '../../hooks/layer';
 import type { IDataset, ILayer } from '../../typings';
@@ -42,13 +41,13 @@ const AppLayerConfig = () => {
   );
 
   return (
-    <div className={styles.layerList}>
+    <div className="editPanel">
       <div className="editPanelContent">
         {!displayLayerList.length ? (
           <Empty description="暂无图层" />
         ) : (
           <DragList
-            itemClassName={styles.layerItem}
+            itemClassName="editItem"
             items={displayLayerList}
             onDrag={onDragEnd}
           >

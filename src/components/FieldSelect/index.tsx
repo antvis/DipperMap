@@ -27,7 +27,8 @@ const FieldSelect = ({
     <Select
       value={value ?? undefined}
       placeholder="暂未选择字段"
-      className={styles.filterSelect}
+      className={styles.fieldSelect}
+      maxTagCount={2}
       onChange={(newValue: string | string[] | null = null) => {
         const targetField = fields.find((item) => item.name === newValue);
         onChange?.(newValue, targetField);
@@ -38,10 +39,10 @@ const FieldSelect = ({
         <Option
           key={field.name}
           value={field.name}
-          className={styles.filterSelectOption}
+          className={styles.fieldSelectOption}
         >
-          <span title={field.name}>{field.name}</span>
           <Tag color={DATASET_FIELD_TYPE_COLOR[field.type]}>{field.type}</Tag>
+          <span title={field.name}>{field.name}</span>
         </Option>
       ))}
     </Select>

@@ -1,6 +1,6 @@
 @import url('../../styles/variables');
 
-@control-item-size: 32px;
+@control-item-size: 36px;
 
 .appControlGroup {
   display: flex;
@@ -22,9 +22,14 @@
   cursor: pointer;
   background-color: @bg-color;
   border-radius: @border-radius;
+  box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px 0 rgba(25, 15, 15, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   .appControlItemName {
     display: inline-flex;
     align-items: center;
+  }
+  .appControlItemIcon {
+    font-size: 18px;
   }
   .appControlItemNameActive {
     color: @primary-color;
@@ -55,7 +60,21 @@
 }
 
 .appControlItem + .appControlItem {
-  margin-top: 6px;
+  margin-top: 8px;
+}
+
+.controlItemOverlay {
+  :global {
+    .ant-popover-inner-content {
+      padding: 6px 0;
+    }
+    .ant-menu-item {
+      line-height: 30px !important;
+      height: 30px !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+  }
 }
 
 .exitPreview {
@@ -69,4 +88,8 @@
     margin-left: 4px;
     color: @text-color-secondary;
   }
+}
+
+.menuItemActive {
+  color: @primary-color;
 }

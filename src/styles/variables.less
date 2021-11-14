@@ -23,23 +23,3 @@
 @border-radius: 4px;
 
 @panel-zIndex: 1000;
-
-:global {
-  .is-link {
-    cursor: pointer;
-    &:hover {
-      color: @primary-color;
-    }
-  }
-
-  .is-red-link {
-    .is-link();
-    &:hover {
-      color: red;
-    }
-  }
-
-  .ant-typography {
-    margin-bottom: 0;
-  }
-}

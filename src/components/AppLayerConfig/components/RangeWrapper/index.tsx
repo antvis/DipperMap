@@ -27,6 +27,7 @@ const RangeWrapper: React.FC<{
         基于字段
       </Checkbox>
       <Form.Item
+        className="titleFormItem"
         label={label}
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}
@@ -36,7 +37,11 @@ const RangeWrapper: React.FC<{
       </Form.Item>
 
       {showField && (
-        <Form.Item label="基于字段" name={[field, 'field']}>
+        <Form.Item
+          label="基于字段"
+          name={[field, 'field']}
+          style={{ marginTop: 8 }}
+        >
           <FieldSelect fields={fields} allowClear />
         </Form.Item>
       )}

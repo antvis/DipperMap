@@ -8,6 +8,7 @@ import ColorWrapper from './components/ColorWrapper';
 import RangeWrapper from './components/RangeWrapper';
 import LayerBlend from './components/LayerBlend';
 import LayerOpacity from './components/LayerOpacity';
+import styles from './index.less';
 
 interface IProps {
   layer: IPolygonLayer;
@@ -30,6 +31,8 @@ const PolygonLayer = ({ layer, onChange }: IProps) => {
       form={form}
       onValuesChange={onFormChange}
     >
+      <Form.Item label="基础" colon={false} className="titleFormItem" />
+
       <LayerTypeSelect layer={layer} onChange={onChange} />
 
       <Form.Item

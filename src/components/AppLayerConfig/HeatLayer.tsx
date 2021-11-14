@@ -60,6 +60,7 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
       form={form}
       onValuesChange={onFormValueChanged}
     >
+      <Form.Item label="基础" colon={false} className="titleFormItem" />
       <LayerTypeSelect layer={layer} onChange={onChange} />
       <Form.Item label="经度" name="lngField">
         <FieldSelect fields={targetDatasetFields} />
@@ -71,7 +72,7 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>
       <ColorWrapper
-        label="填充颜色"
+        label="颜色"
         field="fillColor"
         form={form}
         fields={targetDatasetFields}

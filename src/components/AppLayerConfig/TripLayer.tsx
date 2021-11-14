@@ -30,6 +30,8 @@ const TripLayer = ({ layer, onChange }: IProps) => {
       form={form}
       onValuesChange={onFormChange}
     >
+      <Form.Item label="基础" colon={false} className="titleFormItem" />
+
       <LayerTypeSelect layer={layer} onChange={onChange} />
 
       <Form.Item

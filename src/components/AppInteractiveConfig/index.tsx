@@ -1,5 +1,4 @@
 import React, { useContext, useMemo } from 'react';
-import styles from './index.less';
 import { IDataset } from '../../typings';
 import AddBtn from '../AppEdit/AddBtn';
 import { DatasetModelContext } from '../../context/DatasetContext';
@@ -30,13 +29,13 @@ const AppInteractiveConfig = () => {
   const { addInteractive } = useInteractive();
 
   return (
-    <div className={styles.interactiveConfig}>
+    <div className="editPanel">
       <div className="editPanelContent">
         {!displayInteractiveList.length ? (
           <Empty description="暂无交互" />
         ) : (
           <DragList
-            itemClassName={styles.interactiveItem}
+            itemClassName="editItem"
             items={displayInteractiveList}
             onDrag={onDragEnd}
           >

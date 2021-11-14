@@ -14,8 +14,10 @@ export type STORE_KEY_TYPE =
 
 export function getDBStore<P = any>(key: STORE_KEY_TYPE) {
   return store.get(key) as Promise<P>;
+  // return new Promise(() => {});
 }
 
 export function setDBStore<P = any>(key: STORE_KEY_TYPE, value: P) {
   return store.set(key, value);
+  // return new Promise(() => {});
 }

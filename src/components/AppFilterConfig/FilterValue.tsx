@@ -25,6 +25,7 @@ const FilterValue = (props: IProps) => {
         mode="multiple"
         style={{ width: '100%' }}
         value={value as string[]}
+        maxTagCount={2}
         placeholder="请选择要筛选的值"
         allowClear
         options={field.uniqueValues.map((item: string) => ({

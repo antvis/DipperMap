@@ -43,9 +43,9 @@ export interface IPointLayerConfig {
   borderColor: ILayerSingleColor;
   radius: ILayerRange;
   blendType: IBlendType;
+  opacity: number;
   size: number;
   shape: string;
-  opacity: number;
 }
 
 export type ILineLayerLineType = 'line' | 'arcmini' | 'arc3d';

@@ -60,6 +60,8 @@ const PointLayer = ({ layer, onChange }: IProps) => {
       form={form}
       onValuesChange={onFormChange}
     >
+      <Form.Item label="基础" colon={false} className="titleFormItem" />
+
       <LayerTypeSelect layer={layer} onChange={onChange} />
 
       <Form.Item label="线段类型" name="shape">
@@ -82,7 +84,7 @@ const PointLayer = ({ layer, onChange }: IProps) => {
       </Form.Item>
 
       <ColorWrapper
-        label="填充颜色"
+        label="颜色"
         field="fillColor"
         form={form}
         fields={targetDatasetFields}

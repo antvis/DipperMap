@@ -1,0 +1,38 @@
+.singleRange {
+  align-items: center;
+  display: flex;
+
+  :global {
+    .ant-slider {
+      flex-grow: 1;
+      position: relative;
+      top: 4px;
+    }
+    .ant-input-number {
+      width: 48px;
+      margin-left: 16px;
+    }
+  }
+}
+
+.fieldRange {
+  :global {
+    .ant-slider {
+      margin-bottom: 2px;
+    }
+  }
+}
+
+.fieldRange {
+  :global {
+    .ant-slider {
+      margin-bottom: 4px;
+    }
+  }
+}
+
+.splitPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
