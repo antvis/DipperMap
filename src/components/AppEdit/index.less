@@ -11,12 +11,13 @@
     }
     .ant-tabs-content-holder {
       overflow: auto;
-      background-color: @bg-color-light;
+      background-color: @bg-color;
     }
     .ant-tabs-tab {
       margin-left: 16px;
       .ant-tabs-tab-btn {
         font-size: 14px;
+        margin-bottom: 2px;
       }
       i {
         font-size: 18px;
@@ -47,7 +48,7 @@
       align-items: center;
       justify-content: center;
       height: @footerHeight;
-      background-color: @body-background;
+      background-color: @bg-color;
       box-shadow: @box-shadow-base;
       .ant-btn {
         width: calc(100% - 48px);
@@ -79,7 +80,6 @@
 
     .editItem {
       margin: 9px @panel-padding;
-      background-color: @bg-color-darker;
       border-radius: @border-radius;
       .editName {
         width: calc(100% - 99px);
@@ -105,15 +105,21 @@
         .editItemMore {
           opacity: 1;
         }
+        :global {
+          .ant-collapse-header {
+            background-color: @bg-color-lighter;
+          }
+        }
       }
       :global {
         .ant-collapse-header {
+          background-color: @bg-color-light;
           height: 50px;
           padding: 0 16px 0 0 !important;
           border-left: 2px solid @primary-color;
         }
         .ant-collapse-content-box {
-          padding: 4px 8px !important;
+          padding: 4px 8px;
           background-color: @bg-color-dark;
         }
         .ant-row {

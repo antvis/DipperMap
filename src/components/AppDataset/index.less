@@ -4,7 +4,7 @@
   box-sizing: border-box;
   height: @default-dataset-panel-height;
   //border-bottom: 1px solid @border-color-base;
-  background-color: @bg-color-light;
+  background-color: @bg-color;
 }
 
 .appDatasetHeader {
@@ -23,7 +23,7 @@
   box-sizing: border-box;
   height: calc(100% - @header-height);
   overflow: auto;
-  background-color: @bg-color-light;
+  background-color: @bg-color;
 }
 
 .appDatasetItem {
@@ -35,7 +35,8 @@
     background-color: @bg-color-lighter;
   }
   &:global(.is-select) {
-    background-color: fade(@primary-color, 20);
+    color: @text-color-light;
+    background-color: fade(@primary-color, 10);
   }
 }
 
@@ -47,7 +48,7 @@
   flex-grow: 1;
   flex-shrink: 1;
   height: 100%;
-  @content-padding-top: 8px;
+  @content-padding-top: 6px;
   .datasetInfo {
     padding-top: @content-padding-top;
     height: 100%;
@@ -71,7 +72,7 @@
   }
   .datasetFileName {
     display: inline-block;
-    margin-top: 1px;
+    margin-top: 4px;
     color: @text-color-secondary;
     font-size: 12px;
     i {
@@ -80,7 +81,7 @@
     }
   }
   .btnGroup {
-    padding-top: @content-padding-top;
+    padding-top: @content-padding-top / 2;
     display: inline-flex;
     align-items: flex-start;
     float: right;
@@ -144,6 +145,9 @@
   :global {
     .ant-modal-body {
       padding-top: 10px;
+    }
+    .ant-upload {
+      height: 146px !important;
     }
   }
   .exampleBtnGroup {

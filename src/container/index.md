@@ -1,4 +1,5 @@
 ---
+nav: false
 toc: false
 sidemenu: false
 ---
@@ -232,11 +233,12 @@ const DEMOS = [
 export default () => (
   <div
     style={{
-      position: 'absolute',
+      position: 'fixed',
       top: 0,
       left: 0,
       width: '100vw',
       height: '100vh',
+      zIndex: 102,
       // position: 'absolute',
       // top: 0,
       // left: 0,

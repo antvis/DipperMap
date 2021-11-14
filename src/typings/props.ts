@@ -1,14 +1,5 @@
 import { IDataset } from './dataset';
-import {
-  IHeatLayerConfig,
-  IHexLayerConfig,
-  ILayer,
-  ILayerType,
-  ILineLayerConfig,
-  IPointLayerConfig,
-  IPolygonLayerConfig,
-  ITripLayerConfig,
-} from './layer';
+import { ILayer } from './layer';
 import { IFilter } from './filter';
 import { IInteractive } from './interactive';
 import { DeepPartial } from './common';

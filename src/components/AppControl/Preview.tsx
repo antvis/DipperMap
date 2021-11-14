@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { GlobalModelContext } from '../../context/GlobalContext';
 import styles from './index.less';
 import classnames from 'classnames';
-import { message } from 'antd';
+import { message, Tooltip } from 'antd';
 import { useKeyPress } from 'ahooks';
 
 const Preview = () => {
@@ -22,13 +22,15 @@ const Preview = () => {
       className={classnames([styles.appControlItem, styles.appControlItemBtn])}
       onClick={openPreview}
     >
-      <i
-        className={classnames([
-          'dpiconfont',
-          'dpicon-yulan',
-          styles.appControlItemIcon,
-        ])}
-      />
+      <Tooltip overlay="预览">
+        <i
+          className={classnames([
+            'dpiconfont',
+            'dpicon-yulan',
+            styles.appControlItemIcon,
+          ])}
+        />
+      </Tooltip>
     </div>
   );
 };

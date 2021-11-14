@@ -18,13 +18,16 @@
 - [ ] 样式主题
 - [x] heatLayer 默认值
 - [ ] 自由绘制
-- [ ] 暗黑模式
+- [x] 暗黑模式
 - [ ] 支持 geojson 格式导入
+- [ ] 支持 coordnates 以数组形式导入
 
 ### 技术改造
 
 - [x] 依赖替换：@alipay/tech-ui 中的 `<ColorPicker>` => 开源 `<ColorPicker>`
+- [x] moment => day.js
 - [ ] 数据转换和筛选 => worker 中进行 + Promise
+- [ ] eslintrc 提示
 
 ### BUG
 

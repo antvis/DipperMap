@@ -5,6 +5,7 @@
   height: 100%;
   position: relative;
   overflow: hidden;
+  color: @text-color;
   :global {
     .ant-typography {
       margin-bottom: 0;
@@ -39,6 +40,24 @@
         line-height: 16px;
         height: 16px;
       }
+    }
+
+    .ant-form-item-label label {
+      color: @text-color;
+    }
+
+    .ant-menu,
+    .ant-popover-inner-content {
+      background-color: @bg-color-light;
+    }
+
+    .l7-popup .l7-popup-content,
+    .ant-menu .ant-menu-item:hover {
+      background-color: @bg-color-lighter;
+    }
+
+    .l7-popup .l7-popup-tip {
+      border-top-color: @bg-color-light;
     }
   }
 }
