@@ -6,6 +6,7 @@ import classnames from 'classnames';
 interface IProps {
   icon?: JSX.Element;
   text?: string;
+  title?: string;
   dropdown?: JSX.Element;
   trigger?: ('click' | 'hover' | 'contextMenu')[];
   onActiveChange?: (active: boolean) => void;
@@ -14,6 +15,7 @@ interface IProps {
 const AppControlItem: React.FC<IProps> = ({
   text,
   dropdown,
+  title,
   icon,
   trigger = ['click'],
   onActiveChange,
@@ -21,7 +23,7 @@ const AppControlItem: React.FC<IProps> = ({
   const [active, setActive] = useState(false);
 
   return (
-    <div className={styles.appControlItem}>
+    <div className={styles.appControlItem} title={title}>
       {dropdown ? (
         <Popover
           content={dropdown}

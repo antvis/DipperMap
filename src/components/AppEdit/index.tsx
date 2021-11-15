@@ -13,7 +13,7 @@ const AppEdit: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
       <TabPane
         tab={
           <div>
-            <i className="dpiconfont dpicon-tuceng" />
+            <i className="dpiconfont dpicon-tuceng1" />
             <span>图层</span>
           </div>
         }
@@ -24,7 +24,7 @@ const AppEdit: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
       <TabPane
         tab={
           <div>
-            <i className="dpiconfont dpicon-guolvqi" />
+            <i className="dpiconfont dpicon-loudou" />
             <span>过滤器</span>
           </div>
         }
@@ -35,7 +35,7 @@ const AppEdit: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
       <TabPane
         tab={
           <div>
-            <i className="dpiconfont dpicon-jiaohu" />
+            <i className="dpiconfont dpicon-jiaohu1" />
             <span>交互</span>
           </div>
         }

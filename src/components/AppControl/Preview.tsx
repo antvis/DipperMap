@@ -26,7 +26,7 @@ const Preview = () => {
         <i
           className={classnames([
             'dpiconfont',
-            'dpicon-yulan',
+            'dpicon-quanpingyulan',
             styles.appControlItemIcon,
           ])}
         />

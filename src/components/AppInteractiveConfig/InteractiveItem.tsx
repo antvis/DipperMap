@@ -33,7 +33,7 @@ const InteractiveItem = ({
   );
 
   const header = (
-    <div className="editItemHeader">
+    <div className="editItemHeader" onClick={(e) => e.stopPropagation()}>
       {dragIcon}
 
       <EditName
@@ -59,10 +59,7 @@ const InteractiveItem = ({
           placement="bottom"
           onConfirm={() => onDelete(interactive)}
         >
-          <i
-            className="dpiconfont dpicon-icon_shanchu is-red-link"
-            title="删除"
-          />
+          <i className="dpiconfont dpicon-shanchu is-red-link" title="删除" />
         </Popconfirm>
       </div>
     </div>

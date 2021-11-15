@@ -13,7 +13,8 @@ function MapType() {
 
   return (
     <AppControlItem
-      icon={<i className="dpiconfont dpicon-ditu" title="地图类型" />}
+      title="地图类型"
+      icon={<i className="dpiconfont dpicon-dituditu-lan" />}
       dropdown={
         <Menu className={styles.mapType}>
           {MAP_TYPES.map((item) => (
