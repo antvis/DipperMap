@@ -58,7 +58,7 @@ const FilterItem = ({
     );
 
   const header = (
-    <div className="editItemHeader">
+    <div className="editItemHeader" onClick={(e) => e.stopPropagation()}>
       {dragIcon}
 
       <EditName
@@ -84,11 +84,11 @@ const FilterItem = ({
           overlay={
             <Menu>
               <Menu.Item key="changeDataset" onClick={() => setVisible(true)}>
-                <i className="dpiconfont dpicon-peizhishujuyuan" />
+                <i className="dpiconfont dpicon-genggaishujuyuan" />
                 更改数据源
               </Menu.Item>
               <Menu.Item key="copyFilter" onClick={() => onCopy(filter)}>
-                <i className="dpiconfont dpicon-fuzhi" />
+                <i className="dpiconfont dpicon-fuzhi1" />
                 复制筛选器
               </Menu.Item>
               <Popconfirm
@@ -97,14 +97,14 @@ const FilterItem = ({
                 onConfirm={() => onDelete(filter)}
               >
                 <Menu.Item>
-                  <i className="dpiconfont dpicon-icon_shanchu is-red-link" />
+                  <i className="dpiconfont dpicon-shanchu is-red-link" />
                   删除
                 </Menu.Item>
               </Popconfirm>
             </Menu>
           }
         >
-          <i className="dpiconfont dpicon-more is-link" />
+          <i className="dpiconfont dpicon-gengduo is-link" />
         </Dropdown>
       </div>
     </div>

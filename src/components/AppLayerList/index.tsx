@@ -6,7 +6,6 @@ import LayerItem from './LayerItem';
 import { IDataset } from '../../typings';
 import { ConfigModelContext } from '../../context/ConfigContext';
 import { LayerEvent, Popup } from '@antv/l7-react';
-import { useDebounceFn } from 'ahooks';
 import styles from './index.less';
 
 interface IPopupState {

@@ -9,6 +9,7 @@ import ColorWrapper from './components/ColorWrapper/index';
 import LayerBlend from './components/LayerBlend';
 import { POINT_TO_SQUARE_LIMIT } from '../../constants';
 import FormSlider from './components/FormSlider';
+import { FORM_LAYOUT } from './common';
 
 interface IProps {
   layer: IPointLayer;
@@ -54,8 +55,7 @@ const PointLayer = ({ layer, onChange }: IProps) => {
 
   return (
     <Form
-      labelCol={{ span: 7 }}
-      wrapperCol={{ span: 19 }}
+      {...FORM_LAYOUT}
       labelAlign="left"
       form={form}
       onValuesChange={onFormChange}

@@ -1,10 +1,12 @@
 @import '../styles/variables';
+@import url('//at.alicdn.com/t/font_2898812_snum6el6qms.css');
 
 .container {
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
+  background-color: @bg-color;
   color: @text-color;
   :global {
     .ant-typography {
@@ -58,6 +60,31 @@
 
     .l7-popup .l7-popup-tip {
       border-top-color: @bg-color-light;
+    }
+
+    .sketch-picker {
+      background-color: @bg-color !important;
+      &,
+      label {
+        color: @text-color !important;
+      }
+
+      input {
+        background-color: @bg-color !important;
+      }
+    }
+
+    *::-webkit-scrollbar {
+      background-color: initial;
+      width: @scrollbar-width;
+      height: @scrollbar-width;
+    }
+    *::-webkit-scrollbar-thumb {
+      background-color: lighten(@bg-color-lighter, 10%);
+      border-radius: @scrollbar-width / 2;
+    }
+    *::-webkit-scrollbar-corner {
+      background-color: initial;
     }
   }
 }
