@@ -228,6 +228,115 @@ const DEMOS = [
       },
     ],
   },
+  {
+    name: '点图层',
+    imgSrc:
+      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*cOyXRZJO2QsAAAAAAAAAAAAAARQnAQ',
+    dataSrc: [
+      {
+        src: 'https://gw.alipayobjects.com/os/bmw-prod/b48d0e58-7d43-40fa-94e0-370cb3935155.json',
+        datasetId: 'dataset-6a46571d-fa09-459a-804e-9d75b452142c',
+        name: '气泡图',
+      },
+    ],
+    layerList: [
+      {
+        id: 'layer-7647b08a-8e58-4644-8d54-761c4930ec79',
+        name: '图层1',
+        order: 1,
+        datasetId: 'dataset-6a46571d-fa09-459a-804e-9d75b452142c',
+        createTime: 1636783407525,
+        config: {
+          lngField: 'lat',
+          latField: 'lot',
+          fillColor: {
+            value: [
+              'rgb(247, 252, 253)',
+              'rgb(229, 245, 249)',
+              'rgb(204, 236, 230)',
+              'rgb(153, 216, 201)',
+              'rgb(102, 194, 164)',
+              'rgb(65, 174, 118)',
+              'rgb(35, 139, 69)',
+              'rgb(0, 109, 44)',
+              'rgb(0, 68, 27)',
+            ],
+            enable: true,
+            field: 'capacity',
+          },
+          borderColor: {
+            value: '#1890ff',
+          },
+          radius: {
+            value: 3,
+            rangeValue: [1, 8],
+            field: 'capacity',
+          },
+          blendType: 'normal',
+          opacity: 52,
+        },
+        type: 'point',
+        visible: true,
+        zIndex: 1,
+      },
+    ],
+  },
+  {
+    name: '面图层',
+    imgSrc:
+      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*uHVCQKuIT08AAAAAAAAAAAAAARQnAQ',
+    dataSrc: [
+      {
+        name: '中国地图省级',
+        datasetId: 'dataset-bbbb4152-aca5-4ed0-a0f8-151f690ef201',
+        src: 'https://gw.alipayobjects.com/os/bmw-prod/bae79d2b-38d4-464d-b76c-ffc0dc9808d8.json',
+      },
+    ],
+    layerList: [
+      {
+        id: 'layer-d163f8c9-11d1-4247-9cac-03b748a04e33',
+        name: '图层1',
+        order: 1,
+        datasetId: 'dataset-bbbb4152-aca5-4ed0-a0f8-151f690ef201',
+        createTime: 1636883086854,
+        config: {
+          geoField: 'polygon',
+          fillColor: {
+            value: [
+              'rgb(247, 251, 255)',
+              'rgb(222, 235, 247)',
+              'rgb(198, 219, 239)',
+              'rgb(158, 202, 225)',
+              'rgb(107, 174, 214)',
+              'rgb(66, 146, 198)',
+              'rgb(33, 113, 181)',
+              'rgb(8, 81, 156)',
+              'rgb(8, 48, 107)',
+            ],
+            field: 'adcode',
+          },
+          borderColor: {
+            value: '#1890ff',
+            field: null,
+          },
+          borderWidth: {
+            value: 1,
+            rangeValue: [1, 10],
+            field: null,
+          },
+          blendType: 'normal',
+          dimensionType: 'fill',
+          dimension: {
+            rangeValue: [1, 100],
+            field: null,
+          },
+        },
+        type: 'polygon',
+        visible: true,
+        zIndex: 1,
+      },
+    ],
+  },
 ];
 
 export default () => (
