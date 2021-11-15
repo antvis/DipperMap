@@ -1,4 +1,17 @@
 import papaparse from 'papaparse';
+import { FeatureCollection, Geometry } from '@turf/turf';
+
+export const isGeoJson = (data: any) => {
+  return (
+    data instanceof Object &&
+    data.type === 'FeatureCollection' &&
+    Array.isArray(data.features)
+  );
+};
+
+export const transformGeoJson = (data: FeatureCollection<Geometry>) => {
+  return [];
+};
 
 export function dataTransform(eventData: { data: any }) {
   const originData = eventData.data;
@@ -26,6 +39,11 @@ export function dataTransform(eventData: { data: any }) {
       // message.error('数据解析有误');
     }
   }
+
+  if (isGeoJson(data)) {
+    data = transformGeoJson(data);
+  }
+
   // 监测各个字段的类型
   const fields: any[] = [];
   if (data.length) {
@@ -82,7 +100,7 @@ export function dataTransform(eventData: { data: any }) {
     });
   });
 
-  fields.forEach((field, index) => {
+  fields.forEach((field) => {
     if (field.type === 'number') {
       field.uniqueValues = Array.from(new Set(field.values as number[])).sort(
         (a: number, b: number) => a - b,

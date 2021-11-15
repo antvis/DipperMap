@@ -4,6 +4,7 @@ import { Select, Form } from 'antd';
 import COLOR_LIST_MAP from './config.json';
 import { isEqual } from 'lodash';
 import styles from './index.less';
+import { FORM_LAYOUT } from '../../common';
 
 const { Option } = Select;
 
@@ -43,7 +44,7 @@ const FieldColorPicker: React.FC<IProps> = ({ value, onChange }) => {
 
   return (
     <>
-      <Form.Item label="类型" labelCol={{ span: 7 }} wrapperCol={{ span: 17 }}>
+      <Form.Item label="类型" {...FORM_LAYOUT}>
         <Select
           value={colorType}
           onChange={setColorType}
@@ -51,7 +52,7 @@ const FieldColorPicker: React.FC<IProps> = ({ value, onChange }) => {
         />
       </Form.Item>
 
-      <Form.Item label="区间" labelCol={{ span: 7 }} wrapperCol={{ span: 17 }}>
+      <Form.Item label="区间" {...FORM_LAYOUT}>
         <Select
           className={styles.fieldColorSelect}
           value={JSON.stringify(value)}

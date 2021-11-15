@@ -13,6 +13,7 @@ import RangeWrapper from './components/RangeWrapper';
 import useDataset from '../../hooks/dataset';
 import LayerBlend from './components/LayerBlend';
 import LayerOpacity from './components/LayerOpacity';
+import { FORM_LAYOUT } from './common';
 
 interface IProps {
   layer: IHeatLayer;
@@ -54,8 +55,7 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
 
   return (
     <Form
-      labelCol={{ span: 7 }}
-      wrapperCol={{ span: 19 }}
+      {...FORM_LAYOUT}
       labelAlign="left"
       form={form}
       onValuesChange={onFormValueChanged}

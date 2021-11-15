@@ -9,6 +9,7 @@ import ColorWrapper from './components/ColorWrapper/index';
 import { LINE_TYPE_LIST } from '../../constants';
 import LayerBlend from './components/LayerBlend';
 import LayerOpacity from './components/LayerOpacity';
+import { FORM_LAYOUT } from './common';
 
 interface IProps {
   layer: ILineLayer;
@@ -25,8 +26,7 @@ const LineLayer = ({ layer, onChange }: IProps) => {
 
   return (
     <Form
-      labelCol={{ span: 7 }}
-      wrapperCol={{ span: 19 }}
+      {...FORM_LAYOUT}
       labelAlign="left"
       form={form}
       onValuesChange={onFormChange}

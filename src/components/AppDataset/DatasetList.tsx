@@ -95,7 +95,7 @@ export default function DatasetList({ className }: IProps) {
               <div className={styles.btnGroup}>
                 <Tooltip overlay="复制" placement="top">
                   <i
-                    className="dpiconfont dpicon-fuzhi is-link"
+                    className="dpiconfont dpicon-fuzhi1 is-link"
                     onClick={(e) => {
                       e.stopPropagation();
                       onCopy(dataset);
@@ -110,7 +110,7 @@ export default function DatasetList({ className }: IProps) {
                   <Tooltip overlay="删除" placement="top">
                     <i
                       onClick={(e) => e.stopPropagation()}
-                      className="dpiconfont dpicon-icon_shanchu is-red-link"
+                      className="dpiconfont dpicon-shanchu is-red-link"
                     />
                   </Tooltip>
                 </Popconfirm>
