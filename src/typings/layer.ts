@@ -18,6 +18,11 @@ export interface ILayerRange {
   field?: string | null;
 }
 
+export interface ILayerIDimension {
+  rangeValue: [number, number];
+  field: string | null;
+}
+
 export interface ILayerSingleColor {
   value: string;
   field?: null;
@@ -36,6 +41,16 @@ export interface ILayerFieldColor {
   enable?: boolean;
 }
 
+export type ILayerDimensionType =
+  | 'fill'
+  | 'extrude'
+  | 'hexagonColumn'
+  | 'hexagon'
+  | 'heatmap'
+  | 'heatmap3D'
+  | 'cylinder'
+  | 'circle';
+
 export interface IPointLayerConfig {
   lngField?: string | null;
   latField?: string | null;
@@ -46,6 +61,8 @@ export interface IPointLayerConfig {
   opacity: number;
   size: number;
   shape: string;
+  dimensionType: ILayerDimensionType;
+  dimension: ILayerIDimension;
 }
 
 export type ILineLayerLineType = 'line' | 'arcmini' | 'arc3d';
@@ -69,6 +86,8 @@ export interface IPolygonLayerConfig {
   borderWidth: ILayerRange;
   blendType: IBlendType;
   opacity: number;
+  dimensionType: ILayerDimensionType;
+  dimension: ILayerIDimension;
 }
 
 export interface ITripLayerConfig {
@@ -85,6 +104,8 @@ export interface IHeatLayerConfig {
   ranges: [number, number];
   blendType: IBlendType;
   opacity: number;
+  dimensionType: ILayerDimensionType;
+  dimension: ILayerIDimension;
 }
 
 export interface IHexLayerConfig {
@@ -92,6 +113,8 @@ export interface IHexLayerConfig {
   fillColor: ILayerSingleColor | ILayerFieldColor;
   blendType: IBlendType;
   opacity: number;
+  dimensionType: ILayerDimensionType;
+  dimension: ILayerIDimension;
 }
 export interface IPointLayer extends IBaseLayer {
   type: 'point';
