@@ -9,9 +9,7 @@ import type {
 import useCommonHook from './components/commonHook';
 import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
-import RangeWrapper from './components/RangeWrapper';
 import useDataset from '../../hooks/dataset';
-import LayerBlend from './components/LayerBlend';
 import FormSlider from './components/FormSlider';
 import { debounce } from 'lodash';
 import { FORM_LAYOUT } from './common';
