@@ -3,7 +3,7 @@ import type { IInteractive } from '../../typings';
 import EditName from '../EditName';
 import FieldSelect from '../FieldSelect';
 import useDataset from '../../hooks/dataset';
-import { Collapse, Popconfirm, Switch } from 'antd';
+import { Collapse, Popconfirm, Switch, Form } from 'antd';
 import { useRef } from 'react';
 import styles from './index.less';
 
@@ -70,19 +70,26 @@ const InteractiveItem = ({
 
   const content = (
     <div style={{ display: interactive.enable ? undefined : 'none' }}>
-      <FieldSelect
-        style={{ width: '100%' }}
-        mode="multiple"
-        value={interactive.fields}
-        fields={fields}
-        allowClear
-        onChange={(newFields) =>
-          onChange({
-            ...interactive,
-            fields: Array.isArray(newFields) ? newFields : [],
-          })
-        }
-      />
+      <Form.Item
+        label="展示字段"
+        className="titleFormItem"
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <FieldSelect
+          style={{ width: '100%' }}
+          mode="multiple"
+          value={interactive.fields}
+          fields={fields}
+          allowClear
+          onChange={(newFields) =>
+            onChange({
+              ...interactive,
+              fields: Array.isArray(newFields) ? newFields : [],
+            })
+          }
+        />
+      </Form.Item>
     </div>
   );
 
