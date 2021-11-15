@@ -29,6 +29,7 @@ const DEMOS = [
         name: '上海',
       },
     ],
+    demoName: '点图层示例',
     layerList: [
       {
         id: 'layer-Chengdu',
@@ -94,6 +95,7 @@ const DEMOS = [
         name: '线图层',
       },
     ],
+    demoName: '线图层示例',
     layerList: [
       {
         id: 'line-demo-1',
@@ -160,6 +162,7 @@ const DEMOS = [
         name: '热力图',
       },
     ],
+    demoName: '热力图示例',
     layerList: [
       {
         id: 'heat-demo-1',
@@ -204,6 +207,7 @@ const DEMOS = [
         name: '3D柱状图',
       },
     ],
+    demoName: '3D柱图示例',
     layerList: [
       {
         id: 'heat-demo-1',
@@ -229,7 +233,7 @@ const DEMOS = [
     ],
   },
   {
-    name: '点图层',
+    demoname: '点图层',
     imgSrc:
       'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*cOyXRZJO2QsAAAAAAAAAAAAAARQnAQ',
     dataSrc: [
@@ -282,7 +286,7 @@ const DEMOS = [
     ],
   },
   {
-    name: '面图层',
+    demoName: '面图层',
     imgSrc:
       'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*uHVCQKuIT08AAAAAAAAAAAAAARQnAQ',
     dataSrc: [
