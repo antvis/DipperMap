@@ -104,6 +104,8 @@ export interface IHeatLayerConfig {
   ranges: [number, number];
   blendType: IBlendType;
   opacity: number;
+  radius: number;
+  intense: number;
   dimensionType: ILayerDimensionType;
   dimension: ILayerIDimension;
 }

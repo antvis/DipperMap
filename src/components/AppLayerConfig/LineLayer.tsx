@@ -8,7 +8,7 @@ import RangeWrapper from './components/RangeWrapper/index';
 import ColorWrapper from './components/ColorWrapper/index';
 import { LINE_TYPE_LIST } from '../../constants';
 import LayerBlend from './components/LayerBlend';
-import LayerOpacity from './components/LayerOpacity';
+import FormSlider from './components/FormSlider';
 import { FORM_LAYOUT } from './common';
 
 interface IProps {
@@ -70,7 +70,7 @@ const LineLayer = ({ layer, onChange }: IProps) => {
         fields={targetDatasetFields}
       />
 
-      <LayerOpacity />
+      <FormSlider />
 
       <LayerBlend />
     </Form>

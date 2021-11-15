@@ -12,7 +12,8 @@ import ColorWrapper from './components/ColorWrapper';
 import RangeWrapper from './components/RangeWrapper';
 import useDataset from '../../hooks/dataset';
 import LayerBlend from './components/LayerBlend';
-import LayerOpacity from './components/LayerOpacity';
+import FormSlider from './components/FormSlider';
+import { debounce } from 'lodash';
 import { FORM_LAYOUT } from './common';
 
 interface IProps {
@@ -58,7 +59,7 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
       {...FORM_LAYOUT}
       labelAlign="left"
       form={form}
-      onValuesChange={onFormValueChanged}
+      onValuesChange={debounce(onFormValueChanged, 300)}
     >
       <Form.Item label="基础" colon={false} className="titleFormItem" />
       <LayerTypeSelect layer={layer} onChange={onChange} />
@@ -78,16 +79,8 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
         fields={targetDatasetFields}
         fieldColor
       />
-      <RangeWrapper
-        label="半径"
-        field="radius"
-        form={form}
-        fields={targetDatasetFields}
-      />
-
-      <LayerOpacity />
-
-      <LayerBlend />
+      <FormSlider label="半径" name="radius" />
+      <FormSlider label="强度" name="intense" />
     </Form>
   );
 };

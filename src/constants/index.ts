@@ -323,6 +323,8 @@ export const DEFAULT_HEAT_LAYER_CONFIG: IHeatLayerConfig = {
     field: null,
   },
   magField: '',
+  intense: 2,
+  radius: 20,
   ranges: [0, 1],
   blendType: 'normal',
   opacity: 100,
