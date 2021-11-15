@@ -12,6 +12,7 @@ import type {
   IMapTheme,
   IBlendType,
   IHeatLayerConfig,
+  ILayerDimensionType,
 } from '../typings';
 
 export const DEFAULT_COLOR1 = '#1890ff';
@@ -120,6 +121,50 @@ export const BLEND_TYPE_LIST: IOption<IBlendType>[] = [
   },
 ];
 
+export const POLYGON_TYPE_LIST: IOption<ILayerDimensionType>[] = [
+  {
+    label: '2D',
+    value: 'fill',
+  },
+  {
+    label: '3D',
+    value: 'extrude',
+  },
+];
+
+export const POINT_TYPE_LIST: IOption<ILayerDimensionType>[] = [
+  {
+    label: '2D',
+    value: 'circle',
+  },
+  {
+    label: '3D',
+    value: 'cylinder',
+  },
+];
+
+export const HEX_TYPE_LIST: IOption<ILayerDimensionType>[] = [
+  {
+    label: '2D',
+    value: 'hexagon',
+  },
+  {
+    label: '3D',
+    value: 'hexagonColumn',
+  },
+];
+
+export const HEATMAP_TYPE_LIST: IOption<ILayerDimensionType>[] = [
+  {
+    label: '2D',
+    value: 'heatmap',
+  },
+  {
+    label: '3D',
+    value: 'heatmap3D',
+  },
+];
+
 export const LOCAL_STORAGE_KEY = {
   MAP_THEME: 'DIPPER_VIEW_MAP_THEME',
   MAP_TYPE: 'DIPPER_VIEW_MAP_TYPE',
@@ -193,6 +238,11 @@ export const DEFAULT_POINT_LAYER_CONFIG: IPointLayerConfig = {
   opacity: 100,
   shape: '',
   size: 0,
+  dimensionType: 'circle',
+  dimension: {
+    rangeValue: [1, 100],
+    field: null,
+  },
 };
 
 export const DEFAULT_LINE_LAYER_CONFIG: ILineLayerConfig = {
@@ -245,6 +295,11 @@ export const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig = {
   },
   blendType: 'normal',
   opacity: 100,
+  dimensionType: 'fill',
+  dimension: {
+    rangeValue: [1, 100],
+    field: null,
+  },
 };
 
 export const DEFAULT_HEX_LAYER_CONFIG: IHexLayerConfig = {
@@ -255,6 +310,11 @@ export const DEFAULT_HEX_LAYER_CONFIG: IHexLayerConfig = {
   },
   blendType: 'normal',
   opacity: 100,
+  dimension: {
+    rangeValue: [1, 100],
+    field: null,
+  },
+  dimensionType: 'hexagon',
 };
 
 export const DEFAULT_HEAT_LAYER_CONFIG: IHeatLayerConfig = {
@@ -266,4 +326,9 @@ export const DEFAULT_HEAT_LAYER_CONFIG: IHeatLayerConfig = {
   ranges: [0, 1],
   blendType: 'normal',
   opacity: 100,
+  dimension: {
+    rangeValue: [1, 100],
+    field: null,
+  },
+  dimensionType: 'heatmap',
 };
