@@ -82,7 +82,7 @@
       margin: 9px @panel-padding;
       border-radius: @border-radius;
       .editName {
-        width: calc(100% - 99px);
+        width: calc(100% - 102px);
       }
       .editItemHeader {
         display: flex;
@@ -93,11 +93,20 @@
         display: inline-flex;
         align-items: center;
         opacity: 0;
+        i {
+          font-size: 18px;
+        }
         :global {
           .dpiconfont,
           .ant-switch {
             margin-left: 6px;
           }
+        }
+      }
+
+      .editItemDropdown {
+        i {
+          margin-right: 9px;
         }
       }
 

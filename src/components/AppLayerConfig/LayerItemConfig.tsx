@@ -55,7 +55,7 @@ const LayerItemConfig = ({
         <Dropdown
           getPopupContainer={() => dropdownRef.current ?? document.body}
           overlay={
-            <Menu>
+            <Menu className="editItemDropdown">
               <Menu.Item key="changeDataset" onClick={() => setVisible(true)}>
                 <i className="dpiconfont dpicon-genggaishujuyuan" />
                 更改数据源

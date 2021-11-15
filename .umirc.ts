@@ -7,11 +7,13 @@ export default defineConfig({
   logo: 'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*v_NzR4sELEEAAAAAAAAAAAAAARQnAQ',
   outputPath: 'docs-dist',
   plugins: [],
+  mode: 'site',
   // mfsu: {},
   workerLoader: {
     inline: true,
   },
   headScripts: ["localStorage.setItem('dumi:prefers-color', 'dark')"],
+  styles: ['.__dumi-default-navbar-tool { display: none !important; }'],
   publicPath: '/DipperMap/',
   base: '/DipperMap/',
   antd: {
