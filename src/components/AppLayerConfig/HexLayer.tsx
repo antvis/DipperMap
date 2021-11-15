@@ -6,7 +6,6 @@ import useCommonHook from './components/commonHook';
 import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
 import LayerBlend from './components/LayerBlend';
-import LayerOpacity from './components/LayerOpacity';
 import { FORM_LAYOUT } from './common';
 
 interface IProps {
@@ -44,7 +43,7 @@ const HexLayer = ({ layer, onChange }: IProps) => {
         fields={targetDatasetFields}
       />
 
-      <LayerOpacity />
+      <FormSlider />
 
       <LayerBlend />
     </Form>

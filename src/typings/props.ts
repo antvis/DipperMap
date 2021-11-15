@@ -57,6 +57,8 @@ export interface IComponentProps {
 export interface Demo {
   name: string;
   imgSrc: string;
+  demoName: string;
+  demoDataLines: number;
   dataSrc: {
     src: string;
     datasetId: string;
