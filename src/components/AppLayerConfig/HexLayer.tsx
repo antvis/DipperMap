@@ -7,6 +7,7 @@ import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
 import LayerBlend from './components/LayerBlend';
 import { FORM_LAYOUT } from './common';
+import FormSlider from './components/FormSlider';
 
 interface IProps {
   layer: IHexLayer;
