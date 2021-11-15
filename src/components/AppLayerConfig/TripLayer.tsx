@@ -7,7 +7,7 @@ import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
 import RangeWrapper from './components/RangeWrapper';
 import LayerBlend from './components/LayerBlend';
-import LayerOpacity from './components/LayerOpacity';
+import FormSlider from './components/FormSlider';
 
 interface IProps {
   layer: ITripLayer;
@@ -57,7 +57,7 @@ const TripLayer = ({ layer, onChange }: IProps) => {
         fields={targetDatasetFields}
       />
 
-      <LayerOpacity />
+      <FormSlider />
 
       <LayerBlend />
     </Form>

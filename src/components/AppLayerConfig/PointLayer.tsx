@@ -8,7 +8,7 @@ import RangeWrapper from './components/RangeWrapper/index';
 import ColorWrapper from './components/ColorWrapper/index';
 import LayerBlend from './components/LayerBlend';
 import { POINT_TO_SQUARE_LIMIT } from '../../constants';
-import LayerOpacity from './components/LayerOpacity';
+import FormSlider from './components/FormSlider';
 
 interface IProps {
   layer: IPointLayer;
@@ -106,7 +106,7 @@ const PointLayer = ({ layer, onChange }: IProps) => {
         />
       )}
 
-      <LayerOpacity />
+      <FormSlider />
 
       <LayerBlend />
     </Form>
