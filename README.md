@@ -19,8 +19,7 @@
 - [x] heatLayer 默认值
 - [ ] 自由绘制
 - [x] 暗黑模式
-- [ ] 支持 geojson 格式导入
-- [ ] 支持 coordnates 以数组形式导入
+- [ ] 支持 geojson 格式导入, 支持 coordnates 以数组形式导入
 - [ ] 替换 iconfont
 
 ### 技术改造

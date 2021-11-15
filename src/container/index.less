@@ -59,6 +59,19 @@
     .l7-popup .l7-popup-tip {
       border-top-color: @bg-color-light;
     }
+
+    *::-webkit-scrollbar {
+      background-color: initial;
+      width: @scrollbar-width;
+      height: @scrollbar-width;
+    }
+    *::-webkit-scrollbar-thumb {
+      background-color: lighten(@bg-color-lighter, 10%);
+      border-radius: @scrollbar-width / 2;
+    }
+    *::-webkit-scrollbar-corner {
+      background-color: initial;
+    }
   }
 }
 
