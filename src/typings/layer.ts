@@ -66,6 +66,13 @@ export interface IPointLayerConfig {
 }
 
 export type ILineLayerLineType = 'line' | 'arcmini' | 'arc3d';
+export type IHeatLayerType =
+  | 'heatmap'
+  | 'heatmap3D'
+  | 'hexagonColumn'
+  | 'hexagon'
+  | 'circle'
+  | 'square';
 
 export interface ILineLayerConfig {
   lineType: ILineLayerLineType;
@@ -99,6 +106,7 @@ export interface ITripLayerConfig {
 }
 
 export interface IHeatLayerConfig {
+  shape: IHeatLayerType;
   fillColor: ILayerSingleColor | ILayerFieldColor;
   magField: string;
   ranges: [number, number];

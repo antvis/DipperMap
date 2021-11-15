@@ -1,9 +1,12 @@
 import { useCallback, useMemo } from 'react';
 import type { DeepPartial, IBaseLayer } from '../../../typings';
 import useDataset from '../../../hooks/dataset';
-import { merge } from 'lodash';
+import { debounce, merge } from 'lodash';
 
-const useCommonHook = <P extends IBaseLayer, T>(layer: P, onChange: (newLayer: P) => void) => {
+const useCommonHook = <P extends IBaseLayer, T>(
+  layer: P,
+  onChange: (newLayer: P) => void,
+) => {
   const { getTargetDataset } = useDataset();
 
   const targetDataset = useMemo(
@@ -11,16 +14,20 @@ const useCommonHook = <P extends IBaseLayer, T>(layer: P, onChange: (newLayer: P
     [layer.datasetId, getTargetDataset],
   );
 
-  const targetDatasetFields = useMemo(() => targetDataset?.fields ?? [], [targetDataset]);
+  const targetDatasetFields = useMemo(
+    () => targetDataset?.fields ?? [],
+    [targetDataset],
+  );
 
   const onFormChange = useCallback(
-    (changedConfig: DeepPartial<T>) => {
+    debounce((changedConfig: DeepPartial<T>) => {
+      console.log(changedConfig);
       onChange(
         merge({}, layer, {
           config: changedConfig,
         }),
       );
-    },
+    }, 300),
     [onChange, layer],
   );
 

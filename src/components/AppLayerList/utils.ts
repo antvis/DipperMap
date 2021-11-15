@@ -194,7 +194,7 @@ export const transformProps: (
 
   if (layer.type === 'heat') {
     const { config } = layer as IHeatLayer;
-    const { fillColor, ranges, intense, radius } = config;
+    const { fillColor, ranges, intense, radius, shape } = config;
     let positions: number[] = [];
 
     if (fillColor?.value && Array.isArray(fillColor.value)) {
@@ -206,7 +206,9 @@ export const transformProps: (
     }
 
     merge(props, {
-      values: 'heatmap',
+      shape: {
+        values: shape,
+      },
       style: {
         intense,
         radius,
@@ -264,7 +266,6 @@ export const transformProps: (
         strokeWidth: borderColor.enable ? 1 : 0,
       },
     });
-    console.log(props);
   }
   if (layer.type === 'line') {
     const { config } = layer as ILineLayer;

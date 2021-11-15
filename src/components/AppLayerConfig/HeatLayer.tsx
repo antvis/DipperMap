@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import LayerTypeSelect from './components/LayerTypeSelect';
-import { Form } from 'antd';
+import { Form, Select } from 'antd';
 import type {
   IDatasetNumberField,
   IHeatLayer,
@@ -13,6 +13,9 @@ import useDataset from '../../hooks/dataset';
 import FormSlider from './components/FormSlider';
 import { debounce } from 'lodash';
 import { FORM_LAYOUT } from './common';
+import { HEAT_TYPE_LIST } from '../../constants';
+
+const { Option } = Select;
 
 interface IProps {
   layer: IHeatLayer;
@@ -57,10 +60,18 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
       {...FORM_LAYOUT}
       labelAlign="left"
       form={form}
-      onValuesChange={debounce(onFormValueChanged, 300)}
+      // onValuesChange={debounce(onFormValueChanged, 300)}
+      onValuesChange={onFormValueChanged}
     >
       <Form.Item label="基础" colon={false} className="titleFormItem" />
       <LayerTypeSelect layer={layer} onChange={onChange} />
+      <Form.Item label="视角" name="shape">
+        <Select>
+          {HEAT_TYPE_LIST.map((shape) => (
+            <Option value={shape.value}>{shape.label}</Option>
+          ))}
+        </Select>
+      </Form.Item>
       <Form.Item label="经度" name="lngField">
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>

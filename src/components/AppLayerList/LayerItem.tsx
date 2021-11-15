@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { transformProps, transformSource } from './utils';
 import type { IDataset, ILayer, ILayerType } from '../../typings';
 import type { ISourceOptions } from '@antv/l7-react/es/component/LayerAttribute';
@@ -11,7 +11,9 @@ import {
 import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import ErrorBoundary from '../ErrorBoundary';
 import { featureCollection } from '@turf/turf';
-import { useDebounceEffect } from 'ahooks';
+import { useDebounceEffect, useDebounceFn } from 'ahooks';
+import deepEqual from 'fast-deep-equal';
+import { debounce } from 'lodash';
 
 export interface ILayerConfig {
   layer: ILayer;
@@ -44,6 +46,14 @@ function getLayerKey(layer: ILayer, index: number) {
   if (layer.type === 'line') {
     return `${id}+${index}-${layer.config.lineType}-${opacity}`;
   }
+
+  if (layer.type === 'point') {
+    return `${id}+${index}-${layer.config.shape}`;
+  }
+
+  if (layer.type === 'heat') {
+    return `${id}+${index}-${layer.config.shape}`;
+  }
   return `${id}-${index}-${opacity}`;
 }
 
@@ -66,15 +76,9 @@ const LayerItem: React.FC<IProps> = React.memo(({ config, event }) => {
     },
   );
 
-  useDebounceEffect(
-    () => {
-      setPropsList(transformProps(layer, data.length));
-    },
-    [JSON.stringify(layer), data.length],
-    {
-      wait: 200,
-    },
-  );
+  useEffect(() => {
+    setPropsList(transformProps(layer, data.length));
+  }, [JSON.stringify(layer), data.length]);
 
   const LayerComponent = useMemo(() => {
     return LAYER_COMPONENT_MAP[layer.type];
@@ -82,6 +86,7 @@ const LayerItem: React.FC<IProps> = React.memo(({ config, event }) => {
   return (
     <>
       {propsList.map((props, propsIndex) => {
+        console.log(props);
         const key = getLayerKey(layer, propsIndex);
         return (
           <ErrorBoundary key={key}>

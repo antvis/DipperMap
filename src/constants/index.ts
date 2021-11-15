@@ -13,6 +13,7 @@ import type {
   IBlendType,
   IHeatLayerConfig,
   ILayerDimensionType,
+  IHeatLayerType,
 } from '../typings';
 
 export const DEFAULT_COLOR1 = '#1890ff';
@@ -134,11 +135,11 @@ export const POLYGON_TYPE_LIST: IOption<ILayerDimensionType>[] = [
 
 export const POINT_TYPE_LIST: IOption<ILayerDimensionType>[] = [
   {
-    label: '2D',
+    label: '2D点图',
     value: 'circle',
   },
   {
-    label: '3D',
+    label: '3D柱图',
     value: 'cylinder',
   },
 ];
@@ -216,6 +217,33 @@ export const LINE_TYPE_LIST: IOption<ILineLayerLineType>[] = [
   {
     label: '3d曲线',
     value: 'arc3d',
+  },
+];
+
+export const HEAT_TYPE_LIST: IOption<IHeatLayerType>[] = [
+  {
+    label: '热力2D',
+    value: 'heatmap',
+  },
+  {
+    label: '热力3D',
+    value: 'heatmap3D',
+  },
+  {
+    label: '蜂窝热力柱图',
+    value: 'hexagonColumn',
+  },
+  {
+    label: '蜂窝热力平面图',
+    value: 'hexagon',
+  },
+  {
+    label: '点热力平面图',
+    value: 'circle',
+  },
+  {
+    label: '方块热力平面图',
+    value: 'square',
   },
 ];
 
@@ -322,6 +350,7 @@ export const DEFAULT_HEAT_LAYER_CONFIG: IHeatLayerConfig = {
     value: DEFAULT_COLOR1,
     field: null,
   },
+  shape: 'heatmap',
   magField: '',
   intense: 2,
   radius: 20,
