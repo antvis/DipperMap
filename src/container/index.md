@@ -92,14 +92,14 @@ const DEMOS = [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/0a544b66-a04b-4b98-9b69-d71258f5f577.json',
         datasetId: 'line-demo-1',
-        name: '线图层',
+        name: '弧线图层',
       },
     ],
-    demoName: '线图层示例',
+    demoName: '弧线图层示例',
     layerList: [
       {
         id: 'line-demo-1',
-        name: '图层1',
+        name: '弧线图层1',
         order: 1,
         datasetId: 'line-demo-1',
         createTime: 1636781178989,
@@ -108,7 +108,7 @@ const DEMOS = [
           startLatField: 'from_lat',
           endLngField: 'to_lon',
           endLatField: 'to_lat',
-          lineType: 'arcmini',
+          lineType: 'arc',
           lineWidth: { value: 1, rangeValue: [1, 10], field: null },
           color: { value: ['#1890ff', '#ff99c3'] },
           blendType: 'additive',
@@ -126,9 +126,10 @@ const DEMOS = [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/1ee29c43-eefe-4bbe-8ed6-87f64312c461.json',
         datasetId: 'line-demo-2',
-        name: '3d线图层',
+        name: '3D线图层',
       },
     ],
+    demoName: '3D线图层示例',
     layerList: [
       {
         id: 'layer-dd58a9d3-995c-460f-9059-a2c71118cfb8',
@@ -159,10 +160,10 @@ const DEMOS = [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/5c4fdc5c-5cf7-46da-a361-f377938553dc.json',
         datasetId: 'heat-demo-1',
-        name: '热力图',
+        name: '3D热力图',
       },
     ],
-    demoName: '热力图示例',
+    demoName: '3D热力图示例',
     layerList: [
       {
         id: 'heat-demo-1',
@@ -233,7 +234,7 @@ const DEMOS = [
     ],
   },
   {
-    demoname: '点图层',
+    demoName: '气泡图层示例',
     imgSrc:
       'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*cOyXRZJO2QsAAAAAAAAAAAAAARQnAQ',
     dataSrc: [
@@ -286,7 +287,7 @@ const DEMOS = [
     ],
   },
   {
-    demoName: '面图层',
+    demoName: '面图层示例',
     imgSrc:
       'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*uHVCQKuIT08AAAAAAAAAAAAAARQnAQ',
     dataSrc: [

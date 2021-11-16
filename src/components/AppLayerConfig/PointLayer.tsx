@@ -7,10 +7,9 @@ import LayerTypeSelect from './components/LayerTypeSelect';
 import RangeWrapper from './components/RangeWrapper/index';
 import ColorWrapper from './components/ColorWrapper/index';
 import LayerBlend from './components/LayerBlend';
-import { POINT_TO_SQUARE_LIMIT } from '../../constants';
+import { POINT_TO_SQUARE_LIMIT, POINT_TYPE_LIST } from '../../constants';
 import FormSlider from './components/FormSlider';
 import { FORM_LAYOUT } from './common';
-import GeoFieldWrapper from './components/GeoFieldWrapper';
 
 interface IProps {
   layer: IPointLayer;
@@ -43,17 +42,6 @@ const PointLayer = ({ layer, onChange }: IProps) => {
     form.setFieldsValue(layer.config);
   }, [layer.config]);
 
-  const SHAPES = [
-    {
-      label: '2D点图',
-      value: 'circle',
-    },
-    {
-      label: '3D柱图',
-      value: 'cylinder',
-    },
-  ];
-
   return (
     <Form
       {...FORM_LAYOUT}
@@ -63,32 +51,28 @@ const PointLayer = ({ layer, onChange }: IProps) => {
     >
       <Form.Item label="基础" colon={false} className="titleFormItem" />
 
-      <LayerTypeSelect
-        dataset={targetDataset}
-        layer={layer}
-        onChange={onChange}
-      />
+      <LayerTypeSelect layer={layer} onChange={onChange} />
 
-      {/*<Form.Item label="线段类 型" name="shape">*/}
-      {/*  <Select options={SHAPES} placeholder="暂未选择字段" />*/}
-      {/*</Form.Item>*/}
+      <Form.Item label="线段类型" name="shape">
+        <Select options={POINT_TYPE_LIST} placeholder="暂未选择字段" />
+      </Form.Item>
 
-      <GeoFieldWrapper dataset={targetDataset}>
-        <Form.Item label="经度" name="lngField">
-          <FieldSelect fields={targetDatasetFields} />
-        </Form.Item>
+      <Form.Item label="经度" name="lngField">
+        <FieldSelect fields={targetDatasetFields} />
+      </Form.Item>
 
-        <Form.Item label="纬度" name="latField">
-          <FieldSelect fields={targetDatasetFields} />
-        </Form.Item>
-      </GeoFieldWrapper>
+      <Form.Item label="纬度" name="latField">
+        <FieldSelect fields={targetDatasetFields} />
+      </Form.Item>
 
-      {/*<Form.Item label="高度维度" name="magField">*/}
-      {/*  <FieldSelect fields={targetDatasetFields} />*/}
-      {/*</Form.Item>*/}
-      {/*<Form.Item label="高度" name="size">*/}
-      {/*  <Input />*/}
-      {/*</Form.Item>*/}
+      {form.getFieldValue('shape') === 'cylinder' ? (
+        <>
+          <Form.Item label="高度维度" name="magField">
+            <FieldSelect fields={targetDatasetFields} />
+          </Form.Item>
+          <FormSlider label="高度" name="size" />
+        </>
+      ) : null}
 
       <ColorWrapper
         label="颜色"

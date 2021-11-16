@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import LayerTypeSelect from './components/LayerTypeSelect';
-import { Form } from 'antd';
+import { Form, Select } from 'antd';
 import type {
   IDatasetNumberField,
   IHeatLayer,
@@ -9,9 +9,13 @@ import type {
 import useCommonHook from './components/commonHook';
 import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
+import useDataset from '../../hooks/dataset';
 import FormSlider from './components/FormSlider';
 import { debounce } from 'lodash';
 import { FORM_LAYOUT } from './common';
+import { HEAT_TYPE_LIST } from '../../constants';
+
+const { Option } = Select;
 
 interface IProps {
   layer: IHeatLayer;
@@ -20,9 +24,11 @@ interface IProps {
 
 const HeatLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<IHeatLayerConfig>();
-  const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
-    layer,
-    onChange,
+  const { targetDatasetFields, onFormChange } = useCommonHook(layer, onChange);
+  const { getTargetDataset } = useDataset();
+  const targetDataset = useMemo(
+    () => getTargetDataset(layer.datasetId),
+    [layer.datasetId, getTargetDataset],
   );
 
   useEffect(() => {
@@ -54,15 +60,18 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
       {...FORM_LAYOUT}
       labelAlign="left"
       form={form}
-      onValuesChange={debounce(onFormValueChanged, 300)}
+      // onValuesChange={debounce(onFormValueChanged, 300)}
+      onValuesChange={onFormValueChanged}
     >
       <Form.Item label="基础" colon={false} className="titleFormItem" />
-      <LayerTypeSelect
-        dataset={targetDataset}
-        layer={layer}
-        onChange={onChange}
-      />
-
+      <LayerTypeSelect layer={layer} onChange={onChange} />
+      <Form.Item label="视角" name="shape">
+        <Select>
+          {HEAT_TYPE_LIST.map((shape) => (
+            <Option value={shape.value}>{shape.label}</Option>
+          ))}
+        </Select>
+      </Form.Item>
       <Form.Item label="经度" name="lngField">
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>

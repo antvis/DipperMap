@@ -1,9 +1,12 @@
 import type { IEntity } from './common';
 import { BlendType } from '@antv/l7-core/es/services/layer/ILayerService';
+import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 
 export type ILayerType = 'point' | 'line' | 'trip' | 'polygon' | 'hex' | 'heat';
 
 export type IBlendType = keyof typeof BlendType;
+
+export type PropsType = Omit<ILayerProps, 'source'> & { ready?: boolean };
 
 export interface IBaseLayer extends IEntity {
   type: ILayerType;
@@ -66,6 +69,13 @@ export interface IPointLayerConfig {
 }
 
 export type ILineLayerLineType = 'line' | 'arcmini' | 'arc3d';
+export type IHeatLayerType =
+  | 'heatmap'
+  | 'heatmap3D'
+  | 'hexagonColumn'
+  | 'hexagon'
+  | 'circle'
+  | 'square';
 
 export interface ILineLayerConfig {
   lineType: ILineLayerLineType;
@@ -99,7 +109,10 @@ export interface ITripLayerConfig {
 }
 
 export interface IHeatLayerConfig {
+  shape: IHeatLayerType;
   fillColor: ILayerSingleColor | ILayerFieldColor;
+  lngField: string;
+  latField: string;
   magField: string;
   ranges: [number, number];
   blendType: IBlendType;

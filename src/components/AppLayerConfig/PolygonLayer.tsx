@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Form } from 'antd';
+import { Form, Select } from 'antd';
 import type { IPolygonLayer, IPolygonLayerConfig } from '../../typings';
 import useCommonHook from './components/commonHook';
 import LayerTypeSelect from './components/LayerTypeSelect';
@@ -8,8 +8,8 @@ import ColorWrapper from './components/ColorWrapper';
 import RangeWrapper from './components/RangeWrapper';
 import LayerBlend from './components/LayerBlend';
 import FormSlider from './components/FormSlider';
-import GeoFieldWrapper from './components/GeoFieldWrapper';
 import { FORM_LAYOUT, GEO_JSON_TOOLTIP } from './common';
+import { POLYGON_TYPE_LIST } from '../../constants';
 
 interface IProps {
   layer: IPolygonLayer;
@@ -18,10 +18,7 @@ interface IProps {
 
 const PolygonLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<IPolygonLayerConfig>();
-  const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
-    layer,
-    onChange,
-  );
+  const { targetDatasetFields, onFormChange } = useCommonHook(layer, onChange);
 
   useEffect(() => {
     form.setFieldsValue(layer.config);
@@ -36,17 +33,13 @@ const PolygonLayer = ({ layer, onChange }: IProps) => {
     >
       <Form.Item label="基础" colon={false} className="titleFormItem" />
 
-      <LayerTypeSelect
-        dataset={targetDataset}
-        layer={layer}
-        onChange={onChange}
-      />
-
-      <GeoFieldWrapper dataset={targetDataset}>
-        <Form.Item label="Geojson" name="geoField" tooltip={GEO_JSON_TOOLTIP}>
-          <FieldSelect fields={targetDatasetFields} />
-        </Form.Item>
-      </GeoFieldWrapper>
+      <LayerTypeSelect layer={layer} onChange={onChange} />
+      <Form.Item label="面类型" name="shape">
+        <Select options={POLYGON_TYPE_LIST} placeholder="暂未选择字段" />
+      </Form.Item>
+      <Form.Item label="Geojson" name="geoField" tooltip={GEO_JSON_TOOLTIP}>
+        <FieldSelect fields={targetDatasetFields} />
+      </Form.Item>
 
       <ColorWrapper
         label="填充颜色"
