@@ -182,6 +182,7 @@ export const LOCAL_STORAGE_KEY = {
   MAP_THEME: 'DIPPER_VIEW_MAP_THEME',
   MAP_TYPE: 'DIPPER_VIEW_MAP_TYPE',
   TOP_PANEL_HEIGHT: 'DIPPER_VIEW_TOP_PANEL_HEIGHT',
+  MAP_PITCH: 'DIPPER_VIEW_MAP_PITCH',
 };
 
 export const DATASET_FIELD_TYPE_COLOR: Record<IDatasetFieldType, string> = {
@@ -224,7 +225,7 @@ export const LINE_TYPE_LIST: IOption<ILineLayerLineType>[] = [
   },
   {
     label: '曲线',
-    value: 'arcmini',
+    value: 'arc',
   },
   {
     label: '3d曲线',
@@ -240,22 +241,6 @@ export const HEAT_TYPE_LIST: IOption<IHeatLayerType>[] = [
   {
     label: '热力3D',
     value: 'heatmap3D',
-  },
-  {
-    label: '蜂窝热力柱图',
-    value: 'hexagonColumn',
-  },
-  {
-    label: '蜂窝热力平面图',
-    value: 'hexagon',
-  },
-  {
-    label: '点热力平面图',
-    value: 'circle',
-  },
-  {
-    label: '方块热力平面图',
-    value: 'square',
   },
 ];
 
