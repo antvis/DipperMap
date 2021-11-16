@@ -234,7 +234,7 @@ const DEMOS = [
     ],
   },
   {
-    demoname: '点图层',
+    demoName: '气泡图层示例',
     imgSrc:
       'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*cOyXRZJO2QsAAAAAAAAAAAAAARQnAQ',
     dataSrc: [
@@ -287,7 +287,7 @@ const DEMOS = [
     ],
   },
   {
-    demoName: '面图层',
+    demoName: '面图层示例',
     imgSrc:
       'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*uHVCQKuIT08AAAAAAAAAAAAAARQnAQ',
     dataSrc: [

@@ -10,6 +10,7 @@ import type {
   ITripLayer,
   ILayerRange,
   IHeatLayer,
+  PropsType,
 } from '../../typings';
 import { featureCollection, lineString, point, polygon } from '@turf/turf';
 import type { ISourceOptions } from '@antv/l7-react/es/component/LayerAttribute';
@@ -187,14 +188,15 @@ export const setSizeProps = (
 export const transformProps: (
   layer: ILayer,
   dataLength: number,
-) => Omit<ILayerProps, 'source'>[] = (layer, dataLength) => {
-  const props: Partial<ILayerProps> = {
+) => PropsType[] = (layer, dataLength) => {
+  const props: Partial<PropsType> = {
     ...getCommonLayerProps(layer),
   };
 
   if (layer.type === 'heat') {
     const { config } = layer as IHeatLayer;
-    const { fillColor, ranges, intense, radius, shape } = config;
+    const { fillColor, ranges, intense, radius, shape, latField, lngField } =
+      config;
     let positions: number[] = [];
 
     if (fillColor?.value && Array.isArray(fillColor.value)) {
@@ -206,6 +208,7 @@ export const transformProps: (
     }
 
     merge(props, {
+      ready: !!(latField && lngField),
       shape: {
         values: shape,
       },
@@ -225,6 +228,7 @@ export const transformProps: (
     const { fillColor, borderColor, borderWidth } = config;
     const borderProps = cloneDeep(props);
     setColorProps(props, fillColor);
+    props.ready = true;
 
     borderProps.shape = {
       values: 'line',
@@ -237,7 +241,15 @@ export const transformProps: (
 
   if (layer.type === 'point') {
     const { config } = layer as IPointLayer;
-    const { fillColor, borderColor, radius, size = 40, shape } = config;
+    const {
+      fillColor,
+      borderColor,
+      radius,
+      size = 40,
+      shape,
+      lngField,
+      latField,
+    } = config;
     setColorProps(props, fillColor);
 
     if (shape) {
@@ -261,6 +273,7 @@ export const transformProps: (
       setSizeProps(props, radius);
     }
     merge(props, {
+      ready: !!(lngField && latField),
       style: {
         stroke: borderColor.enable ? borderColor.value : undefined,
         strokeWidth: borderColor.enable ? 1 : 0,
@@ -269,8 +282,17 @@ export const transformProps: (
   }
   if (layer.type === 'line') {
     const { config } = layer as ILineLayer;
-    const { lineType, color, lineWidth } = config;
+    const {
+      lineType,
+      color,
+      lineWidth,
+      startLatField,
+      startLngField,
+      endLatField,
+      endLngField,
+    } = config;
     Object.assign(props, {
+      ready: !!(startLatField && startLngField && endLatField && endLngField),
       shape: {
         values: lineType ?? 'line',
       },
@@ -289,6 +311,7 @@ export const transformProps: (
     props.shape = {
       values: 'line',
     };
+    props.ready = true;
   }
   if (layer.type === 'hex') {
     const { config } = layer as IHexLayer;

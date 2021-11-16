@@ -351,6 +351,8 @@ export const DEFAULT_HEAT_LAYER_CONFIG: IHeatLayerConfig = {
     field: null,
   },
   shape: 'heatmap',
+  lngField: '',
+  latField: '',
   magField: '',
   intense: 2,
   radius: 20,

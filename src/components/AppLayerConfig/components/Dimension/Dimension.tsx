@@ -2,7 +2,6 @@ import { Form, FormInstance } from 'antd';
 import React from 'react';
 import FieldSelect from '../../../FieldSelect';
 import { IDatasetField } from '../../../../typings';
-import FieldRange from './FieldRange';
 
 interface IProps {
   field: string;

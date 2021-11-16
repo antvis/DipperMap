@@ -21,7 +21,6 @@ const useCommonHook = <P extends IBaseLayer, T>(
 
   const onFormChange = useCallback(
     debounce((changedConfig: DeepPartial<T>) => {
-      console.log(changedConfig);
       onChange(
         merge({}, layer, {
           config: changedConfig,

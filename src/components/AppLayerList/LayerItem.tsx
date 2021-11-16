@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { transformProps, transformSource } from './utils';
-import type { IDataset, ILayer, ILayerType } from '../../typings';
+import React, { useMemo, useState } from 'react';
+import { transformSource } from './utils';
+import type { IDataset, ILayer, ILayerType, PropsType } from '../../typings';
 import type { ISourceOptions } from '@antv/l7-react/es/component/LayerAttribute';
 import {
   HeatmapLayer,
@@ -11,9 +11,7 @@ import {
 import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import ErrorBoundary from '../ErrorBoundary';
 import { featureCollection } from '@turf/turf';
-import { useDebounceEffect, useDebounceFn } from 'ahooks';
-import deepEqual from 'fast-deep-equal';
-import { debounce } from 'lodash';
+import { useDebounceEffect } from 'ahooks';
 
 export interface ILayerConfig {
   layer: ILayer;
@@ -24,6 +22,7 @@ export interface ILayerConfig {
 interface IProps {
   config: ILayerConfig;
   event: JSX.Element;
+  propsList: PropsType[];
 }
 
 const LAYER_COMPONENT_MAP: Record<
@@ -57,60 +56,57 @@ function getLayerKey(layer: ILayer, index: number) {
   return `${id}-${index}-${opacity}`;
 }
 
-const LayerItem: React.FC<IProps> = React.memo(({ config, event }) => {
-  const { layer, data } = config;
+const LayerItem: React.FC<IProps> = React.memo(
+  ({ config, event, propsList }) => {
+    const { layer, data } = config;
 
-  const [propsList, setPropsList] = useState<Omit<ILayerProps, 'source'>[]>([]);
-  const [source, setSource] = useState<ISourceOptions>({
-    data: featureCollection([]),
-  });
-  const [isFirstLoaded, setIsFirstLoaded] = useState(false);
+    const [source, setSource] = useState<ISourceOptions>({
+      data: featureCollection([]),
+    });
+    const [isFirstLoaded, setIsFirstLoaded] = useState(false);
 
-  useDebounceEffect(
-    () => {
-      setSource(transformSource(layer, data));
-    },
-    [data, JSON.stringify(layer)],
-    {
-      wait: 200,
-    },
-  );
+    useDebounceEffect(
+      () => {
+        setSource(transformSource(layer, data));
+      },
+      [data, JSON.stringify(layer)],
+      {
+        wait: 200,
+      },
+    );
 
-  useEffect(() => {
-    setPropsList(transformProps(layer, data.length));
-  }, [JSON.stringify(layer), data.length]);
+    const LayerComponent = useMemo(() => {
+      return LAYER_COMPONENT_MAP[layer.type];
+    }, [layer.type]);
 
-  const LayerComponent = useMemo(() => {
-    return LAYER_COMPONENT_MAP[layer.type];
-  }, [layer.type]);
-  return (
-    <>
-      {propsList.map((props, propsIndex) => {
-        console.log(props);
-        const key = getLayerKey(layer, propsIndex);
-        return (
-          <ErrorBoundary key={key}>
-            {/* in case we accidentally remove a layer */}
-            {LayerComponent && source.data.features.length ? (
-              <LayerComponent
-                key={getLayerKey(layer, propsIndex) + '-layer'}
-                {...props}
-                source={source}
-                onLayerLoaded={(layer) => {
-                  if (!isFirstLoaded) {
-                    layer.fitBounds();
-                    setIsFirstLoaded(true);
-                  }
-                }}
-              >
-                {event}
-              </LayerComponent>
-            ) : null}
-          </ErrorBoundary>
-        );
-      })}
-    </>
-  );
-});
+    return (
+      <>
+        {propsList?.map((props, propsIndex) => {
+          const key = getLayerKey(layer, propsIndex);
+          return (
+            <ErrorBoundary key={key}>
+              {/* in case we accidentally remove a layer */}
+              {LayerComponent && source.data.features.length ? (
+                <LayerComponent
+                  key={getLayerKey(layer, propsIndex) + '-layer'}
+                  {...props}
+                  source={source}
+                  onLayerLoaded={(layer) => {
+                    if (!isFirstLoaded) {
+                      layer.fitBounds();
+                      setIsFirstLoaded(true);
+                    }
+                  }}
+                >
+                  {event}
+                </LayerComponent>
+              ) : null}
+            </ErrorBoundary>
+          );
+        })}
+      </>
+    );
+  },
+);
 
 export default LayerItem;
