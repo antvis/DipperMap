@@ -19,7 +19,7 @@ import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import { h3ToGeoBoundary } from 'h3-js';
 import { cloneDeep, merge } from 'lodash';
 import { message } from 'antd';
-import { POINT_TO_SQUARE_LIMIT } from '../../constants';
+import { COLOR, POINT_TO_SQUARE_LIMIT } from '../../constants';
 
 export const getPointList: (coordinates: string) => number[][] = (
   coordinates,
@@ -206,16 +206,14 @@ export const transformProps: (
 
   if (layer.type === 'heat') {
     const { config } = layer as IHeatLayer;
-    const { fillColor, ranges, intense, radius, shape, latField, lngField } =
-      config;
+    const { fillColor, ranges, intense, radius, shape, colorType } = config;
     let positions: number[] = [];
 
-    if (fillColor?.value && Array.isArray(fillColor.value)) {
+    const colors = COLOR[colorType][fillColor]?.colors || [];
+    if (colors && colors.length) {
       // 区间长度
-      const sectionLen = ranges[1] - ranges[0] / fillColor.value.length;
-      positions = (fillColor.value as string[]).map(
-        (_, i) => ranges[0] + i * sectionLen,
-      );
+      const sectionLen = ranges[1] - ranges[0] / colors.length;
+      positions = colors.map((_, i) => ranges[0] + i * sectionLen);
     }
 
     merge(props, {
@@ -226,7 +224,7 @@ export const transformProps: (
         intense,
         radius,
         rampColors: {
-          colors: fillColor?.value || [],
+          colors: colors || [],
           positions,
         },
       },
