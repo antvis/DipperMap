@@ -19,8 +19,8 @@
 - [x] heatLayer 默认值
 - [ ] 自由绘制
 - [x] 暗黑模式
-- [ ] 支持 geojson 格式导入, 支持 coordnates 以数组形式导入
-- [ ] 替换 iconfont
+- [x] 支持 geojson 格式导入, 支持 coordnates 以数组形式导入
+- [x] 替换 iconfont
 
 ### 技术改造
 
@@ -34,3 +34,4 @@
 
 - [x] 多选回归单选颜色时，单选颜色没有默认值
 - [x] 图层的顺序发生改变 Zindex 没有改变
+- [ ] 暗黑模式下 slider 不明显
