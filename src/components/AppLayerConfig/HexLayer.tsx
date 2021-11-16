@@ -16,7 +16,10 @@ interface IProps {
 
 const HexLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<IHexLayerConfig>();
-  const { targetDatasetFields, onFormChange } = useCommonHook(layer, onChange);
+  const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    layer,
+    onChange,
+  );
 
   useEffect(() => {
     form.setFieldsValue(layer.config);
@@ -31,7 +34,11 @@ const HexLayer = ({ layer, onChange }: IProps) => {
     >
       <Form.Item label="基础" colon={false} className="titleFormItem" />
 
-      <LayerTypeSelect layer={layer} onChange={onChange} />
+      <LayerTypeSelect
+        dataset={targetDataset}
+        layer={layer}
+        onChange={onChange}
+      />
 
       <Form.Item label="hexId" name="hexId">
         <FieldSelect fields={targetDatasetFields} />

@@ -10,6 +10,7 @@ import LayerBlend from './components/LayerBlend';
 import { POINT_TO_SQUARE_LIMIT } from '../../constants';
 import FormSlider from './components/FormSlider';
 import { FORM_LAYOUT } from './common';
+import GeoFieldWrapper from './components/GeoFieldWrapper';
 
 interface IProps {
   layer: IPointLayer;
@@ -62,19 +63,25 @@ const PointLayer = ({ layer, onChange }: IProps) => {
     >
       <Form.Item label="基础" colon={false} className="titleFormItem" />
 
-      <LayerTypeSelect layer={layer} onChange={onChange} />
+      <LayerTypeSelect
+        dataset={targetDataset}
+        layer={layer}
+        onChange={onChange}
+      />
 
-      {/*<Form.Item label="线段类型" name="shape">*/}
+      {/*<Form.Item label="线段类 型" name="shape">*/}
       {/*  <Select options={SHAPES} placeholder="暂未选择字段" />*/}
       {/*</Form.Item>*/}
 
-      <Form.Item label="经度" name="lngField">
-        <FieldSelect fields={targetDatasetFields} />
-      </Form.Item>
+      <GeoFieldWrapper dataset={targetDataset}>
+        <Form.Item label="经度" name="lngField">
+          <FieldSelect fields={targetDatasetFields} />
+        </Form.Item>
 
-      <Form.Item label="纬度" name="latField">
-        <FieldSelect fields={targetDatasetFields} />
-      </Form.Item>
+        <Form.Item label="纬度" name="latField">
+          <FieldSelect fields={targetDatasetFields} />
+        </Form.Item>
+      </GeoFieldWrapper>
 
       {/*<Form.Item label="高度维度" name="magField">*/}
       {/*  <FieldSelect fields={targetDatasetFields} />*/}

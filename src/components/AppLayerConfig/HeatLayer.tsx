@@ -9,7 +9,6 @@ import type {
 import useCommonHook from './components/commonHook';
 import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
-import useDataset from '../../hooks/dataset';
 import FormSlider from './components/FormSlider';
 import { debounce } from 'lodash';
 import { FORM_LAYOUT } from './common';
@@ -21,11 +20,9 @@ interface IProps {
 
 const HeatLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<IHeatLayerConfig>();
-  const { targetDatasetFields, onFormChange } = useCommonHook(layer, onChange);
-  const { getTargetDataset } = useDataset();
-  const targetDataset = useMemo(
-    () => getTargetDataset(layer.datasetId),
-    [layer.datasetId, getTargetDataset],
+  const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    layer,
+    onChange,
   );
 
   useEffect(() => {
@@ -60,7 +57,12 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
       onValuesChange={debounce(onFormValueChanged, 300)}
     >
       <Form.Item label="基础" colon={false} className="titleFormItem" />
-      <LayerTypeSelect layer={layer} onChange={onChange} />
+      <LayerTypeSelect
+        dataset={targetDataset}
+        layer={layer}
+        onChange={onChange}
+      />
+
       <Form.Item label="经度" name="lngField">
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>

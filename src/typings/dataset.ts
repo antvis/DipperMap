@@ -1,4 +1,6 @@
 import type { IEntity } from './common';
+import { GeoJSONObject } from '@turf/turf';
+import { ILayerType } from './layer';
 
 export type IDatasetFieldType = 'string' | 'number' | 'boolean';
 
@@ -28,10 +30,21 @@ export type IDatasetField<T = string> =
   | IDatasetBooleanField<T>
   | IDatasetNumberField<T>;
 
+export type IDatasetGeoJsonMap = Partial<{
+  [key in ILayerType]: GeoJSONObject[];
+}>;
+
+export interface IDatasetGeoJson {
+  enable: boolean;
+  map: IDatasetGeoJsonMap;
+  layerTypes: ILayerType[];
+}
+
 export interface IDataset<P = Record<string, any>> extends IEntity {
   type: 'json' | 'csv';
   url?: string;
   data: P[];
   fields: IDatasetField<keyof P>[];
   id: string;
+  geoJson?: IDatasetGeoJson;
 }

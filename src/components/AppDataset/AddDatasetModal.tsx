@@ -84,10 +84,9 @@ const AddDatasetModal = ({
           data: type === 'url' ? await request(url) : data,
         });
         const newDataset = addDataset({
+          ...result,
           name,
           url,
-          data: result.data,
-          fields: result.fields,
           id: id || getRandomId('dataset'),
         });
         message.success('数据源新建成功');

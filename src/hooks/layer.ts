@@ -11,6 +11,8 @@ import {
   DEFAULT_HEAT_LAYER_CONFIG,
 } from '../constants';
 import { ConfigModelContext } from '../context/ConfigContext';
+import { getLayerTypes } from '../components/AppLayerConfig/common';
+import { message } from 'antd';
 
 const useLayer = () => {
   const { layerList, setLayerList } = useContext(ConfigModelContext);
@@ -39,17 +41,26 @@ const useLayer = () => {
     return cloneDeep(config);
   }, []);
 
-  const addLayer: (dataset: IDataset) => ILayer = useCallback(
-    (dataset) => {
+  const addLayer: (
+    dataset: IDataset,
+    initType?: ILayerType,
+  ) => ILayer | undefined = useCallback(
+    (dataset, initType) => {
       const { id } = dataset;
+      const layerTypes = getLayerTypes(dataset);
+      if (!layerTypes.length) {
+        message.success('当前无可创建的图层');
+        return;
+      }
+      const type = initType ?? layerTypes[0].value;
       const newLayer: ILayer = {
         id: getRandomId('layer'),
         name: generateUnRepeatValue<ILayer, string>(layerList, 'name', '图层'),
         order: layerList.length + 1,
         datasetId: id,
         createTime: Date.now(),
-        config: getDefaultConfig('point'),
-        type: 'point',
+        config: getDefaultConfig(type),
+        type: type,
         visible: true,
         zIndex: 0,
       };
