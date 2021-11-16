@@ -6,7 +6,7 @@ export type ILayerType = 'point' | 'line' | 'trip' | 'polygon' | 'hex' | 'heat';
 
 export type IBlendType = keyof typeof BlendType;
 
-export type PropsType = Omit<ILayerProps, 'source'> & { ready?: boolean };
+export type PropsType = Omit<ILayerProps, 'source'>;
 
 export interface IBaseLayer extends IEntity {
   type: ILayerType;
@@ -64,7 +64,6 @@ export interface IPointLayerConfig {
   opacity: number;
   size: number;
   shape: string;
-  dimensionType: ILayerDimensionType;
   dimension: ILayerIDimension;
 }
 
@@ -96,7 +95,6 @@ export interface IPolygonLayerConfig {
   borderWidth: ILayerRange;
   blendType: IBlendType;
   opacity: number;
-  dimensionType: ILayerDimensionType;
   dimension: ILayerIDimension;
 }
 
@@ -119,7 +117,6 @@ export interface IHeatLayerConfig {
   opacity: number;
   radius: number;
   intense: number;
-  dimensionType: ILayerDimensionType;
   dimension: ILayerIDimension;
 }
 
@@ -128,7 +125,6 @@ export interface IHexLayerConfig {
   fillColor: ILayerSingleColor | ILayerFieldColor;
   blendType: IBlendType;
   opacity: number;
-  dimensionType: ILayerDimensionType;
   dimension: ILayerIDimension;
 }
 export interface IPointLayer extends IBaseLayer {

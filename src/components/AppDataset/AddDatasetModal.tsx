@@ -17,6 +17,7 @@ import { ConfigModelContext } from '../../context/ConfigContext';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import { getRandomId } from '../../utils';
 import { PropsModelContext } from '../../context/PropContext';
+import useLayer from '../../hooks/layer';
 
 interface IProps {
   visible: boolean;
@@ -59,6 +60,7 @@ const AddDatasetModal = ({
   const { setLayerList } = useContext(ConfigModelContext);
   const { demos = [] } = useContext(PropsModelContext);
   const { datasetList, setDatasetList } = useContext(DatasetModelContext);
+  const { addLayer } = useLayer();
 
   const typeOptions = useMemo(
     () => [
@@ -91,11 +93,19 @@ const AddDatasetModal = ({
         });
         message.success('数据源新建成功');
         setDatasetList([...datasetList, newDataset]);
-        setLoading(false);
+
+        if (newDataset.geoJson?.enable) {
+          newDataset.geoJson?.layerTypes.forEach((type) => {
+            addLayer(newDataset, type);
+          });
+        }
+
         setVisible(false);
       } catch (e) {
+        message.error('数据解析有误', e);
         console.error(e);
       }
+      setLoading(false);
     },
     [addDataset, form, setVisible],
   );

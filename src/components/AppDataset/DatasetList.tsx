@@ -55,8 +55,6 @@ export default function DatasetList({ className }: IProps) {
     setLayerList(layerList.filter((item) => item.datasetId !== id));
     setFilterList(filterList.filter((item) => item.datasetId !== id));
     setInteractiveList(interactiveList.filter((item) => item.datasetId !== id));
-
-    message.success('删除成功');
   };
 
   const checkDelete = (dataset: IDataset) => {

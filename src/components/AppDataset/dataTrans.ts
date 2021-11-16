@@ -25,7 +25,7 @@ export const transformGeoJson: (
     data.features,
     (feature: Feature) => {
       // @ts-ignore
-      return GEO_TO_LAYER_TYPE_MAP[feature.geometry.type];
+      return GEO_TO_LAYER_TYPE_MAP[feature?.geometry?.type];
     },
   ) as IDatasetGeoJsonMap;
 

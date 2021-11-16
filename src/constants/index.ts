@@ -276,9 +276,8 @@ export const DEFAULT_POINT_LAYER_CONFIG: IPointLayerConfig = {
   },
   blendType: 'normal',
   opacity: 100,
-  shape: '',
+  shape: 'circle',
   size: 0,
-  dimensionType: 'circle',
   dimension: {
     rangeValue: [1, 100],
     field: null,
@@ -335,7 +334,6 @@ export const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig = {
   },
   blendType: 'normal',
   opacity: 100,
-  dimensionType: 'fill',
   dimension: {
     rangeValue: [1, 100],
     field: null,
@@ -354,7 +352,6 @@ export const DEFAULT_HEX_LAYER_CONFIG: IHexLayerConfig = {
     rangeValue: [1, 100],
     field: null,
   },
-  dimensionType: 'hexagon',
 };
 
 export const DEFAULT_HEAT_LAYER_CONFIG: IHeatLayerConfig = {
@@ -375,5 +372,4 @@ export const DEFAULT_HEAT_LAYER_CONFIG: IHeatLayerConfig = {
     rangeValue: [1, 100],
     field: null,
   },
-  dimensionType: 'heatmap',
 };
