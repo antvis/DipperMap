@@ -154,6 +154,12 @@ const AddDatasetModal = ({
     });
   }
 
+  useEffect(() => {
+    if (!visible) {
+      setDemoVisible(false);
+    }
+  }, [visible]);
+
   return (
     <Modal
       title="添加数据源"
@@ -177,7 +183,7 @@ const AddDatasetModal = ({
         </div>
       </div>
       {demoVisible ? (
-        <Row gutter={[42, 24]}>
+        <Row gutter={[42, 24]} style={{ height: 374, overflow: 'scroll' }}>
           {demos.map((demo, index) => (
             <Col span={8} key={index}>
               <img
