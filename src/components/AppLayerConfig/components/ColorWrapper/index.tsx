@@ -7,6 +7,7 @@ import FieldSelect from '../../../FieldSelect';
 import RangeColorPicker from './RangeColorPicker';
 import FieldColorPicker from './FieldColorPicker';
 import { ColorPicker } from '../../../ColorPicker';
+import { COLOR } from '../../../../constants';
 
 interface IProps {
   label: string;
@@ -49,14 +50,29 @@ const ColorWrapper = ({
           let content: JSX.Element = <></>;
 
           if (fieldColor) {
-            content = <FieldColorPicker />;
+            content = (
+              <FieldColorPicker
+                field={field}
+                colorList={COLOR[form.getFieldValue('colorType')]}
+              />
+            );
           } else if (!colorField) {
             content = range ? <RangeColorPicker /> : <ColorPicker />;
           } else {
-            content = <FieldColorPicker />;
+            content = (
+              <FieldColorPicker
+                field={field}
+                colorList={COLOR[form.getFieldValue('colorType')]}
+              />
+            );
           }
 
-          return (
+          return fieldColor ? (
+            <FieldColorPicker
+              field={field}
+              colorList={COLOR[form.getFieldValue('colorType')]}
+            />
+          ) : (
             <Form.Item
               className="titleFormItem"
               label={label}

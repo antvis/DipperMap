@@ -107,8 +107,9 @@ export interface ITripLayerConfig {
 }
 
 export interface IHeatLayerConfig {
+  colorType: string;
   shape: IHeatLayerType;
-  fillColor: ILayerSingleColor | ILayerFieldColor;
+  fillColor: number;
   lngField: string;
   latField: string;
   magField: string;

@@ -92,6 +92,7 @@ const LayerItem: React.FC<IProps> = React.memo(
                   {...props}
                   source={source}
                   onLayerLoaded={(layer) => {
+                    console.log('loaded');
                     if (!isFirstLoaded) {
                       layer.fitBounds();
                       setIsFirstLoaded(true);
