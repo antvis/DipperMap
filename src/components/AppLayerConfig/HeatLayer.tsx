@@ -68,11 +68,7 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
         onChange={onChange}
       />
       <Form.Item label="视角" name="shape">
-        <Select>
-          {HEAT_TYPE_LIST.map((shape) => (
-            <Option value={shape.value}>{shape.label}</Option>
-          ))}
-        </Select>
+        <Select options={HEAT_TYPE_LIST} />
       </Form.Item>
       <Form.Item label="经度" name="lngField">
         <FieldSelect fields={targetDatasetFields} />

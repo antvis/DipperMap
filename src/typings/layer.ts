@@ -67,7 +67,7 @@ export interface IPointLayerConfig {
   dimension: ILayerIDimension;
 }
 
-export type ILineLayerLineType = 'line' | 'arcmini' | 'arc3d';
+export type ILineLayerLineType = 'line' | 'arc' | 'arc3d';
 export type IHeatLayerType =
   | 'heatmap'
   | 'heatmap3D'
