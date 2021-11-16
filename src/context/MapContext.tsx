@@ -8,6 +8,8 @@ export interface IProps {
   setMapTheme: (value: string) => void;
   mapType: IMapType;
   setMapType: (value: IMapType) => void;
+  mapPitch: number;
+  setMapPitch: (value: number) => void;
 }
 
 // @ts-ignore
@@ -29,6 +31,10 @@ const MapContextProvider: React.FC = ({ children }) => {
       MAP_TYPES[0].value) as IMapType,
   );
 
+  const [mapPitch, setMapPitch] = useState<number>(
+    +(localStorage.getItem(LOCAL_STORAGE_KEY.MAP_PITCH) ?? 0),
+  );
+
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY.MAP_THEME, mapTheme);
   }, [mapTheme]);
@@ -37,8 +43,21 @@ const MapContextProvider: React.FC = ({ children }) => {
     localStorage.setItem(LOCAL_STORAGE_KEY.MAP_TYPE, mapType);
   }, [mapType]);
 
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY.MAP_PITCH, `${mapPitch}`);
+  }, [mapPitch]);
+
   return (
-    <Provider value={{ mapTheme, setMapTheme, mapType, setMapType }}>
+    <Provider
+      value={{
+        mapTheme,
+        setMapTheme,
+        mapType,
+        setMapType,
+        mapPitch,
+        setMapPitch,
+      }}
+    >
       {children}
     </Provider>
   );
