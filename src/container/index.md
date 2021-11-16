@@ -330,7 +330,6 @@ const DEMOS = [
             field: null,
           },
           blendType: 'normal',
-          dimensionType: 'fill',
           dimension: {
             rangeValue: [1, 100],
             field: null,

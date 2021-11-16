@@ -58,7 +58,7 @@ function getLayerKey(layer: ILayer, index: number) {
 
 const LayerItem: React.FC<IProps> = React.memo(
   ({ config, event, propsList }) => {
-    const { layer, data } = config;
+    const { layer, data, dataset } = config;
 
     const [source, setSource] = useState<ISourceOptions>({
       data: featureCollection([]),
@@ -67,9 +67,9 @@ const LayerItem: React.FC<IProps> = React.memo(
 
     useDebounceEffect(
       () => {
-        setSource(transformSource(layer, data));
+        setSource(transformSource(layer, data, dataset));
       },
-      [data, JSON.stringify(layer)],
+      [data, dataset, JSON.stringify(layer)],
       {
         wait: 200,
       },

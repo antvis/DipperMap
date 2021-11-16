@@ -61,7 +61,6 @@ const AppDragPanel: React.FC<IProps> = ({
   const onDragMove = useCallback(
     (e) => {
       if (isDrag) {
-        debugger;
         const container = document.querySelector(
           `.${containerStyles.container}`,
         );
