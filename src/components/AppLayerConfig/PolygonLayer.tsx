@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Form } from 'antd';
+import { Form, Select } from 'antd';
 import type { IPolygonLayer, IPolygonLayerConfig } from '../../typings';
 import useCommonHook from './components/commonHook';
 import LayerTypeSelect from './components/LayerTypeSelect';
@@ -9,6 +9,7 @@ import RangeWrapper from './components/RangeWrapper';
 import LayerBlend from './components/LayerBlend';
 import FormSlider from './components/FormSlider';
 import { FORM_LAYOUT, GEO_JSON_TOOLTIP } from './common';
+import { POLYGON_TYPE_LIST } from '../../constants';
 
 interface IProps {
   layer: IPolygonLayer;
@@ -33,7 +34,9 @@ const PolygonLayer = ({ layer, onChange }: IProps) => {
       <Form.Item label="基础" colon={false} className="titleFormItem" />
 
       <LayerTypeSelect layer={layer} onChange={onChange} />
-
+      <Form.Item label="面类型" name="shape">
+        <Select options={POLYGON_TYPE_LIST} placeholder="暂未选择字段" />
+      </Form.Item>
       <Form.Item label="Geojson" name="geoField" tooltip={GEO_JSON_TOOLTIP}>
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>
