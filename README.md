@@ -28,6 +28,7 @@
 - [x] moment => day.js
 - [ ] 数据转换和筛选 => worker 中进行 + Promise
 - [ ] eslintrc 提示
+- [ ] 中国地图替换：https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json
 
 ### BUG
 

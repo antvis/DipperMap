@@ -18,7 +18,10 @@ interface IProps {
 
 const LineLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<ILineLayerConfig>();
-  const { targetDatasetFields, onFormChange } = useCommonHook(layer, onChange);
+  const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    layer,
+    onChange,
+  );
 
   useEffect(() => {
     form.setFieldsValue(layer.config);
@@ -33,7 +36,11 @@ const LineLayer = ({ layer, onChange }: IProps) => {
     >
       <Form.Item label="基础" colon={false} className="titleFormItem" />
 
-      <LayerTypeSelect layer={layer} onChange={onChange} />
+      <LayerTypeSelect
+        dataset={targetDataset}
+        layer={layer}
+        onChange={onChange}
+      />
 
       <Form.Item label="线段类型" name="lineType">
         <Select options={LINE_TYPE_LIST} />

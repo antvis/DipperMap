@@ -15,6 +15,7 @@ import type {
   ILayerDimensionType,
   IHeatLayerType,
 } from '../typings';
+import { GeometryTypes } from '@turf/turf';
 
 export const DEFAULT_COLOR1 = '#1890ff';
 export const DEFAULT_COLOR2 = '#FF5627';
@@ -35,6 +36,17 @@ export const MAPBOX_THEME_LIST: IOption<IMapTheme>[] = [
     value: 'light',
   },
 ];
+
+export const GEO_TO_LAYER_TYPE_MAP: Partial<Record<GeometryTypes, ILayerType>> =
+  {
+    Point: 'point',
+    LineString: 'trip',
+    Polygon: 'polygon',
+    MultiPoint: 'point',
+    MultiLineString: 'trip',
+    MultiPolygon: 'polygon',
+  };
+
 export const MAP_THEME_LIST: IOption<IMapTheme>[] = [
   {
     label: '幻影黑',
