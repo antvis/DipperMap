@@ -87,7 +87,7 @@ const DEMOS = [
   },
   {
     imgSrc:
-      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*FpG2RZEbeUwAAAAAAAAAAAAAARQnAQ',
+      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*SLbgR72KKFsAAAAAAAAAAAAAARQnAQ',
     dataSrc: [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/0a544b66-a04b-4b98-9b69-d71258f5f577.json',
@@ -121,7 +121,7 @@ const DEMOS = [
   },
   {
     imgSrc:
-      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*vyb5QLdu9AgAAAAAAAAAAAAAARQnAQ',
+      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*pZBySbhAUp4AAAAAAAAAAAAAARQnAQ',
     dataSrc: [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/1ee29c43-eefe-4bbe-8ed6-87f64312c461.json',
@@ -155,7 +155,7 @@ const DEMOS = [
   },
   {
     imgSrc:
-      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*vyb5QLdu9AgAAAAAAAAAAAAAARQnAQ',
+      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*NDt7TbATnroAAAAAAAAAAAAAARQnAQ',
     dataSrc: [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/5c4fdc5c-5cf7-46da-a361-f377938553dc.json',
@@ -200,7 +200,7 @@ const DEMOS = [
   },
   {
     imgSrc:
-      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*WXx-RKyyr3MAAAAAAAAAAAAAARQnAQ',
+      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*0K0MSLt3dQgAAAAAAAAAAAAAARQnAQ',
     dataSrc: [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/b417528c-5d29-40f1-86cb-fd2879e56681.json',
@@ -236,7 +236,7 @@ const DEMOS = [
   {
     demoName: '气泡图层示例',
     imgSrc:
-      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*cOyXRZJO2QsAAAAAAAAAAAAAARQnAQ',
+      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*mkSISrpmi8EAAAAAAAAAAAAAARQnAQ',
     dataSrc: [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/b48d0e58-7d43-40fa-94e0-370cb3935155.json',
@@ -289,7 +289,7 @@ const DEMOS = [
   {
     demoName: '面图层示例',
     imgSrc:
-      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*uHVCQKuIT08AAAAAAAAAAAAAARQnAQ',
+      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*0W_dSre5Tq4AAAAAAAAAAAAAARQnAQ',
     dataSrc: [
       {
         name: '中国地图省级',
