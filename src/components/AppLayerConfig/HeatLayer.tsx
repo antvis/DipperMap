@@ -24,11 +24,9 @@ interface IProps {
 
 const HeatLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<IHeatLayerConfig>();
-  const { targetDatasetFields, onFormChange } = useCommonHook(layer, onChange);
-  const { getTargetDataset } = useDataset();
-  const targetDataset = useMemo(
-    () => getTargetDataset(layer.datasetId),
-    [layer.datasetId, getTargetDataset],
+  const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    layer,
+    onChange,
   );
 
   useEffect(() => {
@@ -64,7 +62,11 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
       onValuesChange={onFormValueChanged}
     >
       <Form.Item label="基础" colon={false} className="titleFormItem" />
-      <LayerTypeSelect layer={layer} onChange={onChange} />
+      <LayerTypeSelect
+        dataset={targetDataset}
+        layer={layer}
+        onChange={onChange}
+      />
       <Form.Item label="视角" name="shape">
         <Select>
           {HEAT_TYPE_LIST.map((shape) => (

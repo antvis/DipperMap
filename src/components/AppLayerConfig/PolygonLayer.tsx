@@ -10,6 +10,7 @@ import LayerBlend from './components/LayerBlend';
 import FormSlider from './components/FormSlider';
 import { FORM_LAYOUT, GEO_JSON_TOOLTIP } from './common';
 import { POLYGON_TYPE_LIST } from '../../constants';
+import GeoFieldWrapper from './components/GeoFieldWrapper';
 
 interface IProps {
   layer: IPolygonLayer;
@@ -18,7 +19,10 @@ interface IProps {
 
 const PolygonLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<IPolygonLayerConfig>();
-  const { targetDatasetFields, onFormChange } = useCommonHook(layer, onChange);
+  const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    layer,
+    onChange,
+  );
 
   useEffect(() => {
     form.setFieldsValue(layer.config);
@@ -37,9 +41,12 @@ const PolygonLayer = ({ layer, onChange }: IProps) => {
       <Form.Item label="面类型" name="shape">
         <Select options={POLYGON_TYPE_LIST} placeholder="暂未选择字段" />
       </Form.Item>
-      <Form.Item label="Geojson" name="geoField" tooltip={GEO_JSON_TOOLTIP}>
-        <FieldSelect fields={targetDatasetFields} />
-      </Form.Item>
+
+      <GeoFieldWrapper dataset={targetDataset}>
+        <Form.Item label="Geojson" name="geoField" tooltip={GEO_JSON_TOOLTIP}>
+          <FieldSelect fields={targetDatasetFields} />
+        </Form.Item>
+      </GeoFieldWrapper>
 
       <ColorWrapper
         label="填充颜色"
