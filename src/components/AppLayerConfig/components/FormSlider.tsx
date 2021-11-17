@@ -5,12 +5,16 @@ interface IProps {
   label?: string;
   name?: string;
   value?: number;
+  max?: number;
+  min?: number;
   onChange?: (newBlend: number) => void;
 }
 
 const FormSlider: React.FC<IProps> = ({
   label = '透明度',
   name = 'opacity',
+  max = 100,
+  min = 1,
   value,
   onChange,
 }) => {
@@ -22,7 +26,7 @@ const FormSlider: React.FC<IProps> = ({
       wrapperCol={{ span: 24 }}
       className="titleFormItem"
     >
-      <Slider value={value} min={1} max={100} onChange={onChange} />
+      <Slider value={value} min={min} max={max} onChange={onChange} />
     </Form.Item>
   );
 };

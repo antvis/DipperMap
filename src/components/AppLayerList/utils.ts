@@ -233,12 +233,27 @@ export const transformProps: (
 
   if (layer.type === 'polygon') {
     const { config } = layer as IPolygonLayer;
-    const { fillColor, borderColor, borderWidth, colorType, fillColorField } =
-      config;
+    const {
+      fillColor,
+      borderColor,
+      borderWidth,
+      colorType,
+      fillColorField,
+      intense,
+      intenseField,
+      shape,
+    } = config;
     const borderProps = cloneDeep(props);
+    props.shape = {
+      values: shape,
+    };
     props.color = {
       field: fillColorField,
       values: COLOR[colorType][fillColor]?.colors || [],
+    };
+    props.size = {
+      field: intenseField,
+      values: (num) => intense * num,
     };
 
     borderProps.shape = {
@@ -295,15 +310,7 @@ export const transformProps: (
   }
   if (layer.type === 'line') {
     const { config } = layer as ILineLayer;
-    const {
-      lineType,
-      color,
-      lineWidth,
-      startLatField,
-      startLngField,
-      endLatField,
-      endLngField,
-    } = config;
+    const { lineType, color, lineWidth } = config;
     Object.assign(props, {
       shape: {
         values: lineType ?? 'line',
