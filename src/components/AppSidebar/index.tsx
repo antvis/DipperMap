@@ -1,6 +1,5 @@
-import React, { Ref, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'antd';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import classnames from 'classnames';
 import styles from './index.less';
 
@@ -28,7 +27,14 @@ const AppSidebar: React.FC<IProps> = ({ className = '', children }) => {
         {children}
         <Button
           className={styles.appSidebarToggleBtn}
-          icon={isHidden ? <RightOutlined /> : <LeftOutlined />}
+          icon={
+            <i
+              className={classnames([
+                'dpiconfont',
+                isHidden ? 'dpicon-right' : 'dpicon-left',
+              ])}
+            />
+          }
           onClick={() => setIsHidden(!isHidden)}
         />
       </div>

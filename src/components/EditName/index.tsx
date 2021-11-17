@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styles from './index.less';
-import { EditOutlined, EnterOutlined } from '@ant-design/icons';
 import { Input, message } from 'antd';
 import classnames from 'classnames';
 
@@ -43,15 +42,19 @@ const EditName = ({ name, onChange, className }: IProps) => {
           onChange={(e) => setCacheName(e.target.value)}
           onBlur={() => setIsEdit(false)}
           placeholder="请输入名称"
-          suffix={<EnterOutlined />}
+          suffix={<i className="dpiconfont dpicon-huiche" />}
         />
       ) : (
         <>
           <div title={name} className={styles.editNameText}>
             {name}
           </div>
-          <EditOutlined
-            className={styles.editIcon}
+          <i
+            className={classnames([
+              styles.editIcon,
+              'dpiconfont',
+              'dpicon-bianji',
+            ])}
             title="编辑名称"
             onClick={(e) => {
               e.stopPropagation();

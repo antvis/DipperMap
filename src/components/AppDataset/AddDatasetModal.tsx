@@ -9,7 +9,6 @@ import { Modal, Input, Form, Radio, Upload, Row, Col } from 'antd';
 import { message } from 'antd';
 import useDataset from '../../hooks/dataset';
 import request from 'umi-request';
-import { InboxOutlined, RightOutlined, LeftOutlined } from '@ant-design/icons';
 import styles from './index.less';
 import { dataTransform } from './dataTrans';
 import { Demo } from '../../typings';
@@ -182,13 +181,16 @@ const AddDatasetModal = ({
     >
       <div className={styles['example-title']}>
         {demoVisible ? (
-          <LeftOutlined onClick={() => setDemoVisible(false)} />
+          <i
+            className="dpiconfont dpicon-left"
+            onClick={() => setDemoVisible(false)}
+          />
         ) : (
           <div className={styles['example-data']}>示例数据</div>
         )}
         <div className={styles['demos']} onClick={openDemos}>
           <span>没有数据？尝试加载示例数据</span>
-          <RightOutlined />
+          <i className="dpiconfont dpicon-right" />
         </div>
       </div>
       {demoVisible ? (
@@ -288,9 +290,7 @@ const AddDatasetModal = ({
                     };
                   }}
                 >
-                  <p>
-                    <InboxOutlined style={{ fontSize: 40, marginBottom: 8 }} />
-                  </p>
+                  <i className="dpiconfont dpicon-shangchuanwenjian" />
                   <p>可将上传文件拖拽至这里</p>
                 </Upload.Dragger>
               </Form.Item>
