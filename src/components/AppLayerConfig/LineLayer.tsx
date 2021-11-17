@@ -68,6 +68,7 @@ const LineLayer = ({ layer, onChange }: IProps) => {
         form={form}
         fields={targetDatasetFields}
         range
+        title="展示更多"
       />
 
       <RangeWrapper
@@ -75,6 +76,7 @@ const LineLayer = ({ layer, onChange }: IProps) => {
         field="lineWidth"
         form={form}
         fields={targetDatasetFields}
+        title="展示更多"
       />
 
       <FormSlider />

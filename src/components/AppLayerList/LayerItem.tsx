@@ -83,27 +83,23 @@ const LayerItem: React.FC<IProps> = React.memo(
       <>
         {propsList?.map((props, propsIndex) => {
           const key = getLayerKey(layer, propsIndex);
-          return (
+          return LayerComponent && source.data.features.length ? (
             <ErrorBoundary key={key}>
-              {/* in case we accidentally remove a layer */}
-              {LayerComponent && source.data.features.length ? (
-                <LayerComponent
-                  key={getLayerKey(layer, propsIndex) + '-layer'}
-                  {...props}
-                  source={source}
-                  onLayerLoaded={(layer) => {
-                    console.log('loaded');
-                    if (!isFirstLoaded) {
-                      layer.fitBounds();
-                      setIsFirstLoaded(true);
-                    }
-                  }}
-                >
-                  {event}
-                </LayerComponent>
-              ) : null}
+              <LayerComponent
+                key={getLayerKey(layer, propsIndex) + '-layer'}
+                {...props}
+                source={source}
+                onLayerLoaded={(layer) => {
+                  if (!isFirstLoaded) {
+                    layer.fitBounds();
+                    setIsFirstLoaded(true);
+                  }
+                }}
+              >
+                {event}
+              </LayerComponent>
             </ErrorBoundary>
-          );
+          ) : null;
         })}
       </>
     );

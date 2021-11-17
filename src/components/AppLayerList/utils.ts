@@ -206,7 +206,7 @@ export const transformProps: (
 
   if (layer.type === 'heat') {
     const { config } = layer as IHeatLayer;
-    const { fillColor, ranges, intense, radius, shape, colorType } = config;
+    const { fillColor, ranges, intensity, radius, shape, colorType } = config;
     let positions: number[] = [];
 
     const colors = COLOR[colorType][fillColor]?.colors || [];
@@ -221,7 +221,7 @@ export const transformProps: (
         values: shape,
       },
       style: {
-        intense,
+        intensity,
         radius,
         rampColors: {
           colors: colors || [],
@@ -270,14 +270,22 @@ export const transformProps: (
 
   if (layer.type === 'point') {
     const { config } = layer as IPointLayer;
-    const { fillColor, borderColor, radius, shape, opacity } = config;
+    const { fillColor, borderColor, radius, shape, opacity, size, magField } =
+      config;
     setColorProps(props, fillColor);
 
     if (shape) {
       props.shape = {
         values: shape,
       };
-      setSizeProps(props, radius);
+      if (shape === 'cylinder') {
+        props.size = {
+          field: magField,
+          values: (num) => [radius.value, radius.value, num * size],
+        };
+      } else {
+        setSizeProps(props, radius);
+      }
     } else if (dataLength > POINT_TO_SQUARE_LIMIT) {
       props.shape = {
         values: 'square',
@@ -301,13 +309,14 @@ export const transformProps: (
   }
   if (layer.type === 'line') {
     const { config } = layer as ILineLayer;
-    const { lineType, color, lineWidth } = config;
+    const { lineType, color, lineWidth, opacity } = config;
     Object.assign(props, {
       shape: {
         values: lineType ?? 'line',
       },
       style: {
         segmentNumber: 15,
+        opacity: opacity / 100 ?? 1,
       },
     });
     setColorProps(props, color);
