@@ -17,6 +17,7 @@ interface IProps {
   form: FormInstance;
   displayFieldCheckbox?: boolean;
   fields: IDatasetField[];
+  title?: string;
 }
 
 const ColorWrapper = ({
@@ -27,6 +28,7 @@ const ColorWrapper = ({
   range = false,
   fieldColor = false,
   displayFieldCheckbox = true,
+  title = '基于字段',
 }: IProps) => {
   const [showField, setShowField] = useState(false);
   const colorField = form.getFieldValue([field, 'field']);
@@ -39,7 +41,7 @@ const ColorWrapper = ({
           checked={showField}
           onChange={(e) => setShowField(e.target.checked)}
         >
-          基于字段
+          {title}
         </Checkbox>
       )}
       <Form.Item

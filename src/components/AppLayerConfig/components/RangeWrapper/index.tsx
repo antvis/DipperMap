@@ -12,7 +12,8 @@ const RangeWrapper: React.FC<{
   field: string;
   form: FormInstance;
   fields: IDatasetField[];
-}> = ({ label, field, form, fields }) => {
+  title?: string;
+}> = ({ label, field, form, fields, title = '基于字段' }) => {
   const [showField, setShowField] = useState(false);
 
   const hasField = !!form.getFieldValue([field, 'field']);
@@ -24,7 +25,7 @@ const RangeWrapper: React.FC<{
         checked={showField}
         onChange={(e) => setShowField(e.target.checked)}
       >
-        基于字段
+        {title}
       </Checkbox>
       <Form.Item
         className="titleFormItem"
