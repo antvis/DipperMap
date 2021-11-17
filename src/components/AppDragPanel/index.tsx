@@ -5,7 +5,6 @@ import { useMount } from 'ahooks';
 import { LOCAL_STORAGE_KEY } from '../../constants';
 import classnames from 'classnames';
 import { getRealOffsetTop } from '../../utils';
-import { Demo } from '../../typings';
 
 interface IProps {
   sidebarRef: React.MutableRefObject<HTMLDivElement | null>;

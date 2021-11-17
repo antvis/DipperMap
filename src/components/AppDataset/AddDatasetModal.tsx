@@ -102,7 +102,7 @@ const AddDatasetModal = ({
 
         setVisible(false);
       } catch (e) {
-        message.error('数据解析有误', e);
+        // message.error('数据解析有误', e);
         console.error(e);
       }
       setLoading(false);
