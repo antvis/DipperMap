@@ -98,6 +98,9 @@ export interface IPolygonLayerConfig {
   blendType: IBlendType;
   opacity: number;
   dimension: ILayerIDimension;
+  intense: number;
+  intenseField: string;
+  shape: string;
 }
 
 export interface ITripLayerConfig {

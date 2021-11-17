@@ -68,9 +68,10 @@ const PolygonLayer = ({ layer, onChange }: IProps) => {
         form={form}
         fields={targetDatasetFields}
       />
-
-      <FormSlider />
-
+      <Form.Item label="高度字段" name="intenseField">
+        <FieldSelect fields={targetDatasetFields} allowClear />
+      </Form.Item>
+      <FormSlider label="高度" name="intense" max={10e7} />
       <LayerBlend />
     </Form>
   );

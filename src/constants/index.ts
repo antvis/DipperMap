@@ -322,6 +322,9 @@ export const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig = {
     rangeValue: [1, 100],
     field: null,
   },
+  intense: 10000,
+  intenseField: '',
+  shape: 'fill',
 };
 
 export const DEFAULT_HEX_LAYER_CONFIG: IHexLayerConfig = {
