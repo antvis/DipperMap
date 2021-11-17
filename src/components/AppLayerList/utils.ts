@@ -233,9 +233,28 @@ export const transformProps: (
 
   if (layer.type === 'polygon') {
     const { config } = layer as IPolygonLayer;
-    const { fillColor, borderColor, borderWidth } = config;
+    const {
+      fillColor,
+      borderColor,
+      borderWidth,
+      colorType,
+      fillColorField,
+      intense,
+      intenseField,
+      shape,
+    } = config;
     const borderProps = cloneDeep(props);
-    setColorProps(props, fillColor);
+    props.shape = {
+      values: shape,
+    };
+    props.color = {
+      field: fillColorField,
+      values: COLOR[colorType][fillColor]?.colors || [],
+    };
+    props.size = {
+      field: intenseField,
+      values: (num) => intense * num,
+    };
 
     borderProps.shape = {
       values: 'line',
@@ -251,24 +270,14 @@ export const transformProps: (
 
   if (layer.type === 'point') {
     const { config } = layer as IPointLayer;
-    const {
-      fillColor,
-      borderColor,
-      radius,
-      size = 40,
-      shape,
-      lngField,
-      latField,
-    } = config;
+    const { fillColor, borderColor, radius, shape, opacity } = config;
     setColorProps(props, fillColor);
 
     if (shape) {
       props.shape = {
         values: shape,
       };
-      props.size = {
-        values: [1, 2, size],
-      };
+      setSizeProps(props, radius);
     } else if (dataLength > POINT_TO_SQUARE_LIMIT) {
       props.shape = {
         values: 'square',
@@ -286,20 +295,13 @@ export const transformProps: (
       style: {
         stroke: borderColor.enable ? borderColor.value : undefined,
         strokeWidth: borderColor.enable ? 1 : 0,
+        opacity: opacity / 100 ?? 1,
       },
     });
   }
   if (layer.type === 'line') {
     const { config } = layer as ILineLayer;
-    const {
-      lineType,
-      color,
-      lineWidth,
-      startLatField,
-      startLngField,
-      endLatField,
-      endLngField,
-    } = config;
+    const { lineType, color, lineWidth } = config;
     Object.assign(props, {
       shape: {
         values: lineType ?? 'line',

@@ -304,10 +304,9 @@ export const DEFAULT_TRIP_LAYER_CONFIG: ITripLayerConfig = {
 
 export const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig = {
   geoField: null,
-  fillColor: {
-    value: DEFAULT_COLOR1,
-    field: null,
-  },
+  colorType: 'sequential',
+  fillColor: 0,
+  fillColorField: '',
   borderColor: {
     value: DEFAULT_COLOR1,
     field: null,
@@ -323,6 +322,9 @@ export const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig = {
     rangeValue: [1, 100],
     field: null,
   },
+  intense: 10000,
+  intenseField: '',
+  shape: 'fill',
 };
 
 export const DEFAULT_HEX_LAYER_CONFIG: IHexLayerConfig = {
