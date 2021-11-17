@@ -233,9 +233,13 @@ export const transformProps: (
 
   if (layer.type === 'polygon') {
     const { config } = layer as IPolygonLayer;
-    const { fillColor, borderColor, borderWidth } = config;
+    const { fillColor, borderColor, borderWidth, colorType, fillColorField } =
+      config;
     const borderProps = cloneDeep(props);
-    setColorProps(props, fillColor);
+    props.color = {
+      field: fillColorField,
+      values: COLOR[colorType][fillColor]?.colors || [],
+    };
 
     borderProps.shape = {
       values: 'line',

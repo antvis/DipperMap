@@ -304,10 +304,9 @@ export const DEFAULT_TRIP_LAYER_CONFIG: ITripLayerConfig = {
 
 export const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig = {
   geoField: null,
-  fillColor: {
-    value: DEFAULT_COLOR1,
-    field: null,
-  },
+  colorType: 'sequential',
+  fillColor: 0,
+  fillColorField: '',
   borderColor: {
     value: DEFAULT_COLOR1,
     field: null,

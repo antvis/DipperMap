@@ -90,7 +90,9 @@ export interface ILineLayerConfig {
 
 export interface IPolygonLayerConfig {
   geoField?: string | null;
-  fillColor: ILayerSingleColor | ILayerFieldColor;
+  colorType: string;
+  fillColor: number;
+  fillColorField: string;
   borderColor: ILayerSingleColor | ILayerFieldColor;
   borderWidth: ILayerRange;
   blendType: IBlendType;
