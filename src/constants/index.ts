@@ -262,7 +262,7 @@ export const DEFAULT_POINT_LAYER_CONFIG: IPointLayerConfig = {
   blendType: 'normal',
   opacity: 100,
   shape: 'circle',
-  size: 0,
+  size: 100,
   dimension: {
     rangeValue: [1, 100],
     field: null,
@@ -348,7 +348,7 @@ export const DEFAULT_HEAT_LAYER_CONFIG: IHeatLayerConfig = {
   lngField: '',
   latField: '',
   magField: '',
-  intense: 2,
+  intensity: 2,
   radius: 20,
   ranges: [0, 1],
   blendType: 'normal',

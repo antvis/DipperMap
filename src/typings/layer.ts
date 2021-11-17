@@ -57,13 +57,14 @@ export type ILayerDimensionType =
 export interface IPointLayerConfig {
   lngField?: string | null;
   latField?: string | null;
+  magField?: string;
   fillColor: ILayerSingleColor | ILayerFieldColor;
   borderColor: ILayerSingleColor;
   radius: ILayerRange;
   blendType: IBlendType;
   opacity: number;
   size: number;
-  shape: string;
+  shape: ILayerDimensionType;
   dimension: ILayerIDimension;
 }
 
@@ -122,7 +123,7 @@ export interface IHeatLayerConfig {
   blendType: IBlendType;
   opacity: number;
   radius: number;
-  intense: number;
+  intensity: number;
   dimension: ILayerIDimension;
 }
 

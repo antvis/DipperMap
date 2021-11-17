@@ -79,7 +79,6 @@ const AddDatasetModal = ({
       if (type === 'upload' && !data?.length) {
         return message.error('请选择上传文件');
       }
-      setLoading(true);
       try {
         const result = dataTransform({
           data: type === 'url' ? await request(url) : data,

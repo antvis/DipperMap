@@ -85,9 +85,10 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
         form={form}
         fields={targetDatasetFields}
         fieldColor
+        displayFieldCheckbox={false}
       />
       <FormSlider label="半径" name="radius" />
-      <FormSlider label="强度" name="intense" />
+      <FormSlider label="强度" name="intensity" />
     </Form>
   );
 };

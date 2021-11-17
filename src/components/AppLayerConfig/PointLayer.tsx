@@ -58,7 +58,7 @@ const PointLayer = ({ layer, onChange }: IProps) => {
         onChange={onChange}
       />
 
-      <Form.Item label="线段类型" name="shape">
+      <Form.Item label="点类型" name="shape">
         <Select options={POINT_TYPE_LIST} placeholder="暂未选择字段" />
       </Form.Item>
 
