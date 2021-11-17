@@ -68,10 +68,14 @@ const PolygonLayer = ({ layer, onChange }: IProps) => {
         form={form}
         fields={targetDatasetFields}
       />
-      <Form.Item label="高度字段" name="intenseField">
-        <FieldSelect fields={targetDatasetFields} allowClear />
-      </Form.Item>
-      <FormSlider label="高度" name="intense" max={10e7} />
+      {form.getFieldValue('shape') === 'extrude' ? (
+        <>
+          <Form.Item label="高度字段" name="intenseField">
+            <FieldSelect fields={targetDatasetFields} allowClear />
+          </Form.Item>
+          <FormSlider label="高度" name="intense" max={10e7} />
+        </>
+      ) : null}
       <LayerBlend />
     </Form>
   );
