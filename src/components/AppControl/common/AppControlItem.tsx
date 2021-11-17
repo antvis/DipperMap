@@ -22,44 +22,48 @@ const AppControlItem: React.FC<IProps> = ({
 }) => {
   const [active, setActive] = useState(false);
 
-  return (
-    <div className={styles.appControlItem} title={title}>
-      {dropdown ? (
-        <Popover
-          content={dropdown}
-          placement="leftTop"
-          trigger={trigger}
-          overlayClassName={styles.controlItemOverlay}
-          onVisibleChange={(visible) => {
-            setActive(visible);
-            onActiveChange?.(visible);
-          }}
-        >
-          <div
-            className={classnames({
-              [styles.appControlItemName]: true,
-              [styles.appControlItemNameActive]: active,
-            })}
-          >
-            {icon && <span>{icon}</span>}
-            {text}
-          </div>
-        </Popover>
-      ) : (
+  if (dropdown) {
+    return (
+      <Popover
+        className={styles.appControlItem}
+        content={dropdown}
+        placement="leftTop"
+        trigger={trigger}
+        overlayClassName={styles.controlItemOverlay}
+        onVisibleChange={(visible) => {
+          setActive(visible);
+          onActiveChange?.(visible);
+        }}
+      >
         <div
           className={classnames({
             [styles.appControlItemName]: true,
             [styles.appControlItemNameActive]: active,
           })}
-          onClick={() => {
-            onActiveChange?.(!active);
-            setActive(!active);
-          }}
+          title={title}
         >
-          {icon && <span className={styles.appControlItemIcon}>{icon}</span>}
+          {icon && <span>{icon}</span>}
           {text}
         </div>
-      )}
+      </Popover>
+    );
+  }
+
+  return (
+    <div className={styles.appControlItem} title={title}>
+      <div
+        className={classnames({
+          [styles.appControlItemName]: true,
+          [styles.appControlItemNameActive]: active,
+        })}
+        onClick={() => {
+          onActiveChange?.(!active);
+          setActive(!active);
+        }}
+      >
+        {icon && <span className={styles.appControlItemIcon}>{icon}</span>}
+        {text}
+      </div>
     </div>
   );
 };

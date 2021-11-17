@@ -29,8 +29,11 @@
 - [ ] 数据转换和筛选 => worker 中进行 + Promise
 - [ ] eslintrc 提示
 - [ ] 中国地图替换：https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json
+- [x] 打包静态文件 hash
+- [ ] iconfont 转移到本地
 
 ### BUG
 
 - [x] 多选回归单选颜色时，单选颜色没有默认值
 - [x] 图层的顺序发生改变 Zindex 没有改变
+- [x] 暗黑模式下 slider 不明显

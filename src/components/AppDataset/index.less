@@ -3,7 +3,7 @@
 .appDataset {
   box-sizing: border-box;
   height: @default-dataset-panel-height;
-  //border-bottom: 1px solid @border-color-base;
+  border-bottom: 1px solid @border-color-base;
   background-color: @bg-color;
 }
 
@@ -14,6 +14,10 @@
   border-bottom: 1px solid @border-color-base;
   padding: 0 @panel-padding;
   height: @header-height;
+  .appDatasetHeaderTitle {
+    font-size: 18px;
+    color: @text-color-light;
+  }
   i {
     font-size: 20px;
   }
@@ -144,10 +148,13 @@
 .addDatasetModal {
   :global {
     .ant-modal-body {
-      padding-top: 10px;
+      padding: 10px 24px;
     }
     .ant-upload {
       height: 146px !important;
+    }
+    .dpicon-shangchuanwenjian {
+      font-size: 40px;
     }
   }
   .exampleBtnGroup {
@@ -160,21 +167,25 @@
 }
 
 .example-title {
-  display: flex;
-  justify-content: space-between;
   margin-bottom: 8px;
-  .example-data {
-    color: rgba(255, 255, 255, 0.65);
-  }
-  .demos {
-    color: #1677ff;
-    cursor: pointer;
+  position: absolute;
+  right: 24px;
+  z-index: 1;
+  color: #1677ff;
+  cursor: pointer;
+}
+
+.demo-item {
+  cursor: pointer;
+  transition: all 0.2s;
+  &:hover {
+    transform: scale(1.1);
   }
 }
 
 .demo-name {
-  color: #fff;
   margin: 8px 0 4px 0;
+  text-align: center;
 }
 
 .demo-lines {

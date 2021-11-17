@@ -13,7 +13,7 @@ const AppDataset: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
   return (
     <div className={styles.appDataset} style={style}>
       <div className={styles.appDatasetHeader}>
-        <Title level={5}>数据源</Title>
+        <div className={styles.appDatasetHeaderTitle}>数据源</div>
         <div>
           <Tooltip overlay={'添加数据源'}>
             {loading ? (

@@ -1,13 +1,17 @@
 //@import '~antd/dist/antd.dark.less';
-//@import '~antd/lib/style/themes/default.less';
+@import '~antd/lib/style/themes/default.less';
 
 @primary-color: #1678ff;
 
 @body-background: #141414;
 
+@popover-background: @body-background;
+
 @control-color: #272c35;
 
 @text-color: rgba(255, 255, 255, 0.65);
+
+@text-color-secondary: rgba(255, 255, 255, 0.52);
 
 @text-color-light: rgba(255, 255, 255, 0.85);
 
@@ -29,9 +33,13 @@
 
 @bg-color-lighter: lighten(@component-background, 6%);
 
+@bg-color-lightest: lighten(@component-background, 10%);
+
 @bg-color-dark: darken(@component-background, 0.1%);
 
 @bg-color-darker: darken(@component-background, 4%);
+
+@bg-color-darkest: darken(@component-background, 6%);
 
 @border-radius: 4px;
 

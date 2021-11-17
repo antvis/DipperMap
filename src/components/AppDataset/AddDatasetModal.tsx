@@ -5,11 +5,10 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { Modal, Input, Form, Radio, Upload, Row, Col } from 'antd';
+import { Modal, Input, Form, Radio, Upload, Row, Col, Button } from 'antd';
 import { message } from 'antd';
 import useDataset from '../../hooks/dataset';
 import request from 'umi-request';
-import { InboxOutlined, RightOutlined, LeftOutlined } from '@ant-design/icons';
 import styles from './index.less';
 import { dataTransform } from './dataTrans';
 import { Demo } from '../../typings';
@@ -102,7 +101,7 @@ const AddDatasetModal = ({
 
         setVisible(false);
       } catch (e) {
-        message.error('数据解析有误', e);
+        // message.error('数据解析有误', e);
         console.error(e);
       }
       setLoading(false);
@@ -160,6 +159,7 @@ const AddDatasetModal = ({
       setLayerList(demo.layerList);
       setDemoVisible(false);
       setVisible(false);
+      message.success('读取示例成功');
     });
   }
 
@@ -169,6 +169,105 @@ const AddDatasetModal = ({
     }
   }, [visible]);
 
+  const formContent = (
+    <>
+      <div className={styles['example-title']} onClick={openDemos}>
+        <span>没有数据？尝试加载示例数据</span>
+        <i className="dpiconfont dpicon-right" />
+      </div>
+      <Form colon={false} labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
+        <Form.Item label="数据源名称">
+          <Input
+            value={form.name}
+            placeholder="请输入数据源名称"
+            onChange={(e) =>
+              setForm({
+                ...form,
+                name: e.target.value,
+              })
+            }
+          />
+        </Form.Item>
+
+        <Form.Item label="上传类型">
+          <Radio.Group
+            value={form.type}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                type: e.target.value,
+              })
+            }
+            options={typeOptions}
+          />
+        </Form.Item>
+        {form.type === 'url' ? (
+          <>
+            <Form.Item label="文件链接">
+              <Input
+                value={form.url}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    url: e.target.value,
+                  })
+                }
+                placeholder="请输入文件链接"
+              />
+            </Form.Item>
+          </>
+        ) : (
+          <Form.Item
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
+            label="上传文件"
+          >
+            <Upload.Dragger
+              name="data"
+              accept=".csv,.json"
+              maxCount={1}
+              customRequest={({ file, onSuccess }) => {
+                const fileReader = new FileReader();
+                fileReader.readAsText(file as File);
+                fileReader.onload = (event) => {
+                  setForm({
+                    ...form,
+                    // @ts-ignore
+                    data: event.target?.result ?? '',
+                  });
+                  // @ts-ignore
+                  onSuccess();
+                };
+              }}
+            >
+              <i className="dpiconfont dpicon-shangchuanwenjian" />
+              <p>可将上传文件拖拽至这里</p>
+            </Upload.Dragger>
+          </Form.Item>
+        )}
+      </Form>
+    </>
+  );
+
+  const demoContent = (
+    <>
+      <Row gutter={[42, 24]} style={{ height: 374, overflow: 'scroll' }}>
+        {demos.map((demo, index) => (
+          <Col span={8} key={index}>
+            <div
+              className={styles['demo-item']}
+              onClick={() => clickDemo(demo)}
+            >
+              <img style={{ width: '100%', height: 106 }} src={demo.imgSrc} />
+              <div className={styles['demo-name']}>{demo.demoName}</div>
+              <div className={styles['demo-lines']}>{demo.demoDataLines}</div>
+            </div>
+          </Col>
+        ))}
+      </Row>
+    </>
+  );
+
   return (
     <Modal
       title="添加数据源"
@@ -176,128 +275,16 @@ const AddDatasetModal = ({
       className={styles.addDatasetModal}
       destroyOnClose
       visible={visible}
+      footer={
+        demoVisible ? (
+          <Button onClick={() => setDemoVisible(false)}>返回</Button>
+        ) : undefined
+      }
       confirmLoading={loading}
       onOk={() => onSubmit(form)}
       onCancel={() => setVisible(false)}
     >
-      <div className={styles['example-title']}>
-        {demoVisible ? (
-          <LeftOutlined onClick={() => setDemoVisible(false)} />
-        ) : (
-          <div className={styles['example-data']}>示例数据</div>
-        )}
-        <div className={styles['demos']} onClick={openDemos}>
-          <span>没有数据？尝试加载示例数据</span>
-          <RightOutlined />
-        </div>
-      </div>
-      {demoVisible ? (
-        <Row gutter={[42, 24]} style={{ height: 374, overflow: 'scroll' }}>
-          {demos.map((demo, index) => (
-            <Col span={8} key={index}>
-              <img
-                style={{ width: '100%', height: 106 }}
-                src={demo.imgSrc}
-                onClick={() => clickDemo(demo)}
-              />
-              <div className={styles['demo-name']}>{demo.demoName}</div>
-              <div className={styles['demo-lines']}>{demo.demoDataLines}</div>
-            </Col>
-          ))}
-        </Row>
-      ) : (
-        <>
-          <div className={styles.exampleBtnGroup}>
-            <Radio.Group>
-              <Radio.Button value="1" onClick={() => onTryExample(1)}>
-                Point/Line/Hex
-              </Radio.Button>
-              <Radio.Button value="1" onClick={() => onTryExample(4)}>
-                Heat
-              </Radio.Button>
-              <Radio.Button value="1" onClick={() => onTryExample(2)}>
-                Trip
-              </Radio.Button>
-              <Radio.Button value="1" onClick={() => onTryExample(3)}>
-                Polygon
-              </Radio.Button>
-            </Radio.Group>
-          </div>
-          <Form colon={false} labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
-            <Form.Item label="数据源名称">
-              <Input
-                value={form.name}
-                placeholder="请输入数据源名称"
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    name: e.target.value,
-                  })
-                }
-              />
-            </Form.Item>
-
-            <Form.Item label="上传类型">
-              <Radio.Group
-                value={form.type}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    type: e.target.value,
-                  })
-                }
-                options={typeOptions}
-              />
-            </Form.Item>
-            {form.type === 'url' ? (
-              <>
-                <Form.Item label="文件链接">
-                  <Input
-                    value={form.url}
-                    onChange={(e) =>
-                      setForm({
-                        ...form,
-                        url: e.target.value,
-                      })
-                    }
-                    placeholder="请输入文件链接"
-                  />
-                </Form.Item>
-              </>
-            ) : (
-              <Form.Item
-                valuePropName="fileList"
-                getValueFromEvent={normFile}
-                label="上传文件"
-              >
-                <Upload.Dragger
-                  name="data"
-                  accept=".csv,.json"
-                  maxCount={1}
-                  customRequest={({ file, onSuccess }) => {
-                    const fileReader = new FileReader();
-                    fileReader.readAsText(file as File);
-                    fileReader.onload = (event) => {
-                      setForm({
-                        ...form,
-                        // @ts-ignore
-                        data: event.target?.result ?? '',
-                      });
-                      // @ts-ignore
-                      onSuccess();
-                    };
-                  }}
-                >
-                  <p>
-                    <InboxOutlined style={{ fontSize: 40, marginBottom: 8 }} />
-                  </p>
-                  <p>可将上传文件拖拽至这里</p>
-                </Upload.Dragger>
-              </Form.Item>
-            )}
-          </Form>
-        </>
-      )}
+      {!demoVisible ? formContent : demoContent}
     </Modal>
   );
 };

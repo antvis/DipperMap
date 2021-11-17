@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import AppControlItem from './common/AppControlItem';
-import { Menu, Radio, Tooltip } from 'antd';
+import { Menu, Tooltip } from 'antd';
 import { MAP_TYPES } from '../../constants';
 import { IMapType } from '../../typings';
 import { MapModelContext } from '../../context/MapContext';
-import { QuestionCircleOutlined } from '@ant-design/icons';
 import styles from './index.less';
 import classnames from 'classnames';
 
@@ -29,7 +28,13 @@ function MapType() {
             >
               <span>{item.label}</span>
               <Tooltip overlay={item.tooltip} placement="right">
-                <QuestionCircleOutlined className={styles.tooltipIcon} />
+                <i
+                  className={classnames([
+                    styles.tooltipIcon,
+                    'dpiconfont',
+                    'dpicon-31yiwen',
+                  ])}
+                />
               </Tooltip>
             </Menu.Item>
           ))}

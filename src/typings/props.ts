@@ -68,7 +68,7 @@ export interface Demo {
 }
 
 export interface IGlobalProps {
-  component: DeepPartial<IComponentProps>;
+  component?: DeepPartial<IComponentProps>;
   store?: boolean;
   onChange?: () => void;
   demos?: Demo[];

@@ -28,6 +28,13 @@
   position: absolute;
   left: @sidebar-width + 16px;
   top: 14px;
+  :global {
+    .dpiconfont {
+      line-height: 100%;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
   &:hover {
     background-color: @bg-color;
   }

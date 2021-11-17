@@ -19,6 +19,7 @@ export default defineConfig({
   antd: {
     dark: true,
   },
+  hash: true,
   theme: {
     '@body-background': '#141414',
     '@component-background': '#141414',
