@@ -6,6 +6,8 @@ export interface IProps {
   setIsPreview: (newValue: boolean) => void;
   selectPlan: IPlan | null;
   setSelectPlan: (newPlan: IPlan | null) => void;
+  loading: boolean;
+  setLoading: (newValue: boolean) => void;
 }
 
 // @ts-ignore
@@ -18,10 +20,13 @@ export { Consumer };
 const GlobalContextProvider: React.FC = ({ children }) => {
   const [isPreview, setIsPreview] = useState(false);
   const [selectPlan, setSelectPlan] = useState<IPlan | null>(null);
+  const [loading, setLoading] = useState(false);
 
   return (
     <Provider
       value={{
+        loading,
+        setLoading,
         isPreview,
         setIsPreview,
         selectPlan,
