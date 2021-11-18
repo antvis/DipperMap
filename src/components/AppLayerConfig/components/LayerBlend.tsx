@@ -18,7 +18,12 @@ const LayerBlend: React.FC<IProps> = ({ value, onChange }) => {
       wrapperCol={{ span: 24 }}
       className="titleFormItem"
     >
-      <Select value={value} onChange={onChange} options={BLEND_TYPE_LIST} />
+      <Select
+        style={{ marginTop: 8 }}
+        value={value}
+        onChange={onChange}
+        options={BLEND_TYPE_LIST}
+      />
     </Form.Item>
   );
 };
