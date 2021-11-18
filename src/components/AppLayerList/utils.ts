@@ -18,6 +18,7 @@ import { h3ToGeoBoundary } from 'h3-js';
 import { cloneDeep, merge } from 'lodash';
 import { message } from 'antd';
 import { POINT_TO_SQUARE_LIMIT } from '../../constants';
+import forceEdgeBundling from '../../lineBundle';
 
 export const getPointList: (coordinates: string) => number[][] = (
   coordinates,
@@ -51,21 +52,95 @@ export const transformSource: (layer: ILayer, data: any[]) => ISourceOptions = (
 
     if (type === 'line') {
       const {
-        config: { startLngField, startLatField, endLngField, endLatField },
+        config: {
+          startLngField,
+          startLatField,
+          endLngField,
+          endLatField,
+          enableEdgeBundling,
+          edgeBundling,
+        },
       } = layer as ILineLayer;
 
       if (startLngField && startLatField && endLngField && endLatField) {
-        source.data = featureCollection(
-          data.map((item) =>
-            lineString(
-              [
-                [+item[startLngField], +item[startLatField]],
-                [+item[endLngField], +item[endLatField]],
-              ],
-              item,
+        if (!enableEdgeBundling) {
+          source.data = featureCollection(
+            data.map((item) =>
+              lineString(
+                [
+                  [+item[startLngField], +item[startLatField]],
+                  [+item[endLngField], +item[endLatField]],
+                ],
+                item,
+              ),
             ),
-          ),
-        );
+          );
+        } else {
+          const { compatibility, stepSize } = edgeBundling;
+
+          const idGenerator = () => {
+            let id = 0;
+            return () => {
+              id++;
+              return id.toString();
+            };
+          };
+
+          const getId = idGenerator();
+
+          const nodeMap: { [K in string]: { x: number; y: number } } = {};
+          const edges: { source: string; target: string }[] = [];
+
+          const coordsToIdMap: { [K in string]: string } = {};
+
+          data.slice(0, 1000).forEach((item) => {
+            const findOrGenerateNodeId = (lng: number, lat: number) => {
+              const key = '' + lng + lat;
+              let id: string;
+              if (!coordsToIdMap[key]) {
+                id = getId();
+                nodeMap[id] = {
+                  x: Number(lng),
+                  y: Number(lat),
+                };
+
+                coordsToIdMap[key] = id;
+              } else {
+                id = coordsToIdMap[key];
+              }
+
+              return id;
+            };
+
+            const startNodeId = findOrGenerateNodeId(
+              item[startLngField],
+              item[startLatField],
+            );
+
+            const endNodeId = findOrGenerateNodeId(
+              item[endLngField],
+              item[endLatField],
+            );
+
+            edges.push({ source: startNodeId, target: endNodeId });
+          });
+          const bundling = forceEdgeBundling()
+            .compatibility_threshold(compatibility)
+            .step_size(stepSize)
+            .nodes(nodeMap)
+            .edges(edges)();
+
+          const fc = featureCollection(
+            bundling.map((coords, index) =>
+              lineString(
+                coords.map((coord) => [coord.x, coord.y]),
+                data[index],
+              ),
+            ),
+          );
+
+          source.data = fc;
+        }
       }
     }
 

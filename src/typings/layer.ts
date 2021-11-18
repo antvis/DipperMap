@@ -47,6 +47,10 @@ export interface IPointLayerConfig {
 
 export type ILineLayerLineType = 'line' | 'arcmini';
 
+export type BundlingConfig = {
+  stepSize: number;
+  compatibility: number;
+};
 export interface ILineLayerConfig {
   lineType: ILineLayerLineType;
   startLngField?: string | null;
@@ -56,6 +60,8 @@ export interface ILineLayerConfig {
   color: ILayerDoubleColor | ILayerFieldColor;
   lineWidth: ILayerRange;
   blendType: IBlendType;
+  edgeBundling: BundlingConfig;
+  enableEdgeBundling: boolean;
 }
 
 export interface IPolygonLayerConfig {
