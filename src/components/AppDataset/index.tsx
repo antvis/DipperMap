@@ -1,32 +1,26 @@
 import React, { useState } from 'react';
 import styles from './index.less';
-import { Spin, Tooltip, Typography, Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Spin, Tooltip, Typography } from 'antd';
 import AddDatasetModal from './AddDatasetModal';
 import DatasetList from './DatasetList';
-import { Demo } from '../../typings';
 
 const { Title } = Typography;
 
-const AppDataset: React.FC<{ style?: React.CSSProperties; demos: Demo[] }> = ({
-  style,
-  demos,
-}) => {
+const AppDataset: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
   const [addDatasetVisible, setAddDatasetVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
   return (
     <div className={styles.appDataset} style={style}>
       <div className={styles.appDatasetHeader}>
-        <Title level={5}>数据源</Title>
+        <div className={styles.appDatasetHeaderTitle}>数据源</div>
         <div>
           <Tooltip overlay={'添加数据源'}>
             {loading ? (
               <Spin spinning />
             ) : (
-              <Button
-                type="text"
-                icon={<PlusOutlined />}
+              <i
+                className="dpiconfont dpicon-tianjia is-link"
                 onClick={() => setAddDatasetVisible(true)}
               />
             )}
@@ -39,7 +33,6 @@ const AppDataset: React.FC<{ style?: React.CSSProperties; demos: Demo[] }> = ({
         setVisible={setAddDatasetVisible}
         loading={loading}
         setLoading={setLoading}
-        demos={demos}
       />
     </div>
   );

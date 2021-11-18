@@ -1,11 +1,13 @@
 import React, { useMemo } from 'react';
 import type { IInteractive } from '../../typings';
-import styles from './index.less';
 import EditName from '../EditName';
 import FieldSelect from '../FieldSelect';
 import useDataset from '../../hooks/dataset';
-import { Popconfirm, Switch } from 'antd';
+import { Collapse, Popconfirm, Switch, Form } from 'antd';
 import { useRef } from 'react';
+import styles from './index.less';
+
+const { Panel } = Collapse;
 
 interface IProps {
   interactive: IInteractive;
@@ -30,46 +32,46 @@ const InteractiveItem = ({
     [getTargetDataset, interactive.datasetId],
   );
 
-  console.log(fields);
+  const header = (
+    <div className="editItemHeader" onClick={(e) => e.stopPropagation()}>
+      {dragIcon}
 
-  return (
-    <div>
-      <div className={styles.interactiveItemHeader}>
-        {dragIcon}
+      <EditName
+        name={interactive.name}
+        className="editName"
+        onChange={(newName) => onEditName(newName, interactive)}
+      />
 
-        <EditName
-          name={interactive.name}
-          className={styles.editName}
-          onChange={(newName) => onEditName(newName, interactive)}
+      <div ref={dropdownRef} className="editItemMore">
+        <Switch
+          size="small"
+          checked={interactive.enable}
+          onChange={(newEnable) =>
+            onChange({
+              id: interactive.id,
+              enable: newEnable,
+            })
+          }
         />
 
-        <div ref={dropdownRef} className={styles.interactiveItemMore}>
-          <Switch
-            size="small"
-            checked={interactive.enable}
-            onChange={(newEnable) =>
-              onChange({
-                id: interactive.id,
-                enable: newEnable,
-              })
-            }
-          />
-
-          <Popconfirm
-            title="确认是否删除？"
-            placement="bottom"
-            onConfirm={() => onDelete(interactive)}
-          >
-            <i
-              className="dpiconfont dpicon-icon_shanchu is-red-link"
-              title="删除"
-            />
-          </Popconfirm>
-        </div>
+        <Popconfirm
+          title="确认是否删除？"
+          placement="bottom"
+          onConfirm={() => onDelete(interactive)}
+        >
+          <i className="dpiconfont dpicon-shanchu is-red-link" title="删除" />
+        </Popconfirm>
       </div>
-      <div
-        style={{ display: interactive.enable ? undefined : 'none' }}
-        className={styles.interactiveItemContent}
+    </div>
+  );
+
+  const content = (
+    <div style={{ display: interactive.enable ? undefined : 'none' }}>
+      <Form.Item
+        label="展示字段"
+        className="titleFormItem"
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
       >
         <FieldSelect
           style={{ width: '100%' }}
@@ -84,8 +86,24 @@ const InteractiveItem = ({
             })
           }
         />
-      </div>
+      </Form.Item>
     </div>
+  );
+
+  return (
+    <Collapse
+      ghost
+      defaultActiveKey={[interactive.id]}
+      expandIconPosition="right"
+    >
+      <Panel
+        className={styles.interactiveItem}
+        key={interactive.id}
+        header={header}
+      >
+        {content}
+      </Panel>
+    </Collapse>
   );
 };
 

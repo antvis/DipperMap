@@ -5,11 +5,10 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { Modal, Input, Form, Radio, Upload, Button, Row, Col } from 'antd';
+import { Modal, Input, Form, Radio, Upload, Row, Col, Button } from 'antd';
 import { message } from 'antd';
 import useDataset from '../../hooks/dataset';
 import request from 'umi-request';
-import { InboxOutlined } from '@ant-design/icons';
 import styles from './index.less';
 import { dataTransform } from './dataTrans';
 import { Demo } from '../../typings';
@@ -17,6 +16,7 @@ import { ConfigModelContext } from '../../context/ConfigContext';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import { getRandomId } from '../../utils';
 import { PropsModelContext } from '../../context/PropContext';
+import useLayer from '../../hooks/layer';
 
 interface IProps {
   visible: boolean;
@@ -59,6 +59,7 @@ const AddDatasetModal = ({
   const { setLayerList } = useContext(ConfigModelContext);
   const { demos = [] } = useContext(PropsModelContext);
   const { datasetList, setDatasetList } = useContext(DatasetModelContext);
+  const { addLayer } = useLayer();
 
   const typeOptions = useMemo(
     () => [
@@ -78,25 +79,31 @@ const AddDatasetModal = ({
       if (type === 'upload' && !data?.length) {
         return message.error('请选择上传文件');
       }
-      setLoading(true);
       try {
         const result = dataTransform({
           data: type === 'url' ? await request(url) : data,
         });
         const newDataset = addDataset({
+          ...result,
           name,
           url,
-          data: result.data,
-          fields: result.fields,
           id: id || getRandomId('dataset'),
         });
         message.success('数据源新建成功');
         setDatasetList([...datasetList, newDataset]);
-        setLoading(false);
+
+        if (newDataset.geoJson?.enable) {
+          newDataset.geoJson?.layerTypes.forEach((type) => {
+            addLayer(newDataset, type);
+          });
+        }
+
         setVisible(false);
       } catch (e) {
+        // message.error('数据解析有误', e);
         console.error(e);
       }
+      setLoading(false);
     },
     [addDataset, form, setVisible],
   );
@@ -114,6 +121,7 @@ const AddDatasetModal = ({
         '1': 'https://gw.alipayobjects.com/os/bmw-prod/ba077ba7-2a28-435f-b163-4def4a3c874d.json',
         '2': 'https://gw.alipayobjects.com/os/bmw-prod/d382b49f-c14b-4662-a281-63890798e969.json',
         '3': 'https://gw.alipayobjects.com/os/bmw-prod/bc47a55e-6d08-40ad-bc22-1fa62471aa39.json',
+        '4': 'https://gw.alipayobjects.com/os/bmw-prod/e3179fcc-4096-456f-a32a-d7f4d9c43088.json',
       };
       const newForm: IFormData = {
         ...form,
@@ -150,136 +158,133 @@ const AddDatasetModal = ({
       setLayerList(demo.layerList);
       setDemoVisible(false);
       setVisible(false);
+      message.success('读取示例成功');
     });
   }
 
-  return (
+  useEffect(() => {
+    if (!visible) {
+      setDemoVisible(false);
+    }
+  }, [visible]);
+
+  const formContent = (
     <>
-      <Modal
-        title="添加数据源"
-        className={styles.addDatasetModal}
-        destroyOnClose
-        visible={visible}
-        confirmLoading={loading}
-        onOk={() => onSubmit(form)}
-        onCancel={() => setVisible(false)}
-      >
-        <div className={styles.exampleBtnGroup}>
-          {demos && demos.length ? (
-            <Button onClick={openDemos}>示例</Button>
-          ) : null}
-          <span>示例数据：</span>
-          <Radio.Group size="small">
-            <Radio.Button value="1" onClick={() => onTryExample(1)}>
-              Point/Line/Hex/Heat
-            </Radio.Button>
-            <Radio.Button value="1" onClick={() => onTryExample(2)}>
-              Trip
-            </Radio.Button>
-            <Radio.Button value="1" onClick={() => onTryExample(3)}>
-              Polygon
-            </Radio.Button>
-          </Radio.Group>
-        </div>
-        <Form labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
-          <Form.Item label="数据源名称">
-            <Input
-              value={form.name}
-              placeholder="请输入数据源名称"
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  name: e.target.value,
-                })
-              }
-            />
-          </Form.Item>
+      <div className={styles['example-title']} onClick={openDemos}>
+        <span>没有数据？尝试加载示例数据</span>
+        <i className="dpiconfont dpicon-right" />
+      </div>
+      <Form colon={false} labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
+        <Form.Item label="数据源名称">
+          <Input
+            value={form.name}
+            placeholder="请输入数据源名称"
+            onChange={(e) =>
+              setForm({
+                ...form,
+                name: e.target.value,
+              })
+            }
+          />
+        </Form.Item>
 
-          <Form.Item label="上传类型">
-            <Radio.Group
-              value={form.type}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  type: e.target.value,
-                })
-              }
-              options={typeOptions}
-              optionType="button"
-              buttonStyle="solid"
-            />
-          </Form.Item>
-
-          {form.type === 'url' ? (
-            <>
-              <Form.Item label="文件链接">
-                <Input
-                  value={form.url}
-                  onChange={(e) =>
-                    setForm({
-                      ...form,
-                      url: e.target.value,
-                    })
-                  }
-                  placeholder="输入文件链接"
-                />
-              </Form.Item>
-            </>
-          ) : (
-            <Form.Item
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-              label="上传文件"
-            >
-              <Upload.Dragger
-                name="data"
-                accept=".csv,.json"
-                maxCount={1}
-                customRequest={({ file, onSuccess }) => {
-                  const fileReader = new FileReader();
-                  fileReader.readAsText(file as File);
-                  fileReader.onload = (event) => {
-                    setForm({
-                      ...form,
-                      // @ts-ignore
-                      data: event.target?.result ?? '',
-                    });
-                    // @ts-ignore
-                    onSuccess();
-                  };
-                }}
-              >
-                <p>
-                  <InboxOutlined style={{ fontSize: 40, marginBottom: 8 }} />
-                </p>
-                <p>可将上传文件拖拽至这里</p>
-              </Upload.Dragger>
-            </Form.Item>
-          )}
-        </Form>
-      </Modal>
-      <Modal
-        visible={demoVisible}
-        onCancel={() => {
-          setVisible(false);
-          setDemoVisible(false);
-        }}
-        footer={null}
-        width="80vw"
-      >
-        <Row gutter={[16, 16]}>
-          {demos.map((demo, index) => (
-            <Col span={8}>
-              <img
-                style={{ width: '100%', height: '100%' }}
-                src={demo.imgSrc}
-                onClick={() => clickDemo(demo)}
+        <Form.Item label="上传类型">
+          <Radio.Group
+            value={form.type}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                type: e.target.value,
+              })
+            }
+            options={typeOptions}
+          />
+        </Form.Item>
+        {form.type === 'url' ? (
+          <>
+            <Form.Item label="文件链接">
+              <Input
+                value={form.url}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    url: e.target.value,
+                  })
+                }
+                placeholder="请输入文件链接"
               />
-            </Col>
-          ))}
-        </Row>
-      </Modal>
+            </Form.Item>
+          </>
+        ) : (
+          <Form.Item
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
+            label="上传文件"
+          >
+            <Upload.Dragger
+              name="data"
+              accept=".csv,.json"
+              maxCount={1}
+              customRequest={({ file, onSuccess }) => {
+                const fileReader = new FileReader();
+                fileReader.readAsText(file as File);
+                fileReader.onload = (event) => {
+                  setForm({
+                    ...form,
+                    // @ts-ignore
+                    data: event.target?.result ?? '',
+                  });
+                  // @ts-ignore
+                  onSuccess();
+                };
+              }}
+            >
+              <i className="dpiconfont dpicon-shangchuanwenjian" />
+              <p>可将上传文件拖拽至这里</p>
+            </Upload.Dragger>
+          </Form.Item>
+        )}
+      </Form>
     </>
+  );
+
+  const demoContent = (
+    <>
+      <Row gutter={[42, 24]} style={{ height: 374, overflow: 'scroll' }}>
+        {demos.map((demo, index) => (
+          <Col span={8} key={index}>
+            <div
+              className={styles['demo-item']}
+              onClick={() => clickDemo(demo)}
+            >
+              <img style={{ width: '100%', height: 106 }} src={demo.imgSrc} />
+              <div className={styles['demo-name']}>{demo.demoName}</div>
+              <div className={styles['demo-lines']}>{demo.demoDataLines}</div>
+            </div>
+          </Col>
+        ))}
+      </Row>
+    </>
+  );
+
+  return (
+    <Modal
+      title="添加数据源"
+      width={680}
+      className={styles.addDatasetModal}
+      destroyOnClose
+      visible={visible}
+      footer={
+        demoVisible ? (
+          <Button onClick={() => setDemoVisible(false)}>返回</Button>
+        ) : undefined
+      }
+      confirmLoading={loading}
+      onOk={() => onSubmit(form)}
+      onCancel={() => setVisible(false)}
+    >
+      {!demoVisible ? formContent : demoContent}
+    </Modal>
   );
 };
 

@@ -7,6 +7,9 @@ import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
 import RangeWrapper from './components/RangeWrapper';
 import LayerBlend from './components/LayerBlend';
+import FormSlider from './components/FormSlider';
+import { FORM_LAYOUT, GEO_JSON_TOOLTIP } from './common';
+import GeoFieldWrapper from './components/GeoFieldWrapper';
 
 interface IProps {
   layer: ITripLayer;
@@ -15,7 +18,10 @@ interface IProps {
 
 const TripLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<ITripLayerConfig>();
-  const { targetDatasetFields, onFormChange } = useCommonHook(layer, onChange);
+  const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    layer,
+    onChange,
+  );
 
   useEffect(() => {
     form.setFieldsValue(layer.config);
@@ -23,21 +29,24 @@ const TripLayer = ({ layer, onChange }: IProps) => {
 
   return (
     <Form
-      labelCol={{ span: 7 }}
-      wrapperCol={{ span: 19 }}
+      {...FORM_LAYOUT}
       labelAlign="left"
       form={form}
       onValuesChange={onFormChange}
     >
-      <LayerTypeSelect layer={layer} onChange={onChange} />
+      <Form.Item label="基础" colon={false} className="titleFormItem" />
 
-      <Form.Item
-        label="Geojson"
-        name="geoField"
-        tooltip={'请以","分隔经纬度，以";"分隔各点，如: 12.1,13.4;54.1,69.2...'}
-      >
-        <FieldSelect fields={targetDatasetFields} />
-      </Form.Item>
+      <LayerTypeSelect
+        dataset={targetDataset}
+        layer={layer}
+        onChange={onChange}
+      />
+
+      <GeoFieldWrapper dataset={targetDataset}>
+        <Form.Item label="Geojson" name="geoField" tooltip={GEO_JSON_TOOLTIP}>
+          <FieldSelect fields={targetDatasetFields} />
+        </Form.Item>
+      </GeoFieldWrapper>
 
       <ColorWrapper
         label="颜色"
@@ -53,6 +62,8 @@ const TripLayer = ({ layer, onChange }: IProps) => {
         form={form}
         fields={targetDatasetFields}
       />
+
+      <FormSlider />
 
       <LayerBlend />
     </Form>

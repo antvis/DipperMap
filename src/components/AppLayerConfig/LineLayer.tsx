@@ -9,6 +9,8 @@ import ColorWrapper from './components/ColorWrapper/index';
 import { LINE_TYPE_LIST } from '../../constants';
 import LayerBlend from './components/LayerBlend';
 import EdgeBundling from './components/EdgeBundling';
+import FormSlider from './components/FormSlider';
+import { FORM_LAYOUT } from './common';
 
 interface IProps {
   layer: ILineLayer;
@@ -17,7 +19,10 @@ interface IProps {
 
 const LineLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<ILineLayerConfig>();
-  const { targetDatasetFields, onFormChange } = useCommonHook(layer, onChange);
+  const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    layer,
+    onChange,
+  );
 
   useEffect(() => {
     form.setFieldsValue(layer.config);
@@ -25,13 +30,18 @@ const LineLayer = ({ layer, onChange }: IProps) => {
 
   return (
     <Form
-      labelCol={{ span: 7 }}
-      wrapperCol={{ span: 19 }}
+      {...FORM_LAYOUT}
       labelAlign="left"
       form={form}
       onValuesChange={onFormChange}
     >
-      <LayerTypeSelect layer={layer} onChange={onChange} />
+      <Form.Item label="基础" colon={false} className="titleFormItem" />
+
+      <LayerTypeSelect
+        dataset={targetDataset}
+        layer={layer}
+        onChange={onChange}
+      />
 
       <Form.Item label="线段类型" name="lineType">
         <Select options={LINE_TYPE_LIST} />
@@ -60,6 +70,7 @@ const LineLayer = ({ layer, onChange }: IProps) => {
         form={form}
         fields={targetDatasetFields}
         range
+        title="展示更多"
       />
 
       <RangeWrapper
@@ -67,7 +78,10 @@ const LineLayer = ({ layer, onChange }: IProps) => {
         field="lineWidth"
         form={form}
         fields={targetDatasetFields}
+        title="展示更多"
       />
+
+      <FormSlider />
 
       <LayerBlend />
     </Form>

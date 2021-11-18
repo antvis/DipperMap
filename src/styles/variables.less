@@ -1,12 +1,31 @@
+//@import '~antd/dist/antd.dark.less';
 @import '~antd/lib/style/themes/default.less';
-// @import '~antd/dist/antd.dark.less';
-@import url('//at.alicdn.com/t/font_2898812_y5ir6hhtevt.css');
+
+@primary-color: #1678ff;
+
+@body-background: #141414;
+
+@popover-background: @body-background;
+
+@control-color: #272c35;
+
+@text-color: rgba(255, 255, 255, 0.65);
+
+@text-color-secondary: rgba(255, 255, 255, 0.52);
+
+@text-color-light: rgba(255, 255, 255, 0.85);
+
+@component-background: #141414;
+
+@border-color-base: rgba(255, 255, 255, 0.1);
 
 @header-height: 45px;
 
-@default-dataset-height: 200px;
+@default-dataset-panel-height: 250px;
 
-@dataset-padding: 10px;
+@header-height: 56px;
+
+@panel-padding: 24px;
 
 @bg-color: @component-background;
 
@@ -14,30 +33,16 @@
 
 @bg-color-lighter: lighten(@component-background, 6%);
 
+@bg-color-lightest: lighten(@component-background, 10%);
+
 @bg-color-dark: darken(@component-background, 0.1%);
 
 @bg-color-darker: darken(@component-background, 4%);
+
+@bg-color-darkest: darken(@component-background, 6%);
 
 @border-radius: 4px;
 
 @panel-zIndex: 1000;
 
-:global {
-  .is-link {
-    cursor: pointer;
-    &:hover {
-      color: @primary-color;
-    }
-  }
-
-  .is-red-link {
-    .is-link();
-    &:hover {
-      color: red;
-    }
-  }
-
-  .ant-typography {
-    margin-bottom: 0;
-  }
-}
+@scrollbar-width: 8px;

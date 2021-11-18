@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { InputNumber, Slider } from 'antd';
-import styles from '../../index.less';
+import styles from './index.less';
 
 const FieldRange: React.FC<{
   value?: [number, number];
@@ -20,7 +20,7 @@ const FieldRange: React.FC<{
   };
 
   return (
-    <>
+    <div className={styles.fieldRange}>
       <Slider
         range
         value={cacheValue}
@@ -44,7 +44,7 @@ const FieldRange: React.FC<{
           max={100}
         />
       </div>
-    </>
+    </div>
   );
 };
 

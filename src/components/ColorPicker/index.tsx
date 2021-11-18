@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Button, Popover } from 'antd';
 import { SketchPicker } from 'react-color';
 import styles from './index.less';
+import { useEffect } from 'react';
+import { DEFAULT_COLOR1 } from '../../constants';
 
 interface IProps {
   value?: string;
@@ -32,8 +34,19 @@ export const ColorPicker = React.memo((props: IProps) => {
     [onChange, value],
   );
 
+  useEffect(() => {
+    if (typeof value !== 'string') {
+      onChange?.(DEFAULT_COLOR1);
+    }
+  }, [value]);
+
   return (
-    <Button type="text" disabled={disable} style={{ padding: '0' }}>
+    <Button
+      className={styles['color-picker-btn']}
+      type="text"
+      disabled={disable}
+      style={{ padding: '0' }}
+    >
       <Popover
         trigger="click"
         placement="left"
@@ -51,7 +64,7 @@ export const ColorPicker = React.memo((props: IProps) => {
           <div
             className={styles['pasta-color-icon']}
             style={{ background: value }}
-          ></div>
+          />
         </div>
       </Popover>
     </Button>

@@ -10,6 +10,8 @@ import type {
   ITripLayer,
   ILayerRange,
   IHeatLayer,
+  PropsType,
+  IDataset,
 } from '../../typings';
 import { featureCollection, lineString, point, polygon } from '@turf/turf';
 import type { ISourceOptions } from '@antv/l7-react/es/component/LayerAttribute';
@@ -17,8 +19,8 @@ import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import { h3ToGeoBoundary } from 'h3-js';
 import { cloneDeep, merge } from 'lodash';
 import { message } from 'antd';
-import { POINT_TO_SQUARE_LIMIT } from '../../constants';
 import forceEdgeBundling from '../../lineBundle';
+import { COLOR, POINT_TO_SQUARE_LIMIT } from '../../constants';
 
 export const getPointList: (coordinates: string) => number[][] = (
   coordinates,
@@ -28,19 +30,29 @@ export const getPointList: (coordinates: string) => number[][] = (
     .map((item) => item.split(',').map((item1) => +item1));
 };
 
-export const transformSource: (layer: ILayer, data: any[]) => ISourceOptions = (
-  layer,
-  data,
-) => {
+export const transformSource: (
+  layer: ILayer,
+  data: any[],
+  dataset?: IDataset | null,
+) => ISourceOptions = (layer, data, dataset) => {
+  const { type } = layer;
+
+  if (dataset?.geoJson?.enable) {
+    return {
+      data: featureCollection(dataset?.geoJson?.map[type] ?? []),
+    };
+  }
+
   const source: ISourceOptions = {
     data: featureCollection([]),
   };
+
   try {
-    const { type } = layer;
     if (['point', 'heat'].includes(type)) {
       const {
         config: { lngField, latField },
       } = layer as IPointLayer;
+
       if (lngField && latField) {
         source.data = featureCollection(
           data.map((item: any) =>
@@ -202,7 +214,7 @@ const getCommonLayerProps: (layer: ILayer) => Partial<ILayerProps> = (
       visible: layer.visible,
       blend: layer.config.blendType,
       zIndex: layer.zIndex,
-      autoFit: true,
+      opacity: layer.config.opacity / 100 ?? 1,
     },
     active: {
       option: {
@@ -262,31 +274,32 @@ export const setSizeProps = (
 export const transformProps: (
   layer: ILayer,
   dataLength: number,
-) => Omit<ILayerProps, 'source'>[] = (layer, dataLength) => {
-  const props: Partial<ILayerProps> = {
+) => PropsType[] = (layer, dataLength) => {
+  const props: Partial<PropsType> = {
     ...getCommonLayerProps(layer),
   };
 
   if (layer.type === 'heat') {
     const { config } = layer as IHeatLayer;
-    const { fillColor, ranges } = config;
+    const { fillColor, ranges, intensity, radius, shape, colorType } = config;
     let positions: number[] = [];
 
-    if (fillColor?.value) {
+    const colors = COLOR[colorType][fillColor]?.colors || [];
+    if (colors && colors.length) {
       // 区间长度
-      const sectionLen = ranges[1] - ranges[0] / fillColor.value.length;
-      positions = (fillColor.value as string[]).map(
-        (_, i) => ranges[0] + i * sectionLen,
-      );
+      const sectionLen = ranges[1] - ranges[0] / colors.length;
+      positions = colors.map((_, i) => ranges[0] + i * sectionLen);
     }
 
-    props.shape = {
-      values: 'heatmap',
-    };
     merge(props, {
+      shape: {
+        values: shape,
+      },
       style: {
+        intensity,
+        radius,
         rampColors: {
-          colors: fillColor?.value || [],
+          colors: colors || [],
           positions,
         },
       },
@@ -295,12 +308,34 @@ export const transformProps: (
 
   if (layer.type === 'polygon') {
     const { config } = layer as IPolygonLayer;
-    const { fillColor, borderColor, borderWidth } = config;
+    const {
+      fillColor,
+      borderColor,
+      borderWidth,
+      colorType,
+      fillColorField,
+      intense,
+      intenseField,
+      shape,
+    } = config;
     const borderProps = cloneDeep(props);
-    setColorProps(props, fillColor);
+    props.shape = {
+      values: shape,
+    };
+    props.color = {
+      field: fillColorField,
+      values: COLOR[colorType][fillColor]?.colors || [],
+    };
+    props.size = {
+      field: intenseField,
+      values: (num) => intense * num,
+    };
 
     borderProps.shape = {
       values: 'line',
+    };
+    borderProps.active = {
+      option: false,
     };
     setColorProps(borderProps, borderColor);
     setSizeProps(borderProps, borderWidth);
@@ -310,10 +345,23 @@ export const transformProps: (
 
   if (layer.type === 'point') {
     const { config } = layer as IPointLayer;
-    const { fillColor, borderColor, radius } = config;
+    const { fillColor, borderColor, radius, shape, opacity, size, magField } =
+      config;
     setColorProps(props, fillColor);
 
-    if (dataLength > POINT_TO_SQUARE_LIMIT) {
+    if (shape) {
+      props.shape = {
+        values: shape,
+      };
+      if (shape === 'cylinder') {
+        props.size = {
+          field: magField,
+          values: (num) => [radius.value, radius.value, num * size],
+        };
+      } else {
+        setSizeProps(props, radius);
+      }
+    } else if (dataLength > POINT_TO_SQUARE_LIMIT) {
       props.shape = {
         values: 'square',
       };
@@ -330,18 +378,20 @@ export const transformProps: (
       style: {
         stroke: borderColor.enable ? borderColor.value : undefined,
         strokeWidth: borderColor.enable ? 1 : 0,
+        opacity: opacity / 100 ?? 1,
       },
     });
   }
   if (layer.type === 'line') {
     const { config } = layer as ILineLayer;
-    const { lineType, color, lineWidth } = config;
+    const { lineType, color, lineWidth, opacity } = config;
     Object.assign(props, {
       shape: {
         values: lineType ?? 'line',
       },
       style: {
         segmentNumber: 15,
+        opacity: opacity / 100 ?? 1,
       },
     });
     setColorProps(props, color);

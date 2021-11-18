@@ -1,14 +1,5 @@
 import { IDataset } from './dataset';
-import {
-  IHeatLayerConfig,
-  IHexLayerConfig,
-  ILayer,
-  ILayerType,
-  ILineLayerConfig,
-  IPointLayerConfig,
-  IPolygonLayerConfig,
-  ITripLayerConfig,
-} from './layer';
+import { ILayer } from './layer';
 import { IFilter } from './filter';
 import { IInteractive } from './interactive';
 import { DeepPartial } from './common';
@@ -64,8 +55,10 @@ export interface IComponentProps {
 }
 
 export interface Demo {
-  type: ILayerType;
+  name: string;
   imgSrc: string;
+  demoName: string;
+  demoDataLines: number;
   dataSrc: {
     src: string;
     datasetId: string;
@@ -75,7 +68,7 @@ export interface Demo {
 }
 
 export interface IGlobalProps {
-  component: DeepPartial<IComponentProps>;
+  component?: DeepPartial<IComponentProps>;
   store?: boolean;
   onChange?: () => void;
   demos?: Demo[];

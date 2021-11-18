@@ -1,13 +1,19 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import useDataset from '../../hooks/dataset';
 import { filterByDatasetId, filterData } from '../../utils';
 import type { ILayerConfig } from './LayerItem';
 import LayerItem from './LayerItem';
-import { IDataset } from '../../typings';
+import { IDataset, PropsType } from '../../typings';
 import { ConfigModelContext } from '../../context/ConfigContext';
 import { LayerEvent, Popup } from '@antv/l7-react';
-import { useDebounceFn } from 'ahooks';
 import styles from './index.less';
+import { transformProps } from './utils';
 
 interface IPopupState {
   visible: boolean;
@@ -25,6 +31,8 @@ const AppLayerList: React.FC<IProps> = () => {
   const { layerList, filterList, interactiveList } =
     useContext(ConfigModelContext);
   const [layerConfigList, setLayerConfigList] = useState<ILayerConfig[]>([]);
+  const [propsList, setPropsList] = useState<PropsType[][]>([]);
+
   const [popup, setPopup] = useState<IPopupState>({
     visible: false,
     datasetName: '',
@@ -44,14 +52,14 @@ const AppLayerList: React.FC<IProps> = () => {
     [getTargetDataset, layerList],
   );
 
-  const onMouseOut = () => {
+  const onMouseOut = useCallback(() => {
     setPopup((newPopup) => {
       return {
         ...newPopup,
         visible: false,
       };
     });
-  };
+  }, []);
 
   const onMouseMove = (e: any, config: ILayerConfig) => {
     const [targetInteractive] = filterByDatasetId(
@@ -77,44 +85,52 @@ const AppLayerList: React.FC<IProps> = () => {
   };
 
   useEffect(() => {
-    Promise.all(
-      displayLayerList.map((layer, layerIndex, array) => {
-        const targetDataset = getTargetDataset(layer.datasetId) as IDataset;
-        return filterData(
-          targetDataset,
-          filterByDatasetId(filterList, targetDataset.id),
-        ).then((data: any[]) => {
-          return {
-            layer: Object.assign(layer, {
-              zIndex: array.length - layerIndex,
-            }),
-            dataset: targetDataset,
-            data,
-          };
-        });
-      }),
-    ).then((newLayerConfigList) => {
-      setLayerConfigList(newLayerConfigList);
-    });
+    (async () => {
+      const res = await Promise.all(
+        displayLayerList.map((layer, layerIndex, array) => {
+          const targetDataset = getTargetDataset(layer.datasetId) as IDataset;
+          return filterData(
+            targetDataset,
+            filterByDatasetId(filterList, targetDataset.id),
+          ).then((data: any[]) => {
+            return {
+              layer: Object.assign(layer, {
+                zIndex: array.length - layerIndex,
+              }),
+              dataset: targetDataset,
+              data,
+            };
+          });
+        }),
+      );
+      setLayerConfigList(res);
+      const propsList = res.map((layer) =>
+        transformProps(layer.layer, layer.data.length),
+      );
+      setPropsList(propsList);
+    })();
   }, [displayLayerList, filterList, getTargetDataset]);
 
   return (
     <>
-      {layerConfigList.map((config) => (
-        <LayerItem
-          key={config.layer.id}
-          config={config}
-          event={
-            <>
-              <LayerEvent
-                type="mousemove"
-                handler={(e: any) => onMouseMove(e, config)}
-              />
-              <LayerEvent type="mouseout" handler={() => onMouseOut()} />
-            </>
-          }
-        />
-      ))}
+      {layerConfigList.map((config, index) => {
+        return (
+          <LayerItem
+            key={config.layer.id}
+            config={config}
+            propsList={propsList[index]}
+            event={
+              <>
+                <LayerEvent
+                  type="mousemove"
+                  handler={(e: any) => onMouseMove(e, config)}
+                />
+                <LayerEvent type="mouseout" handler={onMouseOut} />
+              </>
+            }
+          />
+        );
+      })}
       {popup.visible && (
         <Popup lnglat={popup.lngLat} option={{ closeButton: false }}>
           <div className={styles.mapPopup}>

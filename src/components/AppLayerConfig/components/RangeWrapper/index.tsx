@@ -12,7 +12,8 @@ const RangeWrapper: React.FC<{
   field: string;
   form: FormInstance;
   fields: IDatasetField[];
-}> = ({ label, field, form, fields }) => {
+  title?: string;
+}> = ({ label, field, form, fields, title = '基于字段' }) => {
   const [showField, setShowField] = useState(false);
 
   const hasField = !!form.getFieldValue([field, 'field']);
@@ -24,9 +25,10 @@ const RangeWrapper: React.FC<{
         checked={showField}
         onChange={(e) => setShowField(e.target.checked)}
       >
-        基于字段
+        {title}
       </Checkbox>
       <Form.Item
+        className="titleFormItem"
         label={label}
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}
@@ -36,7 +38,11 @@ const RangeWrapper: React.FC<{
       </Form.Item>
 
       {showField && (
-        <Form.Item label="基于字段" name={[field, 'field']}>
+        <Form.Item
+          label="基于字段"
+          name={[field, 'field']}
+          style={{ marginTop: 8 }}
+        >
           <FieldSelect fields={fields} allowClear />
         </Form.Item>
       )}

@@ -6,6 +6,8 @@ import useCommonHook from './components/commonHook';
 import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
 import LayerBlend from './components/LayerBlend';
+import FormSlider from './components/FormSlider';
+import { FORM_LAYOUT } from './common';
 
 interface IProps {
   layer: IHexLayer;
@@ -14,7 +16,10 @@ interface IProps {
 
 const HexLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<IHexLayerConfig>();
-  const { targetDatasetFields, onFormChange } = useCommonHook(layer, onChange);
+  const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    layer,
+    onChange,
+  );
 
   useEffect(() => {
     form.setFieldsValue(layer.config);
@@ -22,24 +27,31 @@ const HexLayer = ({ layer, onChange }: IProps) => {
 
   return (
     <Form
-      labelCol={{ span: 7 }}
-      wrapperCol={{ span: 19 }}
+      {...FORM_LAYOUT}
       labelAlign="left"
       form={form}
       onValuesChange={onFormChange}
     >
-      <LayerTypeSelect layer={layer} onChange={onChange} />
+      <Form.Item label="基础" colon={false} className="titleFormItem" />
+
+      <LayerTypeSelect
+        dataset={targetDataset}
+        layer={layer}
+        onChange={onChange}
+      />
 
       <Form.Item label="hexId" name="hexId">
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>
 
       <ColorWrapper
-        label="填充颜色"
+        label="颜色"
         field="fillColor"
         form={form}
         fields={targetDatasetFields}
       />
+
+      <FormSlider />
 
       <LayerBlend />
     </Form>

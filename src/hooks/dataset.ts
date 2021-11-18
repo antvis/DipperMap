@@ -18,7 +18,7 @@ const useDataset = () => {
   const addDataset: (params: Partial<IDataset> & { data: any[] }) => IDataset =
     useCallback(
       (params: IDataset) => {
-        const newDataset = {
+        return {
           ...params,
           id: params.id,
           // id: getRandomId('dataset'),
@@ -27,7 +27,6 @@ const useDataset = () => {
           createTime: Date.now(),
           name: params.name || getNewDatasetName(),
         } as IDataset;
-        return newDataset;
       },
       [datasetList, getNewDatasetName],
     );

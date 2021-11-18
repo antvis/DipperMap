@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import LayerTypeSelect from './components/LayerTypeSelect';
-import { Form } from 'antd';
+import { Form, Select } from 'antd';
 import type {
   IDatasetNumberField,
   IHeatLayer,
@@ -9,9 +9,13 @@ import type {
 import useCommonHook from './components/commonHook';
 import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
-import RangeWrapper from './components/RangeWrapper';
 import useDataset from '../../hooks/dataset';
-import LayerBlend from './components/LayerBlend';
+import FormSlider from './components/FormSlider';
+import { debounce } from 'lodash';
+import { FORM_LAYOUT } from './common';
+import { HEAT_TYPE_LIST } from '../../constants';
+
+const { Option } = Select;
 
 interface IProps {
   layer: IHeatLayer;
@@ -20,11 +24,9 @@ interface IProps {
 
 const HeatLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<IHeatLayerConfig>();
-  const { targetDatasetFields, onFormChange } = useCommonHook(layer, onChange);
-  const { getTargetDataset } = useDataset();
-  const targetDataset = useMemo(
-    () => getTargetDataset(layer.datasetId),
-    [layer.datasetId, getTargetDataset],
+  const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    layer,
+    onChange,
   );
 
   useEffect(() => {
@@ -53,13 +55,21 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
 
   return (
     <Form
-      labelCol={{ span: 7 }}
-      wrapperCol={{ span: 19 }}
+      {...FORM_LAYOUT}
       labelAlign="left"
       form={form}
+      // onValuesChange={debounce(onFormValueChanged, 300)}
       onValuesChange={onFormValueChanged}
     >
-      <LayerTypeSelect layer={layer} onChange={onChange} />
+      <Form.Item label="基础" colon={false} className="titleFormItem" />
+      <LayerTypeSelect
+        dataset={targetDataset}
+        layer={layer}
+        onChange={onChange}
+      />
+      <Form.Item label="视角" name="shape">
+        <Select options={HEAT_TYPE_LIST} />
+      </Form.Item>
       <Form.Item label="经度" name="lngField">
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>
@@ -70,18 +80,15 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>
       <ColorWrapper
-        label="填充颜色"
+        label="颜色"
         field="fillColor"
         form={form}
         fields={targetDatasetFields}
+        fieldColor
+        displayFieldCheckbox={false}
       />
-      <RangeWrapper
-        label="半径"
-        field="radius"
-        form={form}
-        fields={targetDatasetFields}
-      />
-      <LayerBlend />
+      <FormSlider label="半径" name="radius" />
+      <FormSlider label="强度" name="intensity" />
     </Form>
   );
 };

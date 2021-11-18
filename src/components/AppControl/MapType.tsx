@@ -1,34 +1,41 @@
 import React, { useContext } from 'react';
 import AppControlItem from './common/AppControlItem';
-import { Menu, Radio, Tooltip } from 'antd';
+import { Menu, Tooltip } from 'antd';
 import { MAP_TYPES } from '../../constants';
 import { IMapType } from '../../typings';
 import { MapModelContext } from '../../context/MapContext';
-import { QuestionCircleOutlined } from '@ant-design/icons';
 import styles from './index.less';
+import classnames from 'classnames';
 
 function MapType() {
   const { mapType, setMapType } = useContext(MapModelContext);
 
   return (
     <AppControlItem
-      text="地图底图"
-      icon={<i className="dpiconfont dpicon-ditu" />}
+      title="地图类型"
+      icon={<i className="dpiconfont dpicon-dituditu-lan" />}
       dropdown={
         <Menu className={styles.mapType}>
           {MAP_TYPES.map((item) => (
             <Menu.Item
               key={item.value}
+              className={classnames({
+                [styles.menuItemActive]: item.value === mapType,
+              })}
               onClick={({ key }) => {
                 setMapType(key as IMapType);
               }}
             >
-              <Radio checked={mapType === item.value}>
-                <span>{item.label}</span>
-                <Tooltip overlay={item.tooltip} placement="right">
-                  <QuestionCircleOutlined className={styles.tooltipIcon} />
-                </Tooltip>
-              </Radio>
+              <span>{item.label}</span>
+              <Tooltip overlay={item.tooltip} placement="right">
+                <i
+                  className={classnames([
+                    styles.tooltipIcon,
+                    'dpiconfont',
+                    'dpicon-31yiwen',
+                  ])}
+                />
+              </Tooltip>
             </Menu.Item>
           ))}
         </Menu>

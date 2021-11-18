@@ -1,29 +1,32 @@
 import React, { useContext } from 'react';
-import { Button } from 'antd';
+import { Button, Tooltip } from 'antd';
 import { ButtonProps } from 'antd/lib/button/button';
 import styles from './index.less';
 import { DatasetModelContext } from '../../context/DatasetContext';
-import { ConfigModelContext } from '../../context/ConfigContext';
 
 interface IProps extends ButtonProps {
   text: string;
 }
 
 const AddBtn: React.FC<IProps> = ({ text, disabled, ...props }) => {
-  const { interactiveList, setInteractiveList } =
-    useContext(ConfigModelContext);
   const { selectDataset } = useContext(DatasetModelContext);
 
-  return (
+  const content = (
     <Button
       icon={<i className="dpiconfont dpicon-tianjia" />}
       className={styles.addFilterBtn}
-      type="ghost"
+      type="primary"
       disabled={disabled || !selectDataset}
       {...props}
     >
       {text}
     </Button>
+  );
+
+  return !selectDataset ? (
+    <Tooltip overlay="请先选中数据源">{content}</Tooltip>
+  ) : (
+    content
   );
 };
 

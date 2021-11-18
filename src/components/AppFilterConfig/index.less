@@ -1,56 +1,9 @@
 @import '../../styles/variables';
 
-.filterList {
-  height: 100%;
-  overflow: auto;
-}
-
 .filterItem {
-  margin: 8px;
-  background-color: @bg-color-darker;
-  border-radius: @border-radius;
-  .filterItemHeader {
-    display: flex;
-    align-items: center;
-    height: 34px;
-    .editName {
-      width: calc(100% - 120px);
-    }
-  }
-  .filterItemContent {
-    padding: 8px;
-    background-color: @bg-color-dark;
-  }
-  .filterItemMore {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 16px;
-    opacity: 0;
-    :global {
-      .ant-switch,
-      .dpiconfont {
-        margin-right: 4px;
-      }
-    }
-  }
-  .filterItemLabel {
-    color: @text-color-secondary;
-    font-size: 12px;
-  }
-  .filterItemContentRow {
-    display: flex;
-    align-items: center;
-    & > *:last-child {
-      flex-grow: 1;
-    }
-  }
-  .filterItemContentRow + .filterItemContentRow {
-    margin-top: 6px;
-  }
-
-  &:hover {
-    .filterItemMore {
-      opacity: 1;
+  :global {
+    .titleFormItem {
+      margin-bottom: 6px !important;
     }
   }
 }

@@ -7,14 +7,17 @@ import FieldSelect from '../../../FieldSelect';
 import RangeColorPicker from './RangeColorPicker';
 import FieldColorPicker from './FieldColorPicker';
 import { ColorPicker } from '../../../ColorPicker';
+import { COLOR } from '../../../../constants';
 
 interface IProps {
   label: string;
   field: string;
   range?: boolean;
+  fieldColor?: boolean;
   form: FormInstance;
   displayFieldCheckbox?: boolean;
   fields: IDatasetField[];
+  title?: string;
 }
 
 const ColorWrapper = ({
@@ -23,7 +26,9 @@ const ColorWrapper = ({
   field,
   fields,
   range = false,
+  fieldColor = false,
   displayFieldCheckbox = true,
+  title = '基于字段',
 }: IProps) => {
   const [showField, setShowField] = useState(false);
   const colorField = form.getFieldValue([field, 'field']);
@@ -36,7 +41,7 @@ const ColorWrapper = ({
           checked={showField}
           onChange={(e) => setShowField(e.target.checked)}
         >
-          基于字段
+          {title}
         </Checkbox>
       )}
       <Form.Item
@@ -46,14 +51,32 @@ const ColorWrapper = ({
         {() => {
           let content: JSX.Element = <></>;
 
-          if (!colorField) {
+          if (fieldColor) {
+            content = (
+              <FieldColorPicker
+                field={field}
+                colorList={COLOR[form.getFieldValue('colorType')]}
+              />
+            );
+          } else if (!colorField) {
             content = range ? <RangeColorPicker /> : <ColorPicker />;
           } else {
-            content = <FieldColorPicker />;
+            content = (
+              <FieldColorPicker
+                field={field}
+                colorList={COLOR[form.getFieldValue('colorType')]}
+              />
+            );
           }
 
-          return (
+          return fieldColor ? (
+            <FieldColorPicker
+              field={field}
+              colorList={COLOR[form.getFieldValue('colorType')]}
+            />
+          ) : (
             <Form.Item
+              className="titleFormItem"
               label={label}
               labelCol={{ span: 24 }}
               wrapperCol={{ span: 24 }}

@@ -1,13 +1,63 @@
 import papaparse from 'papaparse';
+import { Feature, FeatureCollection } from '@turf/turf';
+import { groupBy } from 'lodash';
+import {
+  IDatasetField,
+  IDatasetGeoJson,
+  IDatasetGeoJsonMap,
+  ILayerType,
+} from '../../typings';
+import { GEO_TO_LAYER_TYPE_MAP } from '../../constants';
+
+export const checkGeoJson = (data: any) => {
+  return (
+    data instanceof Object &&
+    data.type === 'FeatureCollection' &&
+    Array.isArray(data.features)
+  );
+};
+
+export const transformGeoJson: (
+  data: FeatureCollection,
+) => IDatasetGeoJson & { data: any[] } = (data) => {
+  // @ts-ignore
+  const geoJsonMap: IDatasetGeoJsonMap = groupBy(
+    data.features,
+    (feature: Feature) => {
+      // @ts-ignore
+      return GEO_TO_LAYER_TYPE_MAP[feature?.geometry?.type];
+    },
+  ) as IDatasetGeoJsonMap;
+
+  const layerTypes = Object.keys(geoJsonMap) as ILayerType[];
+
+  return {
+    data: data.features.map((feature) => feature.properties),
+    map: geoJsonMap,
+    enable: true,
+    layerTypes,
+  };
+};
 
 export function dataTransform(eventData: { data: any }) {
   const originData = eventData.data;
+  // 监测各个字段的类型
+  const fields: IDatasetField[] = [];
   let data = [];
   let isCSV = false;
+  const geoJson: IDatasetGeoJson = {
+    enable: false,
+    map: {},
+    layerTypes: [],
+  };
 
-  // 转json/csv字符串的数据 => json数组格式
+  // 转json/csv/geoJson字符串的数据 => json数组格式
   if (Array.isArray(originData)) {
     data = originData;
+  } else if (checkGeoJson(originData)) {
+    const { data: geoData, ...newGeoJson } = transformGeoJson(originData);
+    data = geoData;
+    Object.assign(geoJson, newGeoJson);
   } else {
     try {
       if (
@@ -26,8 +76,7 @@ export function dataTransform(eventData: { data: any }) {
       // message.error('数据解析有误');
     }
   }
-  // 监测各个字段的类型
-  const fields: any[] = [];
+
   if (data.length) {
     const firstRow = data[0];
     Object.keys(firstRow).forEach((name) => {
@@ -53,7 +102,7 @@ export function dataTransform(eventData: { data: any }) {
           type: 'boolean',
           name,
         });
-      } else {
+      } else if (typeof value === 'string') {
         fields.push({
           type: 'string',
           name,
@@ -82,7 +131,7 @@ export function dataTransform(eventData: { data: any }) {
     });
   });
 
-  fields.forEach((field, index) => {
+  fields.forEach((field) => {
     if (field.type === 'number') {
       field.uniqueValues = Array.from(new Set(field.values as number[])).sort(
         (a: number, b: number) => a - b,
@@ -100,5 +149,6 @@ export function dataTransform(eventData: { data: any }) {
   return {
     fields,
     data,
+    geoJson,
   };
 }

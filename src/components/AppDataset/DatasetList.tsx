@@ -91,9 +91,9 @@ export default function DatasetList({ className }: IProps) {
             {icon}
             <div className={styles.appDatasetItemContent}>
               <div className={styles.btnGroup}>
-                <Tooltip overlay="复制" placement="bottom">
+                <Tooltip overlay="复制" placement="top">
                   <i
-                    className="dpiconfont dpicon-fuzhi is-link"
+                    className="dpiconfont dpicon-fuzhi1 is-link"
                     onClick={(e) => {
                       e.stopPropagation();
                       onCopy(dataset);
@@ -101,13 +101,14 @@ export default function DatasetList({ className }: IProps) {
                   />
                 </Tooltip>
                 <Popconfirm
-                  title="确认删除此数据源"
+                  title={`你确定要删除${dataset.name}吗？`}
+                  placement="bottom"
                   onConfirm={() => checkDelete(dataset)}
                 >
-                  <Tooltip overlay="删除" placement="bottom">
+                  <Tooltip overlay="删除" placement="top">
                     <i
                       onClick={(e) => e.stopPropagation()}
-                      className="dpiconfont dpicon-icon_shanchu is-red-link"
+                      className="dpiconfont dpicon-shanchu is-red-link"
                     />
                   </Tooltip>
                 </Popconfirm>
@@ -127,8 +128,10 @@ export default function DatasetList({ className }: IProps) {
                     });
                   }}
                 >
-                  <span>共{dataset.data.length}行数据</span>
-                  <i className="dpiconfont dpicon-right" />
+                  <Tooltip overlay="点击查看数据详情" placement="right">
+                    <span>共{dataset.data.length}行数据</span>
+                    <i className="dpiconfont dpicon-right" />
+                  </Tooltip>
                 </div>
               </div>
             </div>

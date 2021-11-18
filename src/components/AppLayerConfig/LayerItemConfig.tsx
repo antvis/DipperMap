@@ -2,7 +2,6 @@ import React, { useState, useRef, useMemo } from 'react';
 import { Collapse, Dropdown, Menu, Popconfirm, Switch } from 'antd';
 import type { ILayer } from '../../typings';
 import EditName from '../EditName';
-import styles from './index.less';
 import DatasetModal from '../DatasetModal';
 import PointLayer from './PointLayer';
 import LineLayer from './LineLayer';
@@ -34,17 +33,14 @@ const LayerItemConfig = ({
   const [visible, setVisible] = useState(false);
 
   const header = (
-    <div
-      className={styles.layerItemHeader}
-      onClick={(e) => e.stopPropagation()}
-    >
+    <div className="editItemHeader" onClick={(e) => e.stopPropagation()}>
       {dragIcon}
       <EditName
         name={layer.name}
-        className={styles.editName}
+        className="editName"
         onChange={(newName) => onEditName(newName, layer)}
       />
-      <div ref={dropdownRef} className={styles.layerItemMore}>
+      <div ref={dropdownRef} className="editItemMore">
         <Switch
           size="small"
           checked={layer.visible}
@@ -56,39 +52,32 @@ const LayerItemConfig = ({
           }
         />
 
-        <Popconfirm
-          title="确认是否删除？"
-          placement="bottom"
-          onConfirm={() => onDelete(layer)}
-        >
-          <i
-            className="dpiconfont dpicon-icon_shanchu is-red-link"
-            title="删除"
-          />
-        </Popconfirm>
-
         <Dropdown
           getPopupContainer={() => dropdownRef.current ?? document.body}
           overlay={
-            <Menu>
-              <Menu.Item
-                key="changeDataset"
-                icon={<i className="dpiconfont dpicon-peizhishujuyuan" />}
-                onClick={() => setVisible(true)}
-              >
+            <Menu className="editItemDropdown">
+              <Menu.Item key="changeDataset" onClick={() => setVisible(true)}>
+                <i className="dpiconfont dpicon-genggaishujuyuan" />
                 更改数据源
               </Menu.Item>
-              <Menu.Item
-                key="copyLayer"
-                icon={<i className="dpiconfont dpicon-fuzhi" />}
-                onClick={() => onCopy(layer)}
-              >
+              <Menu.Item key="copyLayer" onClick={() => onCopy(layer)}>
+                <i className="dpiconfont dpicon-fuzhi1" />
                 复制图层
               </Menu.Item>
+              <Popconfirm
+                title="确认是否删除？"
+                placement="bottom"
+                onConfirm={() => onDelete(layer)}
+              >
+                <Menu.Item>
+                  <i className="dpiconfont dpicon-shanchu is-red-link" />
+                  删除
+                </Menu.Item>
+              </Popconfirm>
             </Menu>
           }
         >
-          <i className="dpiconfont dpicon-more is-link" />
+          <i className="dpiconfont dpicon-gengduo is-link" />
         </Dropdown>
       </div>
     </div>
