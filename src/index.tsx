@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MapContainer from './container';
 import ContextProvider from './context';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, Empty } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import { IGlobalProps } from './typings';
 import PropContextProvider from './context/PropContext';
@@ -18,6 +18,9 @@ const DipperMap: React.FC<IGlobalProps> = (props) => {
   return (
     <ConfigProvider
       locale={zhCN}
+      renderEmpty={() => {
+        return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+      }}
       // @ts-ignore
       getPopupContainer={() => containerDOM || document.body}
     >

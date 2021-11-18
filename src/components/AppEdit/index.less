@@ -18,9 +18,11 @@
       .ant-tabs-tab-btn {
         font-size: 14px;
         margin-bottom: 2px;
+        line-height: 16px;
       }
       i {
-        font-size: 18px;
+        font-size: 16px;
+        margin-right: 4px;
       }
       &:first-child {
         margin-left: @panel-padding;
@@ -105,8 +107,14 @@
       }
 
       .editItemDropdown {
-        i {
+        line-height: 16px;
+        .dpiconfont {
+          margin-left: 0;
           margin-right: 9px;
+          font-size: 16px;
+        }
+        .ant-dropdown-menu-item {
+          padding: 5px 16px;
         }
       }
 
@@ -126,6 +134,7 @@
           height: 50px;
           padding: 0 16px 0 0 !important;
           border-left: 2px solid @primary-color;
+          border-radius: 2px;
         }
         .ant-collapse-content-box {
           padding: 4px 8px;
