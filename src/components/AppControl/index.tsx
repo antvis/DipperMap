@@ -25,6 +25,7 @@ function AppControl({ className }: IProps) {
           title="地图旋转"
           value={mapRotate}
           setValue={setMapRotate}
+          max={360}
         />
         <Preview />
       </AppControlGroup>

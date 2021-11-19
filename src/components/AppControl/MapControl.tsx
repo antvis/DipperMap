@@ -8,12 +8,16 @@ interface PitchControlProps {
   title: string;
   value: number;
   setValue: (value: number) => void;
+  min?: number;
+  max?: number;
 }
 
 export default function MapControl({
   title,
   value,
   setValue,
+  min = 0,
+  max = 90,
 }: PitchControlProps) {
   const onChange = useCallback((val: number) => {
     setValue(val);
@@ -26,7 +30,7 @@ export default function MapControl({
       dropdown={
         <div className={styles.mapPitch}>
           <div>{title}</div>
-          <Slider value={value} min={0} max={90} onChange={onChange} />
+          <Slider value={value} min={min} max={max} onChange={onChange} />
         </div>
       }
     />
