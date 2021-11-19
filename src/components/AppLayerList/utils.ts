@@ -19,8 +19,8 @@ import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import { h3ToGeoBoundary } from 'h3-js';
 import { cloneDeep, merge } from 'lodash';
 import { message } from 'antd';
-import forceEdgeBundling from '../../lineBundle';
 import { COLOR, POINT_TO_SQUARE_LIMIT } from '../../constants';
+import bundle from '../../utils/lineBundle';
 
 export const getPointList: (coordinates: string) => number[][] = (
   coordinates,
@@ -88,67 +88,20 @@ export const transformSource: (
             ),
           );
         } else {
-          const { compatibility, stepSize } = edgeBundling;
-
-          const idGenerator = () => {
-            let id = 0;
-            return () => {
-              id++;
-              return id.toString();
-            };
+          const { compatibility } = edgeBundling || {
+            compatibility: 0.6,
           };
 
-          const getId = idGenerator();
-
-          const nodeMap: { [K in string]: { x: number; y: number } } = {};
-          const edges: { source: string; target: string }[] = [];
-
-          const coordsToIdMap: { [K in string]: string } = {};
-
-          data.slice(0, 1000).forEach((item) => {
-            const findOrGenerateNodeId = (lng: number, lat: number) => {
-              const key = '' + lng + lat;
-              let id: string;
-              if (!coordsToIdMap[key]) {
-                id = getId();
-                nodeMap[id] = {
-                  x: Number(lng),
-                  y: Number(lat),
-                };
-
-                coordsToIdMap[key] = id;
-              } else {
-                id = coordsToIdMap[key];
-              }
-
-              return id;
-            };
-
-            const startNodeId = findOrGenerateNodeId(
-              item[startLngField],
-              item[startLatField],
-            );
-
-            const endNodeId = findOrGenerateNodeId(
-              item[endLngField],
-              item[endLatField],
-            );
-
-            edges.push({ source: startNodeId, target: endNodeId });
-          });
-          const bundling = forceEdgeBundling()
-            .compatibility_threshold(compatibility)
-            .step_size(stepSize)
-            .nodes(nodeMap)
-            .edges(edges)();
+          const bundling = bundle(
+            data.map((item) => ({
+              start: [item[startLngField], item[startLatField]],
+              end: [item[endLngField], item[endLatField]],
+            })),
+            compatibility,
+          );
 
           const fc = featureCollection(
-            bundling.map((coords, index) =>
-              lineString(
-                coords.map((coord) => [coord.x, coord.y]),
-                data[index],
-              ),
-            ),
+            bundling.map((coords, index) => lineString(coords, data[index])),
           );
 
           source.data = fc;

@@ -78,7 +78,6 @@ export type IHeatLayerType =
   | 'square';
 
 export type BundlingConfig = {
-  stepSize: number;
   compatibility: number;
 };
 export interface ILineLayerConfig {
