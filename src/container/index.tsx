@@ -16,24 +16,26 @@ export default function MapContainer() {
   const { mapType } = useContext(MapModelContext);
 
   return (
-    <AppMap className={styles.container} map={mapType}>
-      <AppControl
-        className={classnames({
-          [styles.control]: true,
-          [styles.previewHidden]: isPreview,
-        })}
-      />
-      <AppSidebar
-        className={classnames({
-          [styles.sidebar]: true,
-          [styles.previewHidden]: isPreview,
-        })}
-      >
-        <AppHeader />
-        <AppDataset />
-        <AppEdit />
-      </AppSidebar>
-      <AppLayerList />
-    </AppMap>
+    <div className={styles.container}>
+      <AppMap map={mapType}>
+        <AppControl
+          className={classnames({
+            [styles.control]: true,
+            [styles.previewHidden]: isPreview,
+          })}
+        />
+        <AppSidebar
+          className={classnames({
+            [styles.sidebar]: true,
+            [styles.previewHidden]: isPreview,
+          })}
+        >
+          <AppHeader />
+          <AppDataset />
+          <AppEdit />
+        </AppSidebar>
+        <AppLayerList />
+      </AppMap>
+    </div>
   );
 }
