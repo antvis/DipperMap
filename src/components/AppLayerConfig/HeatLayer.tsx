@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import LayerTypeSelect from './components/LayerTypeSelect';
 import { Form, Select } from 'antd';
 import type {
@@ -9,9 +9,7 @@ import type {
 import useCommonHook from './components/commonHook';
 import FieldSelect from '../FieldSelect';
 import ColorWrapper from './components/ColorWrapper';
-import useDataset from '../../hooks/dataset';
 import FormSlider from './components/FormSlider';
-import { debounce } from 'lodash';
 import { FORM_LAYOUT } from './common';
 import { HEAT_TYPE_LIST } from '../../constants';
 
@@ -58,7 +56,6 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
       {...FORM_LAYOUT}
       labelAlign="left"
       form={form}
-      // onValuesChange={debounce(onFormValueChanged, 300)}
       onValuesChange={onFormValueChanged}
     >
       <Form.Item label="基础" colon={false} className="titleFormItem" />
