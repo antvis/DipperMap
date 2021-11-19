@@ -10,6 +10,8 @@ export interface IProps {
   setMapType: (value: IMapType) => void;
   mapPitch: number;
   setMapPitch: (value: number) => void;
+  mapRotate: number;
+  setMapRotate: (value: number) => void;
 }
 
 // @ts-ignore
@@ -35,6 +37,10 @@ const MapContextProvider: React.FC = ({ children }) => {
     +(localStorage.getItem(LOCAL_STORAGE_KEY.MAP_PITCH) ?? 0),
   );
 
+  const [mapRotate, setMapRotate] = useState<number>(
+    +(localStorage.getItem(LOCAL_STORAGE_KEY.MAP_ROTATE) ?? 0),
+  );
+
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY.MAP_THEME, mapTheme);
   }, [mapTheme]);
@@ -47,6 +53,10 @@ const MapContextProvider: React.FC = ({ children }) => {
     localStorage.setItem(LOCAL_STORAGE_KEY.MAP_PITCH, `${mapPitch}`);
   }, [mapPitch]);
 
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY.MAP_ROTATE, `${mapRotate}`);
+  }, [mapRotate]);
+
   return (
     <Provider
       value={{
@@ -56,6 +66,8 @@ const MapContextProvider: React.FC = ({ children }) => {
         setMapType,
         mapPitch,
         setMapPitch,
+        mapRotate,
+        setMapRotate,
       }}
     >
       {children}

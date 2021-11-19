@@ -8,7 +8,7 @@ const AppMap: React.FC<{ className?: string; map?: IMapType }> = ({
   className,
   map = 'amap',
 }) => {
-  const { mapTheme, mapPitch } = useContext(MapModelContext);
+  const { mapTheme, mapPitch, mapRotate } = useContext(MapModelContext);
   const MapScene = map === 'amap' ? AMapScene : MapboxScene;
   const style = map === 'amap' ? 'amap://styles/' + mapTheme : mapTheme;
 
@@ -19,6 +19,7 @@ const AppMap: React.FC<{ className?: string; map?: IMapType }> = ({
         center: [120.153576, 30.287459],
         pitch: mapPitch,
         zoom: 10,
+        rotation: mapRotate,
         style,
       }}
       option={{
