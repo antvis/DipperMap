@@ -115,26 +115,6 @@ const AddDatasetModal = ({
     });
   }, [getNewDatasetName, setForm]);
 
-  const onTryExample = useCallback(
-    (exampleType: number) => {
-      const exampleMap = {
-        '1': 'https://gw.alipayobjects.com/os/bmw-prod/ba077ba7-2a28-435f-b163-4def4a3c874d.json',
-        '2': 'https://gw.alipayobjects.com/os/bmw-prod/d382b49f-c14b-4662-a281-63890798e969.json',
-        '3': 'https://gw.alipayobjects.com/os/bmw-prod/bc47a55e-6d08-40ad-bc22-1fa62471aa39.json',
-        '4': 'https://gw.alipayobjects.com/os/bmw-prod/e3179fcc-4096-456f-a32a-d7f4d9c43088.json',
-      };
-      const newForm: IFormData = {
-        ...form,
-        type: 'url',
-        // @ts-ignore
-        url: exampleMap[String(exampleType)] || '',
-      };
-      setForm(newForm);
-      onSubmit(newForm);
-    },
-    [onSubmit],
-  );
-
   const openDemos = useCallback(() => {
     setDemoVisible(true);
   }, []);
@@ -150,6 +130,7 @@ const AddDatasetModal = ({
           url: data.src,
           data: result.data,
           fields: result.fields,
+          geoJson: result.geoJson,
           id: data.datasetId || getRandomId('dataset'),
         });
       }),
