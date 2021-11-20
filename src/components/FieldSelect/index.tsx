@@ -39,7 +39,7 @@ const FieldSelect = ({
       value={value ?? undefined}
       placeholder="暂未选择字段"
       className={styles.fieldSelect}
-      maxTagCount={2}
+      style={{ width: 170 }}
       onChange={(newValue: string | string[] | null = null) => {
         const targetField = displayFields.find(
           (item) => item.name === newValue,
