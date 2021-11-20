@@ -8,6 +8,7 @@ import RangeWrapper from './components/RangeWrapper/index';
 import ColorWrapper from './components/ColorWrapper/index';
 import { LINE_TYPE_LIST } from '../../constants';
 import LayerBlend from './components/LayerBlend';
+import EdgeBundling from './components/EdgeBundling';
 import FormSlider from './components/FormSlider';
 import { FORM_LAYOUT } from './common';
 
@@ -63,6 +64,7 @@ const LineLayer = ({ layer, onChange }: IProps) => {
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>
 
+      <EdgeBundling form={form} />
       <ColorWrapper
         label="颜色"
         field="color"

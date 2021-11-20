@@ -55,6 +55,11 @@ function getLayerKey(layer: ILayer, index: number) {
   if (layer.type === 'heat') {
     return `${commonKey}-${layer.config.shape}`;
   }
+
+  if (layer.type === 'polygon') {
+    return `${commonKey}-${layer.config.shape}-${layer.config.intense}`;
+  }
+
   return `${commonKey}-${opacity}`;
 }
 
