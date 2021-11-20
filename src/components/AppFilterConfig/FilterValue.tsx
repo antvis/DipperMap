@@ -1,7 +1,8 @@
 import React from 'react';
 import type { IFilter } from '../../typings';
-import { Select, Switch, Slider, InputNumber } from 'antd';
+import { Select, Switch } from 'antd';
 import styles from './index.less';
+import NumberFilterValue, { INumberFilterValue } from './NumberFilterValue';
 
 interface IProps extends Pick<IFilter, 'field' | 'value'> {
   onChange: (newValue: any) => void;
@@ -38,33 +39,12 @@ const FilterValue = (props: IProps) => {
   }
 
   if (field.type === 'number') {
-    const [minRange, maxRange] = field.range;
-    const [minValue, maxValue] = value as [number, number];
     content = (
-      <>
-        <Slider
-          range
-          step={1}
-          value={value as [number, number]}
-          min={minRange}
-          max={maxRange}
-          onAfterChange={onChange}
-        />
-        <div className={styles.inputRangePanel}>
-          <InputNumber
-            min={minRange}
-            max={maxValue}
-            value={minValue}
-            onChange={(newMinValue) => onChange([newMinValue, maxValue])}
-          />
-          <InputNumber
-            min={minValue}
-            max={maxRange}
-            value={maxValue}
-            onChange={(newMaxValue) => onChange([minValue, newMaxValue])}
-          />
-        </div>
-      </>
+      <NumberFilterValue
+        value={value as INumberFilterValue}
+        range={field.range}
+        onChange={onChange}
+      />
     );
   }
 

@@ -166,3 +166,9 @@ export const transformData = (originData: string | any[]) => {
     data,
   };
 };
+
+export const getFilterRange: (range: [number, number]) => [number, number] = (
+  range,
+) => {
+  return [Math.floor(range[0]), Math.ceil(range[1])];
+};

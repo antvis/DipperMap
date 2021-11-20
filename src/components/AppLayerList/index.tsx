@@ -116,7 +116,7 @@ const AppLayerList: React.FC<IProps> = () => {
       {layerConfigList.map((config, index) => {
         return (
           <LayerItem
-            key={config.layer.id}
+            key={config.layer.id + config.layer.type}
             config={config}
             propsList={propsList[index]}
             event={

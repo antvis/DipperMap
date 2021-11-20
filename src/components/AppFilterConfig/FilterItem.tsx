@@ -7,6 +7,7 @@ import { Collapse, Dropdown, Menu, Popconfirm, Switch, Form } from 'antd';
 import DatasetModal from '../DatasetModal';
 import FilterValue from '../AppFilterConfig/FilterValue';
 import { useRef } from 'react';
+import { getFilterRange } from '../../utils';
 
 interface IProps {
   filter: IFilter;
@@ -50,7 +51,7 @@ const FilterItem = ({
           return { value: [] };
         }
         if (field.type === 'number') {
-          return { value: [...field.range] };
+          return { value: getFilterRange(field.range) };
         }
         return {};
       },

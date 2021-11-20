@@ -20,7 +20,7 @@ const ColorField: React.FC<IProps> = ({
   fields = [],
 }) => {
   return (
-    <Form.Item label="基于字段" name={[field, 'field']}>
+    <Form.Item label="展示更多" name={[field, 'field']}>
       <FieldSelect
         fields={fields}
         allowClear
