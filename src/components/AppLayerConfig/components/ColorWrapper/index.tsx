@@ -33,7 +33,7 @@ const ColorWrapper = ({
   range = false,
   forceField = false,
   displayFieldCheckbox = true,
-  title = '基于字段',
+  title = '展示更多',
 }: IProps) => {
   const [showField, setShowField] = useState(false);
 
@@ -76,7 +76,7 @@ const ColorWrapper = ({
         }}
       </Form.Item>
       {showField && (
-        <Form.Item label="基于字段" name={[field, 'field']}>
+        <Form.Item label="展示更多" name={[field, 'field']}>
           <FieldSelect
             fields={fields}
             allowClear

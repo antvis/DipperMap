@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext } from 'react';
 import styles from './index.less';
 import AppMap from '../components/AppMap';
 import AppControl from '../components/AppControl';

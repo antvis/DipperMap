@@ -13,7 +13,7 @@ const RangeWrapper: React.FC<{
   form: FormInstance;
   fields: IDatasetField[];
   title?: string;
-}> = ({ label, field, form, fields, title = '基于字段' }) => {
+}> = ({ label, field, form, fields, title = '展示更多' }) => {
   const [showField, setShowField] = useState(false);
 
   const hasField = !!form.getFieldValue([field, 'field']);
@@ -39,7 +39,7 @@ const RangeWrapper: React.FC<{
 
       {showField && (
         <Form.Item
-          label="基于字段"
+          label="展示更多"
           name={[field, 'field']}
           style={{ marginTop: 8 }}
         >
