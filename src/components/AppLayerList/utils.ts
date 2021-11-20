@@ -19,7 +19,6 @@ import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import { h3ToGeoBoundary } from 'h3-js';
 import { cloneDeep, merge } from 'lodash';
 import { message } from 'antd';
-import { COLOR, POINT_TO_SQUARE_LIMIT } from '../../constants';
 import bundle from '../../utils/lineBundle';
 import { FIELD_COLOR_MAP, POINT_TO_SQUARE_LIMIT } from '../../constants';
 
