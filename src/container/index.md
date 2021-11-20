@@ -20,64 +20,40 @@ const DEMOS = [
     dataSrc: [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/ba077ba7-2a28-435f-b163-4def4a3c874d.json',
-        datasetId: 'Chengdu',
+        datasetId: 'Point',
         name: '成都',
-      },
-      {
-        src: 'https://gw.alipayobjects.com/os/basement_prod/893d1d5f-11d9-45f3-8322-ee9140d288ae.json',
-        datasetId: 'Shanghai',
-        name: '上海',
       },
     ],
     demoName: '点图层示例',
     layerList: [
       {
-        id: 'layer-Chengdu',
-        name: '成都',
+        id: 'Point',
+        name: '图层1',
         order: 1,
-        datasetId: 'Chengdu',
+        datasetId: 'Point',
+        createTime: 1637398182381,
         config: {
           lngField: 'f_lon',
           latField: 'f_lat',
           fillColor: {
-            value: '#1890ff',
-            enable: true,
+            value: '#269a99',
           },
           borderColor: {
             value: '#1890ff',
           },
           radius: {
-            value: 3,
+            value: 2,
             rangeValue: [1, 10],
             field: null,
           },
           blendType: 'additive',
-        },
-        type: 'point',
-        visible: true,
-        zIndex: 1,
-      },
-      {
-        id: 'layer-Shanghai',
-        name: '上海',
-        order: 2,
-        datasetId: 'Shanghai',
-        config: {
-          lngField: 'longitude',
-          latField: 'latitude',
-          fillColor: {
-            value: '#10e817',
-            enable: true,
-          },
-          borderColor: {
-            value: '#10e817',
-          },
-          radius: {
-            value: 3,
-            rangeValue: [1, 10],
+          opacity: 100,
+          shape: 'circle',
+          size: 100,
+          dimension: {
+            rangeValue: [1, 100],
             field: null,
           },
-          blendType: 'additive',
         },
         type: 'point',
         visible: true,
@@ -91,27 +67,34 @@ const DEMOS = [
     dataSrc: [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/0a544b66-a04b-4b98-9b69-d71258f5f577.json',
-        datasetId: 'line-demo-1',
+        datasetId: 'arc-line',
         name: '弧线图层',
       },
     ],
     demoName: '弧线图层示例',
     layerList: [
       {
-        id: 'line-demo-1',
-        name: '弧线图层1',
+        id: 'arc-line',
+        name: '弧线图层',
         order: 1,
-        datasetId: 'line-demo-1',
-        createTime: 1636781178989,
+        datasetId: 'arc-line',
+        createTime: 1637390063854,
         config: {
           startLngField: 'from_lon',
           startLatField: 'from_lat',
           endLngField: 'to_lon',
           endLatField: 'to_lat',
           lineType: 'arc',
-          lineWidth: { value: 1, rangeValue: [1, 10], field: null },
-          color: { value: ['#1890ff', '#ff99c3'] },
+          lineWidth: {
+            value: 1,
+            rangeValue: [1, 10],
+            field: null,
+          },
+          color: {
+            value: ['#1890ff', '#FF5627'],
+          },
           blendType: 'additive',
+          opacity: 100,
         },
         type: 'line',
         visible: true,
@@ -132,20 +115,27 @@ const DEMOS = [
     demoName: '3D线图层示例',
     layerList: [
       {
-        id: 'layer-dd58a9d3-995c-460f-9059-a2c71118cfb8',
-        name: '图层1',
+        id: 'line-demo-2',
+        name: '3D线图层',
         order: 1,
         datasetId: 'line-demo-2',
-        createTime: 1636784447016,
+        createTime: 1637390235303,
         config: {
           startLngField: 'from_lon',
           startLatField: 'from_lat',
           endLngField: 'to_lon',
           endLatField: 'to_lat',
           lineType: 'arc3d',
-          lineWidth: { value: 1, rangeValue: [1, 10], field: null },
-          color: { value: ['#c96a9c', '#7e351f'] },
+          lineWidth: {
+            value: 1,
+            rangeValue: [1, 10],
+            field: null,
+          },
+          color: {
+            value: ['#1890ff', '#FF5627'],
+          },
           blendType: 'additive',
+          opacity: 100,
         },
         type: 'line',
         visible: true,
@@ -155,7 +145,7 @@ const DEMOS = [
   },
   {
     imgSrc:
-      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*NDt7TbATnroAAAAAAAAAAAAAARQnAQ',
+      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*8lyORIRMDNYAAAAAAAAAAAAAARQnAQ',
     dataSrc: [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/5c4fdc5c-5cf7-46da-a361-f377938553dc.json',
@@ -167,19 +157,28 @@ const DEMOS = [
     layerList: [
       {
         id: 'heat-demo-1',
-        name: '图层1',
+        name: '3D热力图',
         order: 1,
         datasetId: 'heat-demo-1',
-        createTime: 1636789084731,
+        createTime: 1637398560757,
         config: {
-          colorType: 'sequential',
-          fillColor: 4,
-          magField: 'mag',
-          ranges: [30, 6720],
-          blendType: 'normal',
+          shape: 'heatmap3D',
           lngField: 'lon',
           latField: 'lat',
-          shape: 'heatmap3D',
+          magField: 'mag',
+          fillColor: {
+            colorType: 'sequential',
+            colorIndex: 4,
+          },
+          radius: 4,
+          ranges: [0, 1],
+          blendType: 'normal',
+          opacity: 100,
+          intensity: 4,
+          dimension: {
+            rangeValue: [1, 100],
+            field: null,
+          },
         },
         type: 'heat',
         visible: true,
@@ -189,85 +188,45 @@ const DEMOS = [
   },
   {
     imgSrc:
-      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*0K0MSLt3dQgAAAAAAAAAAAAAARQnAQ',
+      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*-TojSYrHg5QAAAAAAAAAAAAAARQnAQ',
     dataSrc: [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/b417528c-5d29-40f1-86cb-fd2879e56681.json',
-        datasetId: 'heat-demo-1',
+        datasetId: 'cylinder-demo-1',
         name: '3D柱状图',
       },
     ],
-    demoName: '3D柱图示例',
+    demoName: '3D图示例',
     layerList: [
       {
-        id: 'heat-demo-1',
+        id: 'cylinder-demo-1',
         name: '图层1',
         order: 1,
-        datasetId: 'heat-demo-1',
-        createTime: 1636794784830,
+        datasetId: 'cylinder-demo-1',
+        createTime: 1637398905689,
         config: {
           lngField: 'lon',
           latField: 'lat',
-          fillColor: { value: '#1890ff', enable: true },
-          borderColor: { value: '#1890ff' },
-          radius: { value: 3, rangeValue: [1, 10], field: null },
-          blendType: 'additive',
-          shape: 'cylinder',
-          magField: 'mag',
-          size: '100',
-        },
-        type: 'point',
-        visible: true,
-        zIndex: 1,
-      },
-    ],
-  },
-  {
-    demoName: '气泡图层示例',
-    imgSrc:
-      'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*mkSISrpmi8EAAAAAAAAAAAAAARQnAQ',
-    dataSrc: [
-      {
-        src: 'https://gw.alipayobjects.com/os/bmw-prod/b48d0e58-7d43-40fa-94e0-370cb3935155.json',
-        datasetId: 'dataset-6a46571d-fa09-459a-804e-9d75b452142c',
-        name: '气泡图',
-      },
-    ],
-    layerList: [
-      {
-        id: 'layer-7647b08a-8e58-4644-8d54-761c4930ec79',
-        name: '图层1',
-        order: 1,
-        datasetId: 'dataset-6a46571d-fa09-459a-804e-9d75b452142c',
-        createTime: 1636783407525,
-        config: {
-          lngField: 'lat',
-          latField: 'lot',
           fillColor: {
-            value: [
-              'rgb(247, 252, 253)',
-              'rgb(229, 245, 249)',
-              'rgb(204, 236, 230)',
-              'rgb(153, 216, 201)',
-              'rgb(102, 194, 164)',
-              'rgb(65, 174, 118)',
-              'rgb(35, 139, 69)',
-              'rgb(0, 109, 44)',
-              'rgb(0, 68, 27)',
-            ],
-            enable: true,
-            field: 'capacity',
+            value: '#5b8ff9',
           },
           borderColor: {
             value: '#1890ff',
           },
           radius: {
             value: 3,
-            rangeValue: [1, 8],
-            field: 'capacity',
+            rangeValue: [1, 10],
+            field: null,
           },
           blendType: 'normal',
-          opacity: 52,
+          opacity: 100,
+          shape: 'cylinder',
+          size: 3,
+          dimension: {
+            rangeValue: [1, 100],
+            field: null,
+          },
+          magField: 'lon',
         },
         type: 'point',
         visible: true,
@@ -282,35 +241,42 @@ const DEMOS = [
     dataSrc: [
       {
         name: '中国地图省级',
-        datasetId: 'dataset-bbbb4152-aca5-4ed0-a0f8-151f690ef201',
-        src: 'https://gw.alipayobjects.com/os/bmw-prod/bae79d2b-38d4-464d-b76c-ffc0dc9808d8.json',
+        datasetId: 'China',
+        src: 'https://gw.alipayobjects.com/os/bmw-prod/f6d97865-bee3-43e9-a57a-1317a90bc100.json',
       },
     ],
     layerList: [
       {
-        id: 'layer-d163f8c9-11d1-4247-9cac-03b748a04e33',
+        id: 'China',
         name: '图层1',
         order: 1,
-        datasetId: 'dataset-bbbb4152-aca5-4ed0-a0f8-151f690ef201',
-        createTime: 1636883086854,
+        datasetId: 'China',
+        createTime: 1637399254714,
         config: {
-          geoField: 'polygon',
-          fillColor: 1,
-          fillColorField: 'name',
+          geoField: null,
+          fillColor: {
+            value: '#1890ff',
+            field: 'childrenNum',
+            colorType: 'sequential',
+            colorIndex: 0,
+            enable: true,
+          },
           borderColor: {
             value: '#1890ff',
-            field: null,
           },
           borderWidth: {
             value: 1,
             rangeValue: [1, 10],
-            field: null,
           },
           blendType: 'normal',
+          opacity: 100,
           dimension: {
             rangeValue: [1, 100],
             field: null,
           },
+          intense: 10000,
+          intenseField: null,
+          shape: 'fill',
         },
         type: 'polygon',
         visible: true,
