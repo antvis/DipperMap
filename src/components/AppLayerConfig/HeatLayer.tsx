@@ -12,8 +12,7 @@ import ColorWrapper from './components/ColorWrapper';
 import FormSlider from './components/FormSlider';
 import { FORM_LAYOUT } from './common';
 import { HEAT_TYPE_LIST } from '../../constants';
-
-const { Option } = Select;
+import { cloneDeep } from 'lodash';
 
 interface IProps {
   layer: IHeatLayer;
@@ -23,6 +22,7 @@ interface IProps {
 const HeatLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<IHeatLayerConfig>();
   const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    form,
     layer,
     onChange,
   );
@@ -31,32 +31,12 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
     form.setFieldsValue(layer.config);
   }, [layer.config]);
 
-  const onFormValueChanged = useCallback(
-    (changedValues: any) => {
-      let ranges: number[] = [];
-      if (changedValues.magField) {
-        ranges = (
-          targetDataset?.fields.find(
-            (field) => field.name === changedValues.magField,
-          ) as IDatasetNumberField
-        ).range;
-      }
-      onFormChange({
-        ...changedValues,
-        ...(ranges.length && {
-          ranges,
-        }),
-      });
-    },
-    [onFormChange, targetDataset],
-  );
-
   return (
     <Form
       {...FORM_LAYOUT}
       labelAlign="left"
       form={form}
-      onValuesChange={onFormValueChanged}
+      onValuesChange={onFormChange}
     >
       <Form.Item label="基础" colon={false} className="titleFormItem" />
       <LayerTypeSelect
@@ -74,14 +54,27 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>
       <Form.Item label="数值" name="magField">
-        <FieldSelect fields={targetDatasetFields} />
+        <FieldSelect
+          fields={targetDatasetFields}
+          supportTypes={['number']}
+          onChange={(newField) => {
+            const targetField = targetDatasetFields.find(
+              (field) => field.name === newField,
+            ) as IDatasetNumberField | undefined;
+            if (targetField) {
+              form.setFieldsValue({
+                ranges: cloneDeep(targetField.range),
+              });
+            }
+          }}
+        />
       </Form.Item>
       <ColorWrapper
         label="颜色"
         field="fillColor"
         form={form}
         fields={targetDatasetFields}
-        fieldColor
+        forceField
         displayFieldCheckbox={false}
       />
       <FormSlider label="半径" name="radius" />

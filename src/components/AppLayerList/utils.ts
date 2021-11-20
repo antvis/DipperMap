@@ -19,7 +19,7 @@ import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import { h3ToGeoBoundary } from 'h3-js';
 import { cloneDeep, merge } from 'lodash';
 import { message } from 'antd';
-import { COLOR, POINT_TO_SQUARE_LIMIT } from '../../constants';
+import { FIELD_COLOR_MAP, POINT_TO_SQUARE_LIMIT } from '../../constants';
 
 export const getPointList: (coordinates: string) => number[][] = (
   coordinates,
@@ -160,9 +160,9 @@ export const setColorProps = (
     return;
   }
   if (colorConfig.field) {
-    const { field, value: values } = colorConfig;
+    const { field, colorIndex, colorType } = colorConfig;
     Object.assign(props, {
-      color: { field, values },
+      color: { field, values: FIELD_COLOR_MAP[colorType][colorIndex] },
       scale: {
         values: {
           [field]: {
@@ -171,8 +171,8 @@ export const setColorProps = (
         },
       },
     });
-  } else if (Array.isArray(colorConfig.value)) {
-    const [targetColor, sourceColor] = colorConfig.value;
+  } else if (Array.isArray((colorConfig as ILayerDoubleColor).value)) {
+    const [targetColor, sourceColor] = (colorConfig as ILayerDoubleColor).value;
     props.style = Object.assign(props.style || {}, {
       targetColor,
       sourceColor,
@@ -180,7 +180,7 @@ export const setColorProps = (
   } else {
     Object.assign(props, {
       color: {
-        values: colorConfig.value,
+        values: (colorConfig as ILayerSingleColor).value,
       },
     });
   }
@@ -206,10 +206,11 @@ export const transformProps: (
 
   if (layer.type === 'heat') {
     const { config } = layer as IHeatLayer;
-    const { fillColor, ranges, intensity, radius, shape, colorType } = config;
+    const { fillColor, ranges, intensity, radius, shape, magField } = config;
     let positions: number[] = [];
 
-    const colors = COLOR[colorType][fillColor]?.colors || [];
+    const { colorType, colorIndex } = fillColor;
+    const colors = FIELD_COLOR_MAP[colorType][colorIndex] || [];
     if (colors && colors.length) {
       // 区间长度
       const sectionLen = ranges[1] - ranges[0] / colors.length;
@@ -217,6 +218,10 @@ export const transformProps: (
     }
 
     merge(props, {
+      size: {
+        field: magField,
+        value: [0, 1],
+      },
       shape: {
         values: shape,
       },
@@ -237,35 +242,43 @@ export const transformProps: (
       fillColor,
       borderColor,
       borderWidth,
-      colorType,
-      fillColorField,
       intense,
       intenseField,
       shape,
     } = config;
-    const borderProps = cloneDeep(props);
-    props.shape = {
-      values: shape,
-    };
-    props.color = {
-      field: fillColorField,
-      values: COLOR[colorType][fillColor]?.colors || [],
-    };
-    props.size = {
-      field: intenseField,
-      values: (num) => intense * num,
-    };
+    setColorProps(props, fillColor);
 
-    borderProps.shape = {
-      values: 'line',
-    };
-    borderProps.active = {
-      option: false,
-    };
-    setColorProps(borderProps, borderColor);
-    setSizeProps(borderProps, borderWidth);
+    if (shape === 'extrude' && intenseField) {
+      props.shape = {
+        values: 'extrude',
+      };
+      props.size = {
+        field: intenseField,
+        values: (num) => intense * num,
+      };
+      return [props];
+    } else {
+      props.shape = {
+        values: 'fill',
+      };
 
-    return [props, borderProps];
+      // 当为3D但未选择高度字段时，只展示fill
+      if (shape === 'extrude') {
+        return [props];
+      }
+      const borderProps = {
+        ...cloneDeep(props),
+        shape: {
+          values: 'line',
+        },
+        active: {
+          option: false,
+        },
+      };
+      setColorProps(borderProps, borderColor);
+      setSizeProps(borderProps, borderWidth);
+      return [props, borderProps];
+    }
   }
 
   if (layer.type === 'point') {
@@ -275,15 +288,20 @@ export const transformProps: (
     setColorProps(props, fillColor);
 
     if (shape) {
-      props.shape = {
-        values: shape,
-      };
-      if (shape === 'cylinder') {
+      if (shape === 'cylinder' && magField) {
+        props.shape = {
+          values: 'cylinder',
+        };
         props.size = {
           field: magField,
-          values: (num) => [radius.value, radius.value, num * size],
+          values: (num) => {
+            return [radius.value, radius.value, num * size];
+          },
         };
       } else {
+        props.shape = {
+          values: 'circle',
+        };
         setSizeProps(props, radius);
       }
     } else if (dataLength > POINT_TO_SQUARE_LIMIT) {

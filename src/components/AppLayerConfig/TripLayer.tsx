@@ -19,6 +19,7 @@ interface IProps {
 const TripLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<ITripLayerConfig>();
   const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    form,
     layer,
     onChange,
   );

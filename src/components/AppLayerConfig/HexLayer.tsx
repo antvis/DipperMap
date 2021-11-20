@@ -17,6 +17,7 @@ interface IProps {
 const HexLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<IHexLayerConfig>();
   const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    form,
     layer,
     onChange,
   );
