@@ -19,6 +19,8 @@ import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import { h3ToGeoBoundary } from 'h3-js';
 import { cloneDeep, merge } from 'lodash';
 import { message } from 'antd';
+import { COLOR, POINT_TO_SQUARE_LIMIT } from '../../constants';
+import bundle from '../../utils/lineBundle';
 import { FIELD_COLOR_MAP, POINT_TO_SQUARE_LIMIT } from '../../constants';
 
 export const getPointList: (coordinates: string) => number[][] = (
@@ -63,21 +65,48 @@ export const transformSource: (
 
     if (type === 'line') {
       const {
-        config: { startLngField, startLatField, endLngField, endLatField },
+        config: {
+          startLngField,
+          startLatField,
+          endLngField,
+          endLatField,
+          enableEdgeBundling,
+          edgeBundling,
+        },
       } = layer as ILineLayer;
 
       if (startLngField && startLatField && endLngField && endLatField) {
-        source.data = featureCollection(
-          data.map((item) =>
-            lineString(
-              [
-                [+item[startLngField], +item[startLatField]],
-                [+item[endLngField], +item[endLatField]],
-              ],
-              item,
+        if (!enableEdgeBundling) {
+          source.data = featureCollection(
+            data.map((item) =>
+              lineString(
+                [
+                  [+item[startLngField], +item[startLatField]],
+                  [+item[endLngField], +item[endLatField]],
+                ],
+                item,
+              ),
             ),
-          ),
-        );
+          );
+        } else {
+          const { compatibility } = edgeBundling || {
+            compatibility: 0.6,
+          };
+
+          const bundling = bundle(
+            data.map((item) => ({
+              start: [item[startLngField], item[startLatField]],
+              end: [item[endLngField], item[endLatField]],
+            })),
+            compatibility,
+          );
+
+          const fc = featureCollection(
+            bundling.map((coords, index) => lineString(coords, data[index])),
+          );
+
+          source.data = fc;
+        }
       }
     }
 
