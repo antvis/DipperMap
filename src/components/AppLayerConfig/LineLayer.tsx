@@ -19,6 +19,7 @@ interface IProps {
 const LineLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<ILineLayerConfig>();
   const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    form,
     layer,
     onChange,
   );

@@ -20,9 +20,15 @@ function AppControl({ className }: IProps) {
         {/*<MapDraw />*/}
         <MapType />
         <MapTheme />
-        <MapControl title="地图倾角" value={mapPitch} setValue={setMapPitch} />
+        <MapControl
+          title="地图倾角"
+          icon={<i className="dpiconfont dpicon-yinqing_jiaodu" />}
+          value={mapPitch}
+          setValue={setMapPitch}
+        />
         <MapControl
           title="地图旋转"
+          icon={<i className="dpiconfont dpicon-xuanzhuanjiaodu" />}
           value={mapRotate}
           setValue={setMapRotate}
           max={360}

@@ -2,8 +2,10 @@ import { useCallback, useMemo } from 'react';
 import type { DeepPartial, IBaseLayer } from '../../../typings';
 import useDataset from '../../../hooks/dataset';
 import { debounce, merge } from 'lodash';
+import { FormInstance } from 'antd';
 
 const useCommonHook = <P extends IBaseLayer, T>(
+  form: FormInstance<T>,
   layer: P,
   onChange: (newLayer: P) => void,
 ) => {
@@ -20,12 +22,11 @@ const useCommonHook = <P extends IBaseLayer, T>(
   );
 
   const onFormChange = useCallback(
-    debounce((changedConfig: DeepPartial<T>) => {
-      onChange(
-        merge({}, layer, {
-          config: changedConfig,
-        }),
-      );
+    debounce(() => {
+      const newLayer = merge({}, layer, {
+        config: form.getFieldsValue(),
+      });
+      onChange(newLayer);
     }, 300),
     [onChange, layer],
   );

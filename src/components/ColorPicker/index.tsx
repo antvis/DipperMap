@@ -34,12 +34,6 @@ export const ColorPicker = React.memo((props: IProps) => {
     [onChange, value],
   );
 
-  useEffect(() => {
-    if (typeof value !== 'string') {
-      onChange?.(DEFAULT_COLOR1);
-    }
-  }, [value]);
-
   return (
     <Button
       className={styles['color-picker-btn']}

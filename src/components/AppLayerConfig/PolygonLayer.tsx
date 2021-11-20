@@ -9,9 +9,8 @@ import RangeWrapper from './components/RangeWrapper';
 import LayerBlend from './components/LayerBlend';
 import FormSlider from './components/FormSlider';
 import { FORM_LAYOUT, GEO_JSON_TOOLTIP } from './common';
-import { COLOR, POLYGON_TYPE_LIST } from '../../constants';
+import { POLYGON_TYPE_LIST } from '../../constants';
 import GeoFieldWrapper from './components/GeoFieldWrapper';
-import FieldColorPicker from './components/ColorWrapper/FieldColorPicker';
 
 interface IProps {
   layer: IPolygonLayer;
@@ -21,6 +20,7 @@ interface IProps {
 const PolygonLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<IPolygonLayerConfig>();
   const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    form,
     layer,
     onChange,
   );
@@ -47,35 +47,48 @@ const PolygonLayer = ({ layer, onChange }: IProps) => {
           <FieldSelect fields={targetDatasetFields} />
         </Form.Item>
       </GeoFieldWrapper>
-      <FieldColorPicker
-        field="fillColor"
-        colorList={COLOR[form.getFieldValue('colorType')]}
-      />
-      <Form.Item label="颜色字段" name="fillColorField">
-        <FieldSelect fields={targetDatasetFields} allowClear />
-      </Form.Item>
 
       <ColorWrapper
-        label="边框颜色"
-        field="borderColor"
+        label="填充颜色"
+        field="fillColor"
         form={form}
         fields={targetDatasetFields}
       />
 
-      <RangeWrapper
-        label="边框宽度"
-        field="borderWidth"
-        form={form}
-        fields={targetDatasetFields}
-      />
-      {form.getFieldValue('shape') === 'extrude' ? (
-        <>
-          <Form.Item label="高度字段" name="intenseField">
-            <FieldSelect fields={targetDatasetFields} allowClear />
-          </Form.Item>
-          <FormSlider label="高度" name="intense" max={10e7} />
-        </>
-      ) : null}
+      <Form.Item
+        noStyle
+        shouldUpdate={(pre, cur) => {
+          return pre?.shape !== cur?.shape;
+        }}
+      >
+        {({ getFieldValue }) => {
+          return getFieldValue('shape') === 'extrude' ? (
+            <>
+              <Form.Item label="高度字段" name="intenseField">
+                <FieldSelect fields={targetDatasetFields} allowClear />
+              </Form.Item>
+              <FormSlider label="高度" name="intense" />
+            </>
+          ) : (
+            <>
+              <ColorWrapper
+                label="边框颜色"
+                field="borderColor"
+                form={form}
+                fields={targetDatasetFields}
+              />
+
+              <RangeWrapper
+                label="边框宽度"
+                field="borderWidth"
+                form={form}
+                fields={targetDatasetFields}
+              />
+            </>
+          );
+        }}
+      </Form.Item>
+
       <LayerBlend />
     </Form>
   );

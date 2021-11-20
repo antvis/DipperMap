@@ -12,12 +12,6 @@ const RangeColorPicker = ({
   value = [DEFAULT_COLOR1, DEFAULT_COLOR1],
   onChange,
 }: IProps) => {
-  useEffect(() => {
-    if (value?.length !== 2) {
-      onChange?.([DEFAULT_COLOR1, DEFAULT_COLOR1]);
-    }
-  }, [value]);
-
   return (
     <div className={styles.splitPanel} style={{ marginBottom: 8 }}>
       <ColorPicker

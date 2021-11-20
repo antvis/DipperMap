@@ -20,6 +20,7 @@ interface IProps {
 const PointLayer = ({ layer, onChange }: IProps) => {
   const [form] = Form.useForm<IPointLayerConfig>();
   const { targetDataset, targetDatasetFields, onFormChange } = useCommonHook(
+    form,
     layer,
     onChange,
   );
@@ -72,14 +73,23 @@ const PointLayer = ({ layer, onChange }: IProps) => {
         </Form.Item>
       </GeoFieldWrapper>
 
-      {form.getFieldValue('shape') === 'cylinder' ? (
-        <>
-          <Form.Item label="高度维度" name="magField">
-            <FieldSelect fields={targetDatasetFields} />
-          </Form.Item>
-          <FormSlider label="高度" name="size" />
-        </>
-      ) : null}
+      <Form.Item
+        noStyle
+        shouldUpdate={(pre, cur) => {
+          return pre?.shape !== cur?.shape;
+        }}
+      >
+        {(form) => {
+          return form.getFieldValue('shape') === 'cylinder' ? (
+            <>
+              <Form.Item label="高度维度" name="magField">
+                <FieldSelect fields={targetDatasetFields} />
+              </Form.Item>
+              <FormSlider label="高度" name="size" />
+            </>
+          ) : null;
+        }}
+      </Form.Item>
 
       <ColorWrapper
         label="颜色"
