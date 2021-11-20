@@ -42,18 +42,20 @@ function getLayerKey(layer: ILayer, index: number) {
     id,
     config: { opacity },
   } = layer;
+  const commonKey = `${id}+${index}+${layer.type}`;
+
   if (layer.type === 'line') {
-    return `${id}+${index}-${layer.config.lineType}-${opacity}`;
+    return `${commonKey}-${layer.config.lineType}-${opacity}`;
   }
 
   if (layer.type === 'point') {
-    return `${id}+${index}-${layer.config.shape}`;
+    return `${commonKey}-${layer.config.blendType}-${layer.config.shape}`;
   }
 
   if (layer.type === 'heat') {
-    return `${id}+${index}-${layer.config.shape}`;
+    return `${commonKey}-${layer.config.shape}`;
   }
-  return `${id}-${index}-${opacity}`;
+  return `${commonKey}-${opacity}`;
 }
 
 const LayerItem: React.FC<IProps> = React.memo(

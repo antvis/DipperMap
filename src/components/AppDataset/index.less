@@ -19,7 +19,7 @@
     color: @text-color-light;
   }
   i {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
@@ -52,9 +52,8 @@
   flex-grow: 1;
   flex-shrink: 1;
   height: 100%;
-  @content-padding-top: 6px;
   .datasetInfo {
-    padding-top: @content-padding-top;
+    padding-top: 3px;
     height: 100%;
     overflow: hidden;
     > * {
@@ -76,7 +75,6 @@
   }
   .datasetFileName {
     display: inline-block;
-    margin-top: 4px;
     color: @text-color-secondary;
     font-size: 12px;
     i {
@@ -85,7 +83,7 @@
     }
   }
   .btnGroup {
-    padding-top: @content-padding-top / 2;
+    padding-top: 6px;
     display: inline-flex;
     align-items: flex-start;
     float: right;
@@ -96,7 +94,7 @@
       font-size: 16px;
     }
     i {
-      margin-left: 6px;
+      margin-left: 16px;
     }
   }
   &:hover {
@@ -152,6 +150,10 @@
     }
     .ant-upload {
       height: 146px !important;
+      color: @text-color-secondary;
+    }
+    .dpicon-shangchuanwenjian {
+      font-size: 40px;
     }
     .dpicon-shangchuanwenjian {
       font-size: 40px;

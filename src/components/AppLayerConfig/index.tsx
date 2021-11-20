@@ -44,7 +44,7 @@ const AppLayerConfig = () => {
     <div className="editPanel">
       <div className="editPanelContent">
         {!displayLayerList.length ? (
-          <Empty description="暂无图层" />
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无图层" />
         ) : (
           <DragList
             itemClassName="editItem"

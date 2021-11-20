@@ -8,6 +8,8 @@ export type IBlendType = keyof typeof BlendType;
 
 export type PropsType = Omit<ILayerProps, 'source'>;
 
+export type IColorType = 'sequential' | 'singlehue' | 'diverging';
+
 export interface IBaseLayer extends IEntity {
   type: ILayerType;
   config: Record<string, any>;
@@ -39,7 +41,9 @@ export interface ILayerDoubleColor {
 }
 
 export interface ILayerFieldColor {
-  value: string[];
+  // value: string[];
+  colorType: IColorType;
+  colorIndex: number;
   field: string;
   enable?: boolean;
 }
@@ -96,17 +100,15 @@ export interface ILineLayerConfig {
 
 export interface IPolygonLayerConfig {
   geoField?: string | null;
-  colorType: string;
-  fillColor: number;
-  fillColorField: string;
+  fillColor: ILayerSingleColor | ILayerFieldColor;
   borderColor: ILayerSingleColor | ILayerFieldColor;
   borderWidth: ILayerRange;
   blendType: IBlendType;
   opacity: number;
   dimension: ILayerIDimension;
   intense: number;
-  intenseField: string;
-  shape: string;
+  intenseField?: string | null;
+  shape: ILayerDimensionType;
 }
 
 export interface ITripLayerConfig {
@@ -118,12 +120,11 @@ export interface ITripLayerConfig {
 }
 
 export interface IHeatLayerConfig {
-  colorType: string;
+  lngField?: string | null;
+  latField?: string | null;
+  magField?: string | null;
   shape: IHeatLayerType;
-  fillColor: number;
-  lngField: string;
-  latField: string;
-  magField: string;
+  fillColor: Omit<ILayerFieldColor, 'field'>;
   ranges: [number, number];
   blendType: IBlendType;
   opacity: number;

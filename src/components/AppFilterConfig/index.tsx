@@ -29,7 +29,10 @@ const AppFilterConfig = () => {
     <div className="editPanel">
       <div className="editPanelContent">
         {!displayFilterList.length ? (
-          <Empty description="暂无筛选器" />
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            description="暂无筛选器"
+          />
         ) : (
           <DragList
             itemClassName={classnames([styles.filterItem, 'editItem'])}

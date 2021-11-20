@@ -1,5 +1,5 @@
 @import '../styles/variables';
-@import url('//at.alicdn.com/t/font_2898812_gvz0xgvaaqr.css');
+@import url('//at.alicdn.com/t/font_2898812_fmva2aujxdl.css');
 
 .container {
   width: 100%;
@@ -34,6 +34,7 @@
       margin-bottom: 0 !important;
       & > .ant-form-item-label {
         margin-bottom: 4px;
+        line-height: 25px;
       }
       & > .ant-form-item-label > label {
         margin-top: 6px;
@@ -71,6 +72,30 @@
 
       input {
         background-color: @bg-color !important;
+      }
+
+      :global {
+        .flexbox-fix:last-child {
+          border-top: 1px solid @border-color-base !important;
+        }
+      }
+    }
+
+    .ant-slider {
+      .ant-slider-track {
+        background-color: @primary-color;
+        z-index: 1;
+      }
+      .ant-slider-step {
+        background-color: @bg-color-lightest;
+      }
+      .ant-slider-handle {
+        background-color: #d8d8d8;
+        border-width: 0;
+        border-radius: 1px;
+        z-index: 2;
+        width: 12px;
+        height: 12px;
       }
     }
 

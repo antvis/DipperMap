@@ -32,7 +32,7 @@ const AppInteractiveConfig = () => {
     <div className="editPanel">
       <div className="editPanelContent">
         {!displayInteractiveList.length ? (
-          <Empty description="暂无交互" />
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无交互" />
         ) : (
           <DragList
             itemClassName="editItem"
