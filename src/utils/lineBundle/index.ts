@@ -83,14 +83,17 @@ const bundle = (
 
   if (!stepSize) stepSize = avgSpan / 60; // 60 is iteration cycles
 
-  return forceEdgeBundling()
-    .compatibility_threshold(compatibility)
-    .step_size(stepSize)
-    .nodes(nodeMap)
-    .edges(edges)()
-    .map((coords) =>
-      coords.map((coord) => webMercator2LngLat(coord.x, coord.y)),
-    );
+  return (
+    forceEdgeBundling()
+      // @ts-ignore
+      .compatibility_threshold(compatibility)
+      .step_size(stepSize)
+      .nodes(nodeMap)
+      .edges(edges)()
+      .map((coords: any[]) =>
+        coords.map((coord: any) => webMercator2LngLat(coord.x, coord.y)),
+      )
+  );
 };
 
 export default bundle;
