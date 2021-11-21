@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getFilterRange } from '../../utils';
 import styles from './index.less';
-import { InputNumber, Slider } from '_antd@4.16.13@antd';
+import { InputNumber, Slider } from 'antd';
 import { useDebounceEffect } from 'ahooks';
 import { isEqual } from 'lodash';
 
