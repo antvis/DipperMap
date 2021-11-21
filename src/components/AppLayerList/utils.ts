@@ -1,17 +1,17 @@
 import type {
+  IDataset,
+  IHeatLayer,
   IHexLayer,
   ILayer,
   ILayerDoubleColor,
   ILayerFieldColor,
+  ILayerRange,
   ILayerSingleColor,
   ILineLayer,
   IPointLayer,
   IPolygonLayer,
   ITripLayer,
-  ILayerRange,
-  IHeatLayer,
   PropsType,
-  IDataset,
 } from '../../typings';
 import { featureCollection, lineString, point, polygon } from '@turf/turf';
 import type { ISourceOptions } from '@antv/l7-react/es/component/LayerAttribute';
@@ -100,11 +100,11 @@ export const transformSource: (
             compatibility,
           );
 
-          const fc = featureCollection(
-            bundling.map((coords, index) => lineString(coords, data[index])),
+          source.data = featureCollection(
+            bundling.map((coords: any, index: number) =>
+              lineString(coords, data[index]),
+            ),
           );
-
-          source.data = fc;
         }
       }
     }

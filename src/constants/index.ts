@@ -271,6 +271,10 @@ export const DEFAULT_POINT_LAYER_CONFIG: IPointLayerConfig = {
 };
 
 export const DEFAULT_LINE_LAYER_CONFIG: ILineLayerConfig = {
+  edgeBundling: {
+    compatibility: 4,
+  },
+  enableEdgeBundling: false,
   startLngField: null,
   startLatField: null,
   endLngField: null,
