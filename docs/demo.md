@@ -1,7 +1,5 @@
 ---
-nav: false
-toc: false
-sidemenu: false
+title: 配置页面
 ---
 
 ```tsx

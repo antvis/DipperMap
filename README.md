@@ -1,6 +1,6 @@
 # dipper-map
 
-在线 Demo 地址: https://antv.vision/DipperMap/container
+在线 Demo 地址: https://antv.vision/DipperMap/demo
 
 ## TODO_LIST:
 

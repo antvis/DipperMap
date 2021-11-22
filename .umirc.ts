@@ -8,6 +8,36 @@ export default defineConfig({
   outputPath: 'docs-dist',
   plugins: [],
   mode: 'site',
+  menus: {
+    '/': [
+      {
+        title: 'Home',
+        path: '/index',
+      },
+    ],
+  },
+  navs: [
+    {
+      title: '配置页面',
+      path: '/demo',
+      children: ['/demo.md'],
+    },
+    {
+      title: '生态',
+      children: [
+        {
+          title: 'L7',
+          path: 'https://l7.antv.vision/',
+        },
+        {
+          title: 'L7 Plot',
+          path: 'https://l7plot.surge.sh//',
+        },
+      ],
+    },
+    { title: '官方网站', path: 'https://dippermap.alipay.com/' },
+    { title: 'GitHub', path: 'https://github.com/antvis/DipperMap' },
+  ],
   // mfsu: {},
   workerLoader: {
     inline: true,
