@@ -8,19 +8,15 @@ export default defineConfig({
   outputPath: 'docs-dist',
   plugins: [],
   mode: 'site',
-  menus: {
-    '/': [
-      {
-        title: 'Home',
-        path: '/index',
-      },
-    ],
-  },
   navs: [
     {
-      title: '配置页面',
-      path: '/demo',
-      children: ['/demo.md'],
+      title: '文档',
+      path: '/',
+      children: ['/index.md'],
+    },
+    {
+      title: '可视化工具',
+      path: 'https://dippermap.alipay.com/#/demo',
     },
     {
       title: '生态',
@@ -32,6 +28,10 @@ export default defineConfig({
         {
           title: 'L7 Plot',
           path: 'https://l7plot.surge.sh//',
+        },
+        {
+          title: 'Dipper',
+          path: 'https://antv.vision/Dipper/',
         },
       ],
     },
