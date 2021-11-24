@@ -1,5 +1,12 @@
 ---
-title: 配置页面
+title: 在线配置
+order: 5
+hide: true
+group:
+  path: /demo
+nav:
+  title: 在线配置
+  path: /
 ---
 
 ```tsx

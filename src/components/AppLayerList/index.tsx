@@ -91,7 +91,10 @@ const AppLayerList: React.FC<IProps> = () => {
           const targetDataset = getTargetDataset(layer.datasetId) as IDataset;
           return filterData(
             targetDataset,
-            filterByDatasetId(filterList, targetDataset.id),
+            filterByDatasetId(
+              filterList.filter((item) => item.enable),
+              targetDataset.id,
+            ),
           ).then((data: any[]) => {
             return {
               layer: Object.assign(layer, {
