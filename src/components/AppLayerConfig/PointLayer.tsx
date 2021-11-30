@@ -111,7 +111,6 @@ const PointLayer = ({ layer, onChange }: IProps) => {
           field="radius"
           form={form}
           fields={targetDatasetFields}
-          title="展示更多"
         />
       )}
 

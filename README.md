@@ -1,6 +1,6 @@
 # dipper-map
 
-在线 Demo 地址: https://antv.vision/DipperMap/container
+在线 Demo 地址: https://antv.vision/DipperMap/demo
 
 ## TODO_LIST:
 
@@ -37,3 +37,4 @@
 - [x] 多选回归单选颜色时，单选颜色没有默认值
 - [x] 图层的顺序发生改变 Zindex 没有改变
 - [x] 暗黑模式下 slider 不明显
+- [ ] 筛选器开关未生效

@@ -39,7 +39,7 @@ const RangeWrapper: React.FC<{
 
       {showField && (
         <Form.Item
-          label="展示更多"
+          label="基于字段"
           name={[field, 'field']}
           style={{ marginTop: 8 }}
         >
