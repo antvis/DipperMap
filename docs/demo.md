@@ -1,7 +1,12 @@
 ---
-nav: false
-toc: false
-sidemenu: false
+title: 在线配置
+order: 5
+hide: true
+group:
+  path: /demo
+nav:
+  title: 在线配置
+  path: /
 ---
 
 ```tsx

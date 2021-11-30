@@ -17,6 +17,7 @@ const getFiltersKey = (dataset: IDataset, filters: IFilter[]) => {
     JSON.stringify({
       datasetId: dataset.id,
       filters: filters
+        .filter((item) => item.enable)
         .map((item) => ({
           field: item.field.name as string,
           value: item.value,
