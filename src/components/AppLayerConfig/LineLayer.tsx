@@ -64,7 +64,7 @@ const LineLayer = ({ layer, onChange }: IProps) => {
         <FieldSelect fields={targetDatasetFields} />
       </Form.Item>
 
-      <EdgeBundling form={form} />
+      {/* <EdgeBundling form={form} /> */}
       <ColorWrapper
         label="颜色"
         field="color"
