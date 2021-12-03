@@ -17,7 +17,7 @@ const AppControlItem: React.FC<IProps> = ({
   dropdown,
   title,
   icon,
-  trigger = ['click'],
+  trigger = ['hover'],
   onActiveChange,
 }) => {
   const [active, setActive] = useState(false);
