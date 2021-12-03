@@ -14,10 +14,16 @@ export default function MapControl() {
       icon={<i className="dpiconfont dpicon-yinqing_jiaodu" />}
       dropdown={
         <div className={styles.mapPitch}>
-          <div className={styles.mapPitchLabel}>地图倾斜</div>
+          <div className={styles.mapPitchLabel}>
+            <span>地图倾斜</span>
+            <span>{mapPitch}°</span>
+          </div>
           <Slider value={mapPitch} min={0} max={90} onChange={setMapPitch} />
           <Divider />
-          <div className={styles.mapPitchLabel}>地图旋转</div>
+          <div className={styles.mapPitchLabel}>
+            <span>地图旋转</span>
+            <span>{mapRotate}°</span>
+          </div>
           <Slider value={mapRotate} min={0} max={360} onChange={setMapRotate} />
         </div>
       }
