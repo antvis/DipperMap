@@ -156,7 +156,7 @@ const AddDatasetModal = ({
         <i className="dpiconfont dpicon-right" />
       </div>
       <Form colon={false} labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
-        <Form.Item label="数据源名称">
+        <Form.Item label="数据源名称" required>
           <Input
             value={form.name}
             placeholder="请输入数据源名称"
@@ -183,7 +183,7 @@ const AddDatasetModal = ({
         </Form.Item>
         {form.type === 'url' ? (
           <>
-            <Form.Item label="文件链接">
+            <Form.Item label="文件链接" required>
               <Input
                 value={form.url}
                 onChange={(e) =>
@@ -201,6 +201,7 @@ const AddDatasetModal = ({
             valuePropName="fileList"
             getValueFromEvent={normFile}
             label="上传文件"
+            required
           >
             <Upload.Dragger
               name="data"
