@@ -172,3 +172,10 @@ export const getFilterRange: (range: [number, number]) => [number, number] = (
 ) => {
   return [Math.floor(range[0]), Math.ceil(range[1])];
 };
+
+export const downloadFile = (src: string) => {
+  const iframe = document.createElement('iframe');
+  iframe.src = src;
+  iframe.style.display = 'none';
+  document.append(iframe);
+};

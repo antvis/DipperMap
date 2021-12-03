@@ -1,5 +1,9 @@
 import type { IDataset, IDatasetField } from '../typings';
-import { generateUnRepeatValue, getRandomId } from '../utils/tools';
+import {
+  downloadFile,
+  generateUnRepeatValue,
+  getRandomId,
+} from '../utils/tools';
 import { useCallback, useContext } from 'react';
 import { DatasetModelContext } from '../context/DatasetContext';
 
@@ -93,11 +97,19 @@ const useDataset = () => {
     [],
   );
 
+  const downloadDataset = (dataset: IDataset) =>
+    useCallback(() => {
+      if (dataset.url) {
+        downloadFile(dataset.url);
+      }
+    }, []);
+
   return {
     addDataset,
     getNewDatasetName,
     copyDataset,
     getTargetDataset,
+    downloadDataset,
   };
 };
 
