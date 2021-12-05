@@ -18,7 +18,7 @@ const useInteractive = () => {
         createTime: Date.now(),
         enable: true,
         datasetId: dataset.id,
-        fields: dataset.fields.map((field) => field.name),
+        fields: dataset.fields.map((field) => field.name).slice(0, 7),
       });
       setInteractiveList(newInteractiveList);
     },
