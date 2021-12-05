@@ -53,9 +53,8 @@ const LayerItemConfig = ({
         />
 
         <Dropdown
-          getPopupContainer={() => dropdownRef.current ?? document.body}
           overlay={
-            <Menu className="editItemDropdown">
+            <Menu className="operateDropdown">
               <Menu.Item key="changeDataset" onClick={() => setVisible(true)}>
                 <i className="dpiconfont dpicon-genggaishujuyuan" />
                 更改数据源
@@ -69,7 +68,7 @@ const LayerItemConfig = ({
                 placement="bottom"
                 onConfirm={() => onDelete(layer)}
               >
-                <Menu.Item>
+                <Menu.Item key="delete">
                   <i className="dpiconfont dpicon-shanchu is-red-link" />
                   删除
                 </Menu.Item>

@@ -1,13 +1,17 @@
-import type { IDataset, IDatasetField } from '../typings';
+import React from 'react';
+import type { IDataset, IDatasetDownloadType, IDatasetField } from '../typings';
 import {
   downloadFile,
   generateUnRepeatValue,
   getRandomId,
 } from '../utils/tools';
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { DatasetModelContext } from '../context/DatasetContext';
+import papaparse from 'papaparse';
+import { message } from 'antd';
 
 const useDataset = () => {
+  useState<IDatasetDownloadType>('json');
   const { datasetList, setDatasetList } = useContext(DatasetModelContext);
 
   const getNewDatasetName = useCallback(() => {
@@ -46,7 +50,7 @@ const useDataset = () => {
       };
 
       setDatasetList([...datasetList, newDataset]);
-
+      message.success('复制成功');
       return newDataset;
     },
     [datasetList, getNewDatasetName, setDatasetList],
@@ -97,12 +101,23 @@ const useDataset = () => {
     [],
   );
 
-  const downloadDataset = (dataset: IDataset) =>
-    useCallback(() => {
-      if (dataset.url) {
-        downloadFile(dataset.url);
-      }
-    }, []);
+  const downloadDataset = useCallback(
+    (dataset: IDataset, type: IDatasetDownloadType = 'json') => {
+      const content =
+        type === 'json'
+          ? JSON.stringify(dataset.data, null, 2)
+          : papaparse.unparse(dataset.data, {
+              newline: '\n',
+            });
+      const blob = new Blob([content]);
+      downloadFile(
+        URL.createObjectURL(blob),
+        false,
+        type === 'json' ? 'data.json' : 'data.csv',
+      );
+    },
+    [],
+  );
 
   return {
     addDataset,

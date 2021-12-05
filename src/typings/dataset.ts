@@ -20,6 +20,8 @@ export interface IDatasetNumberField<T = string> {
   range: [number, number];
 }
 
+export type IDatasetDownloadType = 'json' | 'csv';
+
 export interface IDatasetBooleanField<T = string> {
   type: 'boolean';
   name: T | string;

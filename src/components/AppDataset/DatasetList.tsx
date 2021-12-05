@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import styles from './index.less';
-import { Empty, message, Popconfirm, Tooltip, Modal } from 'antd';
+import { Empty, Popconfirm, Tooltip, Modal, Menu, Dropdown } from 'antd';
 import DragList from '../DragList';
 import type { IDataset } from '../../typings';
 import DataDetailDrawer from './DataDetailDrawer';
@@ -10,6 +10,7 @@ import useListHook from '../../hooks/list';
 import EditName from '../EditName';
 import { ConfigModelContext } from '../../context/ConfigContext';
 import { DatasetModelContext } from '../../context/DatasetContext';
+import DownloadDatasetModal from './DownloadDatasetModal';
 
 interface IProps {
   className?: string;
@@ -37,15 +38,18 @@ export default function DatasetList({ className }: IProps) {
     datasetId: '',
   });
 
+  const [downloadModal, setDownloadModal] = useState<{
+    visible: boolean;
+    dataset?: IDataset | null;
+  }>({
+    visible: false,
+    dataset: null,
+  });
+
   const { copyDataset } = useDataset();
 
   const onClick = (dataset: IDataset) => {
     setSelectDatasetId(selectDatasetId === dataset.id ? null : dataset.id);
-  };
-
-  const onCopy = (dataset: IDataset) => {
-    copyDataset(dataset);
-    message.success('复制成功');
   };
 
   const onFullDelete = (dataset: IDataset) => {
@@ -90,16 +94,37 @@ export default function DatasetList({ className }: IProps) {
           <>
             {icon}
             <div className={styles.appDatasetItemContent}>
-              <div className={styles.btnGroup}>
-                <Tooltip overlay="复制" placement="top">
-                  <i
-                    className="dpiconfont dpicon-fuzhi1 is-link"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onCopy(dataset);
-                    }}
-                  />
-                </Tooltip>
+              <div
+                className={styles.btnGroup}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Dropdown
+                  overlay={
+                    <Menu className="operateDropdown">
+                      <Menu.Item
+                        key="copyDataset"
+                        onClick={() => copyDataset(dataset)}
+                      >
+                        <i className="dpiconfont dpicon-fuzhi1" />
+                        复制数据源
+                      </Menu.Item>
+                      <Menu.Item
+                        key="downloadDataset"
+                        onClick={() =>
+                          setDownloadModal({
+                            visible: true,
+                            dataset,
+                          })
+                        }
+                      >
+                        <i className="dpiconfont dpicon-shangchuandaochu" />
+                        导出数据源
+                      </Menu.Item>
+                    </Menu>
+                  }
+                >
+                  <i className="dpiconfont dpicon-gengduo is-link" />
+                </Dropdown>
                 <Popconfirm
                   title={`你确定要删除${dataset.name}吗？`}
                   placement="bottom"
@@ -150,6 +175,16 @@ export default function DatasetList({ className }: IProps) {
             ...datasetDetail,
             visible: false,
           })
+        }
+      />
+      <DownloadDatasetModal
+        dataset={downloadModal.dataset}
+        visible={downloadModal.visible}
+        setVisible={(visible) =>
+          setDownloadModal((newDownloadModal) => ({
+            ...newDownloadModal,
+            visible,
+          }))
         }
       />
     </div>
