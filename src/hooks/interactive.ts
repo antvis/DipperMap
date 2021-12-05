@@ -2,6 +2,7 @@ import { useCallback, useContext } from 'react';
 import { ConfigModelContext } from '../context/ConfigContext';
 import { IDataset } from '../typings';
 import { generateUnRepeatValue, getRandomId } from '../utils';
+import { message } from 'antd';
 
 const useInteractive = () => {
   const { interactiveList, setInteractiveList } =
@@ -21,6 +22,9 @@ const useInteractive = () => {
         fields: dataset.fields.map((field) => field.name).slice(0, 7),
       });
       setInteractiveList(newInteractiveList);
+      if (dataset.fields.length > 7) {
+        message.info('当前数据源字段过多，默认展示前7个字段');
+      }
     },
     [interactiveList],
   );
