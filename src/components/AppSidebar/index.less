@@ -40,6 +40,14 @@
   }
 }
 
+.resizePanel {
+  height: calc(100% - @header-height);
+  .resizeLine {
+    height: 1px;
+    background-color: @border-color-base;
+  }
+}
+
 @keyframes fadeInLeft {
   from {
     opacity: 1;

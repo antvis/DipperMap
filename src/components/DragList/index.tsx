@@ -5,6 +5,7 @@ import type { DropResult } from 'react-beautiful-dnd';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 interface IProps<P> {
+  itemStyle?: React.CSSProperties | ((dataset: P) => React.CSSProperties);
   itemClassName?: string | ((item: P) => string);
   items: P[];
   onItemClick?: (item: P) => void;
@@ -15,6 +16,7 @@ interface IProps<P> {
 
 function DragList<P extends Record<string, any>>({
   children,
+  itemStyle,
   itemClassName,
   items,
   onDrag,
@@ -41,7 +43,11 @@ function DragList<P extends Record<string, any>>({
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
             {items.map((item, index) => (
-              <Draggable key={item[keyField]} draggableId={String(item[keyField])} index={index}>
+              <Draggable
+                key={item[keyField]}
+                draggableId={String(item[keyField])}
+                index={index}
+              >
                 {(itemProvided, snapshot) => {
                   const className =
                     typeof itemClassName === 'function'
@@ -56,13 +62,22 @@ function DragList<P extends Record<string, any>>({
                         className,
                         snapshot.isDragging ? 'is-drag' : null,
                       ])}
+                      style={
+                        itemStyle instanceof Function
+                          ? itemStyle(item)
+                          : itemStyle
+                      }
                       key={item[keyField]}
                       onClick={() => onItemClick?.(items[index])}
                     >
                       {children(
                         item,
                         <i
-                          className={classnames(['dpiconfont', 'dpicon-yidong', styles.dragIcon])}
+                          className={classnames([
+                            'dpiconfont',
+                            'dpicon-yidong',
+                            styles.dragIcon,
+                          ])}
                           {...itemProvided.dragHandleProps}
                         />,
                       )}

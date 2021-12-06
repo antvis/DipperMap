@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import type { IDataset, IDatasetDownloadType, IDatasetField } from '../typings';
 import {
   downloadFile,
   generateUnRepeatValue,
   getRandomId,
 } from '../utils/tools';
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext } from 'react';
 import { DatasetModelContext } from '../context/DatasetContext';
 import papaparse from 'papaparse';
 import { message } from 'antd';
+import { DATASET_COLOR_LIST } from '../constants';
 
 const useDataset = () => {
-  useState<IDatasetDownloadType>('json');
   const { datasetList, setDatasetList } = useContext(DatasetModelContext);
 
   const getNewDatasetName = useCallback(() => {
@@ -119,12 +119,33 @@ const useDataset = () => {
     [],
   );
 
+  const getDatasetMarker = useCallback(
+    (datasetId?: string | null) => {
+      let color = 'rgba(0, 0, 0, 0)';
+      if (datasetId) {
+        const targetIndex = datasetList.findIndex(
+          (item) => item.id === datasetId,
+        );
+        if (targetIndex > -1) {
+          const colorIndex = targetIndex % DATASET_COLOR_LIST.length;
+          color = DATASET_COLOR_LIST[colorIndex];
+        }
+      }
+      const style: CSSProperties = {
+        borderLeft: `2px solid ${color}`,
+      };
+      return style;
+    },
+    [datasetList],
+  );
+
   return {
     addDataset,
     getNewDatasetName,
     copyDataset,
     getTargetDataset,
     downloadDataset,
+    getDatasetMarker,
   };
 };
 

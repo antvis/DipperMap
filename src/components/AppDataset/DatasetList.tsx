@@ -46,7 +46,7 @@ export default function DatasetList({ className }: IProps) {
     dataset: null,
   });
 
-  const { copyDataset } = useDataset();
+  const { copyDataset, getDatasetMarker } = useDataset();
 
   const onClick = (dataset: IDataset) => {
     setSelectDatasetId(selectDatasetId === dataset.id ? null : dataset.id);
@@ -86,6 +86,7 @@ export default function DatasetList({ className }: IProps) {
             'is-select': item.id === selectDatasetId,
           })
         }
+        itemStyle={(dataset) => getDatasetMarker(dataset.id ?? '')}
         items={datasetList}
         onDrag={onDragEnd}
         onItemClick={onClick}

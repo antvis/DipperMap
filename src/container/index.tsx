@@ -10,6 +10,7 @@ import AppLayerList from '../components/AppLayerList';
 import classnames from 'classnames';
 import { GlobalModelContext } from '../context/GlobalContext';
 import { MapModelContext } from '../context/MapContext';
+import ResizePanel from '../components/AppSidebar/ResizePanel';
 
 export default function MapContainer() {
   const { isPreview } = useContext(GlobalModelContext);
@@ -31,8 +32,7 @@ export default function MapContainer() {
           })}
         >
           <AppHeader />
-          <AppDataset />
-          <AppEdit />
+          <ResizePanel top={<AppDataset />} bottom={<AppEdit />} />
         </AppSidebar>
         <AppLayerList />
       </AppMap>

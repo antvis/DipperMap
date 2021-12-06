@@ -669,3 +669,18 @@ export const FIELD_COLOR_MAP: Record<IColorType, string[][]> = {
     ],
   ],
 };
+
+export const DATASET_COLOR_LIST = [
+  'rgb(213, 62, 79)',
+  'rgb(255, 255, 191)',
+  'rgb(67, 147, 195)',
+  'rgb(102, 189, 99)',
+  'rgb(135, 135, 135)',
+  'rgb(244, 109, 67)',
+  'rgb(197, 27, 125)',
+  'rgb(171, 221, 164)',
+  'rgb(146, 197, 222)',
+  'rgb(179, 88, 6)',
+  'rgb(128, 115, 172)',
+  'rgb(0, 109, 44)',
+];

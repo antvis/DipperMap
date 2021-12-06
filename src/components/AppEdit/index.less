@@ -3,7 +3,7 @@
 @footerHeight: 52px;
 
 .appEdit {
-  height: calc(100% - @default-dataset-panel-height - @header-height - 2px);
+  height: calc(100% - @default-dataset-panel-height - 2px);
   :global {
     .ant-col-18 {
       overflow-x: hidden !important;
@@ -92,7 +92,7 @@
       .editItemHeader {
         display: flex;
         align-items: center;
-        margin-top: 12px;
+        height: 100%;
       }
       .editItemMore {
         display: inline-flex;
@@ -126,7 +126,6 @@
           background-color: @bg-color-light;
           height: 50px;
           padding: 0 16px 0 0 !important;
-          border-left: 2px solid @primary-color;
           border-radius: 2px;
         }
         .ant-collapse-content-box {

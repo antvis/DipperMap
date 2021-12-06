@@ -9,6 +9,7 @@ import TripLayer from './TripLayer';
 import PolygonLayer from './PolygonLayer';
 import HexLayer from './HexLayer';
 import HeatLayer from './HeatLayer';
+import useDataset from '../../hooks/dataset';
 
 const { Panel } = Collapse;
 
@@ -31,9 +32,14 @@ const LayerItemConfig = ({
 }: IProps) => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
+  const { getDatasetMarker } = useDataset();
 
   const header = (
-    <div className="editItemHeader" onClick={(e) => e.stopPropagation()}>
+    <div
+      className="editItemHeader"
+      style={getDatasetMarker(layer.datasetId)}
+      onClick={(e) => e.stopPropagation()}
+    >
       {dragIcon}
       <EditName
         name={layer.name}
