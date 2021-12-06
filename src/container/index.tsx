@@ -32,7 +32,10 @@ export default function MapContainer() {
           })}
         >
           <AppHeader />
-          <ResizePanel top={<AppDataset />} bottom={<AppEdit />} />
+          <ResizePanel
+            top={(style) => <AppDataset style={style} />}
+            bottom={(style) => <AppEdit style={style} />}
+          />
         </AppSidebar>
         <AppLayerList />
       </AppMap>

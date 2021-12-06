@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext } from 'react';
 import { LOCAL_STORAGE_KEY, MAP_THEME_LIST, MAP_TYPES } from '../constants';
-import { PropsModelContext } from './PropContext';
-import { IMapType } from '../typings';
+import { IMapTheme, IMapType } from '../typings';
+import { useLocalStorageState } from '_ahooks@2.10.12@ahooks';
 
 export interface IProps {
   mapTheme: string;
@@ -22,45 +22,30 @@ const { Provider, Consumer } = MapModelContext;
 export { Consumer };
 
 const MapContextProvider: React.FC = ({ children }) => {
-  const { component } = useContext(PropsModelContext);
-
-  const [mapTheme, setMapTheme] = useState(
-    localStorage.getItem(LOCAL_STORAGE_KEY.MAP_THEME) ??
-      MAP_THEME_LIST[0].value,
+  const [mapTheme, setMapTheme] = useLocalStorageState<IMapTheme>(
+    LOCAL_STORAGE_KEY.MAP_THEME,
+    MAP_THEME_LIST[0].value as IMapTheme,
   );
-  const [mapType, setMapType] = useState<IMapType>(
-    (localStorage.getItem(LOCAL_STORAGE_KEY.MAP_TYPE) ??
-      MAP_TYPES[0].value) as IMapType,
+  const [mapType, setMapType] = useLocalStorageState<IMapType>(
+    LOCAL_STORAGE_KEY.MAP_TYPE,
+    MAP_TYPES[0].value as IMapType,
   );
 
-  const [mapPitch, setMapPitch] = useState<number>(
-    +(localStorage.getItem(LOCAL_STORAGE_KEY.MAP_PITCH) ?? 0),
+  const [mapPitch, setMapPitch] = useLocalStorageState<number>(
+    LOCAL_STORAGE_KEY.MAP_PITCH,
+    0,
   );
 
-  const [mapRotate, setMapRotate] = useState<number>(
-    +(localStorage.getItem(LOCAL_STORAGE_KEY.MAP_ROTATE) ?? 0),
+  const [mapRotate, setMapRotate] = useLocalStorageState<number>(
+    LOCAL_STORAGE_KEY.MAP_ROTATE,
+    0,
   );
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY.MAP_THEME, mapTheme);
-  }, [mapTheme]);
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY.MAP_TYPE, mapType);
-  }, [mapType]);
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY.MAP_PITCH, `${mapPitch}`);
-  }, [mapPitch]);
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY.MAP_ROTATE, `${mapRotate}`);
-  }, [mapRotate]);
 
   return (
     <Provider
       value={{
         mapTheme,
+        // @ts-ignore
         setMapTheme,
         mapType,
         setMapType,

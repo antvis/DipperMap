@@ -45,6 +45,22 @@
   .resizeLine {
     height: 1px;
     background-color: @border-color-base;
+    overflow: visible;
+    &:hover {
+      background-color: @primary-color;
+    }
+    &.resizeLineActive {
+      background-color: @primary-color;
+      .resizeDragLine {
+        cursor: move;
+      }
+    }
+    .resizeDragLine {
+      height: 11px;
+      position: relative;
+      top: -5px;
+      cursor: pointer;
+    }
   }
 }
 
