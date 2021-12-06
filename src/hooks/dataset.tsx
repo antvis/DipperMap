@@ -24,11 +24,11 @@ const useDataset = () => {
   }, [datasetList]);
 
   const getNewMarkColor = useCallback(() => {
-    const usedColorList = datasetList
+    const exitColorList = datasetList
       .map((dataset) => dataset.markColor)
       .filter((item) => !!item) as string[];
 
-    const freeMarkColor = pullAll([...DATASET_COLOR_LIST], usedColorList);
+    const freeMarkColor = pullAll([...DATASET_COLOR_LIST], exitColorList);
     if (freeMarkColor.length) {
       return freeMarkColor[0];
     }

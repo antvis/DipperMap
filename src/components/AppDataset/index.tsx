@@ -1,28 +1,60 @@
-import React, { useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import styles from './index.less';
-import { Spin, Tooltip, Typography } from 'antd';
+import { Button, message, Popconfirm, Spin, Tooltip } from 'antd';
 import AddDatasetModal from './AddDatasetModal';
 import DatasetList from './DatasetList';
-
-const { Title } = Typography;
+import { ClearOutlined, PlusSquareOutlined } from '@ant-design/icons';
+import { DatasetModelContext } from '../../context/DatasetContext';
+import { ConfigModelContext } from '../../context/ConfigContext';
 
 const AppDataset: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
   const [addDatasetVisible, setAddDatasetVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const { setDatasetList } = useContext(DatasetModelContext);
+  const { setLayerList, setFilterList, setInteractiveList } =
+    useContext(ConfigModelContext);
+
+  const onClear = useCallback(() => {
+    setDatasetList([]);
+    setLayerList([]);
+    setFilterList([]);
+    setInteractiveList([]);
+    message.success('清空成功');
+  }, [setDatasetList, setLayerList, setFilterList, setInteractiveList]);
+
   return (
     <div className={styles.appDataset} style={style}>
       <div className={styles.appDatasetHeader}>
         <div className={styles.appDatasetHeaderTitle}>数据源</div>
-        <div>
-          <Tooltip overlay={'添加数据源'}>
+        <div className={styles.appDatasetHeaderBtnGroup}>
+          <Tooltip overlay="添加数据源">
             {loading ? (
               <Spin spinning />
             ) : (
-              <i
-                className="dpiconfont dpicon-tianjia is-link"
-                onClick={() => setAddDatasetVisible(true)}
-              />
+              <>
+                <Tooltip overlay="清空">
+                  <Popconfirm
+                    title="确认清空当前数据源及所有配置?"
+                    onConfirm={onClear}
+                  >
+                    <Button
+                      type="text"
+                      className="is-link"
+                      icon={<ClearOutlined />}
+                    />
+                  </Popconfirm>
+                </Tooltip>
+
+                <Tooltip overlay="添加数据源">
+                  <Button
+                    type="text"
+                    className="is-link"
+                    icon={<PlusSquareOutlined />}
+                    onClick={() => setAddDatasetVisible(true)}
+                  />
+                </Tooltip>
+              </>
             )}
           </Tooltip>
         </div>

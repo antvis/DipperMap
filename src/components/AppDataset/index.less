@@ -11,11 +11,18 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid @border-color-base;
-  padding: 0 @panel-padding;
+  padding: 0 @panel-padding / 2 0 @panel-padding;
   height: @header-height;
   .appDatasetHeaderTitle {
     font-size: 18px;
     color: @text-color-light;
+  }
+  .appDatasetHeaderBtnGroup {
+    :global {
+      .ant-btn {
+        margin-left: 6px;
+      }
+    }
   }
   i {
     font-size: 18px;
