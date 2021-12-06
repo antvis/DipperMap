@@ -32,12 +32,12 @@ const LayerItemConfig = ({
 }: IProps) => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
-  const { getDatasetMarker } = useDataset();
+  const { getDatasetMarkStyle } = useDataset();
 
   const header = (
     <div
       className="editItemHeader"
-      style={getDatasetMarker(layer.datasetId)}
+      style={getDatasetMarkStyle(layer.datasetId)}
       onClick={(e) => e.stopPropagation()}
     >
       {dragIcon}

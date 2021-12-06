@@ -49,4 +49,5 @@ export interface IDataset<P = Record<string, any>> extends IEntity {
   fields: IDatasetField<keyof P>[];
   id: string;
   geoJson?: IDatasetGeoJson;
+  markColor?: string | null;
 }

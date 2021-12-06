@@ -10,6 +10,7 @@ import { DatasetModelContext } from '../context/DatasetContext';
 import papaparse from 'papaparse';
 import { message } from 'antd';
 import { DATASET_COLOR_LIST } from '../constants';
+import { pullAll } from 'lodash';
 
 const useDataset = () => {
   const { datasetList, setDatasetList } = useContext(DatasetModelContext);
@@ -20,6 +21,18 @@ const useDataset = () => {
       'name',
       '数据源',
     );
+  }, [datasetList]);
+
+  const getNewMarkColor = useCallback(() => {
+    const usedColorList = datasetList
+      .map((dataset) => dataset.markColor)
+      .filter((item) => !!item) as string[];
+
+    const freeMarkColor = pullAll([...DATASET_COLOR_LIST], usedColorList);
+    if (freeMarkColor.length) {
+      return freeMarkColor[0];
+    }
+    return `#${Math.floor(Math.random() * 256 * 256 * 256).toString(16)}`;
   }, [datasetList]);
 
   // @ts-ignore
@@ -34,6 +47,7 @@ const useDataset = () => {
           order: datasetList.length + 1,
           createTime: Date.now(),
           name: params.name || getNewDatasetName(),
+          markColor: getNewMarkColor(),
         } as IDataset;
       },
       [datasetList, getNewDatasetName],
@@ -47,6 +61,7 @@ const useDataset = () => {
         name: getNewDatasetName(),
         order: datasetList.length + 1,
         createTime: Date.now(),
+        markColor: getNewMarkColor(),
       };
 
       setDatasetList([...datasetList, newDataset]);
@@ -119,16 +134,13 @@ const useDataset = () => {
     [],
   );
 
-  const getDatasetMarker = useCallback(
+  const getDatasetMarkStyle = useCallback(
     (datasetId?: string | null) => {
       let color = 'rgba(0, 0, 0, 0)';
       if (datasetId) {
-        const targetIndex = datasetList.findIndex(
-          (item) => item.id === datasetId,
-        );
-        if (targetIndex > -1) {
-          const colorIndex = targetIndex % DATASET_COLOR_LIST.length;
-          color = DATASET_COLOR_LIST[colorIndex];
+        const target = datasetList.find((item) => item.id === datasetId);
+        if (target) {
+          color = target.markColor ?? getNewMarkColor();
         }
       }
       const style: CSSProperties = {
@@ -145,7 +157,7 @@ const useDataset = () => {
     copyDataset,
     getTargetDataset,
     downloadDataset,
-    getDatasetMarker,
+    getDatasetMarkStyle,
   };
 };
 

@@ -31,7 +31,7 @@ const FilterItem = ({
   const { getTargetDataset } = useDataset();
   const [visible, setVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const { getDatasetMarker } = useDataset();
+  const { getDatasetMarkStyle } = useDataset();
 
   const fields = useMemo(
     () => getTargetDataset(filter.datasetId)?.fields ?? [],
@@ -62,7 +62,7 @@ const FilterItem = ({
   const header = (
     <div
       className="editItemHeader"
-      style={getDatasetMarker(filter.datasetId)}
+      style={getDatasetMarkStyle(filter.datasetId)}
       onClick={(e) => e.stopPropagation()}
     >
       {dragIcon}

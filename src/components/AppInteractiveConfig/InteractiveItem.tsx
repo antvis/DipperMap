@@ -26,7 +26,7 @@ const InteractiveItem = ({
 }: IProps) => {
   const { getTargetDataset } = useDataset();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const { getDatasetMarker } = useDataset();
+  const { getDatasetMarkStyle } = useDataset();
 
   const fields = useMemo(
     () => getTargetDataset(interactive.datasetId)?.fields ?? [],
@@ -36,7 +36,7 @@ const InteractiveItem = ({
   const header = (
     <div
       className="editItemHeader"
-      style={getDatasetMarker(interactive.datasetId)}
+      style={getDatasetMarkStyle(interactive.datasetId)}
       onClick={(e) => e.stopPropagation()}
     >
       {dragIcon}
