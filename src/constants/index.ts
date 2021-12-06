@@ -672,9 +672,9 @@ export const FIELD_COLOR_MAP: Record<IColorType, string[][]> = {
 
 export const DATASET_COLOR_LIST = [
   'rgb(213, 62, 79)',
-  'rgb(255, 255, 191)',
   'rgb(67, 147, 195)',
   'rgb(102, 189, 99)',
+  'rgb(255, 255, 191)',
   'rgb(135, 135, 135)',
   'rgb(244, 109, 67)',
   'rgb(197, 27, 125)',
