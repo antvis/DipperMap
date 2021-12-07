@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
 import { LOCAL_STORAGE_KEY, MAP_THEME_LIST, MAP_TYPES } from '../constants';
 import { IMapTheme, IMapType } from '../typings';
-import { useLocalStorageState } from '_ahooks@2.10.12@ahooks';
+import { useLocalStorageState } from 'ahooks';
 
 export interface IProps {
   mapTheme: string;

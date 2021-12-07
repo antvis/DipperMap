@@ -1,8 +1,13 @@
-import React, { CSSProperties, useCallback, useRef, useState } from 'react';
+import React, {
+  CSSProperties,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import styles from './index.less';
 import classnames from 'classnames';
 import { useThrottleFn } from 'ahooks';
-import useIndexDBHook from '../../hooks/indexdb';
 import { useLocalStorageState } from '_ahooks@2.10.12@ahooks';
 import { LOCAL_STORAGE_KEY } from '../../constants';
 
@@ -25,6 +30,9 @@ const ResizePanel: React.FC<IProps> = ({ top, bottom }) => {
 
   const { run: onDragging } = useThrottleFn(
     (e: MouseEvent) => {
+      if (!isDrag) {
+        return;
+      }
       const { clientY: mouseTop } = e;
       const { top: panelTop = 0, height: panelHeight = 0 } =
         panelRef.current?.getBoundingClientRect() ?? {};
@@ -45,27 +53,43 @@ const ResizePanel: React.FC<IProps> = ({ top, bottom }) => {
   );
 
   const onDragEnd = useCallback(() => {
+    if (!isDrag) {
+      return;
+    }
     setIsDrag(false);
-    window.removeEventListener('mousemove', onDragging);
-    window.removeEventListener('mouseup', onDragEnd);
     if (panelRef.current) {
       panelRef.current.style.cursor = '';
     }
-  }, []);
+  }, [isDrag, panelRef]);
 
   const onVisibilityChange = useCallback(() => {
-    console.log(document.visibilityState);
-  }, []);
+    if (document.visibilityState === 'hidden') {
+      onDragEnd();
+    }
+  }, [onDragEnd]);
 
-  const onDragStart = useCallback(() => {
+  useEffect(() => {
     window.addEventListener('mousemove', onDragging);
     window.addEventListener('mouseup', onDragEnd);
     document.addEventListener('visibilitychange', onVisibilityChange);
+    window.addEventListener('blur', onDragEnd);
+    return () => {
+      window.removeEventListener('mousemove', onDragging);
+      window.removeEventListener('mouseup', onDragEnd);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      window.removeEventListener('blur', onDragEnd);
+    };
+  }, [onDragging, onDragEnd, onVisibilityChange]);
+
+  const onDragStart = useCallback(() => {
+    if (isDrag) {
+      return;
+    }
     setIsDrag(true);
     if (panelRef.current) {
       panelRef.current.style.cursor = 'move';
     }
-  }, [onDragging, onDragEnd]);
+  }, [isDrag]);
 
   return (
     <div ref={panelRef} className={styles.resizePanel}>

@@ -22,7 +22,7 @@ const DatasetContextProvider: React.FC = ({ children }) => {
   const [datasetList, setDatasetList] = useState<IDataset[]>([]);
   const [selectDatasetId, setSelectDatasetId] = useState<string | null>(null);
 
-  useIndexDBHook(datasetList, setDatasetList, 'DATASET_LIST');
+  useIndexDBHook(datasetList, setDatasetList, 'DATASET_LIST', []);
 
   const selectDataset = useMemo(() => {
     if (!selectDatasetId) {

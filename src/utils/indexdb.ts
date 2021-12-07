@@ -1,7 +1,7 @@
 // @ts-ignore
 import IdbKvStore from 'idb-kv-store';
 
-const store = new IdbKvStore('dipperView');
+const store = new IdbKvStore('DipperMap');
 
 export type STORE_KEY_TYPE =
   | 'DATASET_LIST'

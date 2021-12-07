@@ -23,9 +23,9 @@ const MapContextProvider: React.FC = ({ children }) => {
   const [filterList, setFilterList] = useState<IFilter[]>([]);
   const [interactiveList, setInteractiveList] = useState<IInteractive[]>([]);
 
-  useIndexDBHook(layerList, setLayerList, 'LAYER_LIST');
-  useIndexDBHook(filterList, setFilterList, 'FILTER_LIST');
-  useIndexDBHook(interactiveList, setInteractiveList, 'INTERACTIVE_LIST');
+  useIndexDBHook(layerList, setLayerList, 'LAYER_LIST', []);
+  useIndexDBHook(filterList, setFilterList, 'FILTER_LIST', []);
+  useIndexDBHook(interactiveList, setInteractiveList, 'INTERACTIVE_LIST', []);
 
   return (
     <Provider
