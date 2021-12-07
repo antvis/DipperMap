@@ -1,12 +1,8 @@
-import React, { Ref } from 'react';
+import React from 'react';
 import { Space } from 'antd';
 import styles from './index.less';
-// @ts-ignore
-import logo from '../../assets/imgs/logo.png';
 
-interface IProps {}
-
-const AppHeader: React.FC<IProps> = () => {
+const AppHeader: React.FC = () => {
   return (
     <>
       <div className={styles.appHeader}>

@@ -1,10 +1,15 @@
 import type { IEntity } from './common';
-import { BlendType } from '@antv/l7-core/es/services/layer/ILayerService';
 import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 
 export type ILayerType = 'point' | 'line' | 'trip' | 'polygon' | 'hex' | 'heat';
 
-export type IBlendType = keyof typeof BlendType;
+export type IBlendType =
+  | 'normal'
+  | 'additive'
+  | 'subtractive'
+  | 'min'
+  | 'max'
+  | 'none';
 
 export type PropsType = Omit<ILayerProps, 'source'>;
 

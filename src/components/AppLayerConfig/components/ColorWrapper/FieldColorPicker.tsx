@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react';
 import { Select, Form } from 'antd';
-import { isEqual } from 'lodash';
 import styles from './index.less';
 import { FORM_LAYOUT } from '../../common';
 import { FIELD_COLOR_MAP } from '../../../../constants';
 import ErrorBoundary from '../../../ErrorBoundary';
-import { IColorType, ILayerFieldColor } from '../../../../typings';
+import { IColorType } from '../../../../typings';
 
 const { Option } = Select;
 

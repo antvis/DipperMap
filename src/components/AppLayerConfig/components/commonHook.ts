@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import type { DeepPartial, IBaseLayer } from '../../../typings';
+import type { IBaseLayer } from '../../../typings';
 import useDataset from '../../../hooks/dataset';
 import { debounce, merge } from 'lodash';
 import { FormInstance } from 'antd';

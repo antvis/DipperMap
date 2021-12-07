@@ -1,7 +1,6 @@
-import React, { createContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useMemo, useState } from 'react';
 import { IDataset } from '../typings';
 import useIndexDBHook from '../hooks/indexdb';
-import MapContextProvider from './ConfigContext';
 
 export interface IProps {
   datasetList: IDataset[];

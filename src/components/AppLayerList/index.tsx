@@ -25,9 +25,7 @@ interface IPopupState {
   };
 }
 
-interface IProps {}
-
-const AppLayerList: React.FC<IProps> = () => {
+const AppLayerList: React.FC = () => {
   const { layerList, filterList, interactiveList } =
     useContext(ConfigModelContext);
   const [layerConfigList, setLayerConfigList] = useState<ILayerConfig[]>([]);

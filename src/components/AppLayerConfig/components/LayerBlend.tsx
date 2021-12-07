@@ -2,7 +2,6 @@ import React from 'react';
 import { Form, Select } from 'antd';
 import { IBlendType } from '../../../typings';
 import { BLEND_TYPE_LIST } from '../../../constants';
-import styles from '../index.less';
 
 interface IProps {
   value?: IBlendType;

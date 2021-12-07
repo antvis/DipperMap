@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from '../../index.less';
 import { DEFAULT_COLOR1 } from '../../../../constants';
 import { ColorPicker } from '../../../ColorPicker';

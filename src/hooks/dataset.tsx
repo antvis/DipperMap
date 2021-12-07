@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import type { IDataset, IDatasetDownloadType, IDatasetField } from '../typings';
 import {
   downloadFile,
@@ -158,6 +158,7 @@ const useDataset = () => {
     getTargetDataset,
     downloadDataset,
     getDatasetMarkStyle,
+    getNewDatasetFields,
   };
 };
 
