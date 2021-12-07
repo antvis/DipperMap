@@ -8,7 +8,7 @@ import React, {
 import styles from './index.less';
 import classnames from 'classnames';
 import { useThrottleFn } from 'ahooks';
-import { useLocalStorageState } from '_ahooks@2.10.12@ahooks';
+import { useLocalStorageState } from 'ahooks';
 import { LOCAL_STORAGE_KEY } from '../../constants';
 
 interface IProps {
