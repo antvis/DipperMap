@@ -21,6 +21,7 @@
 - [x] 暗黑模式
 - [x] 支持 geojson 格式导入, 支持 coordnates 以数组形式导入
 - [x] 替换 iconfont
+- [ ] 官网补充操作步骤
 
 ### 技术改造
 
