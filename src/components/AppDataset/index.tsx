@@ -8,10 +8,12 @@ import { DatasetModelContext } from '../../context/DatasetContext';
 import { ConfigModelContext } from '../../context/ConfigContext';
 
 const AppDataset: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
-  const [addDatasetVisible, setAddDatasetVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { setDatasetList } = useContext(DatasetModelContext);
+  const { datasetList, setDatasetList } = useContext(DatasetModelContext);
+  const [addDatasetVisible, setAddDatasetVisible] = useState(
+    !datasetList.length,
+  );
   const { setLayerList, setFilterList, setInteractiveList } =
     useContext(ConfigModelContext);
 
