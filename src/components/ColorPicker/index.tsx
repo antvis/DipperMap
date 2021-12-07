@@ -29,7 +29,7 @@ export const ColorPicker = React.memo((props: IProps) => {
     (color) => {
       onChange?.(color.hex);
     },
-    [onChange, value],
+    [onChange],
   );
 
   return (

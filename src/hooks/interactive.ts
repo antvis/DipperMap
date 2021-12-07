@@ -26,7 +26,7 @@ const useInteractive = () => {
         message.info('当前数据源字段过多，默认展示前7个字段');
       }
     },
-    [interactiveList],
+    [interactiveList, setInteractiveList],
   );
 
   return {

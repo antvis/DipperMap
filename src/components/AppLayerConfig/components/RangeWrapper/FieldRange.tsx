@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { InputNumber, Slider } from 'antd';
 import styles from './index.less';
 
@@ -6,7 +6,10 @@ const FieldRange: React.FC<{
   value?: [number, number];
   onChange?: (newValue: [number, number]) => void;
 }> = ({ value, onChange }) => {
-  const realValue: [number, number] = Array.isArray(value) ? value : [1, 100];
+  const realValue: [number, number] = useMemo(
+    () => (Array.isArray(value) ? value : [1, 100]),
+    [value],
+  );
 
   const [cacheValue, setCacheValue] = useState(realValue);
 

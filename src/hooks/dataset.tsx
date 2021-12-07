@@ -50,7 +50,7 @@ const useDataset = () => {
           markColor: getNewMarkColor(),
         } as IDataset;
       },
-      [datasetList, getNewDatasetName],
+      [datasetList.length, getNewDatasetName, getNewMarkColor],
     );
 
   const copyDataset = useCallback(
@@ -68,7 +68,7 @@ const useDataset = () => {
       message.success('复制成功');
       return newDataset;
     },
-    [datasetList, getNewDatasetName, setDatasetList],
+    [datasetList, getNewDatasetName, getNewMarkColor, setDatasetList],
   );
 
   const getTargetDataset = useCallback(
@@ -148,7 +148,7 @@ const useDataset = () => {
       };
       return style;
     },
-    [datasetList],
+    [datasetList, getNewMarkColor],
   );
 
   return {

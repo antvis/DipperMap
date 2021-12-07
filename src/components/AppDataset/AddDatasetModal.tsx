@@ -105,7 +105,7 @@ const AddDatasetModal = ({
       }
       setLoading(false);
     },
-    [addDataset, form, setVisible],
+    [addDataset, addLayer, datasetList, setDatasetList, setLoading, setVisible],
   );
 
   useEffect(() => {

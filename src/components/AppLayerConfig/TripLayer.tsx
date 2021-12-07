@@ -26,7 +26,7 @@ const TripLayer = ({ layer, onChange }: IProps) => {
 
   useEffect(() => {
     form.setFieldsValue(layer.config);
-  }, [layer.config]);
+  }, [form, layer.config]);
 
   return (
     <Form
