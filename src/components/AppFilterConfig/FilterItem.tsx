@@ -4,7 +4,6 @@ import EditName from '../EditName';
 import FieldSelect from '../FieldSelect';
 import useDataset from '../../hooks/dataset';
 import { Collapse, Dropdown, Menu, Popconfirm, Switch, Form } from 'antd';
-import DatasetModal from '../DatasetModal';
 import FilterValue from '../AppFilterConfig/FilterValue';
 import { useRef } from 'react';
 import { getFilterRange } from '../../utils';
@@ -29,7 +28,6 @@ const FilterItem = ({
   dragIcon,
 }: IProps) => {
   const { getTargetDataset } = useDataset();
-  const [visible, setVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const { getDatasetMarkStyle } = useDataset();
 
@@ -88,10 +86,6 @@ const FilterItem = ({
         <Dropdown
           overlay={
             <Menu className="operateDropdown">
-              <Menu.Item key="changeDataset" onClick={() => setVisible(true)}>
-                <i className="dpiconfont dpicon-genggaishujuyuan" />
-                更改数据源
-              </Menu.Item>
               <Menu.Item key="copyFilter" onClick={() => onCopy(filter)}>
                 <i className="dpiconfont dpicon-fuzhi1" />
                 复制筛选器
@@ -163,18 +157,6 @@ const FilterItem = ({
           {content}
         </Panel>
       </Collapse>
-
-      <DatasetModal
-        visible={visible}
-        setVisible={setVisible}
-        value={filter.datasetId ?? undefined}
-        onChange={(datasetId) =>
-          onChange({
-            id: filter.id,
-            datasetId,
-          })
-        }
-      />
     </div>
   );
 };

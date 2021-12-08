@@ -1,8 +1,7 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { Collapse, Dropdown, Menu, Popconfirm, Switch } from 'antd';
 import type { ILayer } from '../../typings';
 import EditName from '../EditName';
-import DatasetModal from '../DatasetModal';
 import PointLayer from './PointLayer';
 import LineLayer from './LineLayer';
 import TripLayer from './TripLayer';
@@ -31,7 +30,6 @@ const LayerItemConfig = ({
   onCopy,
 }: IProps) => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
   const { getDatasetMarkStyle } = useDataset();
 
   const header = (
@@ -61,10 +59,6 @@ const LayerItemConfig = ({
         <Dropdown
           overlay={
             <Menu className="operateDropdown">
-              <Menu.Item key="changeDataset" onClick={() => setVisible(true)}>
-                <i className="dpiconfont dpicon-genggaishujuyuan" />
-                更改数据源
-              </Menu.Item>
               <Menu.Item key="copyLayer" onClick={() => onCopy(layer)}>
                 <i className="dpiconfont dpicon-fuzhi1" />
                 复制图层
@@ -120,18 +114,6 @@ const LayerItemConfig = ({
           {content}
         </Panel>
       </Collapse>
-
-      <DatasetModal
-        visible={visible}
-        setVisible={setVisible}
-        value={layer.datasetId ?? undefined}
-        onChange={(datasetId) =>
-          onChange({
-            id: layer.id,
-            datasetId,
-          })
-        }
-      />
     </>
   );
 };
