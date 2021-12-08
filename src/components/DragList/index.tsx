@@ -39,7 +39,7 @@ function DragList<P extends Record<string, any>>({
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="datasetDropable" direction="vertical">
+      <Droppable droppableId="dropable" direction="vertical">
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
             {items.map((item, index) => (
@@ -62,11 +62,12 @@ function DragList<P extends Record<string, any>>({
                         className,
                         snapshot.isDragging ? 'is-drag' : null,
                       ])}
-                      style={
-                        itemStyle instanceof Function
-                          ? itemStyle(item)
-                          : itemStyle
-                      }
+                      style={{
+                        ...(itemStyle instanceof Function
+                          ? itemStyle?.(item)
+                          : {}),
+                        ...(itemProvided.draggableProps.style ?? {}),
+                      }}
                       key={item[keyField]}
                       onClick={() => onItemClick?.(items[index])}
                     >
