@@ -169,11 +169,6 @@ const getCommonLayerProps: (layer: ILayer) => Partial<ILayerProps> = (
       zIndex: layer.zIndex,
       opacity: layer.config.opacity / 100 ?? 1,
     },
-    active: {
-      option: {
-        color: 'yellow',
-      },
-    },
     shape: {
       values: 'fill',
     },
