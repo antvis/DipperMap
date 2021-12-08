@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './index.less';
-import { Button, Tooltip } from 'antd';
+import { Button, Dropdown, Menu } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 
 const AppHeader: React.FC = () => {
@@ -12,15 +12,34 @@ const AppHeader: React.FC = () => {
           alt=""
         />
         <div>
-          <a
-            href="https://antv.vision/DipperMap/"
-            target="_blank"
-            rel="noreferrer"
+          <Dropdown
+            placement="bottomRight"
+            overlay={
+              <Menu>
+                <Menu.Item
+                  key="help"
+                  onClick={() =>
+                    window.open('https://antv.vision/DipperMap/', '_blank')
+                  }
+                >
+                  帮助文档
+                </Menu.Item>
+                <Menu.Item
+                  key="feedback"
+                  onClick={() =>
+                    window.open(
+                      'https://github.com/antvis/DipperMap/issues',
+                      '_blank',
+                    )
+                  }
+                >
+                  问题反馈
+                </Menu.Item>
+              </Menu>
+            }
           >
-            <Tooltip overlay="帮助文档">
-              <Button type="text" icon={<QuestionCircleOutlined />} />
-            </Tooltip>
-          </a>
+            <Button type="text" icon={<QuestionCircleOutlined />} />
+          </Dropdown>
         </div>
       </div>
     </>
