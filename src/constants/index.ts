@@ -18,6 +18,21 @@ import type {
 } from '../typings';
 import { GeometryTypes } from '@turf/turf';
 
+export const HELP_LINK_LIST = [
+  {
+    title: '帮助文档',
+    url: 'https://antv.vision/DipperMap/',
+  },
+  {
+    title: '问题反馈',
+    url: 'https://github.com/antvis/DipperMap/issues',
+  },
+  {
+    title: '官方网站',
+    url: 'https://dippermap.alipay.com/',
+  },
+];
+
 export const DEFAULT_COLOR1 = '#1890ff';
 export const DEFAULT_COLOR2 = '#FF5627';
 

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './index.less';
 import { Button, Dropdown, Menu } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { HELP_LINK_LIST } from '../../constants';
 
 const AppHeader: React.FC = () => {
   return (
@@ -14,27 +15,18 @@ const AppHeader: React.FC = () => {
         <div>
           <Dropdown
             placement="bottomRight"
+            overlayClassName={styles.appHeaderDropdown}
             overlay={
               <Menu>
-                <Menu.Item
-                  key="help"
-                  onClick={() =>
-                    window.open('https://antv.vision/DipperMap/', '_blank')
-                  }
-                >
-                  帮助文档
-                </Menu.Item>
-                <Menu.Item
-                  key="feedback"
-                  onClick={() =>
-                    window.open(
-                      'https://github.com/antvis/DipperMap/issues',
-                      '_blank',
-                    )
-                  }
-                >
-                  问题反馈
-                </Menu.Item>
+                {HELP_LINK_LIST.map((item) => (
+                  <Menu.Item
+                    key={item.title}
+                    onClick={() => window.open(item.url, '_blank')}
+                  >
+                    <span>{item.title}</span>
+                    <i className="dpiconfont dpicon-tiaozhuan-zhuanqu" />
+                  </Menu.Item>
+                ))}
               </Menu>
             }
           >

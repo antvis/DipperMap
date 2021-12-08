@@ -3,7 +3,7 @@ import styles from './index.less';
 import { Button, message, Popconfirm, Spin, Tooltip } from 'antd';
 import AddDatasetModal from './AddDatasetModal';
 import DatasetList from './DatasetList';
-import { ClearOutlined, PlusSquareOutlined } from '@ant-design/icons';
+import { ClearOutlined, FileAddOutlined } from '@ant-design/icons';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import { ConfigModelContext } from '../../context/ConfigContext';
 
@@ -35,7 +35,7 @@ const AppDataset: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
               <Spin spinning />
             ) : (
               <>
-                <Tooltip overlay="清空">
+                <Tooltip overlay="清空数据源">
                   <Popconfirm
                     title="确认清空当前数据源及所有配置?"
                     onConfirm={onClear}
@@ -52,7 +52,7 @@ const AppDataset: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
                   <Button
                     type="text"
                     className="is-link"
-                    icon={<PlusSquareOutlined />}
+                    icon={<FileAddOutlined />}
                     onClick={() => setAddDatasetVisible(true)}
                   />
                 </Tooltip>

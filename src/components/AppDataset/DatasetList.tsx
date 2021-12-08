@@ -10,6 +10,7 @@ import useListHook from '../../hooks/list';
 import EditName from '../EditName';
 import { ConfigModelContext } from '../../context/ConfigContext';
 import { DatasetModelContext } from '../../context/DatasetContext';
+import { CloudDownloadOutlined } from '@ant-design/icons';
 import DownloadDatasetModal from './DownloadDatasetModal';
 
 interface IProps {
@@ -118,7 +119,7 @@ export default function DatasetList({ className }: IProps) {
                           })
                         }
                       >
-                        <i className="dpiconfont dpicon-shangchuandaochu" />
+                        <CloudDownloadOutlined />
                         导出数据源
                       </Menu.Item>
                     </Menu>
