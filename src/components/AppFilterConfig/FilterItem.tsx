@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import type { IDatasetField, IFilter } from '../../typings';
 import EditName from '../EditName';
 import FieldSelect from '../FieldSelect';
