@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import styles from './index.less';
 import TypeTag from '../TypeTag';
 import DownloadDatasetModal from './DownloadDatasetModal';
+import { CloudDownloadOutlined } from '@ant-design/icons';
 
 interface IProps extends DrawerProps {
   currentDatasetId: string;
@@ -14,7 +15,7 @@ interface IProps extends DrawerProps {
 
 const { TabPane } = Tabs;
 
-const DataDetailDrawer = ({
+const DatasetDetailDrawer = ({
   currentDatasetId,
   datasetList,
   visible,
@@ -80,6 +81,7 @@ const DataDetailDrawer = ({
               <span className={styles.datasetExtraInfo}>
                 <Button
                   style={{ marginRight: 16 }}
+                  icon={<CloudDownloadOutlined />}
                   onClick={() =>
                     setDownloadModal({
                       visible: true,
@@ -112,4 +114,4 @@ const DataDetailDrawer = ({
   );
 };
 
-export default DataDetailDrawer;
+export default DatasetDetailDrawer;

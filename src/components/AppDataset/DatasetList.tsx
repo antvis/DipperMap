@@ -3,7 +3,7 @@ import styles from './index.less';
 import { Empty, Popconfirm, Tooltip, Modal, Menu, Dropdown } from 'antd';
 import DragList from '../DragList';
 import type { IDataset } from '../../typings';
-import DataDetailDrawer from './DataDetailDrawer';
+import DatasetDetailDrawer from './DatasetDetailDrawer';
 import useDataset from '../../hooks/dataset';
 import classnames from 'classnames';
 import useListHook from '../../hooks/list';
@@ -168,7 +168,7 @@ export default function DatasetList({ className }: IProps) {
       {!datasetList.length && (
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无数据源" />
       )}
-      <DataDetailDrawer
+      <DatasetDetailDrawer
         currentDatasetId={datasetDetail.datasetId}
         datasetList={datasetList}
         visible={datasetDetail.visible}
