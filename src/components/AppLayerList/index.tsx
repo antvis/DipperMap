@@ -59,28 +59,31 @@ const AppLayerList: React.FC = () => {
     });
   }, []);
 
-  const onMouseMove = (e: any, config: ILayerConfig) => {
-    const [targetInteractive] = filterByDatasetId(
-      interactiveList,
-      config.dataset.id,
-    );
-    if (targetInteractive?.enable) {
-      const { fields } = targetInteractive;
-      setPopup({
-        visible: true,
-        datasetName: config.dataset.name,
-        fields: fields.map((field) => {
-          return {
-            field,
-            value: e?.feature?.properties?.[field] ?? '-',
-          };
-        }),
-        lngLat: e.lngLat,
-      });
-    } else {
-      onMouseOut();
-    }
-  };
+  const onMouseMove = useCallback(
+    (e: any, config: ILayerConfig) => {
+      const [targetInteractive] = filterByDatasetId(
+        interactiveList,
+        config.dataset.id,
+      );
+      if (targetInteractive?.enable) {
+        const { fields } = targetInteractive;
+        setPopup({
+          visible: true,
+          datasetName: config.dataset.name,
+          fields: fields.map((field) => {
+            return {
+              field,
+              value: e?.feature?.properties?.[field] ?? '-',
+            };
+          }),
+          lngLat: e.lngLat,
+        });
+      } else {
+        onMouseOut();
+      }
+    },
+    [interactiveList, onMouseOut],
+  );
 
   useEffect(() => {
     (async () => {
