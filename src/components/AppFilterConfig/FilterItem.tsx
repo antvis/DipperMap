@@ -97,7 +97,7 @@ const FilterItem = ({
               >
                 <Menu.Item key="delete">
                   <i className="dpiconfont dpicon-shanchu is-red-link" />
-                  删除
+                  删除筛选器
                 </Menu.Item>
               </Popconfirm>
             </Menu>

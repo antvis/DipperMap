@@ -132,7 +132,7 @@ export default function DatasetList({ className }: IProps) {
                   placement="bottom"
                   onConfirm={() => checkDelete(dataset)}
                 >
-                  <Tooltip overlay="删除" placement="top">
+                  <Tooltip overlay="删除数据源" placement="top">
                     <i
                       onClick={(e) => e.stopPropagation()}
                       className="dpiconfont dpicon-shanchu is-red-link"

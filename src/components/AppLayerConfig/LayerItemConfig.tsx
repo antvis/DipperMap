@@ -70,7 +70,7 @@ const LayerItemConfig = ({
               >
                 <Menu.Item key="delete">
                   <i className="dpiconfont dpicon-shanchu is-red-link" />
-                  删除
+                  删除图层
                 </Menu.Item>
               </Popconfirm>
             </Menu>

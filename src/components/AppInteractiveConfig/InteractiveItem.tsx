@@ -64,7 +64,10 @@ const InteractiveItem = ({
           placement="bottom"
           onConfirm={() => onDelete(interactive)}
         >
-          <i className="dpiconfont dpicon-shanchu is-red-link" title="删除" />
+          <i
+            className="dpiconfont dpicon-shanchu is-red-link"
+            title="删除标注"
+          />
         </Popconfirm>
       </div>
     </div>
