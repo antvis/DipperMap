@@ -246,7 +246,7 @@ const DEMOS = [
       {
         name: '中国地图省级',
         datasetId: 'China',
-        src: 'https://gw.alipayobjects.com/os/bmw-prod/f6d97865-bee3-43e9-a57a-1317a90bc100.json',
+        src: 'https://gw.alipayobjects.com/os/bmw-prod/e1f27f8c-fed9-42b9-8bd6-fa2b455533c7.json',
       },
     ],
     layerList: [

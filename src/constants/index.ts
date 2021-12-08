@@ -33,6 +33,16 @@ export const HELP_LINK_LIST = [
   },
 ];
 
+export const LAYER_POINT_HEIGHT_RANGE: [number, number] = [1, 390];
+
+export const LAYER_POLYGON_HEIGHT_RANGE: [number, number] = [1, 400000000000];
+
+export const LAYER_SLIDER_RANGE = [1, 1000000000];
+
+export const DEFAULT_HEIGHT_VALUE = Math.floor(
+  (LAYER_SLIDER_RANGE[1] + LAYER_SLIDER_RANGE[0]) / 2,
+);
+
 export const DEFAULT_COLOR1 = '#1890ff';
 export const DEFAULT_COLOR2 = '#FF5627';
 
@@ -279,7 +289,7 @@ export const DEFAULT_POINT_LAYER_CONFIG: IPointLayerConfig = {
   blendType: 'normal',
   opacity: 100,
   shape: 'circle',
-  size: 100,
+  size: DEFAULT_HEIGHT_VALUE,
   dimension: {
     rangeValue: [1, 100],
     field: null,
@@ -341,7 +351,7 @@ export const DEFAULT_POLYGON_LAYER_CONFIG: IPolygonLayerConfig = {
     rangeValue: [1, 100],
     field: null,
   },
-  intense: 10000,
+  intense: DEFAULT_HEIGHT_VALUE,
   intenseField: null,
   shape: 'fill',
 };
@@ -373,7 +383,7 @@ export const DEFAULT_HEAT_LAYER_CONFIG: IHeatLayerConfig = {
   ranges: [0, 1],
   blendType: 'normal',
   opacity: 100,
-  intensity: 2,
+  intensity: DEFAULT_HEIGHT_VALUE,
   dimension: {
     rangeValue: [1, 100],
     field: null,

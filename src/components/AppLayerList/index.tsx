@@ -87,7 +87,7 @@ const AppLayerList: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      const res = await Promise.all(
+      const newLayerConfigList = await Promise.all(
         displayLayerList.map((layer, layerIndex, array) => {
           const targetDataset = getTargetDataset(layer.datasetId) as IDataset;
           return filterData(
@@ -107,11 +107,15 @@ const AppLayerList: React.FC = () => {
           });
         }),
       );
-      setLayerConfigList(res);
-      const propsList = res.map((layer) =>
-        transformProps(layer.layer, layer.data.length),
+      const propsList = newLayerConfigList.map((layerConfig) =>
+        transformProps(
+          layerConfig.layer,
+          layerConfig.dataset,
+          layerConfig.data.length,
+        ),
       );
       setPropsList(propsList);
+      setLayerConfigList(newLayerConfigList);
     })();
   }, [displayLayerList, filterList, getTargetDataset]);
 
