@@ -1,3 +1,4 @@
+import React from 'react';
 import type {
   ILineLayerLineType,
   IOption,
@@ -73,7 +74,32 @@ export const GEO_TO_LAYER_TYPE_MAP: Partial<Record<GeometryTypes, ILayerType>> =
     MultiPolygon: 'polygon',
   };
 
-export const MAP_THEME_LIST: IOption<IMapTheme>[] = [
+export const AMAP_LAYER_LIST: (IOption<string> & {
+  icon: JSX.Element;
+  getLayer: () => AMap.Layer;
+  layer?: AMap.Layer | null;
+})[] = [
+  {
+    label: '卫星图层',
+    value: 'Satellite',
+    getLayer: () => new window.AMap.TileLayer.Satellite(),
+    icon: <i className="dpiconfont dpicon-weixing" />,
+  },
+  {
+    label: '路网图层',
+    value: 'RoadNet',
+    getLayer: () => new window.AMap.TileLayer.RoadNet(),
+    icon: <i className="dpiconfont dpicon-luwang" />,
+  },
+  {
+    label: '路况图层',
+    value: 'Traffic',
+    getLayer: () => new window.AMap.TileLayer.Traffic(),
+    icon: <i className="dpiconfont dpicon-road-conditions_line" />,
+  },
+];
+
+export const AMAP_THEME_LIST: IOption<IMapTheme>[] = [
   {
     label: '幻影黑',
     value: 'dark',
@@ -206,6 +232,7 @@ export const HEATMAP_TYPE_LIST: IOption<ILayerDimensionType>[] = [
 
 export const LOCAL_STORAGE_KEY = {
   MAP_THEME: 'DIPPER_VIEW_MAP_THEME',
+  MAP_LAYER: 'DIPPER_VIEW_MAP_LAYER',
   MAP_TYPE: 'DIPPER_VIEW_MAP_TYPE',
   TOP_PANEL_HEIGHT: 'DIPPER_VIEW_TOP_PANEL_HEIGHT',
   MAP_PITCH: 'DIPPER_VIEW_MAP_PITCH',

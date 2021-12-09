@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import { LOCAL_STORAGE_KEY, MAP_THEME_LIST, MAP_TYPES } from '../constants';
+import { LOCAL_STORAGE_KEY, AMAP_THEME_LIST, MAP_TYPES } from '../constants';
 import { IMapTheme, IMapType } from '../typings';
 import { useLocalStorageState } from 'ahooks';
 
@@ -12,6 +12,8 @@ export interface IProps {
   setMapPitch: (value: number) => void;
   mapRotate: number;
   setMapRotate: (value: number) => void;
+  mapLayers: string[];
+  setMapLayers: (value: string[]) => void;
 }
 
 // @ts-ignore
@@ -24,8 +26,14 @@ export { Consumer };
 const MapContextProvider: React.FC = ({ children }) => {
   const [mapTheme, setMapTheme] = useLocalStorageState<IMapTheme>(
     LOCAL_STORAGE_KEY.MAP_THEME,
-    MAP_THEME_LIST[0].value as IMapTheme,
+    AMAP_THEME_LIST[0].value as IMapTheme,
   );
+
+  const [mapLayers, setMapLayers] = useLocalStorageState<string[]>(
+    LOCAL_STORAGE_KEY.MAP_LAYER,
+    [],
+  );
+
   const [mapType, setMapType] = useLocalStorageState<IMapType>(
     LOCAL_STORAGE_KEY.MAP_TYPE,
     MAP_TYPES[0].value as IMapType,
@@ -47,6 +55,8 @@ const MapContextProvider: React.FC = ({ children }) => {
         mapTheme,
         // @ts-ignore
         setMapTheme,
+        mapLayers,
+        setMapLayers,
         mapType,
         setMapType,
         mapPitch,
