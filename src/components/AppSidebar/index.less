@@ -24,10 +24,42 @@
 }
 
 .appSidebarToggleBtn {
+  @toggle-btn-width: 17px;
+  @toggle-btn-height: 60px;
+  @triangle-width: 12px;
+
   background-color: @bg-color !important;
   position: absolute;
-  left: @sidebar-width + 16px;
-  top: 14px;
+  left: @sidebar-width;
+  top: 50%;
+  height: @toggle-btn-height;
+  width: @toggle-btn-width;
+  transform: translate(0, -@toggle-btn-height / 2);
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  &:before,
+  &:after {
+    position: absolute;
+    left: -@triangle-width;
+    width: 0;
+    height: 0;
+    border: @triangle-width solid transparent;
+    display: inline-block;
+    content: '';
+  }
+
+  &:before {
+    top: -@triangle-width;
+    border-right-color: @bg-color;
+    transform: rotate(-45deg);
+  }
+
+  &:after {
+    bottom: -@triangle-width + 1px;
+    border-left-color: @bg-color;
+    transform: rotate(225deg);
+  }
   :global {
     .dpiconfont {
       line-height: 100%;

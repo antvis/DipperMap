@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Button } from 'antd';
 import classnames from 'classnames';
 import styles from './index.less';
 
@@ -25,18 +24,17 @@ const AppSidebar: React.FC<IProps> = ({ className = '', children }) => {
         })}
       >
         {children}
-        <Button
+        <div
           className={styles.appSidebarToggleBtn}
-          icon={
-            <i
-              className={classnames([
-                'dpiconfont',
-                isHidden ? 'dpicon-right' : 'dpicon-left',
-              ])}
-            />
-          }
           onClick={() => setIsHidden(!isHidden)}
-        />
+        >
+          <i
+            className={classnames([
+              'dpiconfont',
+              isHidden ? 'dpicon-right' : 'dpicon-left',
+            ])}
+          />
+        </div>
       </div>
     </div>
   );
