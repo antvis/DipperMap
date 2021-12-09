@@ -54,7 +54,7 @@ export interface IComponentProps {
   interactive: IInteractiveConfig;
 }
 
-export interface Demo {
+export interface IDemo {
   name: string;
   imgSrc: string;
   demoName: string;
@@ -71,5 +71,5 @@ export interface IGlobalProps {
   component?: DeepPartial<IComponentProps>;
   store?: boolean;
   onChange?: () => void;
-  demos?: Demo[];
+  demos?: IDemo[];
 }

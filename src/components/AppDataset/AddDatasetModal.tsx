@@ -11,7 +11,7 @@ import useDataset from '../../hooks/dataset';
 import request from 'umi-request';
 import styles from './index.less';
 import { dataTransform } from './dataTrans';
-import { Demo } from '../../typings';
+import { IDemo } from '../../typings';
 import { ConfigModelContext } from '../../context/ConfigContext';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import { getRandomId } from '../../utils';
@@ -119,7 +119,7 @@ const AddDatasetModal = ({
     setDemoVisible(true);
   }, []);
 
-  function clickDemo(demo: Demo) {
+  function clickDemo(demo: IDemo) {
     Promise.all(
       demo.dataSrc.map(async (data) => {
         const result = dataTransform({
