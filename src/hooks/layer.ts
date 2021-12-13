@@ -10,12 +10,12 @@ import {
   DEFAULT_HEX_LAYER_CONFIG,
   DEFAULT_HEAT_LAYER_CONFIG,
 } from '../constants';
-import { ConfigModelContext } from '../context/ConfigContext';
 import { getLayerTypes } from '../components/AppLayerConfig/common';
 import { message } from 'antd';
+import { LayerModelContext } from '../context/LayerContext';
 
 const useLayer = () => {
-  const { layerList, setLayerList } = useContext(ConfigModelContext);
+  const { layerList, setLayerList } = useContext(LayerModelContext);
 
   const getDefaultConfig = useCallback((type: ILayerType) => {
     let config: any = {};

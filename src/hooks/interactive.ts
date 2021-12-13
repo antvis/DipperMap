@@ -1,12 +1,13 @@
 import { useCallback, useContext } from 'react';
-import { ConfigModelContext } from '../context/ConfigContext';
 import { IDataset } from '../typings';
 import { generateUnRepeatValue, getRandomId } from '../utils';
 import { message } from 'antd';
+import { InteractiveModelContext } from '../context/InteractiveContext';
 
 const useInteractive = () => {
-  const { interactiveList, setInteractiveList } =
-    useContext(ConfigModelContext);
+  const { interactiveList, setInteractiveList } = useContext(
+    InteractiveModelContext,
+  );
 
   const addInteractive = useCallback(
     (dataset: IDataset) => {

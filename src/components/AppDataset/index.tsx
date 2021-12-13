@@ -5,15 +5,18 @@ import AddDatasetModal from './AddDatasetModal';
 import DatasetList from './DatasetList';
 import { ClearOutlined, FileAddOutlined } from '@ant-design/icons';
 import { DatasetModelContext } from '../../context/DatasetContext';
-import { ConfigModelContext } from '../../context/ConfigContext';
+import { LayerModelContext } from '../../context/LayerContext';
+import { FilterModelContext } from '../../context/FilterContext';
+import { InteractiveModelContext } from '../../context/InteractiveContext';
 
 const AppDataset: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
   const [loading, setLoading] = useState(false);
 
   const { setDatasetList } = useContext(DatasetModelContext);
   const [addDatasetVisible, setAddDatasetVisible] = useState(false);
-  const { setLayerList, setFilterList, setInteractiveList } =
-    useContext(ConfigModelContext);
+  const { setLayerList } = useContext(LayerModelContext);
+  const { setFilterList } = useContext(FilterModelContext);
+  const { setInteractiveList } = useContext(InteractiveModelContext);
 
   const onClear = useCallback(() => {
     setDatasetList([]);

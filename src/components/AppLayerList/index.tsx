@@ -10,10 +10,12 @@ import { filterByDatasetId, filterData } from '../../utils';
 import type { ILayerConfig } from './LayerItem';
 import LayerItem from './LayerItem';
 import { IDataset, PropsType } from '../../typings';
-import { ConfigModelContext } from '../../context/ConfigContext';
 import { LayerEvent, Popup } from '@antv/l7-react';
 import styles from './index.less';
 import { transformProps } from './utils';
+import { LayerModelContext } from '../../context/LayerContext';
+import { FilterModelContext } from '../../context/FilterContext';
+import { InteractiveModelContext } from '../../context/InteractiveContext';
 
 interface IPopupState {
   visible: boolean;
@@ -26,8 +28,10 @@ interface IPopupState {
 }
 
 const AppLayerList: React.FC = () => {
-  const { layerList, filterList, interactiveList } =
-    useContext(ConfigModelContext);
+  const { layerList } = useContext(LayerModelContext);
+  const { filterList } = useContext(FilterModelContext);
+  const { interactiveList } = useContext(InteractiveModelContext);
+
   const [layerConfigList, setLayerConfigList] = useState<ILayerConfig[]>([]);
   const [propsList, setPropsList] = useState<PropsType[][]>([]);
 

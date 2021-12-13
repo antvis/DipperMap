@@ -12,11 +12,11 @@ import request from 'umi-request';
 import styles from './index.less';
 import { dataTransform } from './dataTrans';
 import { IDemo } from '../../typings';
-import { ConfigModelContext } from '../../context/ConfigContext';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import { getRandomId } from '../../utils';
 import { PropsModelContext } from '../../context/PropContext';
 import useLayer from '../../hooks/layer';
+import { LayerModelContext } from '../../context/LayerContext';
 
 interface IProps {
   visible: boolean;
@@ -56,7 +56,7 @@ const AddDatasetModal = ({
   const { addDataset, getNewDatasetName } = useDataset();
   const [form, setForm] = useState<IFormData>(DEFAULT_FORM);
   const [demoVisible, setDemoVisible] = useState(false);
-  const { setLayerList } = useContext(ConfigModelContext);
+  const { setLayerList } = useContext(LayerModelContext);
   const { demos = [] } = useContext(PropsModelContext);
   const { datasetList, setDatasetList } = useContext(DatasetModelContext);
   const { addLayer } = useLayer();

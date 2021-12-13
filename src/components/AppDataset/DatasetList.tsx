@@ -8,10 +8,12 @@ import useDataset from '../../hooks/dataset';
 import classnames from 'classnames';
 import useListHook from '../../hooks/list';
 import EditName from '../EditName';
-import { ConfigModelContext } from '../../context/ConfigContext';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import { CloudDownloadOutlined } from '@ant-design/icons';
 import DownloadDatasetModal from './DownloadDatasetModal';
+import { LayerModelContext } from '../../context/LayerContext';
+import { FilterModelContext } from '../../context/FilterContext';
+import { InteractiveModelContext } from '../../context/InteractiveContext';
 
 interface IProps {
   className?: string;
@@ -20,14 +22,11 @@ interface IProps {
 export default function DatasetList({ className }: IProps) {
   const { datasetList, setDatasetList, selectDatasetId, setSelectDatasetId } =
     useContext(DatasetModelContext);
-  const {
-    layerList,
-    filterList,
-    interactiveList,
-    setLayerList,
-    setFilterList,
-    setInteractiveList,
-  } = useContext(ConfigModelContext);
+  const { layerList, setLayerList } = useContext(LayerModelContext);
+  const { filterList, setFilterList } = useContext(FilterModelContext);
+  const { interactiveList, setInteractiveList } = useContext(
+    InteractiveModelContext,
+  );
 
   const { onDragEnd, onEditName, onDelete } = useListHook(
     datasetList,
