@@ -17,7 +17,7 @@ import { featureCollection, lineString, point, polygon } from '@turf/turf';
 import type { ISourceOptions } from '@antv/l7-react/es/component/LayerAttribute';
 import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import { h3ToGeoBoundary } from 'h3-js';
-import { cloneDeep, merge } from 'lodash';
+import { cloneDeep, isEqual, merge } from 'lodash';
 import { message } from 'antd';
 import bundle from '../../utils/lineBundle';
 import {
@@ -44,8 +44,25 @@ export const transformSource: (
   const { type } = layer;
 
   if (dataset?.geoJson?.enable) {
+    const features = dataset?.geoJson?.map[type] ?? [];
+    if (data.length === features.length) {
+      return {
+        data: featureCollection(features),
+      };
+    }
+
+    if (!data.length) {
+      return {
+        data: featureCollection([]),
+      };
+    }
+
     return {
-      data: featureCollection(dataset?.geoJson?.map[type] ?? []),
+      data: featureCollection(
+        features.filter((feature) =>
+          data.find((item) => isEqual(feature.properties, item)),
+        ),
+      ),
     };
   }
 
