@@ -2,7 +2,7 @@ import React from 'react';
 import MapContextProvider from './MapContext';
 import DatasetContextProvider from './DatasetContext';
 import LayerContextProvider from './LayerContext';
-import FilterContextProvider from './LayerContext';
+import FilterContextProvider from './FilterContext';
 import InteractiveContextProvider from './InteractiveContext';
 import GlobalContextProvider from './GlobalContext';
 
