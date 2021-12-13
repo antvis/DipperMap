@@ -47,6 +47,7 @@ export interface ILayerDoubleColor {
 
 export interface ILayerFieldColor {
   // value: string[];
+  colorReverse: boolean;
   colorType: IColorType;
   colorIndex: number;
   field: string;

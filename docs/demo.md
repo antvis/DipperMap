@@ -173,6 +173,7 @@ const DEMOS = [
           fillColor: {
             colorType: 'sequential',
             colorIndex: 4,
+            colorReverse: false,
           },
           radius: 4,
           ranges: [0, 1],
@@ -263,6 +264,7 @@ const DEMOS = [
             field: 'childrenNum',
             colorType: 'sequential',
             colorIndex: 0,
+            colorReverse: false,
             enable: true,
           },
           borderColor: {

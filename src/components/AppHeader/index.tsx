@@ -7,16 +7,18 @@ import {
   ExportOutlined,
   ImportOutlined,
 } from '@ant-design/icons';
-import { HELP_LINK_LIST } from '../../constants';
+import { HELP_LINK_LIST, HOME_PAGE_URL } from '../../constants';
 
 const AppHeader: React.FC = () => {
   return (
     <>
       <div className={styles.appHeader}>
-        <img
-          src="https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*95whQ7WhQBIAAAAAAAAAAAAAARQnAQ"
-          alt=""
-        />
+        <a href={HOME_PAGE_URL} target="_blank" rel="noreferrer">
+          <img
+            src="https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*95whQ7WhQBIAAAAAAAAAAAAAARQnAQ"
+            alt=""
+          />
+        </a>
         <div className={styles.appHeaderBtnGroup}>
           {/* TODO: 具体Dropdown的实现 */}
           <Dropdown

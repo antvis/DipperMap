@@ -98,6 +98,7 @@ const ColorWrapper = ({
                   // value: COLOR.sequential[0].colors,
                   colorType: 'sequential',
                   colorIndex: 0,
+                  colorReverse: false,
                   field: newField as string,
                   enable: true,
                 };

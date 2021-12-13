@@ -1,4 +1,5 @@
 import type {
+  IColorType,
   IDataset,
   IHeatLayer,
   IHexLayer,
@@ -198,6 +199,15 @@ const getCommonLayerProps: (layer: ILayer) => Partial<ILayerProps> = (
   };
 };
 
+export const getFieldColorList = (
+  colorIndex: number,
+  colorType: IColorType,
+  colorReverse: boolean,
+) => {
+  const colorList = [...(FIELD_COLOR_MAP[colorType][colorIndex] || [])];
+  return colorReverse ? colorList.reverse() : colorList;
+};
+
 export const setColorProps = (
   props: Partial<ILayerProps>,
   colorConfig: ILayerSingleColor | ILayerDoubleColor | ILayerFieldColor,
@@ -206,9 +216,12 @@ export const setColorProps = (
     return;
   }
   if (colorConfig.field) {
-    const { field, colorIndex, colorType } = colorConfig;
+    const { field, colorIndex, colorType, colorReverse } = colorConfig;
     Object.assign(props, {
-      color: { field, values: FIELD_COLOR_MAP[colorType][colorIndex] },
+      color: {
+        field,
+        values: getFieldColorList(colorIndex, colorType, colorReverse),
+      },
       scale: {
         values: {
           [field]: {
@@ -279,8 +292,8 @@ export const transformProps: (
     const { fillColor, ranges, intensity, radius, shape, magField } = config;
     let positions: number[] = [];
 
-    const { colorType, colorIndex } = fillColor;
-    const colors = FIELD_COLOR_MAP[colorType][colorIndex] || [];
+    const { colorType, colorIndex, colorReverse } = fillColor;
+    const colors = getFieldColorList(colorIndex, colorType, colorReverse);
     if (colors && colors.length) {
       // 区间长度
       const sectionLen = ranges[1] - ranges[0] / colors.length;

@@ -19,6 +19,8 @@ import type {
 } from '../typings';
 import { GeometryTypes } from '@turf/turf';
 
+export const HOME_PAGE_URL = 'https://dippermap.alipay.com/';
+
 export const HELP_LINK_LIST = [
   {
     title: '帮助文档',
@@ -30,7 +32,7 @@ export const HELP_LINK_LIST = [
   },
   {
     title: '官方网站',
-    url: 'https://dippermap.alipay.com/',
+    url: HOME_PAGE_URL,
   },
 ];
 
@@ -405,6 +407,7 @@ export const DEFAULT_HEAT_LAYER_CONFIG: IHeatLayerConfig = {
   fillColor: {
     colorType: 'sequential',
     colorIndex: 0,
+    colorReverse: false,
   },
   radius: 20,
   ranges: [0, 1],
