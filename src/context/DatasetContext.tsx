@@ -1,4 +1,4 @@
-import React, { createContext, useMemo, useState } from 'react';
+import React, { createContext, useEffect, useMemo, useState } from 'react';
 import { IDataset } from '../typings';
 import useIndexDBHook from '../hooks/indexdb';
 
@@ -29,6 +29,15 @@ const DatasetContextProvider: React.FC = ({ children }) => {
     }
     return datasetList.find((item) => item.id === selectDatasetId);
   }, [selectDatasetId, datasetList]);
+
+  useEffect(() => {
+    if (
+      selectDatasetId &&
+      !datasetList.find((dataset) => dataset.id === selectDatasetId)
+    ) {
+      setSelectDatasetId(null);
+    }
+  }, [datasetList, selectDatasetId]);
 
   return (
     <Provider
