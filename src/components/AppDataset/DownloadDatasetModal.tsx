@@ -46,7 +46,7 @@ const DownloadDatasetModal: React.FC<IProps> = ({
           value={downloadType}
         >
           <Radio value="json">导出JSON文件</Radio>
-          <Radio value="csv">导出CSV文件</Radio>
+          {!dataset?.geoJson?.enable && <Radio value="csv">导出CSV文件</Radio>}
         </Radio.Group>
       </Form.Item>
     </Modal>

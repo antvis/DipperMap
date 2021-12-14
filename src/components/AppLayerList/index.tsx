@@ -65,6 +65,10 @@ const AppLayerList: React.FC = () => {
 
   const onMouseMove = useCallback(
     (e: any, config: ILayerConfig) => {
+      // 热力图不具有查看标注的能力
+      if (config.layer.type === 'heat') {
+        return;
+      }
       const [targetInteractive] = filterByDatasetId(
         interactiveList,
         config.dataset.id,

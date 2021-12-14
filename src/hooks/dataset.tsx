@@ -11,6 +11,7 @@ import papaparse from 'papaparse';
 import { message } from 'antd';
 import { DATASET_COLOR_LIST } from '../constants';
 import { pullAll } from 'lodash';
+import { featureCollection } from '@turf/turf';
 
 const useDataset = () => {
   const { datasetList, setDatasetList } = useContext(DatasetModelContext);
@@ -118,12 +119,21 @@ const useDataset = () => {
 
   const downloadDataset = useCallback(
     (dataset: IDataset, type: IDatasetDownloadType = 'json') => {
-      const content =
-        type === 'json'
-          ? JSON.stringify(dataset.data, null, 2)
-          : papaparse.unparse(dataset.data, {
-              newline: '\n',
-            });
+      let content = '';
+      if (dataset.geoJson?.enable) {
+        content = JSON.stringify(
+          featureCollection(Object.values(dataset.geoJson.map).flat()),
+          null,
+          2,
+        );
+      } else {
+        content =
+          type === 'json'
+            ? JSON.stringify(dataset.data, null, 2)
+            : papaparse.unparse(dataset.data, {
+                newline: '\n',
+              });
+      }
       const blob = new Blob([content]);
       downloadFile(
         URL.createObjectURL(blob),
