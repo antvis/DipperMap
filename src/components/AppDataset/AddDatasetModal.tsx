@@ -17,6 +17,8 @@ import { getRandomId } from '../../utils';
 import { PropsModelContext } from '../../context/PropContext';
 import useLayer from '../../hooks/layer';
 import { LayerModelContext } from '../../context/LayerContext';
+import { FilterModelContext } from '../../context/FilterContext';
+import { InteractiveModelContext } from '../../context/InteractiveContext';
 
 interface IProps {
   visible: boolean;
@@ -57,6 +59,8 @@ const AddDatasetModal = ({
   const [form, setForm] = useState<IFormData>(DEFAULT_FORM);
   const [demoVisible, setDemoVisible] = useState(false);
   const { setLayerList } = useContext(LayerModelContext);
+  const { setFilterList } = useContext(FilterModelContext);
+  const { setInteractiveList } = useContext(InteractiveModelContext);
   const { demos = [] } = useContext(PropsModelContext);
   const { datasetList, setDatasetList } = useContext(DatasetModelContext);
   const { addLayer } = useLayer();
@@ -119,29 +123,41 @@ const AddDatasetModal = ({
     setDemoVisible(true);
   }, []);
 
-  function clickDemo(demo: IDemo) {
-    Promise.all(
-      demo.dataSrc.map(async (data) => {
-        const result = dataTransform({
-          data: await request(data.src),
-        });
-        return addDataset({
-          name: data.name,
-          url: data.src,
-          data: result.data,
-          fields: result.fields,
-          geoJson: result.geoJson,
-          id: data.datasetId || getRandomId('dataset'),
-        });
-      }),
-    ).then((res) => {
-      setDatasetList(res);
-      setLayerList(demo.layerList);
-      setDemoVisible(false);
-      setVisible(false);
-      message.success('读取示例成功');
-    });
-  }
+  const onDemoClick = useCallback(
+    (demo: IDemo) => {
+      Promise.all(
+        demo.dataSrc.map(async (data) => {
+          const result = dataTransform({
+            data: await request(data.src),
+          });
+          return addDataset({
+            name: data.name,
+            url: data.src,
+            data: result.data,
+            fields: result.fields,
+            geoJson: result.geoJson,
+            id: data.datasetId || getRandomId('dataset'),
+          });
+        }),
+      ).then((res) => {
+        setDatasetList(res);
+        setLayerList(demo.layerList);
+        setFilterList([]);
+        setInteractiveList([]);
+        setDemoVisible(false);
+        setVisible(false);
+        message.success('读取示例成功');
+      });
+    },
+    [
+      addDataset,
+      setDatasetList,
+      setFilterList,
+      setInteractiveList,
+      setLayerList,
+      setVisible,
+    ],
+  );
 
   useEffect(() => {
     if (!visible) {
@@ -237,7 +253,7 @@ const AddDatasetModal = ({
           <Col span={8} key={index}>
             <div
               className={styles['demo-item']}
-              onClick={() => clickDemo(demo)}
+              onClick={() => onDemoClick(demo)}
             >
               <img style={{ width: '100%', height: 106 }} src={demo.imgSrc} />
               <div className={styles['demo-name']}>{demo.demoName}</div>

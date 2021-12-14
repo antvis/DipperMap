@@ -9,7 +9,12 @@ const { TabPane } = Tabs;
 
 const AppEdit: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
   return (
-    <Tabs className={styles.appEdit} size="small" style={style}>
+    <Tabs
+      className={styles.appEdit}
+      size="small"
+      style={style}
+      destroyInactiveTabPane={true}
+    >
       <TabPane
         tab={
           <div>
