@@ -3,21 +3,7 @@ import { ILayer } from './layer';
 import { IFilter } from './filter';
 import { IInteractive } from './interactive';
 import { DeepPartial } from './common';
-
-export type IMapType = 'amap' | 'mapbox';
-
-export type IMapTheme =
-  | 'dark'
-  | 'normal'
-  | 'light'
-  | 'whitesmoke'
-  | 'fresh'
-  | 'grey'
-  | 'graffiti'
-  | 'macaron'
-  | 'blue'
-  | 'darkblue'
-  | 'wine';
+import { IMapTheme, IMapType } from './map';
 
 export type IBaseComponentProps<
   ValueType = string,

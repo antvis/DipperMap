@@ -1,5 +1,5 @@
 import React from 'react';
-import { IMapTheme, IMapType, IOption } from '../typings';
+import { IMapConfig, IMapTheme, IMapType, IOption } from '../typings';
 
 export const MAPBOX_THEME_LIST: IOption<IMapTheme>[] = [
   {
@@ -101,7 +101,7 @@ export const MAP_TYPES: IOption<IMapType>[] = [
   },
 ];
 
-export const DEFAULT_MAP_CONFIG = {
+export const DEFAULT_MAP_CONFIG: IMapConfig = {
   mapTheme: AMAP_THEME_LIST[0].value as IMapTheme,
   mapLayers: [],
   mapType: MAP_TYPES[0].value as IMapType,
