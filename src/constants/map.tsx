@@ -100,3 +100,11 @@ export const MAP_TYPES: IOption<IMapType>[] = [
     tooltip: '国外经纬度坐标系',
   },
 ];
+
+export const DEFAULT_MAP_CONFIG = {
+  mapTheme: AMAP_THEME_LIST[0].value as IMapTheme,
+  mapLayers: [],
+  mapType: MAP_TYPES[0].value as IMapType,
+  mapPitch: 0,
+  mapRotate: 0,
+};

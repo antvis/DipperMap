@@ -1,5 +1,4 @@
 import React, { createContext, useState } from 'react';
-import { IPlan } from '../typings';
 import { Scene } from '@antv/l7';
 
 export interface IProps {
@@ -7,8 +6,6 @@ export interface IProps {
   setScene: (newValue: Scene | null) => void;
   isPreview: boolean;
   setIsPreview: (newValue: boolean) => void;
-  selectPlan: IPlan | null;
-  setSelectPlan: (newPlan: IPlan | null) => void;
   loading: boolean;
   setLoading: (newValue: boolean) => void;
 }
@@ -23,7 +20,6 @@ export { Consumer };
 const GlobalContextProvider: React.FC = ({ children }) => {
   const [scene, setScene] = useState<Scene | null>(null);
   const [isPreview, setIsPreview] = useState(false);
-  const [selectPlan, setSelectPlan] = useState<IPlan | null>(null);
   const [loading, setLoading] = useState(false);
 
   return (
@@ -33,8 +29,6 @@ const GlobalContextProvider: React.FC = ({ children }) => {
         setLoading,
         isPreview,
         setIsPreview,
-        selectPlan,
-        setSelectPlan,
         scene,
         setScene,
       }}
