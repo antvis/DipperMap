@@ -44,7 +44,6 @@ export interface IDemo {
   name: string;
   imgSrc: string;
   demoName: string;
-  demoDataLines: number;
   dataSrc: {
     src: string;
     datasetId: string;

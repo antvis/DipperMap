@@ -257,7 +257,6 @@ const AddDatasetModal = ({
             >
               <img style={{ width: '100%', height: 106 }} src={demo.imgSrc} />
               <div className={styles['demo-name']}>{demo.demoName}</div>
-              <div className={styles['demo-lines']}>{demo.demoDataLines}</div>
             </div>
           </Col>
         ))}
