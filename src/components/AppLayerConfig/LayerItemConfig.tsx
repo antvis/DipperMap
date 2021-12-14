@@ -8,7 +8,7 @@ import TripLayer from './TripLayer';
 import PolygonLayer from './PolygonLayer';
 import HexLayer from './HexLayer';
 import HeatLayer from './HeatLayer';
-import useDataset from '../../hooks/dataset';
+import useDataset from '../../hooks/useDataset';
 
 const { Panel } = Collapse;
 

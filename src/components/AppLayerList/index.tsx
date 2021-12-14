@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import useDataset from '../../hooks/dataset';
+import useDataset from '../../hooks/useDataset';
 import { filterByDatasetId, filterData } from '../../utils';
 import type { ILayerConfig } from './LayerItem';
 import LayerItem from './LayerItem';

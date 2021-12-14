@@ -42,6 +42,12 @@ export interface IDatasetGeoJson {
   layerTypes: ILayerType[];
 }
 
+export interface IExportDataset {
+  src: string;
+  datasetId: string;
+  name: string;
+}
+
 export interface IDataset<P = Record<string, any>> extends IEntity {
   type: 'json' | 'csv';
   url?: string;

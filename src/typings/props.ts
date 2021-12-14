@@ -4,6 +4,7 @@ import { IFilter } from './filter';
 import { IInteractive } from './interactive';
 import { DeepPartial } from './common';
 import { IMapTheme, IMapType } from './map';
+import { IPlan } from './plan';
 
 export type IBaseComponentProps<
   ValueType = string,
@@ -40,16 +41,10 @@ export interface IComponentProps {
   interactive: IInteractiveConfig;
 }
 
-export interface IDemo {
+export interface IDemo extends IPlan {
   name: string;
   imgSrc: string;
   demoName: string;
-  dataSrc: {
-    src: string;
-    datasetId: string;
-    name: string;
-  }[];
-  layerList: ILayer[];
 }
 
 export interface IGlobalProps {

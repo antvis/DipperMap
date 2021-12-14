@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useMemo } from 'react';
 import { Empty } from 'antd';
-import useListHook from '../../hooks/list';
-import useLayer from '../../hooks/layer';
+import useList from '../../hooks/useList';
+import useLayer from '../../hooks/useLayer';
 import type { IDataset, ILayer } from '../../typings';
 import DragList from '../DragList';
 import LayerItemConfig from './LayerItemConfig';
@@ -14,7 +14,7 @@ const AppLayerConfig = () => {
   const { layerList, setLayerList } = useContext(LayerModelContext);
   const { selectDataset } = useContext(DatasetModelContext);
   const { addLayer, copyLayer, getDefaultConfig } = useLayer();
-  const { onDragEnd, onDelete, onChange, onEditName } = useListHook(
+  const { onDragEnd, onDelete, onChange, onEditName } = useList(
     layerList,
     setLayerList,
   );

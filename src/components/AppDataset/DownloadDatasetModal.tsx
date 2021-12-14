@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, ModalProps, Form, Radio } from 'antd';
 import { IDataset, IDatasetDownloadType } from '../../typings';
-import useDataset from '../../hooks/dataset';
+import useDataset from '../../hooks/useDataset';
 
 interface IProps extends ModalProps {
   dataset?: IDataset | null;

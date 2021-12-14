@@ -1,9 +1,9 @@
 import React, { useContext, useMemo } from 'react';
 import { Empty } from 'antd';
-import useFilter from '../../hooks/filter';
+import useFilter from '../../hooks/useFilter';
 import FilterItem from './FilterItem';
 import DragList from '../DragList';
-import useListHook from '../../hooks/list';
+import useList from '../../hooks/useList';
 import type { IDataset } from '../../typings';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import { filterByDatasetId } from '../../utils';
@@ -16,7 +16,7 @@ const AppFilterConfig = () => {
   const { filterList, setFilterList } = useContext(FilterModelContext);
   const { selectDataset } = useContext(DatasetModelContext);
   const { addFilter, copyFilter } = useFilter();
-  const { onEditName, onDragEnd, onDelete, onChange } = useListHook(
+  const { onEditName, onDragEnd, onDelete, onChange } = useList(
     filterList,
     setFilterList,
   );

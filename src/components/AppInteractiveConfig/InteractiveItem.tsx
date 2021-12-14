@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import type { IInteractive } from '../../typings';
 import EditName from '../EditName';
 import FieldSelect from '../FieldSelect';
-import useDataset from '../../hooks/dataset';
+import useDataset from '../../hooks/useDataset';
 import { Collapse, Popconfirm, Switch, Form } from 'antd';
 import { useRef } from 'react';
 import styles from './index.less';

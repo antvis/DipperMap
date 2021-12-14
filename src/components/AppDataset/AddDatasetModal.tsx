@@ -7,18 +7,16 @@ import React, {
 } from 'react';
 import { Modal, Input, Form, Radio, Upload, Row, Col, Button } from 'antd';
 import { message } from 'antd';
-import useDataset from '../../hooks/dataset';
+import useDataset from '../../hooks/useDataset';
 import request from 'umi-request';
 import styles from './index.less';
 import { dataTransform } from './dataTrans';
-import { IDemo } from '../../typings';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import { getRandomId } from '../../utils';
 import { PropsModelContext } from '../../context/PropContext';
-import useLayer from '../../hooks/layer';
-import { LayerModelContext } from '../../context/LayerContext';
-import { FilterModelContext } from '../../context/FilterContext';
-import { InteractiveModelContext } from '../../context/InteractiveContext';
+import useLayer from '../../hooks/useLayer';
+import usePlan from '../../hooks/usePlan';
+import { IPlan } from '../../typings';
 
 interface IProps {
   visible: boolean;
@@ -58,12 +56,10 @@ const AddDatasetModal = ({
   const { addDataset, getNewDatasetName } = useDataset();
   const [form, setForm] = useState<IFormData>(DEFAULT_FORM);
   const [demoVisible, setDemoVisible] = useState(false);
-  const { setLayerList } = useContext(LayerModelContext);
-  const { setFilterList } = useContext(FilterModelContext);
-  const { setInteractiveList } = useContext(InteractiveModelContext);
   const { demos = [] } = useContext(PropsModelContext);
   const { datasetList, setDatasetList } = useContext(DatasetModelContext);
   const { addLayer } = useLayer();
+  const { onImportPlan } = usePlan();
 
   const typeOptions = useMemo(
     () => [
@@ -124,39 +120,13 @@ const AddDatasetModal = ({
   }, []);
 
   const onDemoClick = useCallback(
-    (demo: IDemo) => {
-      Promise.all(
-        demo.dataSrc.map(async (data) => {
-          const result = dataTransform({
-            data: await request(data.src),
-          });
-          return addDataset({
-            name: data.name,
-            url: data.src,
-            data: result.data,
-            fields: result.fields,
-            geoJson: result.geoJson,
-            id: data.datasetId || getRandomId('dataset'),
-          });
-        }),
-      ).then((res) => {
-        setDatasetList(res);
-        setLayerList(demo.layerList);
-        setFilterList([]);
-        setInteractiveList([]);
-        setDemoVisible(false);
-        setVisible(false);
-        message.success('读取示例成功');
-      });
+    async (demo: IPlan) => {
+      await onImportPlan(demo);
+      setDemoVisible(false);
+      setVisible(false);
+      message.success('读取示例成功');
     },
-    [
-      addDataset,
-      setDatasetList,
-      setFilterList,
-      setInteractiveList,
-      setLayerList,
-      setVisible,
-    ],
+    [onImportPlan, setVisible],
   );
 
   useEffect(() => {

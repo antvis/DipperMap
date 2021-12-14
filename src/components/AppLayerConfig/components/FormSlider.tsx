@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, InputNumber, Slider } from 'antd';
+import { Form, Slider } from 'antd';
 import { LAYER_SLIDER_RANGE } from '../../../constants';
 
 interface IProps {

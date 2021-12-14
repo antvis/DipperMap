@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { IInteractive } from '../typings';
-import useIndexDBHook from '../hooks/indexdb';
+import useIndexdb from '../hooks/useIndexdb';
 
 export interface IProps {
   interactiveList: IInteractive[];
@@ -17,7 +17,7 @@ export { Consumer };
 const InteractiveContextProvider: React.FC = ({ children }) => {
   const [interactiveList, setInteractiveList] = useState<IInteractive[]>([]);
 
-  useIndexDBHook(interactiveList, setInteractiveList, 'INTERACTIVE_LIST', []);
+  useIndexdb(interactiveList, setInteractiveList, 'INTERACTIVE_LIST', []);
 
   return (
     <Provider

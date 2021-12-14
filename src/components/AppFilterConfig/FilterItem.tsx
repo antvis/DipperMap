@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import type { IDatasetField, IFilter } from '../../typings';
 import EditName from '../EditName';
 import FieldSelect from '../FieldSelect';
-import useDataset from '../../hooks/dataset';
+import useDataset from '../../hooks/useDataset';
 import { Collapse, Dropdown, Menu, Popconfirm, Switch, Form } from 'antd';
 import FilterValue from '../AppFilterConfig/FilterValue';
 import { useRef } from 'react';

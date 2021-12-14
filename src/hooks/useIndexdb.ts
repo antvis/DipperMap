@@ -10,7 +10,7 @@ import { useDebounceEffect } from 'ahooks';
  * @param key
  * @param defaultValue
  */
-const useIndexDBHook: <P>(
+const useIndexdb: <P>(
   state: P,
   setState: (newList: P) => void,
   key: STORE_KEY_TYPE,
@@ -33,4 +33,4 @@ const useIndexDBHook: <P>(
   );
 };
 
-export default useIndexDBHook;
+export default useIndexdb;

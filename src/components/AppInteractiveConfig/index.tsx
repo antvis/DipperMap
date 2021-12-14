@@ -3,10 +3,10 @@ import { IDataset } from '../../typings';
 import AddBtn from '../AppEdit/AddBtn';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import { filterByDatasetId } from '../../utils';
-import useInteractive from '../../hooks/interactive';
+import useInteractive from '../../hooks/useInteractive';
 import { Empty } from 'antd';
 import DragList from '../DragList';
-import useListHook from '../../hooks/list';
+import useList from '../../hooks/useList';
 import InteractiveItem from './InteractiveItem';
 import { InteractiveModelContext } from '../../context/InteractiveContext';
 
@@ -17,7 +17,7 @@ const AppInteractiveConfig = () => {
 
   const { selectDataset } = useContext(DatasetModelContext);
 
-  const { onEditName, onDragEnd, onDelete, onChange } = useListHook(
+  const { onEditName, onDragEnd, onDelete, onChange } = useList(
     interactiveList,
     setInteractiveList,
   );

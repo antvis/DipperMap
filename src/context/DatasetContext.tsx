@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useMemo, useState } from 'react';
 import { IDataset } from '../typings';
-import useIndexDBHook from '../hooks/indexdb';
+import useIndexdb from '../hooks/useIndexdb';
 
 export interface IProps {
   datasetList: IDataset[];
@@ -21,7 +21,7 @@ const DatasetContextProvider: React.FC = ({ children }) => {
   const [datasetList, setDatasetList] = useState<IDataset[]>([]);
   const [selectDatasetId, setSelectDatasetId] = useState<string | null>(null);
 
-  useIndexDBHook(datasetList, setDatasetList, 'DATASET_LIST', []);
+  useIndexdb(datasetList, setDatasetList, 'DATASET_LIST', []);
 
   const selectDataset = useMemo(() => {
     if (!selectDatasetId) {

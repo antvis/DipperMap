@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { ILayer } from '../typings';
-import useIndexDBHook from '../hooks/indexdb';
+import useIndexdb from '../hooks/useIndexdb';
 
 export interface IProps {
   layerList: ILayer[];
@@ -17,7 +17,7 @@ export { Consumer };
 const LayerContextProvider: React.FC = ({ children }) => {
   const [layerList, setLayerList] = useState<ILayer[]>([]);
 
-  useIndexDBHook(layerList, setLayerList, 'LAYER_LIST', []);
+  useIndexdb(layerList, setLayerList, 'LAYER_LIST', []);
 
   return (
     <Provider

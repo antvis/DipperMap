@@ -4,9 +4,9 @@ import { Empty, Popconfirm, Tooltip, Modal, Menu, Dropdown } from 'antd';
 import DragList from '../DragList';
 import type { IDataset } from '../../typings';
 import DatasetDetailDrawer from './DatasetDetailDrawer';
-import useDataset from '../../hooks/dataset';
+import useDataset from '../../hooks/useDataset';
 import classnames from 'classnames';
-import useListHook from '../../hooks/list';
+import useList from '../../hooks/useList';
 import EditName from '../EditName';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import { CloudDownloadOutlined } from '@ant-design/icons';
@@ -28,7 +28,7 @@ export default function DatasetList({ className }: IProps) {
     InteractiveModelContext,
   );
 
-  const { onDragEnd, onEditName, onDelete } = useListHook(
+  const { onDragEnd, onEditName, onDelete } = useList(
     datasetList,
     setDatasetList,
   );

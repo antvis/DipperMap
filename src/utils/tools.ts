@@ -1,7 +1,5 @@
 import { v4 } from 'uuid';
-import { IDatasetField, IEntity } from '../typings';
-import papaparse from 'papaparse';
-import { message } from 'antd';
+import { IEntity } from '../typings';
 
 /**
  * 获取随机的id

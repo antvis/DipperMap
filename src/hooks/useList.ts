@@ -2,7 +2,10 @@ import { useCallback } from 'react';
 import { message } from 'antd';
 import type { IEntity } from '../typings';
 
-const useListHook = <P extends IEntity>(list: P[], setList: (newList: P[]) => void) => {
+const useList = <P extends IEntity>(
+  list: P[],
+  setList: (newList: P[]) => void,
+) => {
   const onChange = useCallback(
     (newItem: Partial<P>) => {
       const newList = [...list];
@@ -23,7 +26,9 @@ const useListHook = <P extends IEntity>(list: P[], setList: (newList: P[]) => vo
       if (oldName === newName) {
         return;
       }
-      const repeatNameItem = list.find((item) => item.name === newName && item.id !== id);
+      const repeatNameItem = list.find(
+        (item) => item.name === newName && item.id !== id,
+      );
       if (repeatNameItem) {
         message.error('名称与其他项重复');
         return;
@@ -69,4 +74,4 @@ const useListHook = <P extends IEntity>(list: P[], setList: (newList: P[]) => vo
   };
 };
 
-export default useListHook;
+export default useList;

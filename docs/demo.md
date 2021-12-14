@@ -21,7 +21,7 @@ const DEMOS = [
   {
     imgSrc:
       'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*rePPSLfuXmsAAAAAAAAAAAAAARQnAQ',
-    dataSrc: [
+    exportDatasetList: [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/ba077ba7-2a28-435f-b163-4def4a3c874d.json',
         datasetId: 'Point',
@@ -68,7 +68,7 @@ const DEMOS = [
   {
     imgSrc:
       'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*SLbgR72KKFsAAAAAAAAAAAAAARQnAQ',
-    dataSrc: [
+    exportDatasetList: [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/0a544b66-a04b-4b98-9b69-d71258f5f577.json',
         datasetId: 'arc-line',
@@ -109,7 +109,7 @@ const DEMOS = [
   {
     imgSrc:
       'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*pZBySbhAUp4AAAAAAAAAAAAAARQnAQ',
-    dataSrc: [
+    exportDatasetList: [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/1ee29c43-eefe-4bbe-8ed6-87f64312c461.json',
         datasetId: 'line-demo-2',
@@ -150,7 +150,7 @@ const DEMOS = [
   {
     imgSrc:
       'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*8lyORIRMDNYAAAAAAAAAAAAAARQnAQ',
-    dataSrc: [
+    exportDatasetList: [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/5c4fdc5c-5cf7-46da-a361-f377938553dc.json',
         datasetId: 'heat-demo-1',
@@ -194,7 +194,7 @@ const DEMOS = [
   {
     imgSrc:
       'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*-TojSYrHg5QAAAAAAAAAAAAAARQnAQ',
-    dataSrc: [
+    exportDatasetList: [
       {
         src: 'https://gw.alipayobjects.com/os/bmw-prod/b417528c-5d29-40f1-86cb-fd2879e56681.json',
         datasetId: 'cylinder-demo-1',
@@ -243,7 +243,7 @@ const DEMOS = [
     demoName: '面图层示例',
     imgSrc:
       'https://gw.alipayobjects.com/mdn/rms_e7e1c6/afts/img/A*0W_dSre5Tq4AAAAAAAAAAAAAARQnAQ',
-    dataSrc: [
+    exportDatasetList: [
       {
         name: '中国地图省级',
         datasetId: 'China',

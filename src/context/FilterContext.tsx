@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { IFilter } from '../typings';
-import useIndexDBHook from '../hooks/indexdb';
+import useIndexdb from '../hooks/useIndexdb';
 
 export interface IProps {
   filterList: IFilter[];
@@ -17,7 +17,7 @@ export { Consumer };
 const FilterContextProvider: React.FC = ({ children }) => {
   const [filterList, setFilterList] = useState<IFilter[]>([]);
 
-  useIndexDBHook(filterList, setFilterList, 'FILTER_LIST', []);
+  useIndexdb(filterList, setFilterList, 'FILTER_LIST', []);
 
   return (
     <Provider
