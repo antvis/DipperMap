@@ -4,8 +4,8 @@ import { IMapConfig, IMapTheme, IMapType } from '../typings';
 import { useLocalStorageState } from 'ahooks';
 
 export interface IProps {
-  mapTheme: string;
-  setMapTheme: (value: string) => void;
+  mapTheme: IMapTheme;
+  setMapTheme: (value: IMapTheme) => void;
   mapType: IMapType;
   setMapType: (value: IMapType) => void;
   mapPitch: number;
@@ -65,7 +65,6 @@ const MapContextProvider: React.FC = ({ children }) => {
     <Provider
       value={{
         mapTheme,
-        // @ts-ignore
         setMapTheme,
         mapLayers,
         setMapLayers,
