@@ -20,6 +20,8 @@ export interface IDatasetNumberField<T = string> {
   range: [number, number];
 }
 
+export type IDatasetDownloadType = 'json' | 'csv';
+
 export interface IDatasetBooleanField<T = string> {
   type: 'boolean';
   name: T | string;
@@ -40,6 +42,12 @@ export interface IDatasetGeoJson {
   layerTypes: ILayerType[];
 }
 
+export interface IExportDataset {
+  src: string;
+  datasetId: string;
+  name: string;
+}
+
 export interface IDataset<P = Record<string, any>> extends IEntity {
   type: 'json' | 'csv';
   url?: string;
@@ -47,4 +55,5 @@ export interface IDataset<P = Record<string, any>> extends IEntity {
   fields: IDatasetField<keyof P>[];
   id: string;
   geoJson?: IDatasetGeoJson;
+  markColor?: string | null;
 }

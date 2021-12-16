@@ -1,20 +1,20 @@
 import React, { useCallback, useContext, useMemo } from 'react';
 import { Empty } from 'antd';
-import useListHook from '../../hooks/list';
-import useLayer from '../../hooks/layer';
+import useList from '../../hooks/useList';
+import useLayer from '../../hooks/useLayer';
 import type { IDataset, ILayer } from '../../typings';
 import DragList from '../DragList';
 import LayerItemConfig from './LayerItemConfig';
-import { ConfigModelContext } from '../../context/ConfigContext';
 import { filterByDatasetId } from '../../utils';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import AddBtn from '../AppEdit/AddBtn';
+import { LayerModelContext } from '../../context/LayerContext';
 
 const AppLayerConfig = () => {
-  const { layerList, setLayerList } = useContext(ConfigModelContext);
+  const { layerList, setLayerList } = useContext(LayerModelContext);
   const { selectDataset } = useContext(DatasetModelContext);
   const { addLayer, copyLayer, getDefaultConfig } = useLayer();
-  const { onDragEnd, onDelete, onChange, onEditName } = useListHook(
+  const { onDragEnd, onDelete, onChange, onEditName } = useList(
     layerList,
     setLayerList,
   );

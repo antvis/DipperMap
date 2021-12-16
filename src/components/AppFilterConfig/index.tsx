@@ -1,22 +1,22 @@
 import React, { useContext, useMemo } from 'react';
 import { Empty } from 'antd';
-import useFilter from '../../hooks/filter';
+import useFilter from '../../hooks/useFilter';
 import FilterItem from './FilterItem';
 import DragList from '../DragList';
-import useListHook from '../../hooks/list';
+import useList from '../../hooks/useList';
 import type { IDataset } from '../../typings';
-import { ConfigModelContext } from '../../context/ConfigContext';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import { filterByDatasetId } from '../../utils';
 import AddBtn from '../AppEdit/AddBtn';
 import classnames from 'classnames';
 import styles from './index.less';
+import { FilterModelContext } from '../../context/FilterContext';
 
 const AppFilterConfig = () => {
-  const { filterList, setFilterList } = useContext(ConfigModelContext);
+  const { filterList, setFilterList } = useContext(FilterModelContext);
   const { selectDataset } = useContext(DatasetModelContext);
   const { addFilter, copyFilter } = useFilter();
-  const { onEditName, onDragEnd, onDelete, onChange } = useListHook(
+  const { onEditName, onDragEnd, onDelete, onChange } = useList(
     filterList,
     setFilterList,
   );

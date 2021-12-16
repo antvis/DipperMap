@@ -38,11 +38,11 @@ const PointLayer = ({ layer, onChange }: IProps) => {
         },
       });
     }
-  }, [targetDataset?.data.length]);
+  }, [form, targetDataset?.data.length]);
 
   useEffect(() => {
     form.setFieldsValue(layer.config);
-  }, [layer.config]);
+  }, [form, layer.config]);
 
   return (
     <Form

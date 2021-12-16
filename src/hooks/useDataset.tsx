@@ -1,7 +1,17 @@
-import type { IDataset, IDatasetField } from '../typings';
-import { generateUnRepeatValue, getRandomId } from '../utils/tools';
+import { CSSProperties } from 'react';
+import type { IDataset, IDatasetDownloadType, IDatasetField } from '../typings';
+import {
+  downloadFile,
+  generateUnRepeatValue,
+  getRandomId,
+} from '../utils/tools';
 import { useCallback, useContext } from 'react';
 import { DatasetModelContext } from '../context/DatasetContext';
+import papaparse from 'papaparse';
+import { message } from 'antd';
+import { DATASET_COLOR_LIST } from '../constants';
+import { pullAll } from 'lodash';
+import { featureCollection } from '@turf/turf';
 
 const useDataset = () => {
   const { datasetList, setDatasetList } = useContext(DatasetModelContext);
@@ -12,6 +22,18 @@ const useDataset = () => {
       'name',
       '数据源',
     );
+  }, [datasetList]);
+
+  const getNewMarkColor = useCallback(() => {
+    const exitColorList = datasetList
+      .map((dataset) => dataset.markColor)
+      .filter((item) => !!item) as string[];
+
+    const freeMarkColor = pullAll([...DATASET_COLOR_LIST], exitColorList);
+    if (freeMarkColor.length) {
+      return freeMarkColor[0];
+    }
+    return `#${Math.floor(Math.random() * 256 * 256 * 256).toString(16)}`;
   }, [datasetList]);
 
   // @ts-ignore
@@ -26,9 +48,10 @@ const useDataset = () => {
           order: datasetList.length + 1,
           createTime: Date.now(),
           name: params.name || getNewDatasetName(),
+          markColor: getNewMarkColor(),
         } as IDataset;
       },
-      [datasetList, getNewDatasetName],
+      [datasetList.length, getNewDatasetName, getNewMarkColor],
     );
 
   const copyDataset = useCallback(
@@ -39,13 +62,14 @@ const useDataset = () => {
         name: getNewDatasetName(),
         order: datasetList.length + 1,
         createTime: Date.now(),
+        markColor: getNewMarkColor(),
       };
 
       setDatasetList([...datasetList, newDataset]);
-
+      message.success('复制成功');
       return newDataset;
     },
-    [datasetList, getNewDatasetName, setDatasetList],
+    [datasetList, getNewDatasetName, getNewMarkColor, setDatasetList],
   );
 
   const getTargetDataset = useCallback(
@@ -93,11 +117,51 @@ const useDataset = () => {
     [],
   );
 
+  const downloadDataset = useCallback(
+    (dataset: IDataset, type: IDatasetDownloadType = 'json') => {
+      let content = '';
+      if (dataset.geoJson?.enable) {
+        content = JSON.stringify(
+          featureCollection(Object.values(dataset.geoJson.map).flat()),
+        );
+      } else {
+        content =
+          type === 'json'
+            ? JSON.stringify(dataset.data)
+            : papaparse.unparse(dataset.data, {
+                newline: '\n',
+              });
+      }
+      downloadFile(content, `${dataset.name}.${type}`);
+    },
+    [],
+  );
+
+  const getDatasetMarkStyle = useCallback(
+    (datasetId?: string | null) => {
+      let color = 'rgba(0, 0, 0, 0)';
+      if (datasetId) {
+        const target = datasetList.find((item) => item.id === datasetId);
+        if (target) {
+          color = target.markColor ?? getNewMarkColor();
+        }
+      }
+      const style: CSSProperties = {
+        borderLeft: `2px solid ${color}`,
+      };
+      return style;
+    },
+    [datasetList, getNewMarkColor],
+  );
+
   return {
     addDataset,
     getNewDatasetName,
     copyDataset,
     getTargetDataset,
+    downloadDataset,
+    getDatasetMarkStyle,
+    getNewDatasetFields,
   };
 };
 

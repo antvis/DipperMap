@@ -63,54 +63,56 @@ function getLayerKey(layer: ILayer, index: number) {
   return `${commonKey}-${opacity}`;
 }
 
-const LayerItem: React.FC<IProps> = React.memo(
-  ({ config, event, propsList }) => {
-    const { layer, data, dataset } = config;
+const LayerItem: React.FC<IProps> = React.memo(function LayerItem({
+  config,
+  event,
+  propsList,
+}) {
+  const { layer, data, dataset } = config;
 
-    const [source, setSource] = useState<ISourceOptions>({
-      data: featureCollection([]),
-    });
-    const [isFirstLoaded, setIsFirstLoaded] = useState(false);
+  const [source, setSource] = useState<ISourceOptions>({
+    data: featureCollection([]),
+  });
+  const [isFirstLoaded, setIsFirstLoaded] = useState(false);
 
-    useDebounceEffect(
-      () => {
-        setSource(transformSource(layer, data, dataset));
-      },
-      [data, dataset, JSON.stringify(layer)],
-      {
-        wait: 200,
-      },
-    );
+  useDebounceEffect(
+    () => {
+      setSource(transformSource(layer, data, dataset));
+    },
+    [data, dataset, JSON.stringify(layer)],
+    {
+      wait: 200,
+    },
+  );
 
-    const LayerComponent = useMemo(() => {
-      return LAYER_COMPONENT_MAP[layer.type];
-    }, [layer.type]);
+  const LayerComponent = useMemo(() => {
+    return LAYER_COMPONENT_MAP[layer.type];
+  }, [layer.type]);
 
-    return (
-      <>
-        {propsList?.map((props, propsIndex) => {
-          const key = getLayerKey(layer, propsIndex);
-          return LayerComponent && source.data.features.length ? (
-            <ErrorBoundary key={key}>
-              <LayerComponent
-                key={getLayerKey(layer, propsIndex) + '-layer'}
-                {...props}
-                source={source}
-                onLayerLoaded={(layer) => {
-                  if (!isFirstLoaded) {
-                    layer.fitBounds();
-                    setIsFirstLoaded(true);
-                  }
-                }}
-              >
-                {event}
-              </LayerComponent>
-            </ErrorBoundary>
-          ) : null;
-        })}
-      </>
-    );
-  },
-);
+  return (
+    <>
+      {propsList?.map((props, propsIndex) => {
+        const key = getLayerKey(layer, propsIndex);
+        return LayerComponent && source.data.features.length ? (
+          <ErrorBoundary key={key}>
+            <LayerComponent
+              key={getLayerKey(layer, propsIndex) + '-layer'}
+              {...props}
+              source={source}
+              onLayerLoaded={(layer) => {
+                if (!isFirstLoaded) {
+                  layer.fitBounds();
+                  setIsFirstLoaded(true);
+                }
+              }}
+            >
+              {event}
+            </LayerComponent>
+          </ErrorBoundary>
+        ) : null;
+      })}
+    </>
+  );
+});
 
 export default LayerItem;

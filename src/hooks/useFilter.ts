@@ -2,10 +2,10 @@ import type { IFilter, IDataset } from '../typings';
 import { generateUnRepeatValue, getRandomId } from '../utils/tools';
 import { useCallback, useContext } from 'react';
 import { cloneDeep } from 'lodash';
-import { ConfigModelContext } from '../context/ConfigContext';
+import { FilterModelContext } from '../context/FilterContext';
 
 const useFilter = () => {
-  const { filterList, setFilterList } = useContext(ConfigModelContext);
+  const { filterList, setFilterList } = useContext(FilterModelContext);
 
   const addFilter: (dataset: IDataset) => IFilter = useCallback(
     (dataset) => {

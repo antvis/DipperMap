@@ -1,8 +1,7 @@
 import React from 'react';
 import FieldSelect from '../../../FieldSelect';
-import { IDatasetField, ILayerFieldColor } from '../../../../typings';
-import { FIELD_COLOR_MAP } from '../../../../constants';
-import { Form } from '_antd@4.16.13@antd';
+import { IDatasetField } from '../../../../typings';
+import { Form } from 'antd';
 
 interface IProps {
   value?: string;
@@ -12,19 +11,15 @@ interface IProps {
   fields: IDatasetField[];
 }
 
-const ColorField: React.FC<IProps> = ({
-  value,
-  onChange,
-  range,
-  field,
-  fields = [],
-}) => {
+const ColorField: React.FC<IProps> = ({ field, fields = [] }) => {
   return (
     <Form.Item label="展示更多" name={[field, 'field']}>
       <FieldSelect
         fields={fields}
         allowClear
-        onChange={(field?: string | string[] | null) => {}}
+        onChange={(field?: string | string[] | null) => {
+          console.log(field);
+        }}
       />
     </Form.Item>
   );

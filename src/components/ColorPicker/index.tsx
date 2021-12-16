@@ -2,8 +2,6 @@ import * as React from 'react';
 import { Button, Popover } from 'antd';
 import { SketchPicker } from 'react-color';
 import styles from './index.less';
-import { useEffect } from 'react';
-import { DEFAULT_COLOR1 } from '../../constants';
 
 interface IProps {
   value?: string;
@@ -31,7 +29,7 @@ export const ColorPicker = React.memo((props: IProps) => {
     (color) => {
       onChange?.(color.hex);
     },
-    [onChange, value],
+    [onChange],
   );
 
   return (

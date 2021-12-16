@@ -6,6 +6,8 @@ import type {
 } from '../typings';
 import md5 from 'md5';
 import { getDBStore, setDBStore } from './indexdb';
+import { isEqual } from 'lodash';
+import { getFilterRange } from './tools';
 
 /**
  * 获取dataset和filters的唯一映射值
@@ -36,14 +38,33 @@ export const filterData = async (dataset: IDataset, filters: IFilter[]) => {
     return targetData;
   }
 
+  // 去除无用的filter
+  const usableFilters = filters.filter((filter) => {
+    if (filter.field.type === 'number') {
+      const {
+        value,
+        field: { range },
+      } = filter as INumberFilter;
+      if (range[0] === range[1]) {
+        return false;
+      }
+      return !isEqual(value, getFilterRange(filter.field.range));
+    }
+    if (filter.field.type === 'string') {
+      const { value } = filter as IStringFilter;
+      if (!value.length) {
+        return false;
+      }
+      return value.length !== filter.field.uniqueValues.length;
+    }
+    return true;
+  });
+
   const computedResult = dataset.data.filter((item) => {
-    return filters.every((filter) => {
+    return usableFilters.every((filter) => {
       const { name } = filter.field;
       if (filter.field.type === 'string') {
         const { value } = filter as IStringFilter;
-        if (!value.length) {
-          return true;
-        }
         return value.includes(item[name]);
       }
       if (filter.field.type === 'number') {

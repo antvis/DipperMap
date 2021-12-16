@@ -29,7 +29,7 @@ const EditName = ({ name, onChange, className }: IProps) => {
       message.success('名称修改成功');
     }
     setIsEdit(false);
-  }, [onChange, cacheName, setIsEdit]);
+  }, [cacheName, name, onChange]);
 
   return (
     <div className={classnames([styles.editName, className])}>

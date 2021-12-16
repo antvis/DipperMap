@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import LayerTypeSelect from './components/LayerTypeSelect';
 import { Form, Select } from 'antd';
 import type {
@@ -29,7 +29,7 @@ const HeatLayer = ({ layer, onChange }: IProps) => {
 
   useEffect(() => {
     form.setFieldsValue(layer.config);
-  }, [layer.config]);
+  }, [form, layer.config]);
 
   return (
     <Form

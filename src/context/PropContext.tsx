@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react';
-import { IGlobalProps, IPlan } from '../typings';
+import React, { createContext } from 'react';
+import { IGlobalProps } from '../typings';
 
 // @ts-ignore
 export const PropsModelContext = createContext<IGlobalProps>();

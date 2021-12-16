@@ -1,17 +1,21 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { LOCAL_STORAGE_KEY, MAP_THEME_LIST, MAP_TYPES } from '../constants';
-import { PropsModelContext } from './PropContext';
-import { IMapType } from '../typings';
+import React, { createContext, useCallback, useMemo } from 'react';
+import { LOCAL_STORAGE_KEY, DEFAULT_MAP_CONFIG } from '../constants';
+import { IMapConfig, IMapTheme, IMapType } from '../typings';
+import { useLocalStorageState } from 'ahooks';
 
 export interface IProps {
-  mapTheme: string;
-  setMapTheme: (value: string) => void;
+  mapTheme: IMapTheme;
+  setMapTheme: (value: IMapTheme) => void;
   mapType: IMapType;
   setMapType: (value: IMapType) => void;
   mapPitch: number;
   setMapPitch: (value: number) => void;
   mapRotate: number;
   setMapRotate: (value: number) => void;
+  mapLayers: string[];
+  setMapLayers: (value: string[]) => void;
+  mapConfig: IMapConfig;
+  setMapConfig: (value: IMapConfig) => void;
 }
 
 // @ts-ignore
@@ -22,52 +26,68 @@ const { Provider, Consumer } = MapModelContext;
 export { Consumer };
 
 const MapContextProvider: React.FC = ({ children }) => {
-  const { component } = useContext(PropsModelContext);
-
-  const [mapTheme, setMapTheme] = useState(
-    localStorage.getItem(LOCAL_STORAGE_KEY.MAP_THEME) ??
-      MAP_THEME_LIST[0].value,
-  );
-  const [mapType, setMapType] = useState<IMapType>(
-    (localStorage.getItem(LOCAL_STORAGE_KEY.MAP_TYPE) ??
-      MAP_TYPES[0].value) as IMapType,
+  const [mapTheme, setMapTheme] = useLocalStorageState<IMapTheme>(
+    LOCAL_STORAGE_KEY.MAP_THEME,
+    DEFAULT_MAP_CONFIG.mapTheme,
   );
 
-  const [mapPitch, setMapPitch] = useState<number>(
-    +(localStorage.getItem(LOCAL_STORAGE_KEY.MAP_PITCH) ?? 0),
+  const [mapLayers, setMapLayers] = useLocalStorageState<string[]>(
+    LOCAL_STORAGE_KEY.MAP_LAYER,
+    DEFAULT_MAP_CONFIG.mapLayers,
   );
 
-  const [mapRotate, setMapRotate] = useState<number>(
-    +(localStorage.getItem(LOCAL_STORAGE_KEY.MAP_ROTATE) ?? 0),
+  const [mapType, setMapType] = useLocalStorageState<IMapType>(
+    LOCAL_STORAGE_KEY.MAP_TYPE,
+    DEFAULT_MAP_CONFIG.mapType,
   );
 
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY.MAP_THEME, mapTheme);
-  }, [mapTheme]);
+  const [mapPitch, setMapPitch] = useLocalStorageState<number>(
+    LOCAL_STORAGE_KEY.MAP_PITCH,
+    DEFAULT_MAP_CONFIG.mapPitch,
+  );
 
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY.MAP_TYPE, mapType);
-  }, [mapType]);
+  const [mapRotate, setMapRotate] = useLocalStorageState<number>(
+    LOCAL_STORAGE_KEY.MAP_ROTATE,
+    DEFAULT_MAP_CONFIG.mapRotate,
+  );
 
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY.MAP_PITCH, `${mapPitch}`);
-  }, [mapPitch]);
+  const mapConfig = useMemo(
+    () => ({
+      mapTheme,
+      mapLayers,
+      mapType,
+      mapPitch,
+      mapRotate,
+    }),
+    [mapLayers, mapPitch, mapRotate, mapTheme, mapType],
+  );
 
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY.MAP_ROTATE, `${mapRotate}`);
-  }, [mapRotate]);
+  const setMapConfig = useCallback(
+    (mapConfig: IMapConfig) => {
+      setMapTheme(mapConfig.mapTheme);
+      setMapLayers(mapConfig.mapLayers);
+      setMapType(mapConfig.mapType);
+      setMapPitch(mapConfig.mapPitch);
+      setMapRotate(mapConfig.mapRotate);
+    },
+    [setMapLayers, setMapPitch, setMapRotate, setMapTheme, setMapType],
+  );
 
   return (
     <Provider
       value={{
         mapTheme,
         setMapTheme,
+        mapLayers,
+        setMapLayers,
         mapType,
         setMapType,
         mapPitch,
         setMapPitch,
         mapRotate,
         setMapRotate,
+        mapConfig,
+        setMapConfig,
       }}
     >
       {children}

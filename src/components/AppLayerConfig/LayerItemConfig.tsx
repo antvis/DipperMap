@@ -1,14 +1,14 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { Collapse, Dropdown, Menu, Popconfirm, Switch } from 'antd';
 import type { ILayer } from '../../typings';
 import EditName from '../EditName';
-import DatasetModal from '../DatasetModal';
 import PointLayer from './PointLayer';
 import LineLayer from './LineLayer';
 import TripLayer from './TripLayer';
 import PolygonLayer from './PolygonLayer';
 import HexLayer from './HexLayer';
 import HeatLayer from './HeatLayer';
+import useDataset from '../../hooks/useDataset';
 
 const { Panel } = Collapse;
 
@@ -30,10 +30,14 @@ const LayerItemConfig = ({
   onCopy,
 }: IProps) => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
+  const { getDatasetMarkStyle } = useDataset();
 
   const header = (
-    <div className="editItemHeader" onClick={(e) => e.stopPropagation()}>
+    <div
+      className="editItemHeader"
+      style={getDatasetMarkStyle(layer.datasetId)}
+      onClick={(e) => e.stopPropagation()}
+    >
       {dragIcon}
       <EditName
         name={layer.name}
@@ -53,13 +57,8 @@ const LayerItemConfig = ({
         />
 
         <Dropdown
-          getPopupContainer={() => dropdownRef.current ?? document.body}
           overlay={
-            <Menu className="editItemDropdown">
-              <Menu.Item key="changeDataset" onClick={() => setVisible(true)}>
-                <i className="dpiconfont dpicon-genggaishujuyuan" />
-                更改数据源
-              </Menu.Item>
+            <Menu className="operateDropdown">
               <Menu.Item key="copyLayer" onClick={() => onCopy(layer)}>
                 <i className="dpiconfont dpicon-fuzhi1" />
                 复制图层
@@ -69,9 +68,9 @@ const LayerItemConfig = ({
                 placement="bottom"
                 onConfirm={() => onDelete(layer)}
               >
-                <Menu.Item>
+                <Menu.Item key="delete">
                   <i className="dpiconfont dpicon-shanchu is-red-link" />
-                  删除
+                  删除图层
                 </Menu.Item>
               </Popconfirm>
             </Menu>
@@ -115,18 +114,6 @@ const LayerItemConfig = ({
           {content}
         </Panel>
       </Collapse>
-
-      <DatasetModal
-        visible={visible}
-        setVisible={setVisible}
-        value={layer.datasetId ?? undefined}
-        onChange={(datasetId) =>
-          onChange({
-            id: layer.id,
-            datasetId,
-          })
-        }
-      />
     </>
   );
 };

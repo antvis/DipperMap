@@ -1,4 +1,5 @@
 import type {
+  IColorType,
   IDataset,
   IHeatLayer,
   IHexLayer,
@@ -17,10 +18,16 @@ import { featureCollection, lineString, point, polygon } from '@turf/turf';
 import type { ISourceOptions } from '@antv/l7-react/es/component/LayerAttribute';
 import type { ILayerProps } from '@antv/l7-react/lib/component/LayerAttribute';
 import { h3ToGeoBoundary } from 'h3-js';
-import { cloneDeep, merge } from 'lodash';
+import { cloneDeep, isEqual, merge } from 'lodash';
 import { message } from 'antd';
 import bundle from '../../utils/lineBundle';
-import { FIELD_COLOR_MAP, POINT_TO_SQUARE_LIMIT } from '../../constants';
+import {
+  FIELD_COLOR_MAP,
+  LAYER_POINT_HEIGHT_RANGE,
+  LAYER_POLYGON_HEIGHT_RANGE,
+  LAYER_SLIDER_RANGE,
+  POINT_TO_SQUARE_LIMIT,
+} from '../../constants';
 
 export const getPointList: (coordinates: string) => number[][] = (
   coordinates,
@@ -38,8 +45,25 @@ export const transformSource: (
   const { type } = layer;
 
   if (dataset?.geoJson?.enable) {
+    const features = dataset?.geoJson?.map[type] ?? [];
+    if (data.length === features.length) {
+      return {
+        data: featureCollection(features),
+      };
+    }
+
+    if (!data.length) {
+      return {
+        data: featureCollection([]),
+      };
+    }
+
     return {
-      data: featureCollection(dataset?.geoJson?.map[type] ?? []),
+      data: featureCollection(
+        features.filter((feature) =>
+          data.find((item) => isEqual(feature.properties, item)),
+        ),
+      ),
     };
   }
 
@@ -169,15 +193,19 @@ const getCommonLayerProps: (layer: ILayer) => Partial<ILayerProps> = (
       zIndex: layer.zIndex,
       opacity: layer.config.opacity / 100 ?? 1,
     },
-    active: {
-      option: {
-        color: 'yellow',
-      },
-    },
     shape: {
       values: 'fill',
     },
   };
+};
+
+export const getFieldColorList = (
+  colorIndex: number,
+  colorType: IColorType,
+  colorReverse: boolean,
+) => {
+  const colorList = [...(FIELD_COLOR_MAP[colorType][colorIndex] || [])];
+  return colorReverse ? colorList.reverse() : colorList;
 };
 
 export const setColorProps = (
@@ -188,9 +216,12 @@ export const setColorProps = (
     return;
   }
   if (colorConfig.field) {
-    const { field, colorIndex, colorType } = colorConfig;
+    const { field, colorIndex, colorType, colorReverse } = colorConfig;
     Object.assign(props, {
-      color: { field, values: FIELD_COLOR_MAP[colorType][colorIndex] },
+      color: {
+        field,
+        values: getFieldColorList(colorIndex, colorType, colorReverse),
+      },
       scale: {
         values: {
           [field]: {
@@ -224,10 +255,34 @@ export const setSizeProps = (
   });
 };
 
+/**
+ * 获取高度最小值和最大值的系数
+ * @param field
+ * @param dataset
+ * @param sizeRange
+ */
+export const getLayerHeightRatio = (
+  field: string,
+  dataset: IDataset,
+  sizeRange: [number, number],
+) => {
+  const targetField = dataset.fields.find((item) => item.name === field);
+  if (targetField?.type === 'number') {
+    const {
+      range: [min, max],
+    } = targetField;
+    const [minSize, maxSize] = sizeRange;
+    const [minSlider, maxSlider] = LAYER_SLIDER_RANGE;
+    return (maxSize - minSize) / (max - min) / (maxSlider - minSlider);
+  }
+  return 1;
+};
+
 export const transformProps: (
   layer: ILayer,
+  dataset: IDataset,
   dataLength: number,
-) => PropsType[] = (layer, dataLength) => {
+) => PropsType[] = (layer, dataset, dataLength) => {
   const props: Partial<PropsType> = {
     ...getCommonLayerProps(layer),
   };
@@ -237,8 +292,8 @@ export const transformProps: (
     const { fillColor, ranges, intensity, radius, shape, magField } = config;
     let positions: number[] = [];
 
-    const { colorType, colorIndex } = fillColor;
-    const colors = FIELD_COLOR_MAP[colorType][colorIndex] || [];
+    const { colorType, colorIndex, colorReverse } = fillColor;
+    const colors = getFieldColorList(colorIndex, colorType, colorReverse);
     if (colors && colors.length) {
       // 区间长度
       const sectionLen = ranges[1] - ranges[0] / colors.length;
@@ -277,12 +332,20 @@ export const transformProps: (
     setColorProps(props, fillColor);
 
     if (shape === 'extrude' && intenseField) {
+      const intenseRatio = getLayerHeightRatio(
+        intenseField,
+        dataset,
+        LAYER_POLYGON_HEIGHT_RANGE,
+      );
       props.shape = {
         values: 'extrude',
       };
       props.size = {
         field: intenseField,
-        values: (num) => intense * num,
+        values: (num) => {
+          const a = intense * num * intenseRatio;
+          return a;
+        },
       };
       return [props];
     } else {
@@ -317,13 +380,18 @@ export const transformProps: (
 
     if (shape) {
       if (shape === 'cylinder' && magField) {
+        const magRatio = getLayerHeightRatio(
+          magField,
+          dataset,
+          LAYER_POINT_HEIGHT_RANGE,
+        );
         props.shape = {
           values: 'cylinder',
         };
         props.size = {
           field: magField,
           values: (num) => {
-            return [radius.value, radius.value, num * size];
+            return [radius.value, radius.value, num * size * magRatio];
           },
         };
       } else {

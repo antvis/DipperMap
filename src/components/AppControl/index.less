@@ -31,7 +31,7 @@
   .appControlItemIcon {
     font-size: 18px;
   }
-  .appControlItemNameActive {
+  &.appControlItemNameActive {
     color: @primary-color;
   }
   &:hover {
@@ -98,7 +98,35 @@
   width: 200px;
   padding: 3px 8px 0;
   font-size: 12px;
-  :global .ant-slider {
-    margin: 2px 6px 6px;
+  .mapPitchLabel {
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  :global {
+    .ant-slider {
+      margin: 2px 6px 6px;
+    }
+    .ant-divider {
+      margin: 10px 0;
+    }
+  }
+}
+
+.mapLayer {
+  padding: 4px 12px;
+  :global {
+    .ant-checkbox-group {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      .ant-checkbox-wrapper {
+        margin-left: 0;
+      }
+      .ant-checkbox-wrapper + .ant-checkbox-wrapper {
+        margin-top: 4px;
+      }
+    }
   }
 }

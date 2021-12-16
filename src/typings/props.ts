@@ -3,21 +3,8 @@ import { ILayer } from './layer';
 import { IFilter } from './filter';
 import { IInteractive } from './interactive';
 import { DeepPartial } from './common';
-
-export type IMapType = 'amap' | 'mapbox';
-
-export type IMapTheme =
-  | 'dark'
-  | 'normal'
-  | 'light'
-  | 'whitesmoke'
-  | 'fresh'
-  | 'grey'
-  | 'graffiti'
-  | 'macaron'
-  | 'blue'
-  | 'darkblue'
-  | 'wine';
+import { IMapTheme, IMapType } from './map';
+import { IPlan } from './plan';
 
 export type IBaseComponentProps<
   ValueType = string,
@@ -54,22 +41,15 @@ export interface IComponentProps {
   interactive: IInteractiveConfig;
 }
 
-export interface Demo {
+export interface IDemo extends IPlan {
   name: string;
   imgSrc: string;
   demoName: string;
-  demoDataLines: number;
-  dataSrc: {
-    src: string;
-    datasetId: string;
-    name: string;
-  }[];
-  layerList: ILayer[];
 }
 
 export interface IGlobalProps {
   component?: DeepPartial<IComponentProps>;
   store?: boolean;
   onChange?: () => void;
-  demos?: Demo[];
+  demos?: IDemo[];
 }

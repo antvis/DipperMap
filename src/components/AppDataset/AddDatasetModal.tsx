@@ -7,16 +7,16 @@ import React, {
 } from 'react';
 import { Modal, Input, Form, Radio, Upload, Row, Col, Button } from 'antd';
 import { message } from 'antd';
-import useDataset from '../../hooks/dataset';
+import useDataset from '../../hooks/useDataset';
 import request from 'umi-request';
 import styles from './index.less';
 import { dataTransform } from './dataTrans';
-import { Demo } from '../../typings';
-import { ConfigModelContext } from '../../context/ConfigContext';
 import { DatasetModelContext } from '../../context/DatasetContext';
 import { getRandomId } from '../../utils';
 import { PropsModelContext } from '../../context/PropContext';
-import useLayer from '../../hooks/layer';
+import useLayer from '../../hooks/useLayer';
+import usePlan from '../../hooks/usePlan';
+import { IPlan } from '../../typings';
 
 interface IProps {
   visible: boolean;
@@ -56,10 +56,10 @@ const AddDatasetModal = ({
   const { addDataset, getNewDatasetName } = useDataset();
   const [form, setForm] = useState<IFormData>(DEFAULT_FORM);
   const [demoVisible, setDemoVisible] = useState(false);
-  const { setLayerList } = useContext(ConfigModelContext);
   const { demos = [] } = useContext(PropsModelContext);
   const { datasetList, setDatasetList } = useContext(DatasetModelContext);
   const { addLayer } = useLayer();
+  const { onImportPlan } = usePlan();
 
   const typeOptions = useMemo(
     () => [
@@ -105,7 +105,7 @@ const AddDatasetModal = ({
       }
       setLoading(false);
     },
-    [addDataset, form, setVisible],
+    [addDataset, addLayer, datasetList, setDatasetList, setLoading, setVisible],
   );
 
   useEffect(() => {
@@ -119,29 +119,15 @@ const AddDatasetModal = ({
     setDemoVisible(true);
   }, []);
 
-  function clickDemo(demo: Demo) {
-    Promise.all(
-      demo.dataSrc.map(async (data) => {
-        const result = dataTransform({
-          data: await request(data.src),
-        });
-        return addDataset({
-          name: data.name,
-          url: data.src,
-          data: result.data,
-          fields: result.fields,
-          geoJson: result.geoJson,
-          id: data.datasetId || getRandomId('dataset'),
-        });
-      }),
-    ).then((res) => {
-      setDatasetList(res);
-      setLayerList(demo.layerList);
+  const onDemoClick = useCallback(
+    async (demo: IPlan) => {
+      await onImportPlan(demo);
       setDemoVisible(false);
       setVisible(false);
       message.success('读取示例成功');
-    });
-  }
+    },
+    [onImportPlan, setVisible],
+  );
 
   useEffect(() => {
     if (!visible) {
@@ -156,7 +142,7 @@ const AddDatasetModal = ({
         <i className="dpiconfont dpicon-right" />
       </div>
       <Form colon={false} labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
-        <Form.Item label="数据源名称">
+        <Form.Item label="数据源名称" required>
           <Input
             value={form.name}
             placeholder="请输入数据源名称"
@@ -183,7 +169,7 @@ const AddDatasetModal = ({
         </Form.Item>
         {form.type === 'url' ? (
           <>
-            <Form.Item label="文件链接">
+            <Form.Item label="文件链接" required>
               <Input
                 value={form.url}
                 onChange={(e) =>
@@ -201,6 +187,7 @@ const AddDatasetModal = ({
             valuePropName="fileList"
             getValueFromEvent={normFile}
             label="上传文件"
+            required
           >
             <Upload.Dragger
               name="data"
@@ -236,11 +223,10 @@ const AddDatasetModal = ({
           <Col span={8} key={index}>
             <div
               className={styles['demo-item']}
-              onClick={() => clickDemo(demo)}
+              onClick={() => onDemoClick(demo)}
             >
               <img style={{ width: '100%', height: 106 }} src={demo.imgSrc} />
               <div className={styles['demo-name']}>{demo.demoName}</div>
-              <div className={styles['demo-lines']}>{demo.demoDataLines}</div>
             </div>
           </Col>
         ))}

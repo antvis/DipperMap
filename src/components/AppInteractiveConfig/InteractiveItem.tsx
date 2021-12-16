@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import type { IInteractive } from '../../typings';
 import EditName from '../EditName';
 import FieldSelect from '../FieldSelect';
-import useDataset from '../../hooks/dataset';
+import useDataset from '../../hooks/useDataset';
 import { Collapse, Popconfirm, Switch, Form } from 'antd';
 import { useRef } from 'react';
 import styles from './index.less';
@@ -26,6 +26,7 @@ const InteractiveItem = ({
 }: IProps) => {
   const { getTargetDataset } = useDataset();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const { getDatasetMarkStyle } = useDataset();
 
   const fields = useMemo(
     () => getTargetDataset(interactive.datasetId)?.fields ?? [],
@@ -33,7 +34,11 @@ const InteractiveItem = ({
   );
 
   const header = (
-    <div className="editItemHeader" onClick={(e) => e.stopPropagation()}>
+    <div
+      className="editItemHeader"
+      style={getDatasetMarkStyle(interactive.datasetId)}
+      onClick={(e) => e.stopPropagation()}
+    >
       {dragIcon}
 
       <EditName
@@ -59,7 +64,10 @@ const InteractiveItem = ({
           placement="bottom"
           onConfirm={() => onDelete(interactive)}
         >
-          <i className="dpiconfont dpicon-shanchu is-red-link" title="删除" />
+          <i
+            className="dpiconfont dpicon-shanchu is-red-link"
+            title="删除标注"
+          />
         </Popconfirm>
       </div>
     </div>

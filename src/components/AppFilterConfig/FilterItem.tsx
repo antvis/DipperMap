@@ -1,10 +1,9 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import type { IDatasetField, IFilter } from '../../typings';
 import EditName from '../EditName';
 import FieldSelect from '../FieldSelect';
-import useDataset from '../../hooks/dataset';
+import useDataset from '../../hooks/useDataset';
 import { Collapse, Dropdown, Menu, Popconfirm, Switch, Form } from 'antd';
-import DatasetModal from '../DatasetModal';
 import FilterValue from '../AppFilterConfig/FilterValue';
 import { useRef } from 'react';
 import { getFilterRange } from '../../utils';
@@ -29,8 +28,8 @@ const FilterItem = ({
   dragIcon,
 }: IProps) => {
   const { getTargetDataset } = useDataset();
-  const [visible, setVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const { getDatasetMarkStyle } = useDataset();
 
   const fields = useMemo(
     () => getTargetDataset(filter.datasetId)?.fields ?? [],
@@ -59,7 +58,11 @@ const FilterItem = ({
     );
 
   const header = (
-    <div className="editItemHeader" onClick={(e) => e.stopPropagation()}>
+    <div
+      className="editItemHeader"
+      style={getDatasetMarkStyle(filter.datasetId)}
+      onClick={(e) => e.stopPropagation()}
+    >
       {dragIcon}
 
       <EditName
@@ -81,13 +84,8 @@ const FilterItem = ({
         />
 
         <Dropdown
-          getPopupContainer={() => dropdownRef.current ?? document.body}
           overlay={
-            <Menu className="editItemDropdown">
-              <Menu.Item key="changeDataset" onClick={() => setVisible(true)}>
-                <i className="dpiconfont dpicon-genggaishujuyuan" />
-                更改数据源
-              </Menu.Item>
+            <Menu className="operateDropdown">
               <Menu.Item key="copyFilter" onClick={() => onCopy(filter)}>
                 <i className="dpiconfont dpicon-fuzhi1" />
                 复制筛选器
@@ -97,9 +95,9 @@ const FilterItem = ({
                 placement="bottom"
                 onConfirm={() => onDelete(filter)}
               >
-                <Menu.Item>
+                <Menu.Item key="delete">
                   <i className="dpiconfont dpicon-shanchu is-red-link" />
-                  删除
+                  删除筛选器
                 </Menu.Item>
               </Popconfirm>
             </Menu>
@@ -159,18 +157,6 @@ const FilterItem = ({
           {content}
         </Panel>
       </Collapse>
-
-      <DatasetModal
-        visible={visible}
-        setVisible={setVisible}
-        value={filter.datasetId ?? undefined}
-        onChange={(datasetId) =>
-          onChange({
-            id: filter.id,
-            datasetId,
-          })
-        }
-      />
     </div>
   );
 };

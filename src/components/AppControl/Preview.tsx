@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { GlobalModelContext } from '../../context/GlobalContext';
-import styles from './index.less';
-import classnames from 'classnames';
-import { message, Tooltip } from 'antd';
+import { message } from 'antd';
 import { useKeyPress } from 'ahooks';
+import AppControlItem from './common/AppControlItem';
 
 const Preview = () => {
   const { setIsPreview } = useContext(GlobalModelContext);
@@ -18,20 +17,12 @@ const Preview = () => {
   });
 
   return (
-    <div
-      className={classnames([styles.appControlItem, styles.appControlItemBtn])}
-      onClick={openPreview}
-    >
-      <Tooltip overlay="预览">
-        <i
-          className={classnames([
-            'dpiconfont',
-            'dpicon-quanpingyulan',
-            styles.appControlItemIcon,
-          ])}
-        />
-      </Tooltip>
-    </div>
+    <AppControlItem
+      icon={<i className="dpiconfont dpicon-quanpingyulan" />}
+      onActiveChange={() => {
+        openPreview();
+      }}
+    />
   );
 };
 

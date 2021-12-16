@@ -5,30 +5,32 @@ import { useDebounceEffect } from 'ahooks';
 
 /**
  * 将list持久化保存在indexDb中
- * @param list
- * @param setList
+ * @param state
+ * @param setState
  * @param key
+ * @param defaultValue
  */
-const useIndexDBHook: <P>(
-  list: P,
-  setList: (newList: P) => void,
+const useIndexdb: <P>(
+  state: P,
+  setState: (newList: P) => void,
   key: STORE_KEY_TYPE,
-) => void = (list, setList, key) => {
+  defaultValue: P,
+) => void = (state, setState, key, defaultValue) => {
   useEffect(() => {
-    getDBStore(key).then((newList = []) => {
-      setList(newList);
+    getDBStore(key).then((newState = defaultValue) => {
+      setState(newState);
     });
   }, []);
 
   useDebounceEffect(
     () => {
-      setDBStore(key, list ?? []);
+      setDBStore(key, state ?? defaultValue);
     },
-    [list],
+    [state],
     {
       wait: 500,
     },
   );
 };
 
-export default useIndexDBHook;
+export default useIndexdb;

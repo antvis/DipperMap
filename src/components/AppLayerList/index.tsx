@@ -5,15 +5,17 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import useDataset from '../../hooks/dataset';
+import useDataset from '../../hooks/useDataset';
 import { filterByDatasetId, filterData } from '../../utils';
 import type { ILayerConfig } from './LayerItem';
 import LayerItem from './LayerItem';
 import { IDataset, PropsType } from '../../typings';
-import { ConfigModelContext } from '../../context/ConfigContext';
 import { LayerEvent, Popup } from '@antv/l7-react';
 import styles from './index.less';
 import { transformProps } from './utils';
+import { LayerModelContext } from '../../context/LayerContext';
+import { FilterModelContext } from '../../context/FilterContext';
+import { InteractiveModelContext } from '../../context/InteractiveContext';
 
 interface IPopupState {
   visible: boolean;
@@ -25,11 +27,11 @@ interface IPopupState {
   };
 }
 
-interface IProps {}
+const AppLayerList: React.FC = () => {
+  const { layerList } = useContext(LayerModelContext);
+  const { filterList } = useContext(FilterModelContext);
+  const { interactiveList } = useContext(InteractiveModelContext);
 
-const AppLayerList: React.FC<IProps> = () => {
-  const { layerList, filterList, interactiveList } =
-    useContext(ConfigModelContext);
   const [layerConfigList, setLayerConfigList] = useState<ILayerConfig[]>([]);
   const [propsList, setPropsList] = useState<PropsType[][]>([]);
 
@@ -61,32 +63,39 @@ const AppLayerList: React.FC<IProps> = () => {
     });
   }, []);
 
-  const onMouseMove = (e: any, config: ILayerConfig) => {
-    const [targetInteractive] = filterByDatasetId(
-      interactiveList,
-      config.dataset.id,
-    );
-    if (targetInteractive?.enable) {
-      const { fields } = targetInteractive;
-      setPopup({
-        visible: true,
-        datasetName: config.dataset.name,
-        fields: fields.map((field) => {
-          return {
-            field,
-            value: e?.feature?.properties?.[field] ?? '-',
-          };
-        }),
-        lngLat: e.lngLat,
-      });
-    } else {
-      onMouseOut();
-    }
-  };
+  const onMouseMove = useCallback(
+    (e: any, config: ILayerConfig) => {
+      // 热力图不具有查看标注的能力
+      if (config.layer.type === 'heat') {
+        return;
+      }
+      const [targetInteractive] = filterByDatasetId(
+        interactiveList,
+        config.dataset.id,
+      );
+      if (targetInteractive?.enable) {
+        const { fields } = targetInteractive;
+        setPopup({
+          visible: true,
+          datasetName: config.dataset.name,
+          fields: fields.map((field) => {
+            return {
+              field,
+              value: e?.feature?.properties?.[field] ?? '-',
+            };
+          }),
+          lngLat: e.lngLat,
+        });
+      } else {
+        onMouseOut();
+      }
+    },
+    [interactiveList, onMouseOut],
+  );
 
   useEffect(() => {
     (async () => {
-      const res = await Promise.all(
+      const newLayerConfigList = await Promise.all(
         displayLayerList.map((layer, layerIndex, array) => {
           const targetDataset = getTargetDataset(layer.datasetId) as IDataset;
           return filterData(
@@ -106,11 +115,15 @@ const AppLayerList: React.FC<IProps> = () => {
           });
         }),
       );
-      setLayerConfigList(res);
-      const propsList = res.map((layer) =>
-        transformProps(layer.layer, layer.data.length),
+      const propsList = newLayerConfigList.map((layerConfig) =>
+        transformProps(
+          layerConfig.layer,
+          layerConfig.dataset,
+          layerConfig.data.length,
+        ),
       );
       setPropsList(propsList);
+      setLayerConfigList(newLayerConfigList);
     })();
   }, [displayLayerList, filterList, getTargetDataset]);
 

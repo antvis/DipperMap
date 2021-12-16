@@ -6,7 +6,7 @@
   justify-content: space-between;
   box-sizing: border-box;
   height: @header-height;
-  padding: 10px;
+  padding: 10px 12px;
   border-bottom: 1px solid @border-color-base;
   .moreIcon {
     cursor: pointer;
@@ -22,10 +22,18 @@
   }
 }
 
-.appHeaderDropdown {
+.appHeaderBtnGroup {
   :global {
-    .dpiconfont {
-      margin-right: 6px;
+    .ant-btn {
+      margin-left: 6px;
+    }
+  }
+}
+
+.importPlanModal {
+  :global {
+    .dpicon-shangchuanwenjian {
+      font-size: 40px;
     }
   }
 }

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import type { IDataset, IDatasetField, IDatasetFieldType } from '../../typings';
+import type { IDatasetField, IDatasetFieldType } from '../../typings';
 import { Select, Tag } from 'antd';
 import type { SelectProps } from 'antd';
 import styles from './index.less';

@@ -3,7 +3,6 @@
 .appDataset {
   box-sizing: border-box;
   height: @default-dataset-panel-height;
-  border-bottom: 1px solid @border-color-base;
   background-color: @bg-color;
 }
 
@@ -12,11 +11,18 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid @border-color-base;
-  padding: 0 @panel-padding;
+  padding: 0 @panel-padding / 2 0 @panel-padding;
   height: @header-height;
   .appDatasetHeaderTitle {
     font-size: 18px;
     color: @text-color-light;
+  }
+  .appDatasetHeaderBtnGroup {
+    :global {
+      .ant-btn {
+        margin-left: 6px;
+      }
+    }
   }
   i {
     font-size: 18px;
@@ -107,7 +113,7 @@
 .datasetDetailDrawer {
   .datasetExtraInfo {
     position: absolute;
-    bottom: 15px;
+    bottom: 10px;
     left: @panel-padding;
     color: @text-color-secondary;
   }
@@ -118,8 +124,13 @@
     white-space: nowrap;
   }
   :global {
+    .ant-drawer-header {
+      position: absolute;
+      right: 0;
+    }
     .ant-drawer-close {
-      padding: 20px;
+      margin-right: 0;
+      z-index: 1;
     }
     .ant-tabs-tab-btn {
       font-size: 16px;

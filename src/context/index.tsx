@@ -1,16 +1,22 @@
 import React from 'react';
 import MapContextProvider from './MapContext';
 import DatasetContextProvider from './DatasetContext';
-import ConfigContextProvider from './ConfigContext';
+import LayerContextProvider from './LayerContext';
+import FilterContextProvider from './FilterContext';
+import InteractiveContextProvider from './InteractiveContext';
 import GlobalContextProvider from './GlobalContext';
 
 const ContextProvider: React.FC = ({ children }) => {
   return (
     <MapContextProvider>
       <DatasetContextProvider>
-        <ConfigContextProvider>
-          <GlobalContextProvider>{children}</GlobalContextProvider>
-        </ConfigContextProvider>
+        <LayerContextProvider>
+          <FilterContextProvider>
+            <InteractiveContextProvider>
+              <GlobalContextProvider>{children}</GlobalContextProvider>
+            </InteractiveContextProvider>
+          </FilterContextProvider>
+        </LayerContextProvider>
       </DatasetContextProvider>
     </MapContextProvider>
   );
