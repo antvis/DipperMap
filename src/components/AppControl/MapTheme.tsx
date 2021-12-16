@@ -5,6 +5,7 @@ import { MAPBOX_THEME_LIST, AMAP_THEME_LIST } from '../../constants';
 import { MapModelContext } from '../../context/MapContext';
 import styles from './index.less';
 import classnames from 'classnames';
+import { IMapTheme } from '../../typings';
 
 function MapTheme() {
   const { mapTheme, setMapTheme, mapType } = useContext(MapModelContext);
@@ -23,7 +24,7 @@ function MapTheme() {
                   [styles.menuItemActive]: item.value === mapTheme,
                 })}
                 onClick={({ key }) => {
-                  setMapTheme(key);
+                  setMapTheme(key as IMapTheme);
                 }}
               >
                 {item.label}
