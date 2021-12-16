@@ -134,7 +134,7 @@ const useDataset = () => {
                 newline: '\n',
               });
       }
-      downloadFile(content, false, type === 'json' ? 'data.json' : 'data.csv');
+      downloadFile(content, false, `${dataset.name}.${type}`);
     },
     [],
   );

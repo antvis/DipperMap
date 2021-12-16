@@ -1,4 +1,4 @@
-import React, { createContext, useCallback } from 'react';
+import React, { createContext, useCallback, useMemo } from 'react';
 import { LOCAL_STORAGE_KEY, DEFAULT_MAP_CONFIG } from '../constants';
 import { IMapConfig, IMapTheme, IMapType } from '../typings';
 import { useLocalStorageState } from 'ahooks';
@@ -14,6 +14,7 @@ export interface IProps {
   setMapRotate: (value: number) => void;
   mapLayers: string[];
   setMapLayers: (value: string[]) => void;
+  mapConfig: IMapConfig;
   setMapConfig: (value: IMapConfig) => void;
 }
 
@@ -50,6 +51,17 @@ const MapContextProvider: React.FC = ({ children }) => {
     DEFAULT_MAP_CONFIG.mapRotate,
   );
 
+  const mapConfig = useMemo(
+    () => ({
+      mapTheme,
+      mapLayers,
+      mapType,
+      mapPitch,
+      mapRotate,
+    }),
+    [mapLayers, mapPitch, mapRotate, mapTheme, mapType],
+  );
+
   const setMapConfig = useCallback(
     (mapConfig: IMapConfig) => {
       setMapTheme(mapConfig.mapTheme);
@@ -74,6 +86,7 @@ const MapContextProvider: React.FC = ({ children }) => {
         setMapPitch,
         mapRotate,
         setMapRotate,
+        mapConfig,
         setMapConfig,
       }}
     >
