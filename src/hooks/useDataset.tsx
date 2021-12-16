@@ -134,12 +134,7 @@ const useDataset = () => {
                 newline: '\n',
               });
       }
-      const blob = new Blob([content]);
-      downloadFile(
-        URL.createObjectURL(blob),
-        false,
-        type === 'json' ? 'data.json' : 'data.csv',
-      );
+      downloadFile(content, false, type === 'json' ? 'data.json' : 'data.csv');
     },
     [],
   );

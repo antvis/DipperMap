@@ -74,20 +74,22 @@ export const getFilterRange: (range: [number, number]) => [number, number] = (
 };
 
 export const downloadFile = (
-  src: string,
+  content: string,
   iframe = true,
   fileName = 'data.json',
 ) => {
+  const blob = new Blob([content]);
+  const url = URL.createObjectURL(blob);
   if (iframe) {
     const iframe = document.createElement('iframe');
-    iframe.src = src;
+    iframe.src = url;
     iframe.style.display = 'none';
     document.body.append(iframe);
   } else {
     const aTag = document.createElement('a');
     aTag.download = fileName;
     aTag.target = '_blank';
-    aTag.href = src;
+    aTag.href = url;
     aTag.click();
   }
 };

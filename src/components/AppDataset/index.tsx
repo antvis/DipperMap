@@ -36,7 +36,7 @@ const AppDataset: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
               <Spin spinning />
             ) : (
               <>
-                <Tooltip overlay="清空数据源">
+                <Tooltip overlay="清空数据源" placement="bottom">
                   <Popconfirm
                     title="确认清空当前数据源及所有配置?"
                     onConfirm={onClear}
@@ -49,7 +49,7 @@ const AppDataset: React.FC<{ style?: React.CSSProperties }> = ({ style }) => {
                   </Popconfirm>
                 </Tooltip>
 
-                <Tooltip overlay="添加数据源">
+                <Tooltip overlay="添加数据源" placement="bottom">
                   <Button
                     type="text"
                     className="is-link"
