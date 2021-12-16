@@ -123,18 +123,16 @@ const useDataset = () => {
       if (dataset.geoJson?.enable) {
         content = JSON.stringify(
           featureCollection(Object.values(dataset.geoJson.map).flat()),
-          null,
-          2,
         );
       } else {
         content =
           type === 'json'
-            ? JSON.stringify(dataset.data, null, 2)
+            ? JSON.stringify(dataset.data)
             : papaparse.unparse(dataset.data, {
                 newline: '\n',
               });
       }
-      downloadFile(content, false, `${dataset.name}.${type}`);
+      downloadFile(content, `${dataset.name}.${type}`);
     },
     [],
   );

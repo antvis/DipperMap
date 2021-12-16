@@ -1,6 +1,6 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import styles from './index.less';
-import { Button, Dropdown, Menu } from 'antd';
+import { Button, Dropdown, Menu, message } from 'antd';
 import {
   QuestionCircleOutlined,
   DatabaseOutlined,
@@ -14,18 +14,21 @@ import { FilterModelContext } from '../../context/FilterContext';
 import { InteractiveModelContext } from '../../context/InteractiveContext';
 import { MapModelContext } from '../../context/MapContext';
 import { IPlan } from '../../typings';
-import { getRandomId } from '../../utils';
+import { downloadFile, getRandomId } from '../../utils';
+import ImportPlanModal from './ImportPlanModal';
+import usePlan from '../../hooks/usePlan';
 
 const AppHeader: React.FC = () => {
-  const { datasetList, setDatasetList } = useContext(DatasetModelContext);
-  const { layerList, setLayerList } = useContext(LayerModelContext);
-  const { filterList, setFilterList } = useContext(FilterModelContext);
-  const { interactiveList, setInteractiveList } = useContext(
-    InteractiveModelContext,
-  );
-  const { mapConfig, setMapConfig } = useContext(MapModelContext);
+  const { datasetList } = useContext(DatasetModelContext);
+  const { layerList } = useContext(LayerModelContext);
+  const { filterList } = useContext(FilterModelContext);
+  const { interactiveList } = useContext(InteractiveModelContext);
+  const { mapConfig } = useContext(MapModelContext);
+  const { onImportPlan } = usePlan();
 
-  const onImport = useCallback(() => {
+  const [importPlanModal, setImportPlanModal] = useState(false);
+
+  const onExport = useCallback(() => {
     const plan: IPlan = {
       id: getRandomId('plan'),
       exportDatasetList: datasetList
@@ -39,10 +42,18 @@ const AppHeader: React.FC = () => {
       layerList,
       filterList,
       interactiveList,
+      mapConfig,
     };
-  }, [datasetList, filterList, interactiveList, layerList]);
+    downloadFile(JSON.stringify(plan), '方案.json');
+  }, [datasetList, filterList, interactiveList, layerList, mapConfig]);
 
-  const onExport = useCallback(() => {}, []);
+  const onImport = useCallback(
+    async (plan: IPlan) => {
+      await onImportPlan(plan);
+      message.success('导入成功');
+    },
+    [onImportPlan],
+  );
 
   return (
     <>
@@ -54,7 +65,6 @@ const AppHeader: React.FC = () => {
           />
         </a>
         <div className={styles.appHeaderBtnGroup}>
-          {/* TODO: 具体Dropdown的实现 */}
           <Dropdown
             placement="bottomLeft"
             overlay={
@@ -62,7 +72,7 @@ const AppHeader: React.FC = () => {
                 <Menu.Item
                   key="importPlan"
                   icon={<ImportOutlined />}
-                  onClick={onImport}
+                  onClick={() => setImportPlanModal(true)}
                 >
                   导入方案
                 </Menu.Item>
@@ -98,6 +108,11 @@ const AppHeader: React.FC = () => {
           </Dropdown>
         </div>
       </div>
+      <ImportPlanModal
+        visible={importPlanModal}
+        setVisible={setImportPlanModal}
+        onSubmit={onImport}
+      />
     </>
   );
 };

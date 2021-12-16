@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 import { IEntity } from '../typings';
+import { downloadText, downloadUrl } from 'download.js';
 
 /**
  * 获取随机的id
@@ -75,21 +76,12 @@ export const getFilterRange: (range: [number, number]) => [number, number] = (
 
 export const downloadFile = (
   content: string,
-  iframe = true,
   fileName = 'data.json',
+  isUrl = false,
 ) => {
-  const blob = new Blob([content]);
-  const url = URL.createObjectURL(blob);
-  if (iframe) {
-    const iframe = document.createElement('iframe');
-    iframe.src = url;
-    iframe.style.display = 'none';
-    document.body.append(iframe);
+  if (isUrl) {
+    downloadUrl(fileName, content);
   } else {
-    const aTag = document.createElement('a');
-    aTag.download = fileName;
-    aTag.target = '_blank';
-    aTag.href = url;
-    aTag.click();
+    downloadText(fileName, content);
   }
 };
