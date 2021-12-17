@@ -8,10 +8,10 @@
 
 - [x] 方案管理
 - [x] 支持 AMap 和 Mapbox 切换
-- [ ] 默认配置优化
+- [x] 默认配置优化
 - [x] 叠加模式
 - [ ] LineLayer 边绑定
-- [ ] 示例图片 + 图层默认配置 (demo 待补充)
+- [x] 示例图片 + 图层默认配置 (demo 待补充)
 - [ ] 操作文档
 - [ ] 官方补充各类图层
 - [x] 点图层性能优化
@@ -28,8 +28,8 @@
 - [x] 依赖替换：@alipay/tech-ui 中的 `<ColorPicker>` => 开源 `<ColorPicker>`
 - [x] moment => day.js
 - [ ] 数据转换和筛选 => worker 中进行 + Promise
-- [ ] eslintrc 提示
-- [ ] 中国地图替换：https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json
+- [x] eslintrc 提示
+- [x] 中国地图替换：https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json
 - [x] 打包静态文件 hash
 - [ ] iconfont 转移到本地
 
@@ -38,4 +38,4 @@
 - [x] 多选回归单选颜色时，单选颜色没有默认值
 - [x] 图层的顺序发生改变 Zindex 没有改变
 - [x] 暗黑模式下 slider 不明显
-- [-] 筛选器对 GeoJson 无效
+- [x] 筛选器对 GeoJson 无效
