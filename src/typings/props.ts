@@ -42,7 +42,6 @@ export interface IComponentProps {
 }
 
 export interface IDemo extends IPlan {
-  name: string;
   imgSrc: string;
   demoName: string;
 }
