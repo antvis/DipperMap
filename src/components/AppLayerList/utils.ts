@@ -444,6 +444,10 @@ export const transformProps: (
     props.shape = {
       values: 'line',
     };
+    props.style = {
+      ...props.style,
+      vertexHeightScale: 2000,
+    };
   }
   if (layer.type === 'hex') {
     const { config } = layer as IHexLayer;

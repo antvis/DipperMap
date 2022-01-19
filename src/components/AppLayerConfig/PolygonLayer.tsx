@@ -39,9 +39,31 @@ const PolygonLayer = ({ layer, onChange }: IProps) => {
       <Form.Item label="基础" colon={false} className="titleFormItem" />
 
       <LayerTypeSelect layer={layer} onChange={onChange} />
+
       <Form.Item label="面类型" name="shape">
         <Select options={POLYGON_TYPE_LIST} placeholder="暂未选择字段" />
       </Form.Item>
+
+      <Form.Item
+        noStyle
+        shouldUpdate={(pre, cur) => {
+          return pre?.shape !== cur?.shape;
+        }}
+      >
+        {({ getFieldValue }) => {
+          return (
+            getFieldValue('shape') === 'extrude' && (
+              <>
+                <Form.Item label="高度字段" name="intenseField">
+                  <FieldSelect fields={targetDatasetFields} allowClear />
+                </Form.Item>
+                <FormSlider label="高度" name="intense" />
+              </>
+            )
+          );
+        }}
+      </Form.Item>
+
       <GeoFieldWrapper dataset={targetDataset}>
         <Form.Item label="Geojson" name="geoField" tooltip={GEO_JSON_TOOLTIP}>
           <FieldSelect fields={targetDatasetFields} />
@@ -62,29 +84,24 @@ const PolygonLayer = ({ layer, onChange }: IProps) => {
         }}
       >
         {({ getFieldValue }) => {
-          return getFieldValue('shape') === 'extrude' ? (
-            <>
-              <Form.Item label="高度字段" name="intenseField">
-                <FieldSelect fields={targetDatasetFields} allowClear />
-              </Form.Item>
-              <FormSlider label="高度" name="intense" />
-            </>
-          ) : (
-            <>
-              <ColorWrapper
-                label="边框颜色"
-                field="borderColor"
-                form={form}
-                fields={targetDatasetFields}
-              />
+          return (
+            getFieldValue('shape') !== 'extrude' && (
+              <>
+                <ColorWrapper
+                  label="边框颜色"
+                  field="borderColor"
+                  form={form}
+                  fields={targetDatasetFields}
+                />
 
-              <RangeWrapper
-                label="边框宽度"
-                field="borderWidth"
-                form={form}
-                fields={targetDatasetFields}
-              />
-            </>
+                <RangeWrapper
+                  label="边框宽度"
+                  field="borderWidth"
+                  form={form}
+                  fields={targetDatasetFields}
+                />
+              </>
+            )
           );
         }}
       </Form.Item>
