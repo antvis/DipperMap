@@ -40,7 +40,16 @@ export const transformGeoJson: (
 };
 
 export function dataTransform(eventData: { data: any }) {
-  const originData = eventData.data;
+  const originData = (() => {
+    try {
+      if (typeof eventData.data === 'string' && eventData.data) {
+        return JSON.parse(eventData.data);
+      }
+    } catch (e) {
+      void e;
+    }
+    return eventData.data;
+  })();
   // 监测各个字段的类型
   const fields: IDatasetField[] = [];
   let data = [];
